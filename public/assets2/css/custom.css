@@ -1,0 +1,553 @@
+.nocard-header .titulo{
+    /*color: #898A8B;*/
+    color: #FED50A;
+    margin-bottom: 0px !important;
+}
+
+.nocard-body{
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.nocard-body .destaque-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #474747;
+    align-items: center;
+}
+.nocard-body .destaque-item:first-child{
+    padding-top: 0px;
+}
+.nocard-body .destaque-item .titulo{
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #f9f9f7;
+    font-size: 16px;
+    transition: .4s
+}
+.nocard-body .destaque-item .titulo img{
+    width: 32px;
+    height: 32px;
+    margin-right: 1rem;
+}
+.nocard-body .destaque-item .titulo:hover{
+    color: #FED50A;
+    transition: .4s
+}
+.nocard-body .destaque-item .quantidade{
+    color: #898A8B;
+    font-size: 13px;
+}
+
+/*Botoes */
+.btn-bets{
+    background-color: #fed50a;
+    transition: .4s;
+    color: #000;
+}
+.btn-bets:hover{
+    background-color: #c6a400;
+    transition: .4s;
+    color: #111;
+}
+.btn-bets-outline{
+    background-color: rgb(50, 51, 53);
+    transition: .4s;
+    color: #FFF;
+    border: 1px solid #7e7e7e;
+}
+.btn-bets-outline:hover{
+    background-color: #515357;
+    transition: .4s;
+    color: #FFF;
+}
+.resumo .texto1{
+    color: #FFF;
+}
+.resumo .texto2{
+    color: #FFF;
+    font-weight: 500;
+}
+
+/* Cards Padrão */
+.card-bets{
+    background-color: #3F4344;
+    height: auto;
+}
+.card-bets .card-title{
+    color: #FFFFFF;
+}
+
+/* Tabela Apostas */
+.tabela-apostas{
+    display: flex;
+    flex-direction: column;
+}
+.tabela-apostas .item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+}
+
+.tabela-apostas .item:nth-child(odd){
+    background-color: #4B4F50 !important;
+}
+
+.tabela-apostas .item .item-data{
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+}
+.tabela-apostas .item .item-data .hora{
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 500;
+}
+.tabela-apostas .item .item-data .data{
+    color: #7e7e7e;
+    font-size: 12px;
+}
+.tabela-apostas .item .item-times{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.tabela-apostas .item .item-times .time-home{
+    color: #FFF;
+    font-weight: 400;
+}
+.tabela-apostas .item .item-times .time-away{
+    font-weight: 400;
+}
+.tabela-apostas .item .item-cotas{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tabela-apostas .item .item-cotas .cota:hover{
+    background-color: #5d5f63 !important;
+    transition: .3s;
+}
+.tabela-apostas .item .item-cotas .cota{
+    transition: .3s;
+    cursor: pointer;
+    background-color: #333436;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFF;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 2px solid #333436;
+    width: 75px;
+    text-align: center;
+}
+.tabela-apostas .item .item-cotas .cota-success{
+    border: 2px solid #43BC9B !important;
+    color: #43BC9B !important;
+}
+.tabela-apostas .item .item-cotas .cota-danger{
+    border: 2px solid #EF4F40 !important;
+    color: #EF4F40 !important;
+}
+.tabela-apostas .item .item-acoes{
+    font-size: 11px;
+    margin-left: 10px;
+    width: 10px;
+}
+
+/* Nova Tabela de Apostas */
+.table-apostas2{
+    margin-bottom: 0px;
+}
+.table-apostas2 td{
+    padding: 0px !important;
+}
+.table-apostas2 th{
+    padding: 0px 35px !important;
+}
+
+.tabela-apostas2{
+    display: flex;
+    flex-direction: column;
+}
+.tabela-apostas2 .put-border{
+    border-bottom: 1px solid #FED50A;
+}
+.tabela-apostas2 .title:first-child{
+    margin-top: 0px;
+}
+.tabela-apostas2 .title{
+    padding-left: 25px;
+    color: #FFF;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid gray;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.tabela-apostas2 .title:hover{
+    color: #FED50A;
+}
+
+.tabela-apostas2 .item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    transition: .3s;
+
+}
+.tabela-apostas2 .item .item-data{
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+}
+.tabela-apostas2 .item .item-data .hora{
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 500;
+}
+.tabela-apostas2 .item .item-data .data{
+    color: #7e7e7e;
+    font-size: 12px;
+}
+.tabela-apostas2 .item .item-times{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.tabela-apostas2 .item .item-times .time-home{
+    color: #FFF;
+    font-weight: 400;
+}
+.tabela-apostas2 .item .item-times .time-away{
+    font-weight: 400;
+}
+.tabela-apostas2 .item .item-cotas{
+    display: flex;
+    flex: 1 33%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 20px 25px;
+    transition: .3s;
+    border-bottom: 1px solid gray;
+}
+.tabela-apostas2 .item .item-cotas:last-child{
+    border-bottom: none;
+}
+.tabela-apostas2 .item .marcado{
+    background-color: #ababab !important;
+    border-bottom: 1px solid #ff5100;
+}
+
+.tabela-apostas2 .item .item-cotas:hover{
+    background-color: #5d5f63 !important;
+    transition: .3s;
+}
+
+.tabela-apostas2 .item .item-cotas .time{
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 400;
+}
+.tabela-apostas2 .item .item-cotas .cotas{
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 400;
+    color: #FED50A;
+    margin-left: 10px;
+}
+
+@media (max-width: 1199.98px) {
+    .tabela-apostas2 .item .item-cotas{
+        flex: 1 100%;
+    }
+}
+
+.tabela-apostas2 .item .item-cotas .time-home{
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.tabela-apostas2 .item .item-cotas .cota:hover{
+    background-color: #5d5f63 !important;
+    transition: .3s;
+}
+.tabela-apostas2 .item .item-cotas .cota{
+    transition: .3s;
+    cursor: pointer;
+    background-color: #333436;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFF;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 2px solid #333436;
+    width: 75px;
+    text-align: center;
+}
+.tabela-apostas2 .item .item-cotas .cota-success{
+    border: 2px solid #43BC9B !important;
+    color: #43BC9B !important;
+}
+.tabela-apostas2 .item .item-cotas .cota-danger{
+    border: 2px solid #EF4F40 !important;
+    color: #EF4F40 !important;
+}
+.tabela-apostas2 .item .item-acoes{
+    font-size: 11px;
+    margin-left: 10px;
+}
+
+.cupom-apostas{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 15px;
+}
+.cupom-apostas .item{
+    display: flex;
+    padding: 15px 20px;
+    flex-direction: row;
+    justify-content: flex-start;
+    border-radius: 10px;
+    /*border-bottom: 1px solid #d7dae3;*/
+}
+.cupom-apostas .item:nth-child(odd){
+    background-color: #4B4F50 !important;
+}
+.cupom-apostas .item:last-child{
+    border-bottom: none;
+}
+.cupom-apostas .item .dados{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-right: 15px;
+}
+.cupom-apostas .item .dados .titulo{
+    font-weight: 500;
+    font-size: 15px;
+    color: #FFF;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.cupom-apostas .item .dados .tipo_aposta{
+    font-weight: 400;
+    font-size: 12px;
+    color: #7e7e7e;
+}
+.cupom-apostas .item .dados .jogo{
+    font-weight: 400;
+    font-size: 12px;
+    color: #7e7e7e;
+}
+.cupom-apostas .item .dados .possivel{
+    font-weight: 500;
+    font-size: 12px;
+    color: #7e7e7e;
+    align-self: flex-start;
+}
+.cupom-apostas .input-cupom{
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #d7dae3;
+    border-radius: 0.75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 125px;
+}
+
+.cota-padrao:hover{
+    background-color: #5d5f63 !important;
+    transition: .3s;
+}
+.cota-padrao{
+    transition: .3s;
+    cursor: pointer;
+    background-color: #333436;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFF;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 2px solid #333436;
+}
+.cota-padrao-success{
+    border: 2px solid #43BC9B !important;
+    color: #43BC9B !important;
+}
+.cota-padrao-danger{
+    border: 2px solid #EF4F40 !important;
+    color: #EF4F40 !important;
+}
+
+/* Dashboard */
+.card-quick .times{
+    color: #FFF;
+    font-weight: 500;
+}
+
+.avatar{
+    border-radius: 5rem;
+    width: 150px;
+    height: 150px;
+}
+
+.personal-info{
+    margin-bottom: 50px;
+}
+.personal-info .nome{
+    font-size: 30px;
+    font-size: 500;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #FFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.personal-info .saldo{
+    font-size: 22px;
+    font-weight: 400;
+    color: #7e7e7e;
+}
+
+.btn-bets-outline{
+    background: transparent;
+    border: 1px solid #7e7e7e;
+}
+
+.contamenu .box{
+    border: 1px solid #9e9e9e;
+    border-radius: 5px;
+    width: 100%;
+    padding: 35px 5px;
+    transition: .4s;
+    color: #9e9e9e;
+}
+.contamenu .box:hover{
+    transition: .4s;
+    background-color: #4a4a4a;
+    cursor: pointer;
+    color: #fed50a;
+}
+
+.contamenu .box i{
+    font-size: 26px;
+
+}
+.contamenu .box .titulo-menu{
+    font-size: 16px;
+
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+
+/* Novo Cupom de Apostas */
+.ca-container{
+    display: flex;
+    flex-direction: column;
+}
+.ca-container .ca-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #c3c3c3;
+    padding: 20px 4px;
+}
+.ca-container .ca-delete{
+    margin-right: 15px;
+}
+.ca-container .ca-main{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.ca-container .ca-input{
+    width: 75px;
+    height: 30px;
+    font-size: 13px;
+}
+
+.ca-container .ca-aposta{
+    font-size: 15px;
+    font-weight: 400;
+    color: #FFF;
+}
+.ca-container .ca-cota{
+    font-size: 15px;
+    font-weight: 400;
+    color: #FFF;
+}
+.ca-container .ca-tipo{
+    font-size: 11px;
+}
+.ca-container .ca-jogo{
+    font-size: 11px;
+}
+.ca-container .ca-valor{
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.btn-colocar-aposta{
+    background-color: #4c4c4c;
+    transition: .4s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0px;
+    cursor: pointer;
+}
+.btn-colocar-aposta:hover{
+    background-color: rgb(50, 51, 53);
+    transition: .4s;
+}
+.btn-colocar-aposta .texto1{
+    color: #FFF;
+    font-weight: 400;
+    font-size: 16px;
+}
+.btn-colocar-aposta .valor{
+    color: #FFF;
+}
+.btn-colocar-aposta .texto2{
+    color: #FFF;
+    font-weight: 400;
+    font-size: 12px;
+}

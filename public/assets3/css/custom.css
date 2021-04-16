@@ -1,0 +1,377 @@
+.horizontal-color .horizontal-main.hor-menu{
+    background-color: #FFF;
+}
+.bg-red{
+    background-color: #CA3B1B;
+}
+.bg-dark-red{
+    background-color: #A22F16;
+}
+.bg-red .card-title{
+    color: #FFF !important;
+}
+.bg-red .card-subtitle{
+    color: #cccccc !important;
+}
+
+@media only screen and (max-width: 991px)
+.horizontal-color .horizontalMenu>.horizontalMenu-list {
+    background: #A22F16;
+}
+.hor-menu .horizontalMenu>.horizontalMenu-list>li>ul.sub-menu>li>a.active {
+    color: #FFF;
+}
+
+.linha_aposta{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    transition: .3s;
+}
+.linha_aposta .header_aposta{
+    display: flex;
+    flex: 1 33%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: spance-between;
+    padding: 10px 15px;
+}
+.linha_aposta .header_aposta span{
+    font-weight: 500;
+    color: #808080;
+}
+.item_aposta{
+    display: flex;
+    flex: 1 33%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 15px;
+    transition: .3s;
+    border: 1px solid #d7d7d7;
+    cursor: pointer;
+}
+.item_aposta:hover{
+    background-color: #e8e8e8;
+    transition: .3s;
+}
+
+.item_aposta_diferenciado{
+    display: flex;
+    flex: 1 33%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 25px;
+    transition: .3s;
+    border: 1px solid #d7d7d7;
+    cursor: pointer;
+}
+.item_aposta_diferenciado:hover{
+    background-color: #e8e8e8;
+    transition: .3s;
+}
+
+.item_aposta .cotas{
+    font-weight: bold;
+}
+
+@media (max-width: 991.98px){
+    .item_aposta{
+        flex: 1 50%;
+    }
+}
+@media (max-width: 767.98px) {
+    .item_aposta{
+        flex: 1 100%;
+    }
+
+}
+
+.ca-container{
+display: flex;
+flex-direction: column;
+}
+.ca-container .ca-item{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+border-bottom: 1px solid #c3c3c3;
+padding: 20px 4px;
+}
+.ca-container .ca-delete{
+margin-right: 15px;
+}
+.ca-container .ca-main{
+display: flex;
+flex-direction: column;
+flex-grow: 1;
+}
+.ca-container .ca-input{
+width: 75px;
+height: 30px;
+font-size: 13px;
+}
+
+.ca-container .ca-aposta{
+font-size: 15px;
+font-weight: 400;
+color: #2e2e2e;
+}
+.ca-container .ca-cota{
+font-size: 15px;
+font-weight: 400;
+color: #2e2e2e;
+}
+.ca-container .ca-tipo{
+font-size: 11px;
+}
+.ca-container .ca-jogo{
+font-size: 11px;
+}
+.ca-container .ca-valor{
+display: flex;
+flex-direction: column;
+margin-left: 15px;
+}
+.btn-colocar-aposta{
+background-color: #CA3B1B;
+transition: .4s;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 10px 0px;
+cursor: pointer;
+}
+.btn-colocar-aposta:hover{
+background-color: #A22F16;
+transition: .4s;
+}
+
+
+.ca-container{
+display: flex;
+flex-direction: column;
+}
+.ca-container .ca-item2{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+border-bottom: 1px solid #c3c3c3;
+padding: 20px 4px;
+}
+.ca-container .ca-delete2{
+margin-right: 15px;
+}
+.ca-container .ca-main2{
+display: flex;
+flex-direction: column;
+flex-grow: 1;
+}
+.ca-container .ca-input2{
+width: 75px;
+height: 30px;
+font-size: 13px;
+}
+
+.ca-container .ca-aposta2{
+font-size: 15px;
+font-weight: 400;
+color: #2e2e2e;
+}
+.ca-container .ca-cota2{
+font-size: 15px;
+font-weight: 400;
+color: #2e2e2e;
+}
+.ca-container .ca-tipo2{
+font-size: 11px;
+}
+.ca-container .ca-jogo2{
+font-size: 11px;
+}
+.ca-container .ca-valor2{
+display: flex;
+flex-direction: column;
+margin-left: 15px;
+}
+.btn-colocar-aposta2{
+background-color: #CA3B1B;
+transition: .4s;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 10px 0px;
+cursor: pointer;
+}
+.btn-colocar-aposta2:hover{
+background-color: #A22F16;
+transition: .4s;
+}
+
+.btn-colocar-aposta .texto1{
+color: #FFF;
+font-weight: 400;
+font-size: 16px;
+}
+.btn-colocar-aposta .valor{
+color: #FFF;
+}
+.btn-colocar-aposta .texto2{
+color: #FFF;
+font-weight: 400;
+font-size: 12px;
+}
+
+.tabela-apostas{
+    display: flex;
+    flex-direction: column;
+}
+.tabela-apostas .item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+}
+
+.tabela-apostas .item:nth-child(odd){
+    /*background-color: #4B4F50 !important;*/
+}
+
+.tabela-apostas .item .item-data{
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+}
+.tabela-apostas .item .item-data .hora{
+    font-size: 14px;
+    font-weight: 500;
+}
+.tabela-apostas .item .item-data .data{
+    color: #7e7e7e;
+    font-size: 12px;
+}
+.tabela-apostas .item .item-times{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.tabela-apostas .item .item-times .time-home{
+    font-weight: 400;
+}
+.tabela-apostas .item .item-times .time-away{
+    font-weight: 400;
+}
+.tabela-apostas .item .item-cotas{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tabela-apostas .item .item-cotas .cota:hover{
+    background-color: #5d5f63 !important;
+    transition: .3s;
+}
+.selecionado{
+    background-color: #A22F16 !important;
+    color: #FFF;
+}
+.tabela-apostas .item .item-cotas .cota{
+    transition: .3s;
+    cursor: pointer;
+    background-color: #333436;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFF;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 2px solid #333436;
+    width: 85px;
+    text-align: center;
+}
+.tabela-apostas .item .item-cotas .cota-success{
+    border: 2px solid #43BC9B !important;
+    color: #43BC9B !important;
+}
+.tabela-apostas .item .item-cotas .cota-danger{
+    border: 2px solid #EF4F40 !important;
+    color: #EF4F40 !important;
+}
+.tabela-apostas .item .item-acoes{
+    font-size: 11px;
+    margin-left: 10px;
+    width: 10px;
+}
+
+@media (max-width: 767.98px){
+    .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
+        position: relative;
+        width: 100%;
+        /*padding-right: 0rem;
+        padding-left: 0rem;*/
+    }
+
+    .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12{
+        padding-right: 0rem;
+        padding-left: 0rem;
+    }
+
+    .container-fluid{
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .no-padding-xs{
+        padding: 0px !important;
+    }
+
+    .tabela-apostas .item{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between !important;
+        align-items: center;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        border-radius: 10px;
+    }
+
+    .tabela-apostas .item .item-times {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        margin-left: 0px !important;
+    }
+
+    .tabela-apostas .item .item-cotas .cota {
+        transition: .3s;
+        cursor: pointer;
+        background-color: #333436;
+        padding: 10px 10px !important;
+        border-radius: 10px;
+        font-weight: 400;
+        font-size: 12px;
+        color: #FFF;
+        margin-left: 3px !important;
+        margin-right: 3px !important;
+        border: 2px solid #333436;
+        width: auto !important;
+        text-align: center;
+    }
+    .breadcrumb-header{
+        padding-top: 55px;
+    }
+}
