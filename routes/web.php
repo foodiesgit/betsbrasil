@@ -19,6 +19,7 @@ Route::prefix('ajax')->group(function(){
     Route::get('carrinho/recupera-carrinho', 'AjaxController@recuperaCarrinho');
     Route::get('recupera-jogos-liga/{id}', 'AjaxController@recuperaJogosLiga');
     Route::get('search', 'AjaxController@search');
+    Route::get('moreOdds', 'AjaxController@moreOdds');
 
 
 });

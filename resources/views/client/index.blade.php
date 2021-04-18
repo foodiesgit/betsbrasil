@@ -44,14 +44,245 @@
 
         <link href="/assets3/css/animate.css" rel="stylesheet" />
 
-
-
-        <link href="/assets3/css/custom.css" rel="stylesheet" />
-
+        <link rel="stylesheet" href="/assets3/css/lite.css">
         <link href="/assets3/css/floo.css" rel="stylesheet" />
-
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <link href="/assets3/css/custom.css" rel="stylesheet" />
+    
     </head>
+    <style>
+            .float{
 
+                position:fixed;
+
+                width:60px;
+
+                height:60px;
+
+                bottom:40px;
+
+                right:40px;
+
+                background-color:#fff;
+
+                color:#FFF;
+
+                border-radius:50px;
+
+                text-align:center;
+
+                box-shadow: 2px 2px 3px #999;
+
+            }
+            
+
+        .my-float{
+
+        margin-top:11px;
+
+        }
+
+    </style>
+    <style type="text/css">
+
+        @font-face {
+
+            font-weight: 400;
+
+            font-style:  normal;
+
+            font-family: 'Circular-Loom';
+
+            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Book-cd7d2bcec649b1243839a15d5eb8f0a3.woff2') format('woff2');
+
+        }
+
+
+
+        @font-face {
+
+            font-weight: 500;
+
+            font-style:  normal;
+
+            font-family: 'Circular-Loom';
+
+            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Medium-d74eac43c78bd5852478998ce63dceb3.woff2') format('woff2');
+
+        }
+
+
+
+        @font-face {
+
+            font-weight: 700;
+
+            font-style:  normal;
+
+            font-family: 'Circular-Loom';
+
+            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Bold-83b8ceaf77f49c7cffa44107561909e4.woff2') format('woff2');
+
+        }
+
+
+
+        @font-face {
+
+            font-weight: 900;
+
+            font-style:  normal;
+
+            font-family: 'Circular-Loom';
+
+            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Black-bf067ecb8aa777ceb6df7d72226febca.woff2') format('woff2');
+
+        }
+
+
+
+        .main{
+
+            background-color: #FFF !important;
+
+        }
+
+        .linha_aposta{
+
+        display: flex;
+
+        flex-direction: row;
+
+        flex-wrap: wrap;
+
+        justify-content: flex-start;
+
+        align-items: center;
+
+        transition: .3s;
+
+        }
+
+        .linha_aposta .header_aposta{
+
+        display: flex;
+
+        flex: 1 33%;
+
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: spance-between;
+
+        padding: 10px 15px;
+
+        }
+
+        .linha_aposta .header_aposta span{
+
+        font-weight: 500;
+
+        color: #808080;
+
+        }
+
+        .item_aposta{
+
+        display: flex;
+
+        flex: 1 33%;
+
+        align-items: center;
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+        padding: 10px 15px;
+
+        transition: .3s;
+
+        border: 1px solid #d7d7d7;
+
+        cursor: pointer;
+
+        }
+
+        .item_aposta:hover{
+
+        background-color: #e8e8e8;
+
+        transition: .3s;
+
+        }
+
+
+
+        .item_aposta_diferenciado{
+
+        display: flex;
+
+        flex: 1 33%;
+
+        align-items: center;
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+        padding: 20px 25px;
+
+        transition: .3s;
+
+        border: 1px solid #d7d7d7;
+
+        cursor: pointer;
+
+        }
+
+        .item_aposta_diferenciado:hover{
+
+        background-color: #e8e8e8;
+
+        transition: .3s;
+
+        }
+
+
+
+        .item_aposta .cotas{
+
+        font-weight: bold;
+
+        }
+
+
+
+        @media (max-width: 991.98px){
+
+        .item_aposta{
+
+        flex: 1 50%;
+
+        }
+
+        }
+
+        @media (max-width: 767.98px) {
+
+        .item_aposta{
+
+        flex: 1 100%;
+
+        }
+
+
+
+        }
+
+        </style>
     <body class="main-body horizontal-color">
 
         @include('client.include')
@@ -62,7 +293,7 @@
 
         <div class="horizontalMenucontainer">
 
-            <div id="global-loader"><img src="/assets3/img/loader.gif" class="loader-img" alt="Loader" width="10%"/></div>
+            <!-- <div id="global-loader"><img src="/assets3/img/loader.gif" class="loader-img" alt="Loader" width="10%"/></div> -->
 
 
 
@@ -238,11 +469,11 @@
 
                                             <div class="tabs-menu1">
 
-                                                <ul class="nav panel-tabs main-nav-line">
+                                                <ul class="nav nav-tabs main-nav-line"  role="tablist">
 
                                                     <li class="nav-item">
 
-                                                        <a href="#tab1" class="nav-link active" data-toggle="tab">Futebol</a>
+                                                        <a href="#tab1" class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Futebol</a>
 
                                                     </li>
 
@@ -260,19 +491,22 @@
 
                                         <div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">
 
-                                            <div class="tab-content">
+                                            <div id="tab1">
 
-                                                <div id="tab1" class="tab-pane active">
-
+                                                <div>
                                                     <?php
-
+                                                        
                                                         if( count($array_jogos_aba_futebol) > 0 ){
 
                                                             foreach( $array_jogos_aba_futebol as $dados ){
 
                                                                 echo '
-
-                                                                    <h5 class="mb-10">'.$dados['liga'].'</h5>
+                                                                    <h5 class="mb-10 liga" style="
+                                                                    background: black;
+                                                                    padding: 10px;
+                                                                    color: white;
+                                                                    border-radius: 3px;
+                                                                    ">'.$dados['liga'].'</h5>
 
                                                                 ';
 
@@ -314,7 +548,7 @@
 
                                                                                     <div class="item-data">
 
-                                                                                        <span class="hora">'.$jogos['hora'].' as '.$jogos['data'].'</span>
+                                                                                        <span class="hora">'.$jogos['data'].' as '.$jogos['hora'].'</span>
 
 
 
@@ -332,14 +566,13 @@
 
                                                                                 <span class="cota cota-normal cota-aposta" data-id="'.$jogos['oddaway_id'].'">'.$jogos['oddaway_value'].'</span>
 
-                                                                            </div>
 
-                                                                            <div class="item-acoes d-none d-lg-flex">
+                                                                                <span class="cota cota-normal cota-aposta bg-white border-none moreOdds" style="color:black; border:none;"  data-id="'.$jogos['id'].'" data-bs-toggle="modal" data-bs-target="#moreOdds">+'.$jogos['total_odds'].'</span>
 
-                                                                                <span>+'.$jogos['total_odds'].'</span>
 
                                                                             </div>
-
+                                                                            
+                                                                           
                                                                         </div>
 
                                                                         </div>';
@@ -370,13 +603,13 @@
 
 
 
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-none d-lg-block d-xl-block" >
 
                             <div class="card">
 
                                 <div class="card-header bg-red">
 
-                                    <h5 class="card-title">Meu Cupom</h5>
+                                    <h5 class="card-title" style="color: white;">Meu Cupom</h5>
 
                                     <h6 class="card-subtitle mb-2"></h6>
 
@@ -479,8 +712,133 @@
                         </div>
 
 
+                        <a class="float d-block d-sm-none d-xs-none d-md-block d-lg-none d-xl-none"  data-bs-toggle="modal" data-bs-target="#exampleModalFullscreenSm">
+                        <?php
+
+                        $totalItensCupom = DB::table('novo_carrinho')
+
+                            ->leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
+
+                            ->where('session_id', session()->getId())->select(DB::raw("count(*) as total"))->get();
 
 
+
+                        if(count($totalItensCupom) > 0){
+
+                            $total = $totalItensCupom[0]->total;
+
+                        }else{
+
+                            $total = 0;
+
+                        }
+
+                        ?>
+
+                        <span style="position: absolute; margin-left: 25px;"><span class="badge badge-danger" id="totalCupom">{{$total}}</span></span>
+
+                        <img src="/assets3/img/images/invoice.svg" height="32" width="32" class="my-float" style="margin-top: 14px !important;">
+
+                        </a>
+                        <div class="modal fade" id="moreOdds" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-fullscreen-sm-down">
+                                <div class="modal-content">
+                                <div class="modal-header bg-red">
+                                    <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel"  style="color: white;">Outras Cotações</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="renderMoreOdds">
+                                
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                        <div class="modal fade" id="exampleModalFullscreenSm" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-fullscreen-sm-down">
+                                <div class="modal-content">
+                                <div class="modal-header bg-red">
+                                    <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel"  style="color: white;">Meu Cupom</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <div class="bet-slip">
+
+                                <div class="bet-slip__inner" id="bet-slip-inner-mobile">
+
+                                </div>
+                                <div class="bet-slip__item bet-slip__item--row" id="divvalormobile">
+
+                                    <div class="bet-slip__item-footer bet-slip__item-footer--wide">
+
+                                        <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
+
+                                            <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake_mobile" name="newstake">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="bet-slip-total">
+
+                                    <table class="bet-slip-total__table">
+
+                                        <tbody>
+
+                                            <tr class="bet-slip-total__tr">
+
+                                                <th class="bet-slip-total__th">Sua Aposta</th>
+
+                                                <td class="bet-slip-total__td"><span id="slip_total_aposta_mobile">R$ 0,00</span></td>
+
+                                            </tr>
+
+
+
+                                            <tr class="bet-slip-total__tr">
+
+                                                <th class="bet-slip-total__th">Total Odds</th>
+
+                                                <td class="bet-slip-total__td"><span id="slip_total_odds_mobile">0.00</span></td>
+
+                                            </tr>
+
+
+
+                                            <tr class="bet-slip-total__tr">
+
+                                                <th class="bet-slip-total__th">Possível Retorno</th>
+
+                                                <td class="bet-slip-total__td"><span id="slip_total_retorno_mobile">R$ 0,00</span></td>
+
+
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+
+
+                                {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta']) }}
+
+
+
+                                {{ Form::close() }}
+
+                                <button class="bet-slip__btn" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Colocar Aposta</button>
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -558,13 +916,13 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" integrity="sha512-Rdk63VC+1UYzGSgd3u2iadi0joUrcwX0IWp2rTh6KXFoAmgOjRS99Vynz1lJPT8dLjvo6JZOqpAHJyfCEZ5KoA==" crossorigin="anonymous"></script>
 
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="/assets/autocomplete.js"></script>                                               
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
         <!-- <script src="/assets3/js/carrinho.js"></script> -->
 
 
@@ -591,8 +949,11 @@
 
                             success: function(res){
                                 $('.item').parent().remove();
+                                $('.liga').parent().remove();
+                                
                                 res.map((item => {
-                                    $('#tab1').append('<div class="panel tabela-apostas"> '+
+                                    $('#tab1').append(
+                                    '<div class="panel tabela-apostas"> '+
                                         '<div class="item">'+
 
                                             '<div class="item-data d-none d-lg-flex">'+
@@ -679,7 +1040,126 @@
 
                 });
 
+                
+                $('.moreOdds').click(function(e){
 
+                    var id = $(this).data('id');
+
+                    $('#renderMoreOdds').html('');
+
+                    $.ajax({
+
+                    url: '/ajax/moreOdds',
+
+                    method: 'GET',
+
+                    data: {
+
+                        id: id
+
+                    },
+
+                    success: function(res){
+                        $('#renderMoreOdds').append(
+                            '<div class="header-banner header-banner-wrapper" style="margin-bottom: 3rem;">'+
+
+                            '<div class="refresh-btns-wrapper">'+
+
+                                '<a href="#" class="refresh-btn refresh-btn--back banner-back-page">'+
+
+                                    '<i class="fa fa-arrow-back"></i>'+
+
+                                '</a>'+
+
+                            '</div>'+
+
+                            '<span class="header-banner__liga" style="margin-bottom: 2rem; color:black;">'+res.event[0].nome_traduzido+'</span>'+
+
+                            '<div class="match-wrapper">'+
+
+                                '<span class="header-banner__date">'+res.event[0].data_format+'</span>'+
+
+                                '<div class="commands-info__wrapper match-data--heading">'+
+
+                                    '<span class="commands-info__command" style="color:black;">'+res.home.nome+'</span>'+
+
+                                    '<span class="commands-info__command vs" style="color:black;">VS </span>'+
+
+                                    '<span class="commands-info__command" style="color:black;">'+res.away.nome+'</span>'+
+
+                                '</div>'+
+
+                                '<span class="header-banner__time  ">'+res.event[0].hora_format+'<span class="header-banner__time--red"></span> </span>'+
+
+                           '</div>'+
+
+                            '</div>');
+                        $('#renderMoreOdds').append(
+                            '<div class="panel panel-primary tabs-style-1" style="background-color: #FFF">'+
+
+                                '<div class=" tab-menu-heading">'+
+
+                                    '<div class="tabs-menu1">'+
+
+                                        '<ul class="nav panel-tabs main-nav-line" id="tabOdds">'+
+
+                                        
+                                        '</ul>'+
+
+                                    '</div>'+
+
+                                '</div>'+
+
+                            '</div>');
+                            var i = 0;
+                             res.odds_grupo.map((item => {
+                                i++;
+                                if(i == 1){
+                                    $('#tabOdds').append('<li class="nav-item">'+
+
+                                        '<a href="#tab'+i+'" class="nav-link active" data-toggle="tab">'+item.nome_traduzido+'</a>'+
+
+                                    '</li>');
+
+                                }else{
+
+                                    $('#tabOdds').append('<li class="nav-item">'+
+
+                                        '<a href="#tab'+i+'" class="nav-link" data-toggle="tab">'+item.nome_traduzido+'</a>'+
+
+                                    '</li>');
+
+                                }
+                            }));
+                        $('#renderMoreOdds').append(
+                            '<div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">'+
+
+                                '<div class="tab-content" id="moreOddsContent>'+
+                                '</div>'+
+                            '</div>');
+
+                            var i = 0;
+                            var active = '';
+                             res.odds_grupo.map((item => {
+                                i++;
+                                if($i == 1){ active = 'active'; }else{ active = ''; }
+
+                                // echo '<div id="tab'.$i.'" class="tab-pane '.$active.'">';
+                            }));
+
+                        // <main class="main">
+
+                            // </main>
+                        // res.map((item => {
+                        //    
+                        // }));
+                    },error: function(err){
+                    },complete: function(){
+                    }
+
+                    });
+
+                });
 
                 $('.retirar_aposta').click(function(e){
 
@@ -783,7 +1263,57 @@
 
                 });
 
+                $('body').on('keyup', '#newstake_mobile', function(e){
 
+                        e.preventDefault();
+
+
+
+                        var valor = $(this).val();
+
+                        valor = valor.replace("R$ ", "");
+
+                        valor = valor.replace(".", "");
+
+                        valor = valor.replace(",", ".");
+
+
+
+                        valor = parseFloat(valor);
+
+                        console.log(valor);
+
+                        if( valor > 0.00 ){
+
+                            var totalcotas = $('#slip_total_odds').html();
+
+                            totalcotas = parseFloat(totalcotas);
+
+
+
+                            var total = valor * totalcotas;
+
+                            console.log(total);
+
+
+
+                            $('#slip_total_aposta_mobile').html( $('#newstake_mobile').val() );
+
+                            $('#slip_total_retorno_mobile').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
+
+
+
+                            $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
+
+                        }else{
+
+                            console.log("valor = 0");
+
+                            $('#btn_finalizar_aposta_mobile').attr('disabled');
+
+                        }
+
+                    });
 
                 $('body').on('click', '.cota-aposta', function(e){
 
@@ -882,17 +1412,23 @@
                             if(res.status == 'ok'){
 
                                 $('#bet-slip-inner').html('');
+                                $('#bet-slip-inner-mobile').html('');
 
                                 $('#newstake').val( res.valor_total_apostado_format );
 
+                                $('#newstake-mobile').val( res.valor_total_apostado_format );
 
-
+                                $('#slip_total_aposta_mobile').html( res.valor_total_apostado_format );
                                 $('#slip_total_aposta').html( res.valor_total_apostado_format );
 
+
                                 $('#slip_total_odds').html( res.valor_total_cotas );
+                                $('#slip_total_odds_mobile').html( res.valor_total_cotas );
 
-                                $('#slip_total_retorno').html( res.possivel_retorno_format );
 
+                                $('#slip_total_retorno_mobile').html( res.possivel_retorno_format );
+
+                                $('#slip_total_retorno_mobile').html( res.possivel_retorno_format );
 
 
                                 var total_de_apostas = 0;
@@ -905,11 +1441,14 @@
 
                                     $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
 
+                                    $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
+
 
 
                                     $('.cota-aposta[data-id='+item.idodds+']').addClass('selecionado');
 
                                     $('#divvalor').show();
+                                    $('#divvalormobile').show();
 
 
 
@@ -957,10 +1496,53 @@
 
                                     '</app-betslip-item>');
 
+                               
+
+                                $('#bet-slip-inner-mobile').append('<app-betslip-item>'+
+
+                                        '<div class="bet-slip__item">'+
+
+                                            '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
+
+                                            '<div class="bet-slip__item-inner">'+
+
+                                                '<div class="bet-slip__teams">'+
+
+                                                    '<div class="bet-slip__team">'+
+
+                                                        '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
+
+                                                    '</div>'+
+
+                                                    '<div class="bet-slip__team">'+
+
+                                                        '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
+
+                                                    '</div>'+
+
+                                                '</div>'+
+
+                                                '<div class="bet-slip__info">'+
+
+                                                    '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
+
+                                                '</div>'+
+
+                                                '<div class="bet-slip__info">'+
+
+                                                    '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
+
+                                                    '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
+
+                                                '</div>'+
+
+                                            '</div>'+
+
+                                        '</div>'+
+
+                                    '</app-betslip-item>');
+
                                 });
-
-
-
                                 if(total_de_apostas == 0){
 
                                     $('#bet-slip-inner').html('<p class="text-center">Nenhuma aposta selecionada</p>');
