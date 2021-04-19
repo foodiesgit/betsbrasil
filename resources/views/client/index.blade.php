@@ -1233,7 +1233,7 @@
 
                                                 //odd é diferente
 
-                                                desenhaOdds(items.odds);
+                                                desenhaOdds(items.odds, group);
 
                                             }else{
 
@@ -1261,11 +1261,11 @@
 
                 });
                 
-                function desenhaOdds(odds){
+                function desenhaOdds(odds, group){
 
                     if(odds[0].idsubgrupo == 84){
 
-                        '<div class="linha_aposta">'+
+                        $('#oddsId'+group).append('<div class="linha_aposta">'+
 
                                 '<div class="header_aposta"><span></span></div>'+
 
@@ -1278,31 +1278,31 @@
 
 
                             '<div class="linha_aposta">'+
-                                   '<div class="item_aposta">'+
+                                   '<div class="item_aposta" style="background:black;">'+
 
                                         '<span class="time">'+odds[0].name+'</span>'+
 
                                     '</div>'+
 
-                                    '<div class="item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'">'+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'" style="background:black;">'+
 
                                         '<span class="cotas " ><b>'+odds[1].odds+'</b></span>'+
 
                                     '</div>'+
 
-                                    '<div class="item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'">'+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'" style="background:black;">'+
 
                                         '<span class="cotas " ><b>'+odds[2].odds+'</b></span>'+
 
                                     '</div>'+
 
-                            '</div>';
+                            '</div>');
 
 
 
                     }else if(odds[0].idsubgrupo == 93){
 
-                        return '<div class="linha_aposta">'+
+                          $('#oddsId'+group).append('<div class="linha_aposta">'+
 
 
                                 '<div class="header_aposta"><span></span></div>'+
@@ -1314,38 +1314,38 @@
                         '</div>'+
                         '<div class="linha_aposta">'+
 
-                            '<div class="item_aposta"><span class="time">'+odds[0].name+'</span></div>'+
+                            '<div class="item_aposta" style="background:black;"><span class="time">'+odds[0].name+'</span></div>'+
 
-                            '<div class="item_aposta cota-aposta" data-id="'+odds[3].id+'" data-idevent="'+odds[3].idevent+'"><span class="cotas" >'+odds[3].odds+'</span></div>'+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[3].id+'" data-idevent="'+odds[3].idevent+'" style="background:black;"><span class="cotas" >'+odds[3].odds+'</span></div>'+
 
-                            '<div class="item_aposta cota-aposta" data-id="'+odds[6].id+'" data-idevent="'+odds[6].idevent+'"><span class="cotas " >'+odds[6].odds+'</span></div>'+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[6].id+'" data-idevent="'+odds[6].idevent+'" style="background:black;"><span class="cotas " >'+odds[6].odds+'</span></div>'+
 
                         '</div>'+
 
                         '<div class="linha_aposta">'+
 
-                            '<div class="item_aposta"><span class="time">'+odds[1].name+'</span></div>'+
+                            '<div class="item_aposta" style="background:black;"><span class="time">'+odds[1].name+'</span></div>'+
 
-                            '<div class="item_aposta cota-aposta" data-id="'+odds[4].id+'" data-idevent="'+odds[4].idevent+'"><span class="cotas " >'+odds[4].odds+'</span></div>'+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[4].id+'" data-idevent="'+odds[4].idevent+'" style="background:black;"><span class="cotas " >'+odds[4].odds+'</span></div>'+
 
-                            '<div class="item_aposta cota-aposta" data-id="'+odds[7].id+'" data-idevent="'+odds[7].idevent+'"><span class="cotas " >'+odds[7].odds+'</span></div>'+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[7].id+'" data-idevent="'+odds[7].idevent+'" style="background:black;"><span class="cotas " >'+odds[7].odds+'</span></div>'+
 
                         '</div>'+
 
                        '<div class="linha_aposta">'+
 
-                            '<div class="item_aposta"><span class="time">'+odds[2].name+'</span></div>'+
+                            '<div class="item_aposta" style="background:black;"><span class="time">'+odds[2].name+'</span></div>'+
 
-                            '<div class="item_aposta cota-aposta" data-id="'+odds[5].id+'" data-idevent="'+odds[5].idevent+'"><span class="cotas " >'+odds[5].odds+'</span></div>'+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[5].id+'" data-idevent="'+odds[5].idevent+'" style="background:black;"><span class="cotas " >'+odds[5].odds+'</span></div>'+
 
-                            '<div class="item_aposta cota-aposta" data-id="'+odds[8].id+'" data-idevent="'+odds[8].idevent+'"><span class="cotas " >'+odds[8].odds+'</span></div>'+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[8].id+'" data-idevent="'+odds[8].idevent+'" style="background:black;"><span class="cotas " >'+odds[8].odds+'</span></div>'+
 
-                        '</div>';
+                        '</div>');
 
 
                     }else{
 
-                        return '<div class="linha_aposta">'+
+                          $('#oddsId'+group).append('<div class="linha_aposta">'+
 
                                 '<div class="header_aposta"><span></span></div>'+
 
@@ -1353,32 +1353,32 @@
 
                                 '<div class="header_aposta"><span>Menos</span></div>'+
 
-                         '</div>';
+                         '</div>'+
 
 
 
                             '<div class="linha_aposta">'+
 
-                                    '<div class="item_aposta">'+
+                                    '<div class="item_aposta" style="background:black;">'+
 
                                         '<span class="time">'+odds[0].name+'</span>'+
 
                                     '</div>'+
 
-                                    '<div class="item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'">'+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'" style="background:black;">'+
 
                                         '<span class="cotas " ><b>'+odds[1].odds+'</b></span>'+
 
                                     '</div>'+
 
-                                    '<div class="item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'">'+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'" style="background:black;">'+
 
                                         '<span class="cotas " ><b>'+odds[2].odds+'</b></span>'+
 
                                     '</div>'+
 
 
-                         '</div>';
+                         '</div>');
 
                     }
 
