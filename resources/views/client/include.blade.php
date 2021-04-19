@@ -226,7 +226,7 @@
 
                         <div class="input-group">
 
-                            <input type="text" class="form-control" placeholder="Search" />
+                            <input type="text" class="form-control" placeholder="Search" id="search-mobile"/>
 
                             <span class="input-group-btn">
 

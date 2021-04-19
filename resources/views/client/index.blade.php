@@ -1019,7 +1019,93 @@
                         });
                     }
                 });
+                $('#search-mobile').on('keyup',function(){
+                    var query = $('#search-mobile').val();
+                    if(query.length > 2){
+                        $.ajax({
 
+                            url: '/ajax/search',
+   
+                            method: 'GET',
+
+                            data: {
+
+                                query: query
+
+                            },
+
+                            success: function(res){
+                                $('.item').parent().remove();
+                                $('.liga').parent().remove();
+                                
+                                res.map((item => {
+                                    $('#tab1').append(
+                                    '<div class="panel tabela-apostas"> '+
+                                        '<div class="item">'+
+
+                                            '<div class="item-data d-none d-lg-flex">'+
+
+                                                '<span class="hora">'+item.data+'</span>'+
+
+                                                '<span class="data">'+item.hora+'</span>'+
+
+                                            '</div>'+
+
+                                            '<div class="d-none d-lg-flex item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
+
+                                                '<span class="time-home">'+item.homeNome+'</span>'+
+
+                                                '<span class="time-away">'+item.awayNome+'</span>'+
+
+                                            '</div>'+
+
+                                            '<div class="d-md-none">'+
+
+                                                '<div class="item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
+
+                                                '<span class="time-home">'+item.homeNome+'</span>'+
+
+                                                '<span class="time-away">'+item.awayNome+'</span>'+
+
+                                                    '<div class="item-data">'+
+
+                                                        '<span class="hora">'+item.data+' as '+item.hora+'</span>'+
+
+
+
+                                                    '</div>'+
+
+                                                '</div>'+
+
+                                            '</div>'+
+
+                                            '<div class="item-cotas">'+
+
+                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.oddhome_id+'">'+item.oddhome_value+'</span>'+
+
+                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.odddraw_id+'">'+item.odddraw_value+'</span>'+
+
+                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.oddaway_id+'">'+item.oddaway_value+'</span>'+
+
+                                            '</div>'+
+
+                                            '<div class="item-acoes d-none d-lg-flex">'+
+
+                                                '<span>+'+item.total_odds+'</span>'+
+
+                                            '</div>'+
+
+                                        '</div>'+
+
+                                        '</div>')
+                                }));
+                            },error: function(err){
+                            },complete: function(){
+                            }
+
+                        });
+                    }
+                });
                 $('.ca-input').maskMoney({
 
                     prefix: 'R$ ', thousands: '.', decimal: ',', allowZero: true, allowEmpty: true
@@ -1111,48 +1197,62 @@
                                 '</div>'+
 
                             '</div>');
-                            var i = 0;
-                             res.odds_grupo.map((item => {
-                                i++;
-                                if(i == 1){
-                                    $('#tabOdds').append('<li class="nav-item">'+
-
-                                        '<a href="#tab'+i+'" class="nav-link active" data-toggle="tab">'+item.nome_traduzido+'</a>'+
-
-                                    '</li>');
-
-                                }else{
-
-                                    $('#tabOdds').append('<li class="nav-item">'+
-
-                                        '<a href="#tab'+i+'" class="nav-link" data-toggle="tab">'+item.nome_traduzido+'</a>'+
-
-                                    '</li>');
-
-                                }
-                            }));
-                        $('#renderMoreOdds').append(
+                            $('#renderMoreOdds').append(
                             '<div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">'+
 
-                                '<div class="tab-content" id="moreOddsContent>'+
+                                '<div id="moreOddsContent">'+
                                 '</div>'+
                             '</div>');
 
                             var i = 0;
+                            var group = 0;
                             var active = '';
                              res.odds_grupo.map((item => {
                                 i++;
-                                if($i == 1){ active = 'active'; }else{ active = ''; }
+                               
+                                item.sub_grupo.map((items => {
+                                    
+                                    if(items.odds.length > 0) {
+                                        group++;
+                                        $('#moreOddsContent').append(
+                                        '<div class="card card-danger">'+
 
-                                // echo '<div id="tab'.$i.'" class="tab-pane '.$active.'">';
+                                            '<div class="card-header pb-0">'+
+
+                                                '<h5 class="card-title mb-0 pb-0">'+items.titulo_traduzido+'</h5>'+
+
+                                            '</div>'+
+
+                                        '<div class="card-body" id="oddsId'+group+'"></div></div>'
+                                        );
+
+                                        items.odds.map((item =>{
+                                            var primeiro_odd = items.odds[0].idbets;
+
+                                            if(primeiro_odd[0] == 'P'){
+
+                                                //odd é diferente
+
+                                                desenhaOdds(items.odds);
+
+                                            }else{
+
+                                                $('#oddsId'+group).append(
+                                                    '<div class="item_aposta cota-aposta" style="background:black;" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
+
+                                                        '<span class="time">'+item.name+'</span>'+
+
+                                                        '<span class="cotas">'+item.odds+'</span>'+
+
+                                                    '</div>'
+                                                );
+                                            }
+                                        }));
+                                    }
+
+                                }));
                             }));
 
-                        // <main class="main">
-
-                            // </main>
-                        // res.map((item => {
-                        //    
-                        // }));
                     },error: function(err){
                     },complete: function(){
                     }
@@ -1160,6 +1260,129 @@
                     });
 
                 });
+                
+                function desenhaOdds(odds){
+
+                    if(odds[0].idsubgrupo == 84){
+
+                        '<div class="linha_aposta">'+
+
+                                '<div class="header_aposta"><span></span></div>'+
+
+                                '<div class="header_aposta"><span>Mais</span></div>'+
+
+                                '<div class="header_aposta"><span>Menos</span></div>'+
+
+                        '</div>'+
+
+
+
+                            '<div class="linha_aposta">'+
+                                   '<div class="item_aposta">'+
+
+                                        '<span class="time">'+odds[0].name+'</span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'">'+
+
+                                        '<span class="cotas " ><b>'+odds[1].odds+'</b></span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'">'+
+
+                                        '<span class="cotas " ><b>'+odds[2].odds+'</b></span>'+
+
+                                    '</div>'+
+
+                            '</div>';
+
+
+
+                    }else if(odds[0].idsubgrupo == 93){
+
+                        return '<div class="linha_aposta">'+
+
+
+                                '<div class="header_aposta"><span></span></div>'+
+
+                                '<div class="header_aposta"><span>Sim</span></div>'+
+
+                                '<div class="header_aposta"><span>Não</span></div>'+
+
+                        '</div>'+
+                        '<div class="linha_aposta">'+
+
+                            '<div class="item_aposta"><span class="time">'+odds[0].name+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[3].id+'" data-idevent="'+odds[3].idevent+'"><span class="cotas" >'+odds[3].odds+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[6].id+'" data-idevent="'+odds[6].idevent+'"><span class="cotas " >'+odds[6].odds+'</span></div>'+
+
+                        '</div>'+
+
+                        '<div class="linha_aposta">'+
+
+                            '<div class="item_aposta"><span class="time">'+odds[1].name+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[4].id+'" data-idevent="'+odds[4].idevent+'"><span class="cotas " >'+odds[4].odds+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[7].id+'" data-idevent="'+odds[7].idevent+'"><span class="cotas " >'+odds[7].odds+'</span></div>'+
+
+                        '</div>'+
+
+                       '<div class="linha_aposta">'+
+
+                            '<div class="item_aposta"><span class="time">'+odds[2].name+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[5].id+'" data-idevent="'+odds[5].idevent+'"><span class="cotas " >'+odds[5].odds+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[8].id+'" data-idevent="'+odds[8].idevent+'"><span class="cotas " >'+odds[8].odds+'</span></div>'+
+
+                        '</div>';
+
+
+                    }else{
+
+                        return '<div class="linha_aposta">'+
+
+                                '<div class="header_aposta"><span></span></div>'+
+
+                                '<div class="header_aposta"><span>Mais</span></div>'+
+
+                                '<div class="header_aposta"><span>Menos</span></div>'+
+
+                         '</div>';
+
+
+
+                            '<div class="linha_aposta">'+
+
+                                    '<div class="item_aposta">'+
+
+                                        '<span class="time">'+odds[0].name+'</span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'">'+
+
+                                        '<span class="cotas " ><b>'+odds[1].odds+'</b></span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'">'+
+
+                                        '<span class="cotas " ><b>'+odds[2].odds+'</b></span>'+
+
+                                    '</div>'+
+
+
+                         '</div>';
+
+                    }
+
+                    }
 
                 $('.retirar_aposta').click(function(e){
 

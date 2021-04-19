@@ -307,6 +307,17 @@ class AjaxController extends Controller{
         $sql_time_home = Times::find($event[0]->idhome);
 
         $sql_time_away = Times::find($event[0]->idaway);
+
+        foreach($odds_grupos as $odd_grupo){
+            $consulta = DB::table('odds_subgrupo')->where('idgrupo', $odd_grupo->id)->where('status', 1)->get();
+
+            foreach($consulta as $sub_grupo){
+                $odds = DB::table('odds')->where('idsubgrupo', $sub_grupo->id)->where('status',1)->where('idevent', $event[0]['id'])->get();
+                $sub_grupo->odds = $odds->toArray();
+            }
+
+            $odd_grupo['sub_grupo'] =  $consulta->toArray();
+         }
         $dados = [
 
             'event' => $event,
