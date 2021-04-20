@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
+		
         <meta name="Description" content="NoboBets" />
 
         <meta name="Author" content="Novo Bets" />
@@ -22,7 +22,7 @@
 
 
 
-        <link rel="icon" href="/assets3/img/brand/favicon.png" type="image/x-icon" />
+        <link rel="icon" href="http://novobets.tk/favicon.ico" type="image/x-icon" />
 
 
 
