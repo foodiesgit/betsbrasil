@@ -102,7 +102,7 @@ class ClientController extends Controller{
 
 
 
-        $jogos_aba_futebol = Events::whereDate('data', '>', $date)->orderBy('data', 'asc')
+        $jogos_aba_futebol = Events::whereDate('data', '>=', $date)->orderBy('data', 'asc')
 
             ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
@@ -121,7 +121,7 @@ class ClientController extends Controller{
 
 
 
-                $jogos = Events::whereDate('data', '>', $date)->orderBy('data', 'asc')
+                $jogos = Events::whereDate('data', '>=', $date)->orderBy('data', 'asc')
 
                     ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
@@ -217,7 +217,7 @@ class ClientController extends Controller{
 
 
 
-        $jogos_carousel = Events::whereDate('data', '>', $date)->orderBy('data', 'asc')
+        $jogos_carousel = Events::whereDate('data', '>=', $date)->orderBy('data', 'asc')
 
                     ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')->where('destaque_carousel', 1)->where('ligas.status', 1)
 
@@ -428,7 +428,7 @@ class ClientController extends Controller{
 
         if(count($sql) < 1){
 
-            return redirect('/lite/finalizar')->with('erro', 'Cupom de aposta esta vazio');
+            return redirect('/')->with('erro', 'Cupom de aposta esta vazio');
 
         }
 
@@ -440,7 +440,7 @@ class ClientController extends Controller{
 
         if(count($sqlItem) < 1){
 
-            return redirect('/lite/finalizar')->with('erro', 'Cupom de aposta esta vazio');
+            return redirect('/')->with('erro', 'Cupom de aposta esta vazio');
 
         }
 
@@ -460,7 +460,7 @@ class ClientController extends Controller{
 
             if( auth()->user()->status != 1 ){
 
-                return redirect('/lite');
+                return redirect('/');
 
             }
 

@@ -64,7 +64,6 @@ Route::get('teste', 'ClientController@teste');
 Route::get('/atualizar-aposta', 'ClientController@viewAtualizarAposta');
 Route::get('remove-selection/{id}', 'ClientController@removeSelection');
 Route::post('finalizar-aposta', 'ClientController@postFinalizarAposta');
-
 #Operações do Carrinho
 Route::get('/carrinho/adicionar-aposta', 'ClientController@ajaxAdicionarApostaCarrinho');
 Route::get('/carrinho/atualiza-aposta', 'ClientController@atualizaAposta');
