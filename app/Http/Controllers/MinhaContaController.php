@@ -194,7 +194,7 @@ class MinhaContaController extends Controller{
 
 
 
-        return view('lite.visualizar_cupom_aposta', $data);
+        return view('client.visualizar_cupom_aposta', $data);
 
     }
     public function postCadastro(Request $request){

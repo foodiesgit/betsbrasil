@@ -1434,6 +1434,42 @@
 
 
 
+                $('#btn_finalizar_aposta_mobile').click(function(e){
+
+                    $(this).attr('disabled', 'disabled');
+
+                    Swal.fire({
+
+                        title: 'Confirma essa aposta?',
+
+                        text: "Tem certeza que deseja colocar essa aposta?",
+
+                        icon: 'warning',
+
+                        showCancelButton: true,
+
+                        confirmButtonColor: '#3085d6',
+
+                        cancelButtonColor: '#d33',
+
+                        confirmButtonText: 'Confirmar'
+
+                    }).then((result) => {
+
+                        if (result.isConfirmed) {
+
+                            $('#form_finalizar_aposta').submit();
+
+                        }else{
+
+                            $('#btn_finalizar_aposta_mobile').removeAttr('disabled');
+
+                        }
+
+                    });
+
+                });
+
                 $('body').on('keyup', '#newstake', function(e){
 
                     e.preventDefault();
@@ -1523,8 +1559,6 @@
                             $('#slip_total_aposta_mobile').html( $('#newstake_mobile').val() );
 
                             $('#slip_total_retorno_mobile').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
-
-
 
                             $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
 

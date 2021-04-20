@@ -186,7 +186,7 @@
 
 <body>
 
-    @include('lite.include')
+    @include('client.include')
 
     <div class="wrapper">
 
@@ -246,7 +246,7 @@
 
 
 
-        @yield('header-principal')
+        @yield('main-header')
 
 
 
@@ -650,11 +650,11 @@
 
 
 
-        @yield('footer')
+        <!-- @yield('footer') -->
 
 
 
-        @yield('footer2')
+        <!-- @yield('footer2') -->
 
   </div>
 
