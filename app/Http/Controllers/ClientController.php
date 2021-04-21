@@ -546,7 +546,7 @@ class ClientController extends Controller{
 
                         $cupomAposta->retorno_real = 0;
 
-                        $cupomAposta->codigo_unico = Str::random('10');
+                        $cupomAposta->codigo_unico = substr(uniqid(), 0, 6);
 
                         $cupomAposta->save();
 
@@ -648,7 +648,7 @@ class ClientController extends Controller{
 
                 $cupomAposta->retorno_real = 0;
 
-                $cupomAposta->codigo_unico = Str::random('10');
+                $cupomAposta->codigo_unico = substr(uniqid(), 0, 6);
 
                 $cupomAposta->save();
 
