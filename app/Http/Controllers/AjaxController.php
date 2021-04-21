@@ -660,7 +660,7 @@ class AjaxController extends Controller{
 
             $novoCarrinho->valor_total_cotas = 0;
 
-            $novoCarrinho->valor_total_apostado = 10;
+            $novoCarrinho->valor_total_apostado = 0;
 
             $novoCarrinho->save();
 
