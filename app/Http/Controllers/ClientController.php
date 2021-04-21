@@ -1756,5 +1756,11 @@ class ClientController extends Controller{
 
     }
 
+    public function viewRegulamentacao(){
+
+        $dados = DB::table('campos_fixos')->where('id', 1)->first();
+        return view('client.regulamentacao', compact('dados'));
+    }
+
 }
 
