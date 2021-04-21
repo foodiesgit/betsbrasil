@@ -259,8 +259,10 @@
                         echo '
 
                         <div class="dropdown main-profile-menu nav nav-item nav-link">
-
-                            <a class="profile-user d-flex" href=""><img alt="" src="https://www.spruko.com/demo/valex/Valex/assets/img/faces/6.jpg" /></a>
+                            <a class="profile-user d-flex" href="">
+                            <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" class="" />
+                            
+                            </a>
 
                             <div class="dropdown-menu">
 
@@ -268,7 +270,7 @@
 
                                     <div class="d-flex wd-100p">
 
-                                        <div class="main-img-user"><img alt="" src="https://www.spruko.com/demo/valex/Valex/assets/img/faces/6.jpg" class="" /></div>
+                                    
 
                                         <div class="ml-3 my-auto">
 
@@ -320,7 +322,7 @@
 
 
 
-                                            <span>R$ '.number_format($saldo_disponivel, 2, ',', '.').'</span>
+                                            <span>Configurações de usuarios</span>
 
                                         </div>
 
@@ -328,7 +330,7 @@
 
                                 </div>
 
-                                <a class="dropdown-item" href="/minha-conta/meus-dados"><i class="bx bx-user-circle"></i>Meus Dados</a>
+                                <a class="dropdown-item" href="/minha-conta/meus-dados"><i class="bx bx-user-circle"></i>Meus Dados R$ '.number_format($saldo_disponivel, 2, ',', '.').'</a>
 
                                 <a class="dropdown-item" href="/minha-conta/minhas-apostas"><i class="bx bx-cog"></i> Minhas Apostas</a>
 
