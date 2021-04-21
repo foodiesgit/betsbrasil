@@ -499,8 +499,10 @@
                                                         if( count($array_jogos_aba_futebol) > 0 ){
 
                                                             foreach( $array_jogos_aba_futebol as $dados ){
+                                                               ; echo '<h5 style="margin-top: 15px;background: red; color:white; padding:10px; border-radius: 3px;" ><img src="/assets/bandeiras/'.$dados['bandeira'].'" style="width: 24px; height: 24px; margin-right: 5px; ">'.$dados['pais'].'</h5>';
 
-                                                                echo '
+                                                               foreach($dados['ligas'] as $dados){
+                                                                    echo '
                                                                     <h5 class="mb-10 liga" style="
                                                                     background: black;
                                                                     padding: 10px;
@@ -572,7 +574,7 @@
 
                                                                             </div>
                                                                             
-                                                                           
+                                                                        
                                                                         </div>
 
                                                                         </div>';
@@ -580,6 +582,8 @@
                                                                     }
 
                                                                 }
+                                                               }
+                                                           
 
                                                             }
 
