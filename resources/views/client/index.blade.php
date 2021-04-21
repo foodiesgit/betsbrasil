@@ -558,16 +558,16 @@
 
                                                                             </div>
 
-                                                                            <div class="item-cotas">
+                                                                            <div class="item-cotas btn-group">
 
-                                                                                <span class="cota cota-normal cota-aposta" data-id="'.$jogos['oddhome_id'].'">'.$jogos['oddhome_value'].'</span>
+                                                                                <span type="button" class="cota cota-normal cota-aposta" data-id="'.$jogos['oddhome_id'].'">'.$jogos['oddhome_value'].'</span>
 
-                                                                                <span class="cota cota-normal cota-aposta" data-id="'.$jogos['odddraw_id'].'">'.$jogos['odddraw_value'].'</span>
+                                                                                <span type="button" class="cota cota-normal cota-aposta" data-id="'.$jogos['odddraw_id'].'">'.$jogos['odddraw_value'].'</span>
 
-                                                                                <span class="cota cota-normal cota-aposta" data-id="'.$jogos['oddaway_id'].'">'.$jogos['oddaway_value'].'</span>
+                                                                                <span type="button" class="cota cota-normal cota-aposta" data-id="'.$jogos['oddaway_id'].'">'.$jogos['oddaway_value'].'</span>
 
 
-                                                                                <span class="cota cota-normal cota-aposta bg-white border-none moreOdds" style="color:black; border:none;"  data-id="'.$jogos['id'].'" data-bs-toggle="modal" data-bs-target="#moreOdds">+'.$jogos['total_odds'].'</span>
+                                                                                <span type="button" class="cota cota-normal cota-aposta bg-white border-none moreOdds" style="color:black; border:none;"  data-id="'.$jogos['id'].'" data-bs-toggle="modal" data-bs-target="#moreOdds">+'.$jogos['total_odds'].'</span>
 
 
                                                                             </div>
@@ -1580,7 +1580,8 @@
 
                     var id = $(this).attr('data-id');
 
-
+                    $(this).addClass('selecionado');
+                    
 
                     $.ajax({
 

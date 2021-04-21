@@ -649,13 +649,6 @@
             </div>
 
 
-
-        <!-- @yield('footer') -->
-
-
-
-        <!-- @yield('footer2') -->
-
   </div>
 
 
