@@ -207,9 +207,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="media align-items-center">
-                  <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="https://lh3.googleusercontent.com/proxy/bPJQH3mYRKMUavgYsREBMa_mJakqwusyy4wtcgttUFHUpczHG0f31QDZ77fk2cVSbBRSl55fkhgbuaHD4kIS1741kdj93yIZLjbLGAPqCWM3mvaOUmeAQiSAXKWVFBX_H8eJ239ClFdE7A">
-                  </span>
+                  <!-- <span class="avatar avatar-sm rounded-circle">
+                   <img alt="Image placeholder" src="https://lh3.googleusercontent.com/proxy/bPJQH3mYRKMUavgYsREBMa_mJakqwusyy4wtcgttUFHUpczHG0f31QDZ77fk2cVSbBRSl55fkhgbuaHD4kIS1741kdj93yIZLjbLGAPqCWM3mvaOUmeAQiSAXKWVFBX_H8eJ239ClFdE7A">
+                  </span> -->
                   <div class="media-body ml-2 d-none d-lg-block">
                     <span class="mb-0 text-sm  font-weight-bold">Admin</span>
                   </div>
