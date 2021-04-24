@@ -175,8 +175,6 @@ class AdminController extends Controller {
 
             'data_nascimento' => 'required',
 
-            'password' => 'min:6'
-
         ];
 
 
@@ -196,8 +194,6 @@ class AdminController extends Controller {
             'cpf.unique' => 'Esse CPF já esta cadastrado',
 
             'data_nascimento.required' => 'Digite a data de nascimento desse usuário',
-
-            'password.min' => 'A senha deve ter ao menos 6 caracteres'
 
         ];
 

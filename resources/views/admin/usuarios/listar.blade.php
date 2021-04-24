@@ -174,7 +174,7 @@
 
                                     <tr>
 
-                                        <td>'.$dados->nome.'</td>
+                                        <td>'.$dados->name.'</td>
 
                                         <td>'.$dados->email.'</td>
 
