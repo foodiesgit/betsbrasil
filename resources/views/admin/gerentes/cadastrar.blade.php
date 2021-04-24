@@ -4,7 +4,6 @@
 
 
         @yield('header')
-        @yield('alert')
 
     <div class="main-content" id="panel">
 
@@ -44,6 +43,7 @@
                 <p class="mb-0 subtitle">Dados do novo gerente</p>
 
             </div>
+            @yield('alert')
 
             <div class="card-body">
 

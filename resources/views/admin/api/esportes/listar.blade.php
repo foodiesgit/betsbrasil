@@ -17,6 +17,7 @@
     <p class="mb-0 subtitle">Todos os esportes cadastrados</p>
 
 </div>
+@yield('alert') 
 
 <div class="card-body">
 
@@ -135,9 +136,6 @@
 </div>
 
 </div>
-
-		@yield('nav')
-		@yield('alert') 
         </div>
 		@yield('footer') 
         

@@ -17,7 +17,7 @@
 <p class="mb-0 subtitle">Todos os paises cadastrados</p>
 
 </div>
-
+@yield('alert') 
 <div class="card-body">
 
 <div class="table-responsive">
@@ -134,9 +134,6 @@
 </div>
 
 </div>
-
-@yield('nav')
-@yield('alert') 
 </div>
 @yield('footer') 
 

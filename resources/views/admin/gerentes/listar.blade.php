@@ -38,6 +38,7 @@
                 <p class="mb-0 subtitle">Todos os gerentes cadastrados</p>
 
             </div>
+            @yield('alert')
 
             <div class="card-body">
 

@@ -34,6 +34,7 @@
                     <p class="mb-0 subtitle">Dados do novo cambista</p>
 
                 </div>
+                @yield('alert')
 
                 <div class="card-body">
 

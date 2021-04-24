@@ -17,7 +17,7 @@
             <p class="mb-0 subtitle">Todos as ligas cadastradas</p>
 
         </div>
-
+        @yield('alert') 
         <div class="card-body">
 
         <div class="table-responsive">
@@ -143,9 +143,6 @@
     </div>
 
 </div>
-
-@yield('nav')
-@yield('alert') 
 </div>
 @yield('footer') 
 
