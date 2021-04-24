@@ -52,7 +52,6 @@ use App\LancamentosCaixa;
 
 use App\Events;
 
-use App\CambistasComissoes;
 
 use App\CupomAposta;
 
@@ -62,6 +61,7 @@ use App\CuponsIguais;
 
 use App\CuponsIguaisItens;
 
+use App\CambistasComissoes;
 
 
 class AdminController extends Controller {
@@ -90,7 +90,7 @@ class AdminController extends Controller {
 
 
 
-            return redirect('admin/dashboard');
+            return redirect('admin/gerentes/caixa');
 
         }
 
@@ -756,8 +756,7 @@ class AdminController extends Controller {
 
 
 
-        $campos = GerentesCampos::where('idusuario', $id)->get();
-
+        $campos = GerentesCampos::where('idusuario', $id)->first();
 
 
         $data = [
@@ -1066,7 +1065,7 @@ class AdminController extends Controller {
 
 
 
-            $comissoes = new ComissoesCambistas;
+            $comissoes = new CambistasComissoes;
 
             $comissoes->idusuario = $usuario->id;
 
@@ -1156,7 +1155,7 @@ class AdminController extends Controller {
 
 
 
-        $comissoes = ComissoesCambistas::where('idusuario', $id);
+        $comissoes = CambistasComissoes::where('idusuario', $id);
 
 
 
@@ -1284,7 +1283,7 @@ class AdminController extends Controller {
 
 
 
-            $comissoes = ComissoesCambistas::where('idusuario', $usuario->id);
+            $comissoes = CambistasComissoes::where('idusuario', $usuario->id);
 
             $comissoes[0]->comissao1jogo = $input['comissao1jogo'];
 
@@ -2410,7 +2409,7 @@ class AdminController extends Controller {
 
     public function viewGerenciamentoRisco(){
 
-        /*$sql = CupomAposta::where('cupom_aposta.status',1)
+        $sql = CupomAposta::where('cupom_aposta.status',1)
 
             ->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')
 
@@ -2424,15 +2423,15 @@ class AdminController extends Controller {
 
             foreach($sql as $dados){
 
-                dd($dados);
+               
 
             }
 
-        }*/
+        }
 
 
 
-        /*$sql = CupomAposta::where('cupom_aposta.status', 1)->get();
+        $sql = CupomAposta::where('cupom_aposta.status', 1)->get();
 
         if(count($sql) > 0){
 
@@ -2474,23 +2473,23 @@ class AdminController extends Controller {
 
 
 
-                    if($erro == 0){
+                    // if($erro == 0){
 
-                        $c = new CuponsIguais;
+                    //     $c = new CuponsIguais;
 
-                        $c->
+                    //     $c->
 
-                    }
+                    // }
 
                 }
 
             }
 
-        }*/
+        }
 
 
 
-        /*$sql = CupomAposta::where('cupom_aposta.status',1)->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')->get();
+        $sql = CupomAposta::where('cupom_aposta.status',1)->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')->get();
 
 
 
@@ -2502,7 +2501,7 @@ class AdminController extends Controller {
 
 
 
-        return view('admin.jogos.gerenciamento_risco', $data);*/
+        return view('admin.jogos.gerenciamento_risco', $data);
 
     }
 

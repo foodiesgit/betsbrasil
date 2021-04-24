@@ -386,7 +386,7 @@ class ClientController extends Controller{
 
             'esportes' => $esportes,
 
-            'jogos_aba_futebol' => $jogos_aba_futebol,
+            // 'jogos_aba_futebol' => $jogos_aba_futebol,
 
             'array_jogos_aba_futebol' => $array_jogos_aba_futebol,
 
