@@ -41,6 +41,8 @@
 </div>
 
 <div class="card-body">
+@yield('alert')
+
 
     {{ Form::open(['url' => 'admin/cambistas/cadastrar', 'id' => 'form1']) }}
 
