@@ -128,11 +128,11 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-tables">
+              <a class="nav-link" href="#navbar-boxg" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxg">
                 <i class="ni ni-box-2 text-default"></i>
                 <span class="nav-link-text">Caixa Gerentes</span>
               </a>
-              <div class="collapse" id="navbar-tables">
+              <div class="collapse" id="navbar-boxg">
                 <ul class="nav nav-sm flex-column">
                 <li class="nav-item"><a href="/admin/gerentes/caixa" class="nav-link">Dashboard</a></li>
 
@@ -142,11 +142,11 @@
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-tables">
+              <a class="nav-link" href="#navbar-boxc" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxc">
                 <i class="ni ni-box-2  text-default"></i>
                 <span class="nav-link-text">Caixa Cambistas</span>
               </a>
-              <div class="collapse" id="navbar-tables">
+              <div class="collapse" id="navbar-boxc">
                 <ul class="nav nav-sm flex-column">
 
                 <li class="nav-item"><a href="/admin/cambistas/caixa" class="nav-link">Dashboard</a></li>
@@ -156,11 +156,11 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-tables">
+              <a class="nav-link" href="#navbar-jogos" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-jogos">
                 <i class="ni ni-user-run text-default"></i>
                 <span class="nav-link-text">Jogos</span>
               </a>
-              <div class="collapse" id="navbar-tables">
+              <div class="collapse" id="navbar-jogos">
 
                 <ul class="nav nav-sm flex-column">
                 

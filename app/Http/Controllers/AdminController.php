@@ -156,7 +156,7 @@ class AdminController extends Controller {
 
 
 
-        return view('admin.users.editar', $data);
+        return view('admin.usuarios.editar', $data);
 
     }
 
