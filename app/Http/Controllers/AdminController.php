@@ -1183,8 +1183,6 @@ class AdminController extends Controller {
 
             'idgerente' => 'required',
 
-            'comissao' => 'required'
-
         ];
 
 
@@ -1209,7 +1207,6 @@ class AdminController extends Controller {
 
             'idgerente.required' => 'Selecione um gerente para vincular ao cambista',
 
-            'comissao.required' => 'Selecione a comissão desse gerente'
 
         ];
 
