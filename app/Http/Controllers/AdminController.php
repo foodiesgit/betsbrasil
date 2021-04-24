@@ -1145,7 +1145,7 @@ class AdminController extends Controller {
 
 
 
-        $comissoes = CambistasComissoes::where('idusuario', $id);
+        $comissoes = CambistasComissoes::where('idusuario', $id)->get();
 
 
 
