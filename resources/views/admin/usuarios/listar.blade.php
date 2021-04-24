@@ -134,7 +134,7 @@
 
                             <td scope="col" class="sort">Nome</td>
 
-                            <td scope="col" class="sort"> Email</td>
+                            <td scope="col" class="sort">Email</td>
 
                             <td scope="col" class="sort">Créditos</td>
 

@@ -39,7 +39,7 @@
 
                 <div class="card-body">
 
-                    {{ Form::model($sql[0], ['url' => ['admin/usuarios/editar', $sql[0]->id], 'id' => 'form1']) }}
+                    {{ Form::model($sql, ['url' => ['admin/usuarios/editar', $sql->id], 'id' => 'form1']) }}
 
                     <div class="row">
 
@@ -49,9 +49,9 @@
 
                             <label class="mb-1"><strong>Nome Completo*</strong></label>
 
-                            {{ Form::text('nome', null, ['class' => 'form-control form-control-lg '.( $errors->has('nome') ? ' is-invalid' : '' ), 'placeholder' => 'Nome completo do usuário']) }}
+                            {{ Form::text('name', null, ['class' => 'form-control form-control-lg '.( $errors->has('nome') ? ' is-invalid' : '' ), 'placeholder' => 'Nome completo do usuário']) }}
 
-                            @error('nome')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
+                            @error('name')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
                         </div>
 

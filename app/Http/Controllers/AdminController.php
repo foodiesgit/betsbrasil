@@ -136,11 +136,10 @@ class AdminController extends Controller {
 
     public function viewEditarUsuarios($id){
 
-        $sql = User::where('id',$id)->where('tipo_usuario', 1)->get();
+        $sql = User::where('id',$id)->where('tipo_usuario', 1)->first();
+        
 
-
-
-        if(count($sql) == 0){
+        if(!$sql){
 
             return redirect('admin/usuarios/listar')->with('erro', 'Usuário não encontrado');
 
@@ -596,10 +595,9 @@ class AdminController extends Controller {
 
         $input = $request->all();
 
-
         $rules = [
 
-            'nome' => 'required',
+            'name' => 'required',
 
             'email' => 'required|email|unique:usuarios,email',
 
@@ -617,7 +615,7 @@ class AdminController extends Controller {
 
         $messages = [
 
-            'nome.required' => 'Digite o nome completo desse usuário',
+            'name.required' => 'Digite o nome completo desse usuário',
 
             'email.required' => 'Digite o email desse usuário',
 
@@ -669,7 +667,7 @@ class AdminController extends Controller {
 
             $usuario = new User;
 
-            $usuario->name = $input['nome'];
+            $usuario->name = $input['name'];
 
             $usuario->email = $input['email'];
 
@@ -777,7 +775,7 @@ class AdminController extends Controller {
 
         $rules = [
 
-            'nome' => 'required',
+            'name' => 'required',
 
             'email' => 'required|email|unique:usuarios,email,'.$id.'',
 
@@ -793,7 +791,7 @@ class AdminController extends Controller {
 
         $messages = [
 
-            'nome.required' => 'Digite o nome completo desse usuário',
+            'name.required' => 'Digite o nome completo desse usuário',
 
             'email.required' => 'Digite o email desse usuário',
 
@@ -859,7 +857,7 @@ class AdminController extends Controller {
 
             $usuario = User::find($id);
 
-            $usuario->name = $input['nome'];
+            $usuario->name = $input['name'];
 
             $usuario->email = $input['email'];
 
@@ -975,7 +973,7 @@ class AdminController extends Controller {
 
         $rules = [
 
-            'nome' => 'required',
+            'name' => 'required',
 
             'email' => 'required|email|unique:usuarios,email',
 
@@ -993,7 +991,7 @@ class AdminController extends Controller {
 
         $messages = [
 
-            'nome.required' => 'Digite o nome completo desse usuário',
+            'name.required' => 'Digite o nome completo desse usuário',
 
             'email.required' => 'Digite o email desse usuário',
 
@@ -1035,7 +1033,7 @@ class AdminController extends Controller {
 
             $usuario = new User;
 
-            $usuario->name = $input['nome'];
+            $usuario->name = $input['name'];
 
             $usuario->email = $input['email'];
 
@@ -1173,7 +1171,7 @@ class AdminController extends Controller {
 
         $rules = [
 
-            'nome' => 'required',
+            'name' => 'required',
 
             'email' => 'required|email|unique:usuarios,email,'.$id.'',
 
@@ -1189,7 +1187,7 @@ class AdminController extends Controller {
 
         $messages = [
 
-            'nome.required' => 'Digite o nome completo desse usuário',
+            'name.required' => 'Digite o nome completo desse usuário',
 
             'email.required' => 'Digite o email desse usuário',
 
@@ -1244,7 +1242,7 @@ class AdminController extends Controller {
 
             $usuario = User::find($id);
 
-            $usuario->name = $input['nome'];
+            $usuario->name = $input['name'];
 
             $usuario->email = $input['email'];
 

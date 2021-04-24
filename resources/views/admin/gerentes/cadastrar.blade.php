@@ -57,9 +57,9 @@
 
                         <label class="mb-1"><strong>Nome Completo*</strong></label>
 
-                        {{ Form::text('nome', null, ['class' => 'form-control form-control-lg '.( $errors->has('nome') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o nome completo desse gerente']) }}
+                        {{ Form::text('name', null, ['class' => 'form-control form-control-lg '.( $errors->has('nome') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o nome completo desse gerente']) }}
 
-                        @error('nome')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
+                        @error('name')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
                     </div>
 
