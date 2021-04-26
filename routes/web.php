@@ -80,6 +80,7 @@ Route::get('cadastro', 'MinhaContaController@viewCadastro');
 Route::post('cadastro', 'MinhaContaController@postCadastro');
 Route::get('minhas-apostas', 'MinhaContaController@viewMinhasApostas');
 Route::get('minhas-apostas/visualizar-cupom/{codigo_unico}', 'MinhaContaController@viewVisualizarApostaById');
+Route::get('result', 'ResultController@result');
 
 Route::prefix('minha-conta')->group(function(){
     Route::get('dashboard', 'MinhaContaController@viewDashboard');
