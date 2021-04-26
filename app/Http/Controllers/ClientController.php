@@ -81,7 +81,8 @@ class ClientController extends Controller{
     }
 
     public function viewIndex(){
-        $date = \Carbon\Carbon::now()->toDateTime();
+        $date = \Carbon\Carbon::now();
+        $nextD = $date->addDay(1)->toDateTime();
         $campeonatosDestaque = Ligas::where('status', 1)->where('destaque', 1)->get();
 
         $paisesDestaque = Paises::where('status', 1)->where('destaque', 1)->get();
@@ -101,7 +102,7 @@ class ClientController extends Controller{
 */
 
 
-        $sql1 = Events::where('data', '>=', date('Y-m-d H:i:s'))->orderBy('data', 'asc')
+        $sql1 = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
 
         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
@@ -121,7 +122,7 @@ class ClientController extends Controller{
 
         foreach($sql1 as $dados1){
 
-            $jogos_aba_futebol = Events::where('data', '>=', date('Y-m-d H:i:s'))->orderBy('data', 'asc')
+            $jogos_aba_futebol = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
 
                 ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
@@ -145,7 +146,7 @@ class ClientController extends Controller{
 
 
 
-                    $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->orderBy('data', 'asc')
+                    $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
 
                         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
