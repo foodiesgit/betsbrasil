@@ -425,8 +425,7 @@ class ApiController extends Controller {
 
 
         do{
-            // dd('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&&cc='.$pais.'&page='.$i);
-            $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&page='.$i);
+            $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&&cc='.$pais.'&page='.$i);
             
 
             if($response->successful()){
