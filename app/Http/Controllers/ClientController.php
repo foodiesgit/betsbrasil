@@ -146,7 +146,7 @@ class ClientController extends Controller{
 
 
 
-                    $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
+                    $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', $nextD)  ->orderBy('data', 'asc')
 
                         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
@@ -157,7 +157,6 @@ class ClientController extends Controller{
 
 
                     $array_jogos = [];
-
 
 
                     if(count($jogos) > 0){
@@ -1761,6 +1760,11 @@ class ClientController extends Controller{
 
         $dados = DB::table('campos_fixos')->where('id', 1)->first();
         return view('client.regulamentacao', compact('dados'));
+    }
+
+
+    public function verificaBilhete(){
+        return view('client.verifica_bilhete');
     }
 
 }

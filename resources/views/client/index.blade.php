@@ -936,18 +936,8 @@
 
             $(document).ready(function(e){
             
-
-               
-                $('#autocomplete').autocomplete({
-                    serviceUrl: '/ajax/search',
-                    onSelect: function (suggestion) {
-                        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-                    }
-                });
-               
                 $('#search').on('keyup',function(e){ 
 
-                    console.log(e.keyCode)
                     var query = $('#search').val();
                     if(query.length > 2){
                         $.ajax({

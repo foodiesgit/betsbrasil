@@ -73,7 +73,7 @@ class ApiController extends Controller {
         if(count($odds) > 0){ $odds = Odds::find($odds[0]->id); }else{ $odds = new Odds; }
 
 
-
+        $name = "";
         if(isset($item->name)){
 
             $name = $item->name;
@@ -131,7 +131,6 @@ class ApiController extends Controller {
         }
 
 
-
         $odds->save();
 
     }
@@ -161,15 +160,10 @@ class ApiController extends Controller {
     public function atualizaOdds($idevent){
 
         $events = Events::find($idevent);
-
-
-
-        $response = Http::get('https://api.betsapi.com/v1/bet365/start_sp?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
-
-
+        $response = Http::get('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
 
         if( $response->successful() ){
-
+            
             $json = json_decode($response->body(), false);
 
 
@@ -181,18 +175,31 @@ class ApiController extends Controller {
 
 
                 # Inicia o grupo 4 -> Half
+                if(isset($json->results[0]->main->sp)){
 
+                    foreach($json->results[0]->main->sp as $key => $value){
+
+                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
+                        if(count($sql) < 1){
+                            
+                            $sql = new OddsSubGrupo;
+                            $sql->titulo_original = $key;
+                            $sql->status = 1;
+                            $sql->save();
+                            
+                        }
+
+                    }
+
+                }
                 if(isset($json->results[0]->half->sp)){
 
                     foreach($json->results[0]->half->sp as $key => $value){
 
                         $sql = OddsSubGrupo::where('titulo_original', $key)->get();
-
                         if(count($sql) > 0){
 
                             $idgrupo = $sql[0]->id;
-
-
 
                             if(count($json->results[0]->half->sp->$key) > 0){
 
@@ -204,6 +211,13 @@ class ApiController extends Controller {
 
                             }
 
+                        }else{
+                            
+                            $sql = new OddsSubGrupo;
+                            $sql->titulo_original = $key;
+                            $sql->status = 1;
+                            $sql->save();
+                            
                         }
 
                     }
@@ -235,6 +249,14 @@ class ApiController extends Controller {
                                 }
 
                             }
+
+                        }else{
+                            
+                            $sql = new OddsSubGrupo;
+       
+                            $sql->titulo_original = $key;
+                            $sql->status = 1;
+                            $sql->save();
 
                         }
 
@@ -272,6 +294,13 @@ class ApiController extends Controller {
 
                             }
 
+                        }else{
+                            
+                            $sql = new OddsSubGrupo;
+                            $sql->titulo_original = $key;
+                            $sql->status = 1;
+                            $sql->save();
+                        
                         }
 
                     }
@@ -285,7 +314,8 @@ class ApiController extends Controller {
 
 
                 if(isset($json->results[0]->main->sp->full_time_result)){
-
+                    
+                    
                     $this->salvaOdds($idevent, 79, $json->results[0]->main->sp->full_time_result[0]);
 
                     $this->salvaOdds($idevent,79, $json->results[0]->main->sp->full_time_result[1]);
@@ -312,9 +342,9 @@ class ApiController extends Controller {
 
                     for($i = 0; $i < 50; $i++){
 
-                        if(isset($json->results[0]->main->sp->double_chance[$i])){
+                        if(isset($json->results[0]->main->sp->correct_score[$i])){
 
-                            $this->salvaOdds($idevent,81, $json->results[0]->main->sp->double_chance[$i]);
+                            $this->salvaOdds($idevent,81, $json->results[0]->main->sp->correct_score[$i]);
 
                         }
 
@@ -525,8 +555,8 @@ class ApiController extends Controller {
                             $events->idaway = $times->id;
 
                             if(isset($dados_json->id)){
-
-                                $events->bet365_id = $dados_json->id;
+                              
+                                $events->bet365_id = isset($dados_json->bet365_id) ? $dados_json->bet365_id: 0;
 
                             }
 

@@ -96,8 +96,8 @@ class MinhaContaController extends Controller{
                 return redirect($redirect);
 
             }else{
-
-                return redirect('minha-conta/dashboard');
+                
+                return redirect('/admin/cambistas/caixa');
 
             }
 

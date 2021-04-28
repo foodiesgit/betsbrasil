@@ -73,6 +73,7 @@ Route::get('/carrinho/excluir-aposta', 'ClientController@excluirAposta');
 Route::get('/carrinho/colocar-aposta', 'ClientController@colocarAposta');
 Route::get('/carrinho/recupera-carrinho', 'ClientController@ajaxRecuperaApostasCarrinho');
 Route::get('ver-cupom/{random}', 'ClientController@verCupom');
+Route::get('verifica-bilhete', 'ClientController@verificaBilhete');
 
 Route::get('login', 'MinhaContaController@viewLogin');
 Route::post('login', 'MinhaContaController@postLogin');
@@ -138,6 +139,8 @@ Route::prefix('admin')->group(function(){
         Route::post('cambistas/caixa/lancamentos/{id}', 'AdminController@postLancamentoCaixaCambista');
         Route::get('cambistas/caixa/historico/{id}', 'AdminController@viewHistoricoLancamentosCambistas');
         Route::get('cambistas/caixa/historico', 'AdminController@viewHistoricoLancamentosCambistasGeral');
+        Route::get('usuarios/saques', 'AdminController@viewHistoricoLancamentosUsuariosGeral');
+        Route::get('usuarios/saques/{id}', 'AdminController@viewHistoricoLancamentosUsuario');
 
         Route::get('jogos/listar', 'AdminController@viewListarJogos');
         Route::get('jogos/mapa-aposta', 'AdminController@viewMapaAposta');

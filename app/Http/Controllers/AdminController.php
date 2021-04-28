@@ -82,19 +82,15 @@ class AdminController extends Controller {
 
 
 
-        if (Auth::attempt(['email' => $input['email'], 'password' => $input['password'], 'tipo_usuario' => 2])) {
+        if (Auth::attempt(['email' => $input['email'], 'password' => $input['password']])) {
 
             Session::put('idadmin', Auth::user()->id);
 
             Session::put('nomeadmin', Auth::user()->nome);
 
-
-
             return redirect('admin/gerentes/caixa');
 
         }
-
-
 
         return redirect('admin/login')->with('erro', 'Email e/ou senha incorretos');
 
@@ -1892,7 +1888,83 @@ class AdminController extends Controller {
         return view('admin.financeiro.historico_cambista', $data);
 
     }
+    public function viewHistoricoLancamentosUsuario(Request $request, $id){
 
+        $input = $request->all();
+
+
+
+        try{
+
+            $dataInicio = Carbon::createFromFormat('d/m/Y', $input['dataInicio']);
+
+            $dataInicioUs = $dataInicio->format('Y-m-d');
+
+            $dataInicioFormat = $dataInicio->format('d/m/Y');
+
+        }catch(\Exception $e){
+
+            $dataInicio = new Carbon();
+
+            $dataInicioUs = $dataInicio->firstOfMonth()->format('Y-m-d');
+
+            $dataInicioFormat = $dataInicio->format('d/m/Y');
+
+        }
+
+
+
+        try{
+
+            $dataFinal = Carbon::createFromFormat('d/m/Y', $input['dataFinal']);
+
+            $dataFinalUs = $dataFinal->format('Y-m-d');
+
+            $dataFinalFormat = $dataFinal->format('d/m/Y');
+
+        }catch(\Exception $e){
+
+            $dataFinal = new Carbon();
+
+            $dataFinalUs = $dataInicio->lastOfMonth()->format('Y-m-d');
+
+            $dataFinalFormat = $dataInicio->format('d/m/Y');
+
+        }
+
+
+
+        $sql = LancamentosCaixa::leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"))->where('lancamentos_caixa.idusuario', $id)
+
+        ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
+
+
+
+        $usuario = User::find($id);
+
+
+
+        $data = [
+
+            'sql' => $sql,
+
+            'usuario' => $usuario,
+
+            'datas' => [
+
+                'dataInicio' => $dataInicioFormat,
+
+                'dataFinal' => $dataFinalFormat
+
+            ]
+
+        ];
+
+
+
+        return view('admin.financeiro.historico_usuario', $data);
+
+    }
     public function viewHistoricoLancamentosCambistasGeral(Request $request){
 
         $input = $request->all();
@@ -1969,7 +2041,81 @@ class AdminController extends Controller {
 
     }
 
+    public function viewHistoricoLancamentosUsuariosGeral(Request $request){
 
+        $input = $request->all();
+
+
+
+        try{
+
+            $dataInicio = Carbon::createFromFormat('d/m/Y', $input['dataInicio']);
+
+            $dataInicioUs = $dataInicio->format('Y-m-d');
+
+            $dataInicioFormat = $dataInicio->format('d/m/Y');
+
+        }catch(\Exception $e){
+
+            $dataInicio = new Carbon();
+
+            $dataInicioUs = $dataInicio->firstOfMonth()->format('Y-m-d');
+
+            $dataInicioFormat = $dataInicio->format('d/m/Y');
+
+        }
+
+
+
+        try{
+
+            $dataFinal = Carbon::createFromFormat('d/m/Y', $input['dataFinal']);
+
+            $dataFinalUs = $dataFinal->format('Y-m-d');
+
+            $dataFinalFormat = $dataFinal->format('d/m/Y');
+
+        }catch(\Exception $e){
+
+            $dataFinal = new Carbon();
+
+            $dataFinalUs = $dataInicio->lastOfMonth()->format('Y-m-d');
+
+            $dataFinalFormat = $dataInicio->format('d/m/Y');
+
+        }
+
+
+
+        $sql = LancamentosCaixa::leftJoin('users', 'users.id','=','lancamentos_caixa.idusuario')->leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"), 'users.name', 'users.email')->where('users.tipo_usuario', 1)
+
+        ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
+
+
+
+
+
+
+
+        $data = [
+
+            'sql' => $sql,
+
+            'datas' => [
+
+                'dataInicio' => $dataInicioFormat,
+
+                'dataFinal' => $dataFinalFormat
+
+            ]
+
+        ];
+
+
+
+        return view('admin.financeiro.historico_usuarios_todos', $data);
+
+    }
 
     public function viewMapaAposta(Request $request){
 

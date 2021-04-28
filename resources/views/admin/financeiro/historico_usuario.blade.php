@@ -81,7 +81,7 @@
 
                             <div class="card-header d-block">
 
-                                <h4 class="card-title">Cambistas</h4>
+                                <h4 class="card-title">Usuario</h4>
 
                                 <p class="mb-0 subtitle">Lançamentos Efetuados</p>
 
