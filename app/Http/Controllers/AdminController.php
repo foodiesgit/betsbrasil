@@ -2465,7 +2465,20 @@ class AdminController extends Controller {
 
         DB::table('campos_fixos')->where('id', 1)->update([
 
+            
             'regulamento' => $input['regulamento'],
+            'nome_banca' => $input['nome_banca'],
+            'telefone' => $input['telefone'],
+            'valor_minimo_aposta' => $input['valor-minimo-aposta'],
+            'valor_maximo_aposta' => $input['valor-maximo-aposta'],
+            'valor_maximo_aposta_av' => $input['valor-maximo-aposta-av'],
+            'premio_maximo' => $input['premio-maximo'],
+            'nao_pagar_comissao_menor' => $input['nao-pagar-comissao-menor'],
+            'cotacao_minima' => $input['cotacao-minima'],
+            'cotacao_maxima' => $input['cotacao-maxima'],
+            'nao_exibir_cotacao_menor' => $input['nao-exibir-cotacao-menor'],
+            'quantidade_minima_jogos' => $input['quantidade-minima-jogos'],
+            'quantidade_maxima_times_v' => $input['quantidade-maxima-times-v'],
 
             'rodape_cupom' => $input['rodape_cupom']
 

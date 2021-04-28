@@ -49,51 +49,51 @@
     <div class="row">
         <div class="form-group col-sm-12">
             <label for="nome_banca">Nome da banca</label>
-            <input type="text" class="form-control" id="nome_banca" name="nome_banca" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="nome_banca" name="nome_banca" value="{{$sql[0]->nome_banca}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="telefone">Telefone</label>
-            <input type="text" class="form-control" id="telefone" name="telefone" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="telefone" name="telefone"value="{{$sql[0]->telefone}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="valor-minimo-aposta">Valor minimo por aposta (R$)</label>
-            <input type="text" class="form-control" id="valor-minimo-aposta" name="valor-minimo-aposta" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="valor-minimo-aposta" name="valor-minimo-aposta"value="{{$sql[0]->valor_minimo_aposta}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="valor-maximo-aposta">Valor máximo por aposta (R$)</label>
-            <input type="text" class="form-control" id="valor-maximo-aposta" name="valor-maximo-aposta" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="valor-maximo-aposta" name="valor-maximo-aposta"value="{{$sql[0]->valor_maximo_aposta}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="valor-maximo-aposta">Valor máximo por aposta (Ao Vivo) (R$)</label>
-            <input type="text" class="form-control" id="valor-maximo-aposta-av" name="valor-maximo-aposta-av" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="valor-maximo-aposta-av" name="valor-maximo-aposta-av"value="{{$sql[0]->premio_maximo}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="premio-maximo">Prêmio Máximo (R$)</label>
-            <input type="text" class="form-control" id="premio-maximo" name="premio-maximo" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="premio-maximo" name="premio-maximo"value="{{$sql[0]->nao_pagar_comissao_menor}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="cotacao-maxima">Cotação minima no bilhete</label>
-            <input type="number" class="form-control" id="cotacao-minima" name="cotacao-minima" aria-describedby="emailHelp">
+            <input type="number" class="form-control" id="cotacao-minima" name="cotacao-minima"value="{{$sql[0]->cotacao_minima}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="nao-pagar-comissao-menor">Não pagar comissão em apostas com cota menor que</label>
-            <input type="number" class="form-control" id="nao-pagar-comissao-menor" name="nao-pagar-comissao-menor" aria-describedby="emailHelp">
+            <input type="number" class="form-control" id="nao-pagar-comissao-menor" name="nao-pagar-comissao-menor"value="{{$sql[0]->nao_exibir_cotacao_menor}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="cotacao-maxima">Cotação máxima no bilhete</label>
-            <input type="number" class="form-control" id="cotacao-maxima" name="cotacao-maxima" aria-describedby="emailHelp">
+            <input type="number" class="form-control" id="cotacao-maxima" name="cotacao-maxima" value="{{$sql[0]->cotacao_maxima}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="nao-exibir-cotacao-menor">Não exibir cotações menores que</label>
-            <input type="number" class="form-control" id="nao-exibir-cotacao-menor" name="nao-exibir-cotacao-menor" aria-describedby="emailHelp">
+            <input type="number" class="form-control" id="nao-exibir-cotacao-menor" name="nao-exibir-cotacao-menor"value="{{$sql[0]->nao_exibir_cotacao_menor}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="quantidade-minima-jogos">Quantidade minima de jogos por bilhete</label>
-            <input type="number" class="form-control" id="quantidade-minima-jogos" name="quantidade-minima-jogos" aria-describedby="emailHelp">
+            <input type="number" class="form-control" id="quantidade-minima-jogos" name="quantidade-minima-jogos"value="{{$sql[0]->quantidade_minima_jogos}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="quantidade-maxima-times-v">Quantidade máxima de times visitantes do mesmo campeonato por bilhete</label>
-            <input type="number" class="form-control" id="quantidade-maxima-times-v" name="quantidade-maxima-times-v" aria-describedby="emailHelp">
+            <input type="number" class="form-control" id="quantidade-maxima-times-v" name="quantidade-maxima-times-v"value="{{$sql[0]->quantidade_maxima_times_v}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="texto-rodape">Texto rodapé bilhete</label>
