@@ -205,6 +205,21 @@
                 $('#form1').submit();
 
             });
+            $(".summernote").summernote({
+
+                height: 190,
+
+                minHeight: null,
+
+                maxHeight: null,
+
+                focus: !1
+
+            }), $(".inline-editor").summernote({
+
+                airMode: !0
+
+            });
 
             $('input[name=valor-minimo-aposta]').maskMoney({
 

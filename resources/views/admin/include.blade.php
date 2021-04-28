@@ -191,6 +191,14 @@
             @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="/admin/fixos">
+                <i class="ni ni-single-copy-04 text-default"></i>
+                <span class="nav-link-text">Bilhetes</span>
+              </a>
+            </li>
+            @endif
+            @if($user->tipo_usuario == 2)
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/fixos">
                 <i class="ni ni-support-16 text-default"></i>
                 <span class="nav-link-text">Configurações</span>
               </a>
