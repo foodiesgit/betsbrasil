@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -936,7 +937,17 @@
             $(document).ready(function(e){
             
 
-                $('#search').on('keyup',function(){
+               
+                $('#autocomplete').autocomplete({
+                    serviceUrl: '/ajax/search',
+                    onSelect: function (suggestion) {
+                        alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                    }
+                });
+               
+                $('#search').on('keyup',function(e){ 
+
+                    console.log(e.keyCode)
                     var query = $('#search').val();
                     if(query.length > 2){
                         $.ajax({

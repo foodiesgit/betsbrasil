@@ -914,9 +914,13 @@ class AdminController extends Controller {
 
 
     public function viewListarCambistas(){
+        if(Auth::user()->tipo_usuario == 3){
+            $sql = User::where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->get();
 
-        $sql = User::where('tipo_usuario', 4)->get();
-
+        }
+        else{    
+            $sql = User::where('tipo_usuario', 4)->get();
+        }
 
 
         $data = [
@@ -932,7 +936,6 @@ class AdminController extends Controller {
     }
 
     public function viewCadastrarCambistas(){
-
         $sql = User::where('tipo_usuario', 3)->get();
 
         $arrayUsuarios = [];
@@ -2485,6 +2488,15 @@ class AdminController extends Controller {
         return view('admin.jogos.gerenciamento_risco', $data);
 
     }
-
+    public function logout(Request $request)
+    {
+        Auth::logout();
+    
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+    
+        return redirect('/');
+    }
 }
 

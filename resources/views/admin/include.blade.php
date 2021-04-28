@@ -34,6 +34,10 @@
 </head>
 
 <body>
+<?php $user =\Auth::user();
+
+?>
+           
   <!-- Sidenav -->
   <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
@@ -63,6 +67,7 @@
                 <i class="ni ni-shop text-primary"></i>
                 Dashboard</a>
             </li>
+            @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
                 <i class="ni ni-circle-08 text-orange"></i>
@@ -76,6 +81,8 @@
                 </ul>
               </div>
             </li>
+            @endif
+            @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-components" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-components">
                 <i class="ni ni-ui-04 text-info"></i>
@@ -95,7 +102,9 @@
                   </li>
                 </ul>
               </div>
-            </li>
+            <li>
+            @endif
+            @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-forms" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
                 <i class="ni ni-briefcase-24 text-pink"></i>
@@ -112,6 +121,8 @@
                 </ul>
               </div>
             </li>
+            @endif
+            @if($user->tipo_usuario == 2||$user->tipo_usuario == 3)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-tables" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-tables">
                 <i class="ni ni-single-02 text-default"></i>
@@ -126,7 +137,8 @@
                 </ul>
               </div>
             </li>
-
+            @endif
+            @if($user->tipo_usuario == 2||$user->tipo_usuario == 3)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-boxg" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxg">
                 <i class="ni ni-box-2 text-default"></i>
@@ -140,7 +152,8 @@
                 </ul>
               </div>
             </li>
-            
+            @endif
+            @if($user->tipo_usuario == 2||$user->tipo_usuario == 3)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-boxc" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxc">
                 <i class="ni ni-box-2  text-default"></i>
@@ -155,6 +168,8 @@
                 </ul>
               </div>
             </li>
+            @endif
+            @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-jogos" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-jogos">
                 <i class="ni ni-user-run text-default"></i>
@@ -172,12 +187,15 @@
                 </ul>
               </div>
             </li>
+            @endif
+            @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="/admin/fixos">
                 <i class="ni ni-support-16 text-default"></i>
                 <span class="nav-link-text">Configurações</span>
               </a>
             </li>
+            @endif
           </ul>
         </div>
       </div>

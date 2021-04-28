@@ -694,9 +694,9 @@
 
                                     echo '
 
-                                        <li aria-haspopup="true"><a href="/lite/login" class="slide-item">Entrar</a></li>
+                                        <li aria-haspopup="true"><a href="/login" class="slide-item">Entrar</a></li>
 
-                                        <li aria-haspopup="true"><a href="/lite/cadastro" class="slide-item">Cadastrar</a></li>
+                                        <li aria-haspopup="true"><a href="/cadastro" class="slide-item">Cadastrar</a></li>
 
                                     ';
 

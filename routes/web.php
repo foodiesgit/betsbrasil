@@ -103,6 +103,7 @@ Route::prefix('admin')->group(function(){
         Route::get('usuarios/listar', 'AdminController@viewListarUsuarios');
         Route::get('usuarios/editar/{id}', 'AdminController@viewEditarUsuarios');
         Route::post('usuarios/editar/{id}', 'AdminController@postEditarUsuarios');
+        Route::get('logout', 'AdminController@logout');
 
         /*Gerênciar API */
         Route::get('api/esportes/listar', 'AdminController@viewListarEsportes');
