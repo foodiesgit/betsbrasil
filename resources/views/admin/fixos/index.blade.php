@@ -47,7 +47,58 @@
     {{ Form::model($sql[0], ['url' => ['admin/fixos', ''], 'id' => 'form1']) }}
 
     <div class="row">
-
+        <div class="form-group col-sm-12">
+            <label for="nome_banca">Nome da banca</label>
+            <input type="text" class="form-control" id="nome_banca" name="nome_banca" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="telefone">Telefone</label>
+            <input type="text" class="form-control" id="telefone" name="telefone" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="valor-minimo-aposta">Valor minimo por aposta (R$)</label>
+            <input type="num" class="form-control" id="valor-minimo-aposta" name="valor-minimo-aposta" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="valor-maximo-aposta">Valor máximo por aposta (R$)</label>
+            <input type="num" class="form-control" id="valor-maximo-aposta" name="valor-maximo-aposta" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="valor-maximo-aposta">Valor máximo por aposta (Ao Vivo) (R$)</label>
+            <input type="num" class="form-control" id="valor-minimo-aposta-av" name="valor-maximo-aposta-av" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="premio-maximo">Prêmio Máximo (R$)</label>
+            <input type="num" class="form-control" id="premio-maximo" name="premio-maximo" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="cotacao-maxima">Cotação minima no bilhete</label>
+            <input type="num" class="form-control" id="cotacao-minima" name="cotacao-minima" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="nao-pagar-comissao-menor">Não pagar comissão em apostas com cota menor que</label>
+            <input type="num" class="form-control" id="nao-pagar-comissao-menor" name="nao-pagar-comissao-menor" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="cotacao-maxima">Cotação máxima no bilhete</label>
+            <input type="num" class="form-control" id="cotacao-maxima" name="cotacao-maxima" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="nao-exibir-cotacao-menor">Não exibir cotações menores que</label>
+            <input type="num" class="form-control" id="nao-exibir-cotacao-menor" name="nao-exibir-cotacao-menor" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="quantidade-minima-jogos">Quantidade minima de jogos por bilhete</label>
+            <input type="num" class="form-control" id="quantidade-minima-jogos" name="quantidade-minima-jogos" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="quantidade-maxima-times-v">Quantidade máxima de times visitantes do mesmo campeonato por bilhete</label>
+            <input type="num" class="form-control" id="quantidade-maxima-times-v" name="quantidade-maxima-times-v" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
+            <label for="texto-rodape">Texto rodapé bilhete</label>
+            <textarea class="form-control" id="texto-rodape" rows="3"></textarea>
+        </div>
         <div class="form-group col-sm-12">
 
             <label class="mb-1"><strong>Regulamento*</strong></label>
@@ -109,7 +160,7 @@
 
     <script src="/assets2/vendor/summernote/js/summernote.min.js"></script>
 
-
+    <script src="/assets2/js/jquery.maskMoney.min.js"></script>
 
     <script src="https://unpkg.com/imask"></script>
 
@@ -155,6 +206,15 @@
 
             });
 
+            $('input[name=valor-minimo-aposta]').maskMoney({
+
+            prefix: 'R$ ',
+
+            thousands: '.',
+
+            decimal: ','
+
+            });
 
 
             $(".summernote").summernote({

@@ -597,7 +597,7 @@ class AdminController extends Controller {
 
             'email' => 'required|email|unique:usuarios,email',
 
-            'cpf' => 'required|unique:usuarios,cpf',
+            'cpf' => 'unique:usuarios,cpf',
 
             'data_nascimento' => 'required',
 
@@ -618,10 +618,6 @@ class AdminController extends Controller {
             'email.email' => 'Digite um email válido',
 
             'email.unique' => 'O email já esta cadastrado',
-
-            'cpf.required' => 'Digite o CPF desse usuário',
-
-            'cpf.unique' => 'Esse CPF já esta cadastrado',
 
             'data_nascimento.required' => 'Digite a data de nascimento desse usuário',
 
@@ -775,7 +771,7 @@ class AdminController extends Controller {
 
             'email' => 'required|email|unique:usuarios,email,'.$id.'',
 
-            'cpf' => 'required|unique:usuarios,cpf,'.$id.'',
+            'cpf' => 'unique:usuarios,cpf,'.$id.'',
 
             'data_nascimento' => 'required',
 
@@ -794,8 +790,6 @@ class AdminController extends Controller {
             'email.email' => 'Digite um email válido',
 
             'email.unique' => 'O email já esta cadastrado',
-
-            'cpf.required' => 'Digite o CPF desse usuário',
 
             'cpf.unique' => 'Esse CPF já esta cadastrado',
 

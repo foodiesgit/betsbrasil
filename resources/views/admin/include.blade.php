@@ -65,7 +65,7 @@
             <li class="nav-item">
                 <a href="/admin/gerentes/caixa" class="nav-link">
                 <i class="ni ni-shop text-primary"></i>
-                Dashboard</a>
+                Início</a>
             </li>
             @if($user->tipo_usuario == 2)
             <li class="nav-item">
