@@ -193,12 +193,12 @@
                   </article>
 
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 d-none d-sm-block d-md-none d-lg-block" >
               <div class="row row-50">
-                <div class="col-md-6 col-lg-12">
+                <div class="col-lg-6 col-lg-12">
 
                   <!-- Game Highlights-->
-                  <div class="game-highlights" style="max-height:775px; overflow:auto; ">
+                  <div class="game-highlights " style="max-height:775px; overflow:auto; ">
                     <ul class="game-highlights-list" id="highlights-{{$jogo->betid}}">
                       <li>
                         <p class="game-highlights-title">Aguardando o Início da Partida
@@ -331,50 +331,53 @@
         method: 'GET',
 
         success: function(res){
-            var placar =  res[0][0].ss.split('-')
-            $('#homePlacar-'+res[0][0].bet365_id).html(placar[0]);
-            $('#awayPlacar-'+res[0][0].bet365_id).html(placar[1]);
-                $('#estatistica-'+res[0][0].bet365_id).html(
+            $.each(res, function(i, res) {
+                var placar =  res[0].ss.split('-')
+                $('#homePlacar-'+res[0].bet365_id).html(placar[0]);
+                $('#awayPlacar-'+res[0].bet365_id).html(placar[1]);
+                $('#estatistica-'+res[0].bet365_id).html(
                 '<tr>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.off_target[0]+'('+res[0][0].stats.on_target[0]+')</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.off_target[0]+'('+res[0].stats.on_target[0]+')</td>'+
                 '<td class="table-game-info-category">Chutes (no Gol)</td>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.off_target[1]+'('+res[0][0].stats.on_target[1]+')</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.off_target[1]+'('+res[0].stats.on_target[1]+')</td>'+
                 '</tr>'+
                 '<tr>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.goals[0]+'</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.goals[0]+'</td>'+
                 '<td class="table-game-info-category">Gols</td>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.goals[1]+'</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.goals[1]+'</td>'+
                 '</tr>'+
                 '<tr>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.corners[0]+'</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.corners[0]+'</td>'+
                 '<td class="table-game-info-category">Escanteios</td>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.corners[1]+'</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.corners[1]+'</td>'+
                 '</tr>'+
                 '<tr>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.possession_rt[0]+'%</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.possession_rt[0]+'%</td>'+
                 '<td class="table-game-info-category">Posse de Bola</td>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.possession_rt[1]+'%</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.possession_rt[1]+'%</td>'+
                 '</tr>'+
                 '<tr>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.yellowcards[0]+'</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.yellowcards[0]+'</td>'+
                 '<td class="table-game-info-category">Cartões Amarelos</td>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.yellowcards[1]+'</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.yellowcards[1]+'</td>'+
                 '</tr>'+
                 '<tr>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.redcards[0]+'</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.redcards[0]+'</td>'+
                 '<td class="table-game-info-category">Cartões Vermelhos</td>'+
-                '<td class="table-game-info-number">'+res[0][0].stats.redcards[1]+'</td>'+
+                '<td class="table-game-info-number">'+res[0].stats.redcards[1]+'</td>'+
                 '</tr>'
                 );
 
-            $.each(res[0][0].events, function(i, item) {
-                var valor =  item.text.split('-')
-                $('#highlights-'+res[0][0].bet365_id).append('<li>'+
-                        '<p class="game-highlights-title">'+valor[1]+' - ' +valor[2]+
-                        '</p><span class="game-highlights-minute">'+valor[0]+'</span>'+
-                      '</li>');
+                $.each(res[0].events, function(i, item) {
+                    var valor =  item.text.split('-')
+                    $('#highlights-'+res[0].bet365_id).append('<li>'+
+                            '<p class="game-highlights-title">'+valor[1]+' - ' +valor[2]+
+                            '</p><span class="game-highlights-minute">'+valor[0]+'</span>'+
+                        '</li>');
 
+                });
             });
+            
 
 
 
