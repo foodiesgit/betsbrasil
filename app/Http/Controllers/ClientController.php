@@ -1773,12 +1773,17 @@ class ClientController extends Controller{
     public function resultBilhete(Request $request){
 
         $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', '!=', 4)->first();
-        $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->join('odds_subgrupo', 'odds_subgrupo.id', '=', 'odds.idsubgrupo')->join('times as home', 'home.id', '=', 'events.idhome')->join('times as away', 'away.id', '=', 'events.idaway')->join('estadios', 'estadios.id', '=', 'events.idestadio')->join('ligas', 'ligas.id', '=', 'events.idliga')
-        ->where('idcupom',  $aposta->id)
-        ->select('events.*','events.bet365_id as betid','cupom_aposta_item.status_resultado as ticketStatus', 'odds.*', 'home.nome as homeNome', 'home.image_id as homeImage','away.image_id as awayImage','away.nome as awayNome', 'estadios.city', 'estadios.name as estadio', 'estadios.country', 'ligas.nome_traduzido', 'odds_subgrupo.titulo_traduzido')
-        ->get();
-        // dd($jogos);
-        return view('client.view_bilhete', compact('aposta', 'jogos'));
+        if($aposta){
+            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->join('odds_subgrupo', 'odds_subgrupo.id', '=', 'odds.idsubgrupo')->join('times as home', 'home.id', '=', 'events.idhome')->join('times as away', 'away.id', '=', 'events.idaway')->join('estadios', 'estadios.id', '=', 'events.idestadio')->join('ligas', 'ligas.id', '=', 'events.idliga')
+            ->where('idcupom',  $aposta->id)
+            ->select('events.*','events.bet365_id as betid','cupom_aposta_item.status_resultado as ticketStatus', 'odds.*', 'home.nome as homeNome', 'home.image_id as homeImage','away.image_id as awayImage','away.nome as awayNome', 'estadios.city', 'estadios.name as estadio', 'estadios.country', 'ligas.nome_traduzido', 'odds_subgrupo.titulo_traduzido')
+            ->get();
+            // dd($jogos);
+            return view('client.view_bilhete', compact('aposta', 'jogos'));
+        }else{
+            return Redirect()->back()->with('erro', 'Aposta não encontrada');
+        }
+
     }
 
 
@@ -1790,7 +1795,6 @@ class ClientController extends Controller{
             $result = json_decode($result);
         }else{
             $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', '!=', 4)->first();
-
             $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)->where('status_resultado', 0)->orwhere('status_resultado', 1)->orwhere('status_resultado', 2)->get();
             $result = [];
             foreach($jogos as $jogo){

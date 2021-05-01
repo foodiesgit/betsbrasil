@@ -135,13 +135,16 @@
                                 </div>
 
                                 <div class="card-body">
+                                @yield('alert')
 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Codigo do Bilhete</label>
-                                    <input type="text" class="form-control" id="codigo_bilhete" aria-describedby="emailHelp">
-                                    <small id="emailHelp" class="form-text text-muted">Informe o codigo de acesso que se encontra em seu bilhete</small>
-                                    </br>
-                                    <button type="submit" class="btn btn-primary">Verificar</button>
+                                        <label for="exampleInputEmail1">Codigo do Bilhete</label>
+                                        <input type="text" class="form-control" name="bilhete" id="bilhete">
+                                        <small id="emailHelp" class="form-text text-muted">Informe o codigo de acesso que se encontra em seu bilhete</small>
+                                        </br>
+                                        <button type="submit" id="btnVerificar" class="btn btn-primary">Verificar</button>
+                                    </form>
+                                    
                                 </div>
 
                                 </div>
@@ -223,7 +226,17 @@
     </div>
 
     <div class="main-navbar-backdrop"></div>
+    <script>
+       $(document).ready(function(e){
 
+            $('#btnVerificar').click(function(e){
+
+               var bilhete = $('#bilhete').val();
+               window.location.href = "/verifica-bilhete/"+bilhete;
+            });
+
+        });
+</script>
 </body>
 
 
