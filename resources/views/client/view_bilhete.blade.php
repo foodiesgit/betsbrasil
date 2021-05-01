@@ -371,8 +371,8 @@
                 $.each(res[0].events, function(i, item) {
                     var valor =  item.text.split('-')
                     $('#highlights-'+res[0].bet365_id).append('<li>'+
-                            '<p class="game-highlights-title">'+valor[1]+' - ' +valor[2]+
-                            '</p><span class="game-highlights-minute">'+valor[0]+'</span>'+
+                            '<p class="game-highlights-title">'+translate(valor[1])+' - ' +valor[2]+
+                            '</p><span class="game-highlights-minute">'+translate(valor[0])+'</span>'+
                         '</li>');
 
                 });
@@ -392,6 +392,31 @@
         }
 
         });
+
+
+        function translate(texto){
+            var eng = ['Yellow Card','Red Card', 'Corner', 'Goal', '1st', '2nd', '3rd','4th', '5th', '6th' , '7th', '8th','9th','10th', 'Score After First Half ','Score After Full Time ',"Race to"]
+            var port = ['Cartão Amarelo', 'Cartão Vermelho','Escanteio', 'Goooooll', '1°', '2°','3°', '4°', "5°", "6°","7°","8°","9°","10°","-", "Fim", "Corrida para "]
+            var texto = texto.replace(eng[0], port[0])
+            var texto =texto.replace(eng[1], port[1])
+            var texto =texto.replace(eng[2], port[2])
+            var texto =texto.replace(eng[3], port[3])
+            var texto =texto.replace(eng[4], port[4])
+            var texto =texto.replace(eng[5], port[5])
+            var texto =texto.replace(eng[6], port[6])
+            var texto =texto.replace(eng[7], port[7])
+            var texto =texto.replace(eng[8], port[8])
+            var texto =texto.replace(eng[9], port[9])
+            var texto =texto.replace(eng[10], port[10])
+            var texto =texto.replace(eng[11], port[11])
+            var texto =texto.replace(eng[12], port[12])
+            var texto =texto.replace(eng[13], port[13])
+            var texto =texto.replace(eng[14], port[14])
+            var texto =texto.replace(eng[15], port[15])
+            var texto =texto.replace(eng[16], port[16])
+
+            return texto;
+        }
       });
     </script>
 </body></html>
