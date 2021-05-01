@@ -22,7 +22,7 @@ class ResultController extends Controller
             $derrota = 0;
             $finalizado = 0;
             foreach($jogos as $jogo){
-                // if($jogo->data < $now){
+                if($jogo->data < $now){
                     // dd('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$jogo->bet365_id.'');
                     $response = \Http::get('https://api.b365api.com/v1/bet365/result?token='.config('app.API_TOKEN').'&event_id='.$jogo->bet365_id);
                     if( $response->successful() ){
@@ -296,7 +296,7 @@ class ResultController extends Controller
                     //       }
                     //   }
                     }
-                // } 
+                } 
             }
             if($finalizado){
                 if($win == $total_jogos){
