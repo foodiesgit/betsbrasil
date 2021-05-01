@@ -474,8 +474,8 @@ class ClientController extends Controller{
             return redirect('/')->with('erro', 'Cupom de aposta esta vazio');
 
         }
-        if($input['newstask_hidden'] == 0 || is_null($input['newstask_hidden'])){
-            if($input['newstask_hidden_mobile'] == 0 || is_null($input['newstask_hidden_mobile'])){
+        if(!isset($input['newstask_hidden']) ||  $input['newstask_hidden'] == 0 || is_null($input['newstask_hidden'])){
+            if( !isset($input['newstask_hidden']) || $input['newstask_hidden_mobile'] == 0 || is_null($input['newstask_hidden_mobile'])){
                 return redirect('/')->with('erro', 'Você não pode fazer uma aposta com valor vazio');
             }
 
