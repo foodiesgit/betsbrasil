@@ -517,8 +517,12 @@ class ClientController extends Controller{
             //verifica o total da aposta
 
             $valor_total_cotas = $sql[0]->valor_total_cotas;
+            if(isset($input['newstake_hidden']) || $input['newstake_hidden'] == 0 ){
+                $valor_total_apostado = $input['newstake_hidden'];
+            }else{
+                $valor_total_apostado =$input['newstake_hidden_mobile'];
 
-            $valor_total_apostado = is_null($input['newstake_hidden']) || $input['newstake_hidden'] == 0  ? $input['newstake_hidden_mobile']  : $input['newstake_hidden'];
+            }
 
 
             $creditos = Creditos::where('idusuario', auth()->user()->id)->select(DB::raw("sum(saldo_apostas + saldo_liberado) as soma"), 'saldo_apostas', 'saldo_liberado')->get();
