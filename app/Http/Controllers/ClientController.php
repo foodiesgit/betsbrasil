@@ -70,7 +70,7 @@ use App\NovoCarrinho;
 
 use App\NovoCarrinhoItem;
 
-
+use Illuminate\Support\Facades\Cache;
 
 class ClientController extends Controller{
 
@@ -524,7 +524,6 @@ class ClientController extends Controller{
 
             }
 
-
             $creditos = Creditos::where('idusuario', auth()->user()->id)->select(DB::raw("sum(saldo_apostas + saldo_liberado) as soma"), 'saldo_apostas', 'saldo_liberado')->get();
 
 
@@ -623,7 +622,7 @@ class ClientController extends Controller{
 
                             $cupomApostaItem->valor_momento = $dados->cota_momento;
 
-                            $cupomApostaItem->valor_apostado = $sql[0]->valor_total_apostado;
+                            $cupomApostaItem->valor_apostado = 0;
 
                             $cupomApostaItem->status_conferido = 0;
 
@@ -1770,6 +1769,45 @@ class ClientController extends Controller{
 
     public function verificaBilhete(){
         return view('client.verifica_bilhete');
+    }
+    public function resultBilhete(Request $request){
+
+        $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', '!=', 4)->first();
+        $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->join('odds_subgrupo', 'odds_subgrupo.id', '=', 'odds.idsubgrupo')->join('times as home', 'home.id', '=', 'events.idhome')->join('times as away', 'away.id', '=', 'events.idaway')->join('estadios', 'estadios.id', '=', 'events.idestadio')->join('ligas', 'ligas.id', '=', 'events.idliga')
+        ->where('idcupom',  $aposta->id)
+        ->select('events.*','events.bet365_id as betid','cupom_aposta_item.status_resultado as ticketStatus', 'odds.*', 'home.nome as homeNome', 'home.image_id as homeImage','away.image_id as awayImage','away.nome as awayNome', 'estadios.city', 'estadios.name as estadio', 'estadios.country', 'ligas.nome_traduzido', 'odds_subgrupo.titulo_traduzido')
+        ->get();
+        // dd($jogos);
+        return view('client.view_bilhete', compact('aposta', 'jogos'));
+    }
+
+
+    public function ajaxResultBilhete(Request $request){
+        $now = \Carbon\Carbon::now(); 
+
+        if (Cache::has($request->bilhete)) {
+            $result = Cache::get($request->bilhete);
+            $result = json_decode($result);
+        }else{
+            $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', '!=', 4)->first();
+
+            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)->where('status_resultado', 0)->orwhere('status_resultado', 1)->orwhere('status_resultado', 2)->get();
+            $result = [];
+            foreach($jogos as $jogo){
+    
+                if($jogo->data < $now){
+                    $response = \Http::get('https://api.b365api.com/v1/bet365/result?token='.config('app.API_TOKEN').'&event_id='.$jogo->bet365_id);
+                    if( $response->successful() ){
+                        $response = json_decode($response->body());
+                        array_push($result, $response->results);
+                    }
+                } 
+            }
+            Cache::put($request->bilhete, json_encode($result), 180);
+        }
+       
+
+        return Response()->json($result);
     }
 
 }

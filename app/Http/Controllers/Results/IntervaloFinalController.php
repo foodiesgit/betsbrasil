@@ -120,8 +120,6 @@ class IntervaloFinalController extends Controller
             }else{
                 $resultado = ['status' => "Aguardando", "ganhou"=> null];
             }
-        }else{
-            return null;
         }
 
         return $resultado;

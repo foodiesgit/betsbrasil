@@ -14,7 +14,7 @@ class UnderOverController extends Controller
                 if($placar[0] + $placar[1] > $palpite[1]){
                     $resultado = ['status' => "Ganhou", "ganhou"=> true];
                 }else{
-                $resultado = ['status' => "Perdeu", "ganhou"=> false];
+                    $resultado = ['status' => "Perdeu", "ganhou"=> false];
                 }
             }else{
                 $resultado = ['status' => "Aguardando", "ganhou"=> null];

@@ -7,8 +7,8 @@ use App\CupomAposta;
 use App\CupomApostaItem;
 use App\Events;
 use App\OddsSubGrupo;
-use App\Times;
 use App\Odds;
+use App\Times;
 class ResultController extends Controller
 {
     public function Result(Request $request){
@@ -34,8 +34,16 @@ class ResultController extends Controller
                                 $result =  app(\App\Http\Controllers\Results\ResultMatchController::class)->index($response->results[0]->ss, 'EMPATE', $response->results[0]->time_status); 
                                 if($result['ganhou'] == true){
                                     $win++; 
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save();
                                 }else if($result['ganhou'] == false){
                                     $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                                 }else{
 
                                 }
@@ -44,8 +52,16 @@ class ResultController extends Controller
                                 $result =  app(\App\Http\Controllers\Results\ResultMatchController::class)->index($response->results[0]->ss, 'CASA', $response->results[0]->time_status); 
                                 if($result['ganhou'] == true){
                                     $win++; 
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save();
                                 }else if($result['ganhou'] == false){
                                     $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                                 }else{
 
                                 }
@@ -53,9 +69,17 @@ class ResultController extends Controller
                             if($jogo->name == $away->nome){
                                 $result =  app(\App\Http\Controllers\Results\ResultMatchController::class)->index($response->results[0]->ss, 'FORA', $response->results[0]->time_status); 
                                 if($result['ganhou'] == true){
-                                    $win++; 
+                                    $win++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save(); 
                                 }else if($result['ganhou'] == false){
                                     $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                                 }else{
 
                                 }
@@ -65,9 +89,17 @@ class ResultController extends Controller
                             if($jogo->name == "Empate"){
                                 $result =  app(\App\Http\Controllers\Results\DuplachanceController::class)->index($response->results[0]->ss, 'EMPATE', $response->results[0]->time_status); 
                                 if($result['ganhou'] == true){
-                                    $win++; 
+                                    $win++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save(); 
                                 }else if($result['ganhou'] == false){
                                     $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                                 }else{
 
                                 }
@@ -76,9 +108,17 @@ class ResultController extends Controller
                             if($jogo->name == $home->nome){
                                 $result =  app(\App\Http\Controllers\Results\DuplachanceController::class)->index($response->results[0]->ss, 'CASA', $response->results[0]->time_status); 
                                 if($result['ganhou'] == true){
-                                    $win++; 
+                                    $win++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save(); 
                                 }else if($result['ganhou'] == false){
                                     $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                                 }else{
 
                                 }
@@ -86,18 +126,34 @@ class ResultController extends Controller
                             if($jogo->name == $away->nome){
                                 $result =  app(\App\Http\Controllers\Results\DuplachanceController::class)->index($response->results[0]->ss, 'FORA', $response->results[0]->time_status); 
                                 if($result['ganhou'] == true){
-                                    $win++; 
+                                    $win++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save(); 
                                 }else if($result['ganhou'] == false){
                                     $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                                 }
                             }
                         }
                         if($jogo->idsubgrupo == 81 ){ //CORRECT_SCORE
                             $result =  app(\App\Http\Controllers\Results\PlacarExatoController::class)->index($response->results[0]->ss, 'EMPATE', $response->results[0]->time_status); 
                             if($result['ganhou'] == true){
-                                $win++; 
+                                $win++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save(); 
                             }else if($result['ganhou'] == false){
                                 $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                             }else{
 
                             }
@@ -105,10 +161,19 @@ class ResultController extends Controller
                         if($jogo->idsubgrupo == 82){
                             if(isset($response->results[0]->scores)){
                                 $result =  app(\App\Http\Controllers\Results\IntervaloFinalController::class)->index($response->results[0]->scores, [$jogo->name, ['home' =>  $home, 'away' => $away]], $response->results[0]->time_status); 
+          
                                 if($result['ganhou'] == true){
-                                    $win++; 
+                                    $win++;
+                                     $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save(); 
                                 }else if($result['ganhou'] == false){
                                     $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                                 }else{
 
                                 }
@@ -118,9 +183,17 @@ class ResultController extends Controller
                         if($jogo->idsubgrupo == 85){
                             $result =  app(\App\Http\Controllers\Results\AmbosMarcamController::class)->index($response->results[0]->ss,ucfirst(strtolower($jogo->name)), $response->results[0]->time_status); 
                             if($result['ganhou'] == true){
-                                $win++; 
+                                $win++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save(); 
                             }else if($result['ganhou'] == false){
                                 $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                             }else{
 
                             }
@@ -130,9 +203,17 @@ class ResultController extends Controller
                             $odd = Odds::where('idbets', 'PC'.$jogo->idbets)->first();
                             $result =  app(\App\Http\Controllers\Results\UnderOverController::class)->index($response->results[0]->ss,[ucfirst(strtolower($jogo->header)), $odd->name], $response->results[0]->time_status); 
                             if($result['ganhou'] == true){
-                                $win++; 
+                                $win++;
+                                                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 1;
+                                    $odd->status_conferido = 1;
+                                    $odd->save(); 
                             }else if($result['ganhou'] == false){
                                 $derrota++;
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd->status_resultado = 2;
+                                    $odd->status_conferido = 2;
+                                    $odd->save();
                             }else{
 
                             }

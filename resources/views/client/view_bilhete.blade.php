@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html class="wide wow-animation desktop landscape rd-navbar-static-linked" lang="en">
+<head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template" />
+
+    <meta name="Author" content="Spruko Technologies Private Limited" />
+
+    <meta
+
+        name="Keywords"
+
+        content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4"
+
+    />
+    <!-- Site Title-->
+    <title>Bets - Resultado Bilhete</title>
+
+    
+    <!-- <script type="text/javascript" async="" src="/assets3/ec.js"></script> -->
+    <!-- <script src="/assets3/3ts2ksMwXvKRuG480KNifJ2_JNM.js"></script><script src="/assets3/4o300efCt-CXoq1JEC-sVReFz48.js"></script> -->
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="/assets3/css.css">
+    <link rel="stylesheet" href="/assets3/bootstrap.css">
+    <link rel="stylesheet" href="/assets3/fonts.css">
+    <link rel="stylesheet" href="/assets3/style.css">
+
+    <link rel="icon" href="/assets3/img/brand/favicon.png" type="image/x-icon" />
+
+    <link href="/assets3/css/icons.css" rel="stylesheet" />
+
+    <link href="/assets3/plugins/sidebar/sidebar.css" rel="stylesheet" />
+
+    <link href="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+    <link href="/assets3/css/style.css" rel="stylesheet" />
+
+    <link href="/assets3/css/style-dark.css" rel="stylesheet" />
+
+
+
+    <link href="/assets3/switcher/css/switcher.css" rel="stylesheet" />
+
+    <link href="/assets3/switcher/demo.css" rel="stylesheet" />
+
+    <link href="/assets3/css/animate.css" rel="stylesheet" />
+
+
+
+    <link href="/assets3/css/custom.css" rel="stylesheet" />
+
+    <link href="/assets3/css/floo.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="data:text/css;charset=utf-8;base64,Y2xvdWRmbGFyZS1hcHBbYXBwLWlkPSJhLWJldHRlci1icm93c2VyIl0gewogIGRpc3BsYXk6IGJsb2NrOwogIGJhY2tncm91bmQ6ICM0NTQ4NGQ7CiAgY29sb3I6ICNmZmY7CiAgbGluZS1oZWlnaHQ6IDEuNDU7CiAgcG9zaXRpb246IGZpeGVkOwogIHotaW5kZXg6IDkwMDAwMDAwOwogIHRvcDogMDsKICBsZWZ0OiAwOwogIHJpZ2h0OiAwOwogIHBhZGRpbmc6IC41ZW0gMWVtOwogIHRleHQtYWxpZ246IGNlbnRlcjsKICAtd2Via2l0LXVzZXItc2VsZWN0OiBub25lOwogICAgIC1tb3otdXNlci1zZWxlY3Q6IG5vbmU7CiAgICAgIC1tcy11c2VyLXNlbGVjdDogbm9uZTsKICAgICAgICAgIHVzZXItc2VsZWN0OiBub25lOwp9CgpjbG91ZGZsYXJlLWFwcFthcHAtaWQ9ImEtYmV0dGVyLWJyb3dzZXIiXVtkYXRhLXZpc2liaWxpdHk9ImhpZGRlbiJdIHsKICBkaXNwbGF5OiBub25lOwp9CgpjbG91ZGZsYXJlLWFwcFthcHAtaWQ9ImEtYmV0dGVyLWJyb3dzZXIiXSBjbG91ZGZsYXJlLWFwcC1tZXNzYWdlIHsKICBkaXNwbGF5OiBibG9jazsKfQoKY2xvdWRmbGFyZS1hcHBbYXBwLWlkPSJhLWJldHRlci1icm93c2VyIl0gYSB7CiAgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7CiAgY29sb3I6ICNlYmViZjQ7Cn0KCmNsb3VkZmxhcmUtYXBwW2FwcC1pZD0iYS1iZXR0ZXItYnJvd3NlciJdIGE6aG92ZXIsCmNsb3VkZmxhcmUtYXBwW2FwcC1pZD0iYS1iZXR0ZXItYnJvd3NlciJdIGE6YWN0aXZlIHsKICBjb2xvcjogI2RiZGJlYjsKfQoKY2xvdWRmbGFyZS1hcHBbYXBwLWlkPSJhLWJldHRlci1icm93c2VyIl0gY2xvdWRmbGFyZS1hcHAtY2xvc2UgewogIGRpc3BsYXk6IGJsb2NrOwogIGN1cnNvcjogcG9pbnRlcjsKICBmb250LXNpemU6IDEuNWVtOwogIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICByaWdodDogLjRlbTsKICB0b3A6IC4zNWVtOwogIGhlaWdodDogMWVtOwogIHdpZHRoOiAxZW07CiAgbGluZS1oZWlnaHQ6IDE7Cn0KCmNsb3VkZmxhcmUtYXBwW2FwcC1pZD0iYS1iZXR0ZXItYnJvd3NlciJdIGNsb3VkZmxhcmUtYXBwLWNsb3NlOmFjdGl2ZSB7CiAgLXdlYmtpdC10cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTsKICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgxcHgpOwp9CgpjbG91ZGZsYXJlLWFwcFthcHAtaWQ9ImEtYmV0dGVyLWJyb3dzZXIiXSBjbG91ZGZsYXJlLWFwcC1jbG9zZTpob3ZlciB7CiAgb3BhY2l0eTogLjllbTsKICBjb2xvcjogI2ZmZjsKfQo=">
+  <script src="https://kit.fontawesome.com/9b4191c7d5.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="">
+  @include('client.include')
+
+    <!-- Page-->
+    <div class="page animated" style="animation-duration: 500ms;">
+    
+    @yield('main-header')
+
+    <!-- /main-header -->
+
+    <!--Horizontal-main -->
+
+    @yield('horizontal-menu')
+      <!-- Page Header-->
+      <div id="global-loader"><img src="/assets3/img/loader.gif" class="loader-img" alt="Loader" width="10%"/></div>
+
+      <section class="section section-sm bg-gray-100">      
+        <div class="container">
+          <div class="row row-50">
+            <article class="heading-component">
+                <div class="heading-component-inner">
+                    <h5 class="heading-component-title">Resultados do bilhete
+                    </h5>
+                </div>
+            </article>
+            <div class="col-lg-12">
+              <div class="row row-50">
+                  <!-- Heading Component-->
+                  
+                  @foreach($jogos as $jogo)
+                <div class="col-lg-8">
+
+                  <!-- Game Result Bug-->
+                  <article class="game-result">
+                    <div class="game-info game-info-classic">
+                      <p class="game-info-subtitle">{{$jogo->estadio}} - {{$jogo->city}} - {{$jogo->country}} 
+                        <time datetime="{{$jogo->data}}">{{\Carbon\Carbon::create($jogo->data)->locale('pt_BR')->toDayDateTimeString()}}</time>
+                      </p>
+                      <h3 class="game-info-title">{{$jogo->nome_traduzido}}</h3>
+                      <div class="game-info-main">
+                        <div class="game-info-team game-info-team-first">
+                          <figure><img src="https://assets.b365api.com/images/team/s/{{$jogo->homeImage}}.png" alt="" width="20" height="20">
+                          </figure>
+                          <div class="game-result-team-name">{{$jogo->homeNome}}</div>
+                          <!-- <div class="game-result-team-country">USA</div> -->
+                        </div>
+                        <div class="game-info-middle">
+                          <div class="game-result-score-wrap">
+                            <div class="game-info-score game-result-team-win" id="homePlacar-{{$jogo->betid}}">0</div>
+                            <div class="game-info-score" id="awayPlacar-{{$jogo->betid}}">0</div>
+                          </div>
+                          <div class="game-result-divider-wrap"><span class="game-info-team-divider">VS</span></div>
+                        </div>
+                        <div class="game-info-team game-info-team-second">
+                          <figure><img src="https://assets.b365api.com/images/team/s/{{$jogo->awayImage}}.png" alt="" width="20" height="20">
+                          </figure>
+                          <div class="game-result-team-name">{{$jogo->awayNome}}</div>
+                          <!-- <div class="game-result-team-country">Germany</div> -->
+                        </div>
+                      </div>
+
+                      <div class="table-game-info-wrap"><span class="table-game-info-title">Sua Aposta<span></span></span>
+                        <div class="table-game-info-main table-custom-responsive">
+                          <table class="table-custom table-game-info">
+                            <tbody>
+                              <tr>
+                                @if($jogo->ticketStatus == 0)
+                                <td class="table-game-info-number">Aguardando Resultado</td>
+                                @else @if($jogo->ticketStatus == 1)
+                                 <td class="table-game-info-number" style="background-color:green; color:white">Ganhou</td>
+
+                                @else
+                                 <td class="table-game-info-number" style="background-color:red; color:white">Perdeu</td>
+
+                                @endif
+                                @endif
+
+                                <td class="table-game-info-category">{{$jogo->titulo_traduzido}} - {{$jogo->name}}</td>
+                                <td class="table-game-info-number">{{$jogo->odds}}</td>
+                              </tr>
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      </br>
+                      <!-- Table Game Info-->
+                      <div class="table-game-info-wrap"><span class="table-game-info-title">Estatiticas da partida<span></span></span>
+                        <div class="table-game-info-main table-custom-responsive">
+                          <table class="table-custom table-game-info">
+                            <tbody id="estatistica-{{$jogo->betid}}">
+                              <tr>
+                                <td class="table-game-info-number">0(0)</td>
+                                <td class="table-game-info-category">Chutes (no Gol)</td>
+                                <td class="table-game-info-number">0(0)</td>
+                              </tr>
+                              <tr>
+                                <td class="table-game-info-number">0</td>
+                                <td class="table-game-info-category">Gols</td>
+                                <td class="table-game-info-number">0</td>
+                              </tr>
+                              <tr>
+                                <td class="table-game-info-number">0</td>
+                                <td class="table-game-info-category">Escanteios</td>
+                                <td class="table-game-info-number">0</td>
+                              </tr>
+                              <tr>
+                                <td class="table-game-info-number">0%</td>
+                                <td class="table-game-info-category">Posse de Bola</td>
+                                <td class="table-game-info-number">0%</td>
+                              </tr>
+                              <tr>
+                                <td class="table-game-info-number">0</td>
+                                <td class="table-game-info-category">Cartões Amarelos</td>
+                                <td class="table-game-info-number">0</td>
+                              </tr>
+                              <tr>
+                                <td class="table-game-info-number">0</td>
+                                <td class="table-game-info-category">Cartões Amarelos</td>
+                                <td class="table-game-info-number">0</td>
+                              </tr>
+                              <tr>
+                                <td class="table-game-info-number">0</td>
+                                <td class="table-game-info-category">Cartões Vermelhos</td>
+                                <td class="table-game-info-number">0</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                </div>
+                <div class="col-lg-4">
+              <div class="row row-50">
+                <div class="col-md-6 col-lg-12">
+
+                  <!-- Game Highlights-->
+                  <div class="game-highlights" style="max-height:775px; overflow:auto; ">
+                    <ul class="game-highlights-list" id="highlights-{{$jogo->betid}}">
+                      <li>
+                        <p class="game-highlights-title">Aguardando o Início da Partida
+                        </p><span class="game-highlights-minute">0’</span>
+                      </li>
+                      <!-- <li>
+                        <p class="game-highlights-title">Início da partida
+                        </p><span class="game-highlights-minute">0’</span>
+                      </li> -->
+                      <!-- <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-orange-dark fa fa-exclamation"></span>Falta de Martin Pierto
+                        </p>
+                        <p class="game-highlights-description">Martin Pierto showed sharp reflexes but failed to score for his team.</p><span class="game-highlights-minute">12’</span>
+                      </li>
+                      <li class="team-primary">
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-primary fa fa-futbol-o"></span><span class="game-highlights-goal">Goooolll</span> (1-0)
+                        </p>
+                        <p class="game-highlights-description">Franklin Stevens scored with the right foot. Assisted by David Hawkins.</p><span class="game-highlights-minute">18’</span>
+                      </li>
+                      <li class="team2-blue">
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-blue-boston fa fa-futbol-o"></span><span class="game-highlights-goal">Goooolll</span> (1-1)
+                        </p>
+                        <p class="game-highlights-description">atletico’s defender James Peterson turned Hernandez’s cross into his own net.</p><span class="game-highlights-minute">21’</span>
+                      </li>
+                      <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-orange fa fa-file"></span>Cartão Amarelo
+                        </p>
+                        <p class="game-highlights-description">Ernesto Wilson got his first yellow card just before the first time ended.</p><span class="game-highlights-minute">28’</span>
+                      </li>
+                      <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-primary fa fa-life-ring"></span>Attempt saved
+                        </p>
+                        <p class="game-highlights-description">Harry Stevenson saved Rob Wilson’s attempt to score a goal.</p><span class="game-highlights-minute">31’</span>
+                      </li>
+                      <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-blue-boston fa fa-hand-o-right"></span>Penalty Kick
+                        </p>
+                        <p class="game-highlights-description">Performed by Sam Schmidt, this penalty kick marks the beginning of the 2nd time.</p><span class="game-highlights-minute">47’</span>
+                      </li>
+                      <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-primary fa fa-flag"></span>Offside of Chris Balleron
+                        </p>
+                        <p class="game-highlights-description">Chris Balleron received offside warning for touching the passed ball.</p><span class="game-highlights-minute">60’</span>
+                      </li>
+                      <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-red-2 fa fa-file"></span>Red card
+                        </p>
+                        <p class="game-highlights-description">The referee showed red card to Joe Perkins on the 74th minute of the match.</p><span class="game-highlights-minute">74’</span>
+                      </li>
+                      <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-primary fa fa-exchange"></span>Gary Cahill <span class="text-gray-500">for</span> jack windsor
+                        </p>
+                        <p class="game-highlights-description">Atletico replaces their first forward with Jack Windsor before the 2nd time ends.</p><span class="game-highlights-minute">86’</span>
+                      </li>
+                      <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-blue-boston fa fa-clock-o"></span>The referee adds 4 minutes 
+                        </p>
+                        <p class="game-highlights-description">The referee adds 4 minutes to the second time to compensate goal celebration time.</p><span class="game-highlights-minute">89’</span>
+                      </li>
+                      <li>
+                        <p class="game-highlights-title"><span class="icon icon-xxs icon-primary fa fa-flag-checkered"></span>End of the game
+                        </p>
+                        <p class="game-highlights-description">4 minutes later the referee announces the end of the game with a draw as a result.</p><span class="game-highlights-minute">94’</span>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            @endforeach
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+     
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="/assets3/core.min.js"></script>
+    <script src="/assets3/plugins/jquery/jquery.min.js"></script>
+
+    <script src="/assets3/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/assets3/plugins/ionicons/ionicons.js"></script>
+
+    <script src="/assets3/plugins/moment/moment.js"></script>
+
+    <script src="/assets3/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+    <script src="/assets3/plugins/perfect-scrollbar/p-scroll.js"></script>
+
+    <script src="/assets3/js/eva-icons.min.js"></script>
+
+    <script src="/assets3/plugins/rating/jquery.rating-stars.js"></script>
+
+    <script src="/assets3/plugins/rating/jquery.barrating.js"></script>
+
+    <script src="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="/assets3/plugins/horizontal-menu/horizontal-menu-2/horizontal-menu.js"></script>
+
+    <script src="/assets3/js/sticky.js"></script>
+
+    <script src="/assets3/plugins/sidebar/sidebar.js"></script>
+
+    <script src="/assets3/plugins/sidebar/sidebar-custom.js"></script>
+
+    <script src="/assets3/js/custom.js"></script>
+
+    <script src="/assets3/switcher/js/switcher.js"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" integrity="sha512-Rdk63VC+1UYzGSgd3u2iadi0joUrcwX0IWp2rTh6KXFoAmgOjRS99Vynz1lJPT8dLjvo6JZOqpAHJyfCEZ5KoA==" crossorigin="anonymous"></script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+      $(document).ready(function(e){
+        $.ajax({
+
+        url: '/ajax-verifica-bilhete/608ca3',
+
+        method: 'GET',
+
+        success: function(res){
+            var placar =  res[0][0].ss.split('-')
+            $('#homePlacar-'+res[0][0].bet365_id).html(placar[0]);
+            $('#awayPlacar-'+res[0][0].bet365_id).html(placar[1]);
+                $('#estatistica-'+res[0][0].bet365_id).html(
+                '<tr>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.off_target[0]+'('+res[0][0].stats.on_target[0]+')</td>'+
+                '<td class="table-game-info-category">Chutes (no Gol)</td>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.off_target[1]+'('+res[0][0].stats.on_target[1]+')</td>'+
+                '</tr>'+
+                '<tr>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.goals[0]+'</td>'+
+                '<td class="table-game-info-category">Gols</td>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.goals[1]+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.corners[0]+'</td>'+
+                '<td class="table-game-info-category">Escanteios</td>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.corners[1]+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.possession_rt[0]+'%</td>'+
+                '<td class="table-game-info-category">Posse de Bola</td>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.possession_rt[1]+'%</td>'+
+                '</tr>'+
+                '<tr>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.yellowcards[0]+'</td>'+
+                '<td class="table-game-info-category">Cartões Amarelos</td>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.yellowcards[1]+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.redcards[0]+'</td>'+
+                '<td class="table-game-info-category">Cartões Vermelhos</td>'+
+                '<td class="table-game-info-number">'+res[0][0].stats.redcards[1]+'</td>'+
+                '</tr>'
+                );
+
+            $.each(res[0][0].events, function(i, item) {
+                var valor =  item.text.split('-')
+                $('#highlights-'+res[0][0].bet365_id).append('<li>'+
+                        '<p class="game-highlights-title">'+valor[1]+' - ' +valor[2]+
+                        '</p><span class="game-highlights-minute">'+valor[0]+'</span>'+
+                      '</li>');
+
+            });
+
+
+
+        },error: function(err){
+
+
+
+        },complete: function(){
+
+
+
+        }
+
+        });
+      });
+    </script>
+</body></html>
