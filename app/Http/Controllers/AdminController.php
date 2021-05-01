@@ -62,7 +62,7 @@ use App\CuponsIguais;
 use App\CuponsIguaisItens;
 
 use App\CambistasComissoes;
-
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller {
 
@@ -1257,7 +1257,7 @@ class AdminController extends Controller {
 
 
 
-            $comissoes = CambistasComissoes::where('idusuario', $usuario->id);
+            $comissoes = CambistasComissoes::where('idusuario', $usuario->id)->get();
 
             $comissoes[0]->comissao1jogo = $input['comissao1jogo'];
 
@@ -1599,17 +1599,18 @@ class AdminController extends Controller {
 
         }
 
+        if(Auth::user()->tipo_usuario == 2){
 
+            $sql = LancamentosCaixa::leftJoin('users', 'users.id','=','lancamentos_caixa.idusuario')->leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"), 'users.name', 'users.email')->where('users.tipo_usuario', 3)
 
-        $sql = LancamentosCaixa::leftJoin('users', 'users.id','=','lancamentos_caixa.idusuario')->leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"), 'users.name', 'users.email')->where('users.tipo_usuario', 3)
-
-        ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
-
-
-
-
-
-
+            ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
+        }else if(Auth::user()->tipo_usuario == 3){
+            $sql = LancamentosCaixa::leftJoin('users', 'users.id','=','lancamentos_caixa.idusuario')->leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"), 'users.name', 'users.email')->where('users.tipo_usuario', 3)
+            ->where('users.id', Auth::user()->id)
+            ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
+        }else{
+            return Redirect()->back();
+        }
 
         $data = [
 
@@ -1633,12 +1634,25 @@ class AdminController extends Controller {
 
     public function viewCaixaCambistas(){
 
-        $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
+        if(Auth::user()->tipo_usuario == 2){
+            $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
 
             ->where('tipo_usuario', 4)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
 
             ->get();
 
+        }if(Auth::user()->tipo_usuario == 3){
+            $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
+
+            ->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
+
+            ->get();
+        }else{
+            return Redirect()->back();
+
+        }
+
+       
 
 
         $data = [
@@ -1857,10 +1871,9 @@ class AdminController extends Controller {
 
 
 
-        $sql = LancamentosCaixa::leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"))->where('lancamentos_caixa.idusuario', $id)
-
-        ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
-
+            $sql = LancamentosCaixa::leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"))->where('lancamentos_caixa.idusuario', $id)
+            ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
+        
 
 
         $usuario = User::find($id);
@@ -2010,16 +2023,23 @@ class AdminController extends Controller {
         }
 
 
+        if(Auth::user()->tipo_usuario == 2){
+            $sql = LancamentosCaixa::leftJoin('users', 'users.id','=','lancamentos_caixa.idusuario')->leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"), 'users.name', 'users.email')->where('users.tipo_usuario', 4)
 
-        $sql = LancamentosCaixa::leftJoin('users', 'users.id','=','lancamentos_caixa.idusuario')->leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"), 'users.name', 'users.email')->where('users.tipo_usuario', 4)
+            ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
+        }
+        else if(Auth::user()->tipo_usuario == 3){
+            $sql = LancamentosCaixa::leftJoin('users', 'users.id','=','lancamentos_caixa.idusuario')->leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"), 'users.name', 'users.email')->where('users.tipo_usuario', 4)
+            ->where('users.idgerente', Auth::user()->id)
+            ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
+        }else if(Auth::user()->tipo_usuario == 4){
+            $sql = LancamentosCaixa::leftJoin('users', 'users.id','=','lancamentos_caixa.idusuario')->leftJoin('tipo_lancamento_caixa', 'tipo_lancamento_caixa.id','=','lancamentos_caixa.idtipo_lancamento')->select('lancamentos_caixa.*', 'tipo_lancamento_caixa.tipo_lancamento', DB::raw("date_format(lancamentos_caixa.created_at, '%d/%m/%Y as %H:%i:%s') as data_lancamento"), 'users.name', 'users.email')->where('users.tipo_usuario', 4)
+            ->where('users.id', Auth::user()->id)
+            ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
 
-        ->whereBetween('lancamentos_caixa.created_at', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])->get();
-
-
-
-
-
-
+        }else{
+            return Redirect()->back();
+        }
 
         $data = [
 

@@ -165,7 +165,15 @@
         }
 
         ?>
+        <?php 
 
+          $saldo1 = 0;
+
+          $saldo2 = 0;
+
+          $saldo3 = 0;
+        ?>
+        @if(Auth::user()->tipo_usuario == 2)
         <div class="card">
 
             <div class="card-header d-block">
@@ -207,14 +215,6 @@
                         <tbody>
 
                             <?php
-
-                                $saldo1 = 0;
-
-                                $saldo2 = 0;
-
-                                $saldo3 = 0;
-
-
 
                                 if(count($sql) > 0){
 
@@ -319,7 +319,7 @@
                 </div>
 
             </div>
-
+          @endif
         </div>
     </div>
 

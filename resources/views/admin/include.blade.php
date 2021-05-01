@@ -153,7 +153,7 @@
               </div>
             </li>
             @endif
-            @if($user->tipo_usuario == 2||$user->tipo_usuario == 3)
+            @if($user->tipo_usuario == 2||$user->tipo_usuario == 3 ||$user->tipo_usuario == 4)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-boxc" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxc">
                 <i class="ni ni-box-2  text-default"></i>
@@ -237,7 +237,7 @@
                    <img alt="Image placeholder" src="https://lh3.googleusercontent.com/proxy/bPJQH3mYRKMUavgYsREBMa_mJakqwusyy4wtcgttUFHUpczHG0f31QDZ77fk2cVSbBRSl55fkhgbuaHD4kIS1741kdj93yIZLjbLGAPqCWM3mvaOUmeAQiSAXKWVFBX_H8eJ239ClFdE7A">
                   </span> -->
                   <div class="media-body ml-2 d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">Admin</span>
+                    <span class="mb-0 text-sm  font-weight-bold">{{$user->name}}</span>
                   </div>
                 </div>
               </a>

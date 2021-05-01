@@ -97,7 +97,7 @@
             @error('status')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
         </div>
-
+        @if(Auth::user()->tipo_usuario == 2)
         <div class="form-group col-md-6 col-sm-12">
 
             <label class="mb-1"><strong>Gerente Vinculado*</strong></label>
@@ -108,7 +108,20 @@
 
         </div>
 
+        @else
+        <div class="form-group col-md-6 col-sm-12">
 
+            <label class="mb-1"><strong>Gerente Vinculado*</strong></label>
+        
+            <select class="form-control form-control-lg" disabled name="idgerente"> 
+                <option value="{{Auth::user()->id}}">{{Auth::user()->name}}</option>
+
+            </select>
+
+            @error('idgerente')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
+
+            </div>
+        @endif
 
 
 

@@ -466,10 +466,7 @@ class ClientController extends Controller{
 
         $input = $request->all();
 
-
-
         $sql = NovoCarrinho::where('session_id', session()->getId())->get();
-
 
 
         if(count($sql) < 1){
@@ -477,9 +474,14 @@ class ClientController extends Controller{
             return redirect('/')->with('erro', 'Cupom de aposta esta vazio');
 
         }
+        if($input['newstask_hidden'] == 0 || is_null($input['newstask_hidden'])){
+            if($input['newstask_hidden_mobile'] == 0 || is_null($input['newstask_hidden_mobile'])){
+                return redirect('/')->with('erro', 'Você não pode fazer uma aposta com valor vazio');
+            }
 
+        }
 
-
+  
         $sqlItem = NovoCarrinhoItem::where('idcarrinho', $sql[0]->id)->get();
 
 
@@ -516,8 +518,7 @@ class ClientController extends Controller{
 
             $valor_total_cotas = $sql[0]->valor_total_cotas;
 
-            $valor_total_apostado = $sql[0]->valor_total_apostado;
-
+            $valor_total_apostado = is_null($input['newstake_hidden']) || $input['newstake_hidden'] == 0  ? $input['newstake_hidden_mobile']  : $input['newstake_hidden'];
 
 
             $creditos = Creditos::where('idusuario', auth()->user()->id)->select(DB::raw("sum(saldo_apostas + saldo_liberado) as soma"), 'saldo_apostas', 'saldo_liberado')->get();
@@ -528,7 +529,7 @@ class ClientController extends Controller{
 
                 if( $creditos[0]->soma < $valor_total_apostado ){
 
-                    return redirect('/lite/meu-cupom')->with('erro', 'Créditos insuficientes para realizar a aposta');
+                    return redirect('/')->with('erro', 'Créditos insuficientes para realizar a aposta');
 
                 }else{
 
@@ -586,7 +587,7 @@ class ClientController extends Controller{
 
                         $cupomAposta->status = 1;
 
-                        $cupomAposta->valor_apostado = 0;
+                        $cupomAposta->valor_apostado = $valor_total_apostado;
 
                         $cupomAposta->possivel_retorno = 0;
 
@@ -640,9 +641,9 @@ class ClientController extends Controller{
 
                         $cupomAposta = CupomAposta::find($cupomAposta->id);
 
-                        $cupomAposta->valor_apostado = $sql[0]->valor_total_apostado;
+                        $cupomAposta->valor_apostado = $valor_total_apostado;
 
-                        $cupomAposta->possivel_retorno = $sql[0]->valor_total_apostado * $sql[0]->valor_total_cotas;
+                        $cupomAposta->possivel_retorno = $valor_total_apostado * $sql[0]->valor_total_cotas;
 
                         $cupomAposta->total_cotas = $sql[0]->valor_total_cotas;
 

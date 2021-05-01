@@ -611,6 +611,7 @@
                         <div class="col-md-3 d-none d-lg-block d-xl-block" >
 
                             <div class="card">
+                            {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta']) }}
 
                                 <div class="card-header bg-red">
 
@@ -641,6 +642,7 @@
                                                 <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
 
                                                     <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake" name="newstake">
+                                                    <input id="newstake_hidden" type="hidden" name="newstake_hidden">
 
                                                 </div>
 
@@ -691,12 +693,6 @@
                                             </table>
 
                                         </div>
-
-
-
-                                        {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta']) }}
-
-
 
                                         {{ Form::close() }}
 
@@ -760,6 +756,8 @@
 
                     </div>
                         <div class="modal fade" id="exampleModalFullscreenSm" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+                        {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta']) }}
+
                             <div class="modal-dialog modal-fullscreen-sm-down">
                                 <div class="modal-content">
                                 <div class="modal-header bg-red">
@@ -779,6 +777,7 @@
                                         <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
 
                                             <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake_mobile" name="newstake">
+                                            <input id="newstake_hidden_mobile" type="hidden" name="newstake_hidden_mobile">
 
                                         </div>
 
@@ -832,7 +831,6 @@
 
 
 
-                                {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta']) }}
 
 
 
@@ -1214,7 +1212,7 @@
                             var active = '';
                              res.odds_grupo.map((item => {
                                 i++;
-                               
+                                var odd_s = ''
                                 item.sub_grupo.map((items => {
                                     
                                     if(items.odds.length > 0) {
@@ -1233,12 +1231,11 @@
 
                                         items.odds.map((item =>{
                                             var primeiro_odd = items.odds[0].idbets;
-
                                             if(primeiro_odd[0] == 'P'){
 
-                                                //odd é diferente
-
-                                                desenhaOdds(items.odds, group);
+                                                if(item.idbets[0] == 'P'){
+                                                    desenhaOdds(items.odds, group);
+                                                }
 
                                             }else{
 
@@ -1493,7 +1490,8 @@
 
                     valor = parseFloat(valor);
 
-                    console.log(valor);
+                    $('#newstake_hidden').val(valor)
+                    $('#newstake_hidden_mobile').val(valor)
 
                     if( valor > 0.00 ){
 

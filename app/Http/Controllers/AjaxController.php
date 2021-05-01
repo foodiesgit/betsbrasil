@@ -328,7 +328,7 @@ class AjaxController extends Controller{
             'odds_grupo' => $odds_grupos
 
         ];
-
+ 
         return Response()->json($dados);
 
     }

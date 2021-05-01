@@ -81,6 +81,7 @@
     </div>
   </div>
 </div>
+
 <div class="container-fluid mt--6">
 @yield('alert')
 

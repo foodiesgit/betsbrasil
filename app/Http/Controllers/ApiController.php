@@ -160,6 +160,7 @@ class ApiController extends Controller {
     public function atualizaOdds($idevent){
 
         $events = Events::find($idevent);
+        // dd('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
         $response = Http::get('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
 
         if( $response->successful() ){
@@ -327,12 +328,13 @@ class ApiController extends Controller {
 
 
                 if(isset($json->results[0]->main->sp->double_chance)){
+                    
+                    foreach($json->results[0]->main->sp->double_chance as $double_chance){
+                        
+                        $this->salvaOdds($idevent,80,$double_chance);
 
-                    $this->salvaOdds($idevent,80, $json->results[0]->main->sp->double_chance[0]);
 
-                    $this->salvaOdds($idevent,80, $json->results[0]->main->sp->double_chance[1]);
-
-                    $this->salvaOdds($idevent,80, $json->results[0]->main->sp->double_chance[2]);
+                    }
 
                 }
 
@@ -372,11 +374,11 @@ class ApiController extends Controller {
 
                 if(isset($json->results[0]->main->sp->goals_over_under)){
 
-                    $this->salvaOdds($idevent,84, $json->results[0]->main->sp->goals_over_under[0]);
+                    foreach($json->results[0]->main->sp->goals_over_under as $goals){
+                        
+                        $this->salvaOdds($idevent,84, $goals);
 
-                    $this->salvaOdds($idevent,84, $json->results[0]->main->sp->goals_over_under[1]);
-
-                    $this->salvaOdds($idevent,84, $json->results[0]->main->sp->goals_over_under[2]);
+                    }
 
                 }
 
@@ -394,11 +396,10 @@ class ApiController extends Controller {
 
                 if(isset($json->results[0]->main->sp->goal_line)){
 
-                    $this->salvaOdds($idevent,89, $json->results[0]->main->sp->goal_line[0]);
+                    foreach($json->results[0]->main->sp->goal_line as $result){
+                        $this->salvaOdds($idevent,89, $result);
 
-                    $this->salvaOdds($idevent,89, $json->results[0]->main->sp->goal_line[1]);
-
-                    $this->salvaOdds($idevent,89, $json->results[0]->main->sp->goal_line[2]);
+                    }
 
                 }
 
@@ -416,23 +417,10 @@ class ApiController extends Controller {
 
                 if(isset($json->results[0]->main->sp->result_both_teams_to_score)){
 
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[0]);
+                    foreach($json->results[0]->main->sp->result_both_teams_to_score as $result){
+                        $this->salvaOdds($idevent,93, $result);
 
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[1]);
-
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[2]);
-
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[3]);
-
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[4]);
-
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[5]);
-
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[6]);
-
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[7]);
-
-                    $this->salvaOdds($idevent,93, $json->results[0]->main->sp->result_both_teams_to_score[8]);
+                    }
 
                 }
 
@@ -481,12 +469,11 @@ class ApiController extends Controller {
 
 
                         if(isset($dados_json->id)){
-
+                            $data = \Carbon\Carbon::createFromTimestamp($dados_json->time, 'America/Sao_Paulo')->format('Y-m-d H:i:s'); 
                             $events->id = $dados_json->id;
 
                             $events->data_time = $dados_json->time;
-
-                            $events->data = date("Y-m-d H:i:s", $dados_json->time);
+                            $events->data = $data;
 
                             $events->idliga = $dados_json->league->id;
 
