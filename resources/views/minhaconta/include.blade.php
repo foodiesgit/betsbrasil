@@ -335,7 +335,7 @@
 
                                 <a class="dropdown-item" href="/minha-conta/minhas-apostas"><i class="bx bx-cog"></i> Minhas Apostas</a>
 
-                                <a class="dropdown-item" href="/minha-conta/sair"><i class="bx bx-log-out"></i> Sair</a>
+                                <a class="dropdown-item" href="/admin/logout"><i class="bx bx-log-out"></i> Sair</a>
 
                             </div>
 
