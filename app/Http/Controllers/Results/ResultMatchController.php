@@ -9,8 +9,7 @@ class ResultMatchController extends Controller
 {
     public function index($placar, $palpite, $tempo){
         if(!is_null($placar)) {
-            $placar = explode($placar, "-");
-
+            $placar = explode("-",$placar);
             if($palpite == "CASA"){
                 if($tempo == 3){
                     if($placar[0] > $placar[1]){

@@ -150,6 +150,9 @@ Route::prefix('admin')->group(function(){
         Route::get('jogos/desabilitar/{id}', 'AdminController@desabilitarJogo');
         Route::post('jogos/habilitar/{id}', 'AdminController@habilitarJogo');
 
+        Route::get('validar-bilhete', 'AdminController@viewValidarBilhete');
+        Route::post('validar-bilhete', 'AdminController@postValidarBilhete');
+
         Route::get('jogos/visualizar-apostas/{id}', 'AdminController@visualizarAposta');
 
         Route::get('fixos', 'AdminController@viewFixos');

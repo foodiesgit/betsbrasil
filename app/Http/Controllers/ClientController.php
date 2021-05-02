@@ -468,7 +468,7 @@ class ClientController extends Controller{
 
         $sql = NovoCarrinho::where('session_id', session()->getId())->get();
 
-
+        // dd($input);
         if(count($sql) < 1){
 
             return redirect('/')->with('erro', 'Cupom de aposta esta vazio');
@@ -517,7 +517,7 @@ class ClientController extends Controller{
             //verifica o total da aposta
 
             $valor_total_cotas = $sql[0]->valor_total_cotas;
-            if(isset($input['newstake_hidden']) || $input['newstake_hidden'] == 0 ){
+            if(isset($input['newstake_hidden']) || $input['newstake_hidden'] != 0 ){
                 $valor_total_apostado = $input['newstake_hidden'];
             }else{
                 $valor_total_apostado =$input['newstake_hidden_mobile'];
@@ -530,7 +530,7 @@ class ClientController extends Controller{
 
             if(count($creditos) > 0){
 
-                if( $creditos[0]->soma < $valor_total_apostado ){
+                if(Auth::user()->tipo_usuario == 1 && $creditos[0]->soma < $valor_total_apostado ){
 
                     return redirect('/')->with('erro', 'Créditos insuficientes para realizar a aposta');
 
@@ -579,7 +579,6 @@ class ClientController extends Controller{
                             ]);
 
                         }
-
 
 
                         //faz a aposta real
@@ -684,7 +683,13 @@ class ClientController extends Controller{
 
                 DB::beginTransaction();
 
-
+                if(isset($input['newstake_hidden']) || $input['newstake_hidden'] != 0 ){
+                    $valor_total_apostado = $input['newstake_hidden'];
+                }else{
+                    $valor_total_apostado =$input['newstake_hidden_mobile'];
+    
+                }
+    
 
                 //faz a aposta real
 
@@ -744,9 +749,9 @@ class ClientController extends Controller{
 
                 $cupomAposta = CupomAposta::find($cupomAposta->id);
 
-                $cupomAposta->valor_apostado = $sql[0]->valor_total_apostado;
+                $cupomAposta->valor_apostado = $valor_total_apostado;
 
-                $cupomAposta->possivel_retorno = $sql[0]->valor_total_apostado * $sql[0]->valor_total_cotas;
+                $cupomAposta->possivel_retorno = $valor_total_apostado * $sql[0]->valor_total_cotas;
 
                 $cupomAposta->total_cotas = $sql[0]->valor_total_cotas;
 
@@ -782,14 +787,7 @@ class ClientController extends Controller{
 
         $input = $request->all();
 
-
-
-
-
-
-
         $sql = NovoCarrinhoItem::leftJoin('novo_carrinho', 'novo_carrinho.id','=','novo_carrinho_item.idcarrinho')->where('session_id', session()->getId())->where('novo_carrinho_item.id', $id)->delete();
-
 
 
         $itensCarrinho = NovoCarrinhoItem::leftJoin('novo_carrinho', 'novo_carrinho.id','=','novo_carrinho_item.idcarrinho')
@@ -801,7 +799,6 @@ class ClientController extends Controller{
         $multiplicacao = 1;
 
         $soma = 0;
-
 
 
         if(count($itensCarrinho) > 0){
@@ -1789,13 +1786,18 @@ class ClientController extends Controller{
 
     public function ajaxResultBilhete(Request $request){
         $now = \Carbon\Carbon::now(); 
-
         if (Cache::has($request->bilhete)) {
             $result = Cache::get($request->bilhete);
             $result = json_decode($result);
         }else{
             $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', '!=', 4)->first();
-            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)->where('status_resultado', 0)->orwhere('status_resultado', 1)->orwhere('status_resultado', 2)->get();
+            
+            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)
+            ->orWhere(function($query) {
+                $query->where('status_resultado', 0);
+                $query->where('status_resultado', 1);
+                $query->where('status_resultado', 2);
+            })->get();
             $result = [];
             foreach($jogos as $jogo){
     

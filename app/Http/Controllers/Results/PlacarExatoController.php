@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 class PlacarExatoController extends Controller
 {
     public function index($placar, $palpite, $tempo){
-        $palpite = explode($palpite,"-");
-        $placar = explode($placar,"-");
+        $palpite = explode("-",$palpite);
+        $placar = explode("-",$placar);
         if($palpite[0] != "Outros"){
             if($palpite[0] == $placar[0]  && $palpite[1] == $placar[1]){
                 if($tempo == 3){

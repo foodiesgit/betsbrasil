@@ -338,7 +338,6 @@ class AdminController extends Controller {
         $validation = Validator::make($input, $rules, $messages);
 
 
-
         if($validation->fails()){
 
             return back()->withInput()->withErrors($validation);
@@ -584,6 +583,7 @@ class AdminController extends Controller {
     }
 
     public function postCadastrarGerentes(Request $request){
+        dd($request);
 
         $input = $request->all();
 
@@ -686,6 +686,7 @@ class AdminController extends Controller {
             $campos->pode_editar_limite_cambistas = $input['checkbox_op4'];
 
             $campos->pode_transferencia_cambistas = $input['checkbox_op5'];
+            $campos->comissao = $input['comissao'];
 
             $campos->save();
 
@@ -739,7 +740,8 @@ class AdminController extends Controller {
 
 
         $campos = GerentesCampos::where('idusuario', $id)->first();
-
+        
+        $sql[0]->comissao = $campos->comissao;
 
         $data = [
 
@@ -867,19 +869,40 @@ class AdminController extends Controller {
 
 
 
-            $campos = GerentesCampos::where('idusuario', $usuario->id)->get();
+            $campos = GerentesCampos::where('idusuario', $usuario->id)->first();
+            if($campos){
+                $campos->pode_criar_cambistas = $input['checkbox_op1'];
 
-            $campos[0]->pode_criar_cambistas = $input['checkbox_op1'];
+                $campos->pode_alterar_cambistas = $input['checkbox_op2'];
+    
+                $campos->pode_editar_apostas_cambistas = $input['checkbox_op3'];
+    
+                $campos->pode_editar_limite_cambistas = $input['checkbox_op4'];
+    
+                $campos->pode_transferencia_cambistas = $input['checkbox_op5'];
+                $campos->comissao = $input['comissao'];
+    
+    
+                $campos->save();
+            }else{
+                $campos = new GerentesCampos;
+                $campos->idusuario = $usuario->id;
 
-            $campos[0]->pode_alterar_cambistas = $input['checkbox_op2'];
+                $campos->pode_criar_cambistas = $input['checkbox_op1'];
+    
+                $campos->pode_alterar_cambistas = $input['checkbox_op2'];
+    
+                $campos->pode_editar_apostas_cambistas = $input['checkbox_op3'];
+    
+                $campos->pode_editar_limite_cambistas = $input['checkbox_op4'];
+    
+                $campos->pode_transferencia_cambistas = $input['checkbox_op5'];
+                $campos->comissao = $input['comissao'];
+    
+                $campos->save();
+            }
 
-            $campos[0]->pode_editar_apostas_cambistas = $input['checkbox_op3'];
 
-            $campos[0]->pode_editar_limite_cambistas = $input['checkbox_op4'];
-
-            $campos[0]->pode_transferencia_cambistas = $input['checkbox_op5'];
-
-            $campos[0]->save();
 
 
 
@@ -1132,7 +1155,7 @@ class AdminController extends Controller {
 
 
 
-        $comissoes = CambistasComissoes::where('idusuario', $id)->get();
+        $comissoes = CambistasComissoes::where('idusuario', $id)->first();
 
 
 
@@ -1641,13 +1664,21 @@ class AdminController extends Controller {
 
             ->get();
 
-        }if(Auth::user()->tipo_usuario == 3){
+        }else if(Auth::user()->tipo_usuario == 3){
             $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
 
             ->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
 
             ->get();
-        }else{
+        }
+        else if(Auth::user()->tipo_usuario == 4){
+            $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
+
+            ->where('tipo_usuario', 4)->where('idusuario', Auth::user()->id)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
+
+            ->get();
+        }
+        else{
             return Redirect()->back();
 
         }
@@ -2670,6 +2701,72 @@ class AdminController extends Controller {
         $request->session()->regenerateToken();
     
         return redirect('/');
+    }
+
+    public function viewValidarBilhete(){
+
+        return view('admin.verifica_bilhete');
+
+    }
+    
+    public function postValidarBilhete(Request $request){
+    
+        if(Auth::user()->tipo_usuario != 1){
+            try {
+                $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', 4)->first();
+                if($aposta) {
+                    DB::beginTransaction();
+                    $aposta->idcambista = Auth::user()->id;
+                    $aposta->status = 1;
+                    $aposta->save();
+
+                    $jogos = CupomApostaItem::where('idcupom', $aposta->id)->count();
+
+                    if(Auth::user()->idgerente){
+                       $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
+                       $porcentagem = $comissaoGerente->comissao / 100;
+                       $comissao = $aposta->valor_apostado * $comissaoGerente->porcentagem;
+                       $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
+                       $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
+                       $credito->save();
+                    }
+                    $comissoes = CambistasComissoes::where('idusuario', Auth::user()->id)->first();
+
+                    if($comissoes){
+                        if($jogos == 1){ $porcentagem = $comissoes->comissao1jogo / 100; }
+                        if($jogos == 2){ $porcentagem = $comissoes->comissao2jogo / 100; }
+                        if($jogos == 3){ $porcentagem = $comissoes->comissao3jogo / 100; }
+                        if($jogos == 4){ $porcentagem = $comissoes->comissao4jogo / 100; }
+                        if($jogos == 5){ $porcentagem = $comissoes->comissao5jogo / 100; }
+                        if($jogos == 6){ $porcentagem = $comissoes->comissao6jogo / 100; }
+                        if($jogos == 7){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        if($jogos >= 8){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        $comissao = $aposta->valor_apostado * $porcentagem;
+                        $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+                        $credito->saldo_liberado = $credito->saldo_liberado + $comissao;
+                        $credito->save();
+                        
+                    }
+                    
+                    DB::commit();
+                    return Redirect()->back()->with('sucesso', 'Bilhete Validado com sucesso');
+                    
+                }else{
+                    return Redirect()->back()->with('erro', 'Bilhete não encontrado ou já validado');
+                    
+                }
+            } catch (\Throwable $th) {
+                
+                DB::rollback();
+                dd($th);
+            }
+           
+        }else{
+            return Redirect()->back()->with('erro', 'Sem Permissão');
+
+        }
+        
+
     }
 }
 

@@ -87,7 +87,6 @@
             <div class="col-lg-12">
               <div class="row row-50">
                   <!-- Heading Component-->
-                  
                   @foreach($jogos as $jogo)
                 <div class="col-lg-8">
 
@@ -326,12 +325,13 @@
       $(document).ready(function(e){
         $.ajax({
 
-        url: '/ajax-verifica-bilhete/608ca3',
+        url: '/ajax-verifica-bilhete/{{$aposta->codigo_unico}}',
 
         method: 'GET',
 
         success: function(res){
             $.each(res, function(i, res) {
+                console.log(res)
                 var placar =  res[0].ss.split('-')
                 $('#homePlacar-'+res[0].bet365_id).html(placar[0]);
                 $('#awayPlacar-'+res[0].bet365_id).html(placar[1]);

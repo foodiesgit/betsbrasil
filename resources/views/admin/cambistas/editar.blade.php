@@ -156,7 +156,7 @@
 
                                 '30' => '30%'
 
-                            ], $comissoes[0]->comissao1jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao1jogo') ? ' is-invalid' : '' )]) }}
+                            ], $comissoes->comissao1jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao1jogo') ? ' is-invalid' : '' )]) }}
 
                             @error('comissao1jogo')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -180,7 +180,7 @@
 
                                 '30' => '30%'
 
-                            ], $comissoes[0]->comissao2jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao2jogo') ? ' is-invalid' : '' )]) }}
+                            ], $comissoes->comissao2jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao2jogo') ? ' is-invalid' : '' )]) }}
 
                             @error('comissao2jogo')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -204,7 +204,7 @@
 
                                 '30' => '30%'
 
-                            ], $comissoes[0]->comissao3jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao3jogo') ? ' is-invalid' : '' )]) }}
+                            ], $comissoes->comissao3jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao3jogo') ? ' is-invalid' : '' )]) }}
 
                             @error('comissao3jogo')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -228,7 +228,7 @@
 
                                 '30' => '30%'
 
-                            ], $comissoes[0]->comissao4jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao4jogo') ? ' is-invalid' : '' )]) }}
+                            ], $comissoes->comissao4jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao4jogo') ? ' is-invalid' : '' )]) }}
 
                             @error('comissao4jogo')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -252,7 +252,7 @@
 
                                 '30' => '30%'
 
-                            ], $comissoes[0]->comissao5jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao5jogo') ? ' is-invalid' : '' )]) }}
+                            ], $comissoes->comissao5jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao5jogo') ? ' is-invalid' : '' )]) }}
 
                             @error('comissao5jogo')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -276,7 +276,7 @@
 
                                 '30' => '30%'
 
-                            ], $comissoes[0]->comissao6jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao6jogo') ? ' is-invalid' : '' )]) }}
+                            ], $comissoes->comissao6jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao6jogo') ? ' is-invalid' : '' )]) }}
 
                             @error('comissao6jogo')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -300,7 +300,7 @@
 
                                 '30' => '30%'
 
-                            ], $comissoes[0]->comissao7jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao7jogo') ? ' is-invalid' : '' )]) }}
+                            ], $comissoes->comissao7jogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao7jogo') ? ' is-invalid' : '' )]) }}
 
                             @error('comissao7jogo')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -324,7 +324,7 @@
 
                                 '30' => '30%'
 
-                            ], $comissoes[0]->comissao8maisjogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao8maisjogo') ? ' is-invalid' : '' )]) }}
+                            ], $comissoes->comissao8maisjogo, ['class' => 'form-control form-control-lg '.( $errors->has('comissao8maisjogo') ? ' is-invalid' : '' )]) }}
 
                             @error('comissao8maisjogo')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 

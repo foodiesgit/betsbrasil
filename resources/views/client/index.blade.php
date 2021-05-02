@@ -1516,8 +1516,6 @@
 
                     }else{
 
-                        console.log("valor = 0");
-
                         $('#btn_finalizar_aposta').attr('disabled');
 
                     }
@@ -1542,7 +1540,8 @@
 
                         valor = parseFloat(valor);
 
-                        console.log(valor);
+                        $('#newstake_hidden').val(valor)
+
 
                         if( valor > 0.00 ){
 

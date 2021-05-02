@@ -196,6 +196,14 @@
               </a>
             </li>
             @endif
+            @if($user->tipo_usuario != 1)
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/validar-bilhete">
+                <i class="ni ni-single-copy-04 text-default"></i>
+                <span class="nav-link-text">Validar Bilhete</span>
+              </a>
+            </li>
+            @endif
             @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="/admin/fixos">
