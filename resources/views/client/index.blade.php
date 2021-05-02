@@ -934,93 +934,92 @@
 
             $(document).ready(function(e){
             
-                $('#search').on('keyup',function(e){ 
+                $('#search').on('keyup keydown',function(e){ 
 
-                    var query = $('#search').val();
-                    if(query.length > 2){
-                        $.ajax({
+                var query = $('#search').val();
 
-                            url: '/ajax/search',
-   
-                            method: 'GET',
+                $.ajax({
 
-                            data: {
+                    url: '/ajax/search',
 
-                                query: query
+                    method: 'GET',
 
-                            },
+                    data: {
 
-                            success: function(res){
-                                $('.item').parent().remove();
-                                $('.liga').parent().remove();
-                                
-                                res.map((item => {
-                                    $('#tab1').append(
-                                    '<div class="panel tabela-apostas"> '+
-                                        '<div class="item">'+
+                        query: query
 
-                                            '<div class="item-data d-none d-lg-flex">'+
+                    },
 
-                                                '<span class="hora">'+item.data+'</span>'+
+                    success: function(res){
+                        $('.item').parent().remove();
+                        $('.liga').parent().remove();
+                        
+                        res.map((item => {
+                            $('#tab1').append(
+                            '<div class="panel tabela-apostas"> '+
+                                '<div class="item">'+
 
-                                                '<span class="data">'+item.hora+'</span>'+
+                                    '<div class="item-data d-none d-lg-flex">'+
 
-                                            '</div>'+
+                                        '<span class="hora">'+item.data+'</span>'+
 
-                                            '<div class="d-none d-lg-flex item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
+                                        '<span class="data">'+item.hora+'</span>'+
 
-                                                '<span class="time-home">'+item.homeNome+'</span>'+
+                                    '</div>'+
 
-                                                '<span class="time-away">'+item.awayNome+'</span>'+
+                                    '<div class="d-none d-lg-flex item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
 
-                                            '</div>'+
+                                        '<span class="time-home">'+item.homeNome+'</span>'+
 
-                                            '<div class="d-md-none">'+
+                                        '<span class="time-away">'+item.awayNome+'</span>'+
 
-                                                '<div class="item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
+                                    '</div>'+
 
-                                                '<span class="time-home">'+item.homeNome+'</span>'+
+                                    '<div class="d-md-none">'+
 
-                                                '<span class="time-away">'+item.awayNome+'</span>'+
+                                        '<div class="item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
 
-                                                    '<div class="item-data">'+
+                                        '<span class="time-home">'+item.homeNome+'</span>'+
 
-                                                        '<span class="hora">'+item.data+' as '+item.hora+'</span>'+
+                                        '<span class="time-away">'+item.awayNome+'</span>'+
+
+                                            '<div class="item-data">'+
+
+                                                '<span class="hora">'+item.data+' as '+item.hora+'</span>'+
 
 
-
-                                                    '</div>'+
-
-                                                '</div>'+
-
-                                            '</div>'+
-
-                                            '<div class="item-cotas">'+
-
-                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.oddhome_id+'">'+item.oddhome_value+'</span>'+
-
-                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.odddraw_id+'">'+item.odddraw_value+'</span>'+
-
-                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.oddaway_id+'">'+item.oddaway_value+'</span>'+
-
-                                            '</div>'+
-
-                                            '<div class="item-acoes d-none d-lg-flex">'+
-
-                                                '<span>+'+item.total_odds+'</span>'+
 
                                             '</div>'+
 
                                         '</div>'+
 
-                                        '</div>')
-                                }));
-                            },error: function(err){
-                            },complete: function(){
-                            }
+                                    '</div>'+
 
-                        });
+                                    '<div class="item-cotas">'+
+
+                                        '<span class="cota cota-normal cota-aposta" data-id="'+item.oddhome_id+'">'+item.oddhome_value+'</span>'+
+
+                                        '<span class="cota cota-normal cota-aposta" data-id="'+item.odddraw_id+'">'+item.odddraw_value+'</span>'+
+
+                                        '<span class="cota cota-normal cota-aposta" data-id="'+item.oddaway_id+'">'+item.oddaway_value+'</span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item-acoes d-none d-lg-flex">'+
+
+                                        '<span>+'+item.total_odds+'</span>'+
+
+                                    '</div>'+
+
+                                '</div>'+
+
+                                '</div>')
+                        }));
+                    },error: function(err){
+                    },complete: function(){
                     }
+
+                    });    
                 });
                 $('#search-mobile').on('keyup',function(){
                     var query = $('#search-mobile').val();

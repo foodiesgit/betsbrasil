@@ -228,11 +228,11 @@ class AjaxController extends Controller{
             // })
             ->where('data', '>', date('Y-m-d H:i:s'))
             // ->where('idesporte', 1)
-            ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds', 'away.nome as awayNome','home.nome as homeNome')->take('5')
+            ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id as betid', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds', 'away.nome as awayNome','home.nome as homeNome')->take('5')
             ->get();
             foreach ($jogos as $jogo) {
-                $sql_odds_principal = Odds::where('idevent', $jogo['id'])->where('idsubgrupo', 79)->get();
-                if($sql_odds_principal[0]){
+                $sql_odds_principal = Odds::where('idevent', $jogo['betid'])->get();
+                if($jogo->total_odds > 0){
                     $jogo['oddhome_id'] = $sql_odds_principal[0]->id;
 
                     $jogo['oddhome_value'] = $sql_odds_principal[0]->odds;
