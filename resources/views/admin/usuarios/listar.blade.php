@@ -126,7 +126,7 @@
 
             <div class="table-responsive">
 
-                <table id="example" class="table align-items-center table-flush">
+                <table id="example" class="datatable table align-items-center table-flush">
 
                     <thead>
 
@@ -202,9 +202,7 @@
 
                                                     <a class="dropdown-item" href="/admin/usuarios/editar/'.$dados->id.'">Editar</a>
 
-                                                    <a class="dropdown-item" href="/admin/usuarios/apostas/'.$dados->id.'">Apostas</a>
 
-                                                    <a class="dropdown-item" href="/admin/usuarios/saques/'.$dados->id.'">Saques</a>
 
                                                 </div>
 
@@ -221,7 +219,9 @@
                             }
 
                         ?>
+                                                    <!-- // // <a class="dropdown-item" href="/admin/usuarios/apostas/'.$dados->id.'">Apostas</a>
 
+// <a class="dropdown-item" href="/admin/usuarios/saques/'.$dados->id.'">Saques</a> -->
                     </tbody>
 
                 </table>

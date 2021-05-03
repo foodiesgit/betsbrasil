@@ -194,7 +194,7 @@
 
     <div class="table-responsive">
 
-        <table id="example"  class="table align-items-center table-flush">
+        <table id="example"  class="datatable table align-items-center table-flush">
 
             <thead >
 
