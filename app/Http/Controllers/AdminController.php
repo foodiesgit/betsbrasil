@@ -51,6 +51,7 @@ use App\GerentesCampos;
 use App\LancamentosCaixa;
 
 use App\Events;
+use App\Historic;
 
 
 use App\CupomAposta;
@@ -88,7 +89,7 @@ class AdminController extends Controller {
 
             Session::put('nomeadmin', Auth::user()->nome);
 
-            return redirect('admin/gerentes/caixa');
+            return redirect('admin/dashboard');
 
         }
 
@@ -97,8 +98,26 @@ class AdminController extends Controller {
     }
 
     public function viewDashboard(){
+            $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
 
-        return view('admin.dashboard');
+            ->where('users.id', Auth::user()->id)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
+    
+            ->first();
+
+        
+            if(Auth::user()->tipo_usuario == 2){
+                $historico = Historic::all();
+            }else{
+                $historico = Auth::user()->historics;
+            }
+
+        $data = [
+
+            'sql' => $sql,
+            'historic' => $historico
+        ];
+
+        return view('admin.dashboard.index',$data);
 
     }
 
@@ -2758,11 +2777,229 @@ class AdminController extends Controller {
             } catch (\Throwable $th) {
                 
                 DB::rollback();
-                dd($th);
+             
             }
            
         }else{
             return Redirect()->back()->with('erro', 'Sem Permissão');
+
+        }
+        
+
+    }
+
+    public function deposit(Request $request){
+        if(floatval($request['recarrega-saldo-hidden']) < 40 ){
+            return Redirect()->back()->with('erro', 'O valor minimo para deposito é de 40 Reais');
+        }
+
+        $historic = Historic::where('user_id', Auth::user()->id)->where('status', 0)->where('type', 'D')->count();
+
+        if($historic){
+            return Redirect()->back()->with('erro', 'Você já tem um solicitação de deposito pendente aguarde a aprovação do admin');
+
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $id = hexdec(uniqid());
+            $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+            $historic = Auth::user()->historics()->create([
+                'type' => 'D',
+                'user_id_transaction' => $id,
+                'amount' => $request['recarrega-saldo-hidden'],
+                'total_before' => $credito->saldo_apostas,
+                'total_after' => $credito->saldo_apostas + $request['recarrega-saldo-hidden'],
+                'date' => date('Ymdhis'),
+                'status' => 0
+            ]);
+            
+            $credito->saldo_bloqueado =  $credito->saldo_bloqueado + $request['recarrega-saldo-hidden'];
+            $credito->save();
+            DB::commit();
+
+            return Redirect()->back()->with('sucesso', 'Solicitação efetuada aguarde a aprovação do admin');
+
+
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
+
+           
+        }
+    }
+    public function saque(Request $request){
+        if(floatval($request['saque-saldo-hidden']) < 5 ){
+            return Redirect()->back()->with('erro', 'O valor minimo para saque é de 5 Reais');
+        }
+        $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+
+        if(floatval($request['saque-saldo-hidden']) > $credito->saldo_liberado ){
+            return Redirect()->back()->with('erro', 'Você não tem saldo suficiente');
+        }
+
+        $historic = Historic::where('user_id', Auth::user()->id)->where('status', 0)->where('type', 'S')->count();
+
+        if($historic){
+            return Redirect()->back()->with('erro', 'Você já tem um solicitação de saque pendente aguarde a aprovação do admin');
+
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $id = hexdec(uniqid());
+            $historic = Auth::user()->historics()->create([
+                'type' => 'S',
+                'user_id_transaction' => $id,
+                'amount' => $request['saque-saldo-hidden'],
+                'total_before' => $credito->saldo_liberado,
+                'total_after' => $credito->saldo_liberado - $request['saque-saldo-hidden'],
+                'date' => date('Ymdhis'),
+                'status' => 0
+            ]);
+            $saldo_antigo = $credito->saldo_liberado;
+            $novoSaldo = $credito->saldo_liberado - $request['saque-saldo-hidden'];
+            $credito->saldo_liberado =  $novoSaldo ;
+            $credito->saldo_bloqueado =  $credito->saldo_bloqueado + $request['saque-saldo-hidden'];
+            $credito->save();
+            DB::commit();
+
+            return Redirect()->back()->with('sucesso', 'Solicitação efetuada aguarde a aprovação do admin');
+
+
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            dd($th);
+            return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
+           
+        }
+    }
+
+    public function cancelarSolicitacao(Request $request){
+
+        
+        try {
+            DB::beginTransaction();
+            $historic = Historic::find($request->id);
+
+            if($historic->user_id != Auth::user()->id){
+                return Redirect()->back()->with('sucesso', 'Sem permissão para essa ação');
+
+            }
+            $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+
+            $historic->status = 3;
+            $historic->save();
+
+            if($historic->type == 'D'){
+                $credito->saldo_bloqueado = $credito->saldo_bloqueado - $historic->amount;
+            }
+            if($historic->type == 'S'){
+                $credito->saldo_liberado = $credito->saldo_liberado + $historic->amount;
+                $credito->saldo_bloqueado =  $credito->saldo_bloqueado - $historic->amount;
+
+            }
+
+            $credito->save();
+
+            DB::commit();
+
+            return Redirect()->back()->with('sucesso', 'Solicitação efetuada cancelada');
+
+
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
+
+        }
+    }
+    public function aprovarSolicitacao(Request $request){
+
+        if(Auth::user()->tipo_usuario == 2){
+            try {
+                DB::beginTransaction();
+                $historic = Historic::find($request->id);
+    
+                if($historic->user_id != Auth::user()->id){
+                    return Redirect()->back()->with('sucesso', 'Sem permissão para essa ação');
+    
+                }
+                $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+    
+                $historic->status = 3;
+                $historic->save();
+    
+                if($historic->type == 'D'){
+                    $credito->saldo_aposta =  $credito->saldo_aposta + $historic->amount;
+                }
+                if($historic->type == 'S'){
+                    $credito->saldo_liberado = $credito->saldo_liberado - $historic->amount;
+                    $credito->saldo_bloqueado =  $credito->saldo_bloqueado -  $historic->amount;
+
+                }
+    
+                $credito->save();
+    
+                DB::commit();
+    
+                return Redirect()->back()->with('sucesso', 'Solicitação efetuada aguarde a aprovação do admin');
+    
+    
+    
+            } catch (\Throwable $th) {
+                DB::rollback();
+                return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
+    
+            }
+        }else{
+            return Redirect()->back()->with('error', 'Sem Permissão');
+
+        }
+    }
+    public function rejeitarSolicitacao(Request $request){
+        if(Auth::user()->tipo_usuario == 2){
+            try {
+                DB::beginTransaction();
+                $historic = Historic::find($request->id);
+    
+                if($historic->user_id != Auth::user()->id){
+                    return Redirect()->back()->with('sucesso', 'Sem permissão para essa ação');
+    
+                }
+                $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+    
+                $historic->status = 3;
+                $historic->save();
+    
+                if($historic->type == 'D'){
+                    $credito->saldo_bloqueado = $credito->saldo_bloqueado - $historic->amount;
+                }
+                if($historic->type == 'S'){
+                    $credito->saldo_liberado = $credito->saldo_liberado + $historic->amount;
+                    $credito->saldo_bloqueado =  $credito->saldo_bloqueado -  $historic->amount;
+
+                }
+    
+                $credito->save();
+    
+                DB::commit();
+    
+                return Redirect()->back()->with('sucesso', 'Solicitação efetuada aguarde a aprovação do admin');
+    
+    
+    
+            } catch (\Throwable $th) {
+                DB::rollback();
+                return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
+    
+            }
+        }else{
+            return Redirect()->back()->with('error', 'Sem Permissão');
 
         }
         

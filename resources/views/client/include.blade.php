@@ -492,7 +492,7 @@
 
 
 
-                    <li aria-haspopup="true">
+                    <!-- <li aria-haspopup="true">
 
                         <span class="horizontalMenu-click"><i class="horizontalMenu-arrow fe fe-chevron-down"></i></span>
 
@@ -508,139 +508,139 @@
 
                     <?php
 
-                        $campeonatosDestaque = App\Ligas::where('ligas.status', 1)->where('ligas.destaque', 1)
+                        // $campeonatosDestaque = App\Ligas::where('ligas.status', 1)->where('ligas.destaque', 1)
 
-                            ->leftJoin('paises', 'paises.id','=','ligas.idpais')
+                        //     ->leftJoin('paises', 'paises.id','=','ligas.idpais')
 
-                            ->select("ligas.id", "ligas.nome_traduzido", "paises.bandeira", "paises.id as idpais", "paises.nome_traduzido as nome_pais")
+                        //     ->select("ligas.id", "ligas.nome_traduzido", "paises.bandeira", "paises.id as idpais", "paises.nome_traduzido as nome_pais")
 
-                            ->groupBy('idpais')->get();
+                        //     ->groupBy('idpais')->get();
 
 
 
-                        $array_pais = [];
+                        // $array_pais = [];
 
-                        if(count($campeonatosDestaque) > 0){
+                        // if(count($campeonatosDestaque) > 0){
 
-                            foreach($campeonatosDestaque as $dados){
+                        //     foreach($campeonatosDestaque as $dados){
 
-                                $c = App\Ligas::where('ligas.status', 1)->where('ligas.destaque', 1)
+                        //         $c = App\Ligas::where('ligas.status', 1)->where('ligas.destaque', 1)
 
-                                    ->where('idpais', $dados->idpais)
+                        //             ->where('idpais', $dados->idpais)
 
-                                    ->leftJoin('paises', 'paises.id','=','ligas.idpais')
+                        //             ->leftJoin('paises', 'paises.id','=','ligas.idpais')
 
-                                    ->select("ligas.id", "ligas.nome_traduzido", "paises.nome_traduzido as nome_pais")->get();
+                        //             ->select("ligas.id", "ligas.nome_traduzido", "paises.nome_traduzido as nome_pais")->get();
 
 
 
-                                $array_ligas = [];
+                        //         $array_ligas = [];
 
 
 
 
 
-                                if(count($c) > 0){
+                        //         if(count($c) > 0){
 
-                                    foreach($c as $dados2){
+                        //             foreach($c as $dados2){
 
-                                        $array_ligas[] = [
+                        //                 $array_ligas[] = [
 
-                                            'id' => $dados2->id,
+                        //                     'id' => $dados2->id,
 
-                                            'nome_liga' => $dados2->nome_traduzido,
+                        //                     'nome_liga' => $dados2->nome_traduzido,
 
-                                        ];
+                        //                 ];
 
-                                    }
+                        //             }
 
-                                }
+                        //         }
 
 
 
-                                $array_pais[] = [
+                        //         $array_pais[] = [
 
-                                    'id' => $dados->id,
+                        //             'id' => $dados->id,
 
-                                    'nome' => $dados->nome_pais,
+                        //             'nome' => $dados->nome_pais,
 
-                                    'bandeira' => $dados->bandeira,
+                        //             'bandeira' => $dados->bandeira,
 
-                                    'ligas' => $array_ligas
+                        //             'ligas' => $array_ligas
 
-                                ];
+                        //         ];
 
-                            }
+                        //     }
 
-                        }
+                        // }
 
 
 
 
 
-                        if(count($array_pais) > 0){
+                        // if(count($array_pais) > 0){
 
-                            foreach($array_pais as $dados){
+                        //     foreach($array_pais as $dados){
 
 
 
-                                $totalEvents = DB::table('events')->where('idliga', $dados['id'])->where('data','>',date('Y-m-d H:i:s'))->select(DB::raw("count(*) as total"))->get();
+                        //         $totalEvents = DB::table('events')->where('idliga', $dados['id'])->where('data','>',date('Y-m-d H:i:s'))->select(DB::raw("count(*) as total"))->get();
 
 
 
-                                echo '
+                        //         echo '
 
-                                <li aria-haspopup="true">
+                        //         <li aria-haspopup="true">
 
-                                    <span class="horizontalMenu-click"><i class="horizontalMenu-arrow fe fe-chevron-down"></i></span>
+                        //             <span class="horizontalMenu-click"><i class="horizontalMenu-arrow fe fe-chevron-down"></i></span>
 
-                                    <a href="#" class="sub-icon">
+                        //             <a href="#" class="sub-icon">
 
-                                        <img src="/assets/bandeiras/'.$dados['bandeira'].'" style="width: 24px; height: 24px; margin-right: 5px;">
+                        //                 <img src="/assets/bandeiras/'.$dados['bandeira'].'" style="width: 24px; height: 24px; margin-right: 5px;">
 
-                                        '.$dados['nome'].'<i class="fe fe-chevron-down horizontal-icon"></i>
+                        //                 '.$dados['nome'].'<i class="fe fe-chevron-down horizontal-icon"></i>
 
-                                    </a>
+                        //             </a>
 
-                                    <ul class="sub-menu">';
+                        //             <ul class="sub-menu">';
 
 
 
-                                        if(count($dados['ligas']) > 0){
+                        //                 if(count($dados['ligas']) > 0){
 
-                                            foreach($dados['ligas'] as $dados2){
+                        //                     foreach($dados['ligas'] as $dados2){
 
-                                                echo '<li aria-haspopup="true">
+                        //                         echo '<li aria-haspopup="true">
 
 
 
-                                                    <a href="/leagues/'.$dados2['id'].'" class="slide-item">'.$dados2['nome_liga'].'</a>
+                        //                             <a href="/leagues/'.$dados2['id'].'" class="slide-item">'.$dados2['nome_liga'].'</a>
 
-                                                </li>';
+                        //                         </li>';
 
-                                            }
+                        //                     }
 
-                                        }
+                        //                 }
 
-                                    echo '</ul>
+                        //             echo '</ul>
 
-                                </li>
+                        //         </li>
 
-                                ';
+                        //         ';
 
 
 
 
 
-                            }
+                        //     }
 
-                        }
+                        // }
 
-                        echo '</ul></li>'
+                        // echo '</ul></li>'
 
                     ?>
 
-                    <li aria-haspopup="true">
+                    <!-- <li aria-haspopup="true">
 
                         <span class="horizontalMenu-click"><i class="horizontalMenu-arrow fe fe-chevron-down"></i></span>
 
@@ -664,39 +664,39 @@
 
                             <?php
 
-                            $esportes = App\Esportes::where('status', 1)->orderBy('nome_traduzido','asc')->get();
+                            // $esportes = App\Esportes::where('status', 1)->orderBy('nome_traduzido','asc')->get();
 
 
 
-                            if(count($esportes) > 0){
+                            // if(count($esportes) > 0){
 
-                                foreach($esportes as $dados){
+                            //     foreach($esportes as $dados){
 
-                                    echo '
+                            //         echo '
 
-                                        <a href="sports/'.$dados->id.'"><div class="list-group-item list-group-item-action flex-column align-items-start">
+                            //             <a href="sports/'.$dados->id.'"><div class="list-group-item list-group-item-action flex-column align-items-start">
 
-                                            <div class="d-flex w-100 justify-content-between">
+                            //                 <div class="d-flex w-100 justify-content-between">
 
-                                                <h5 class="mb-2 tx-14"><i class="fa fa-star mr-2"></i> '.$dados->nome_traduzido.'</h5>
+                            //                     <h5 class="mb-2 tx-14"><i class="fa fa-star mr-2"></i> '.$dados->nome_traduzido.'</h5>
 
 
 
-                                            </div>
+                            //                 </div>
 
-                                        </div></a>
+                            //             </div></a>
 
-                                    ';
+                            //         ';
 
-                                }
+                            //     }
 
-                            }
+                            // }
 
                             ?>
 
                         </ul>
 
-                    </li>
+                    </li> -->
 
                     <li aria-haspopup="true">
 
@@ -770,7 +770,7 @@
 
                                     echo '
 
-                                        <li aria-haspopup="true"><a href="/minha-conta/dashboard" class="slide-item">Minha Conta</a></li>
+                                        <li aria-haspopup="true"><a href="/admin/dashboard" class="slide-item">Minha Conta</a></li>
 
                                     ';
 
@@ -778,7 +778,7 @@
 
                                     echo '
 
-                                        <li aria-haspopup="true"><a href="/login" class="slide-item">Entrar</a></li>
+                                        <li aria-haspopup="true"><a href="/admin/login" class="slide-item">Entrar</a></li>
 
                                         <li aria-haspopup="true"><a href="/cadastro" class="slide-item">Cadastrar</a></li>
 

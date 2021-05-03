@@ -45,15 +45,6 @@ class AuthAdmin
         }
 
 
-
-        if(auth()->user()->tipo_usuario == 1){
-
-            return redirect('admin/login');
-
-        }
-
-
-
         return $next($request);
 
     }

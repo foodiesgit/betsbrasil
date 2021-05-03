@@ -37,4 +37,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function historics(){
+        return $this->hasMany(Historic::class);
+    }
 }

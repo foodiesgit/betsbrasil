@@ -62,11 +62,19 @@
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
           <!-- Nav items -->
           <ul class="navbar-nav">
+          @if($user->tipo_usuario == 1)
             <li class="nav-item">
-                <a href="/admin/gerentes/caixa" class="nav-link">
+                <a href="/" class="nav-link">
                 <i class="ni ni-shop text-primary"></i>
                 Início</a>
             </li>
+            @else
+            <li class="nav-item">
+                <a href="/admin/dashboard" class="nav-link">
+                <i class="ni ni-shop text-primary"></i>
+                Início</a>
+            </li>
+            @endif
             @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
@@ -189,12 +197,12 @@
             </li>
             @endif
             @if($user->tipo_usuario == 2)
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="/admin/fixos">
                 <i class="ni ni-single-copy-04 text-default"></i>
                 <span class="nav-link-text">Bilhetes</span>
               </a>
-            </li>
+            </li> -->
             @endif
             @if($user->tipo_usuario != 1)
             <li class="nav-item">
@@ -389,6 +397,15 @@
     <script src="/assets2/vendor/pickadate/picker.time.js"></script>
 
     <script src="/assets2/vendor/pickadate/picker.date.js"></script>
+<script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+    <script>
+      $(document).ready(function(e){
+        $('.datatable').DataTable();
+
+      });
+
+    </script>
 </body>
 
 </html>
