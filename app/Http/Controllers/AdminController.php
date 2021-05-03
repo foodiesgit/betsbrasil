@@ -602,7 +602,6 @@ class AdminController extends Controller {
     }
 
     public function postCadastrarGerentes(Request $request){
-        dd($request);
 
         $input = $request->all();
 
@@ -2239,8 +2238,6 @@ class AdminController extends Controller {
 
         if(!isset($input['filtro_pais'])){ $input['filtro_pais'] = ''; }
 
-
-
         $sql = Events::leftJoin('ligas', 'ligas.id','=','events.idliga')
 
             ->leftJoin('esportes', 'esportes.id','=','ligas.idesporte')
@@ -2249,37 +2246,41 @@ class AdminController extends Controller {
 
             ->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idevent', '=', 'events.id')
 
-            ->whereBetween('data', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59'])
+            ->whereBetween('data', [$dataInicioUs.' 00:00:00', $dataFinalUs.' 23:59:59']);
 
-            ->where(function($query) use ($input){
+            if($input['filtro_esporte'] != '' || $input['filtro_liga'] != '' ||$input['filtro_liga'] != ''){
+               $sql->orwhere(function($query) use ($input){
 
-                if($input['filtro_esporte'] != ''){
+                    if($input['filtro_esporte'] != ''){
+    
+                        $query->where('esportes.id', $input['filtro_esporte']);
+    
+                    }
+    
+                    if($input['filtro_liga'] != ''){
+    
+                        $query->where('ligas.id', $input['filtro_liga']);
+    
+                    }
+    
+                    if($input['filtro_pais'] != ''){
+    
+                        $query->where('ligas.idpais', $input['filtro_pais']);
+    
+                    }
+    
+                });
+            }
+        
 
-                    $query->where('esportes.id', $input['filtro_esporte']);
 
-                }
+        $nova_query = $sql->select("events.*", DB::raw("date_format(events.data, '%d/%m/%Y as %H:%i') as data_evento"), "ligas.nome_traduzido as nome_liga", "esportes.nome_traduzido as nome_esporte", "paises.nome as nome_pais", "paises.nome_traduzido as nome_pais_traduzido", DB::raw("sum(valor_apostado) as soma"))
 
-                if($input['filtro_liga'] != ''){
-
-                    $query->where('ligas.id', $input['filtro_liga']);
-
-                }
-
-                if($input['filtro_pais'] != ''){
-
-                    $query->where('ligas.idpais', $input['filtro_pais']);
-
-                }
-
-            })->select("events.*", DB::raw("date_format(events.data, '%d/%m/%Y as %H:%i') as data_evento"), "ligas.nome_traduzido as nome_liga", "esportes.nome_traduzido as nome_esporte", "paises.nome as nome_pais", "paises.nome_traduzido as nome_pais_traduzido", DB::raw("sum(valor_apostado) as soma"))
-
-            ->orderBy('events.data', 'desc')->take('100')->get();
-
-
+        ->orderBy('events.data', 'desc')->take('40')->get();
 
         $data = [
 
-            'sql' => $sql,
+            'sql' => $nova_query,
 
             'datas' => [
 

@@ -275,9 +275,20 @@ class MinhaContaController extends Controller{
 
         $usuarios->save();
 
+        $creditos = new Creditos;
+
+        $creditos->idusuario = $usuarios->id;
+
+        $creditos->saldo_bloqueado = 0;
+
+        $creditos->saldo_liberado = 0;
+
+        $creditos->saldo_apostas = 0;
+
+        $creditos->save();
 
 
-        return redirect('minha-conta/dashboard')->with('sucesso', 'Seja bem vindo.');
+        return redirect('admin/dashboard')->with('sucesso', 'Seja bem vindo.');
 
     }
 
