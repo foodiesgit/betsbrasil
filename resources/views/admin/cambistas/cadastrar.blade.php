@@ -112,11 +112,8 @@
         <div class="form-group col-md-6 col-sm-12">
 
             <label class="mb-1"><strong>Gerente Vinculado*</strong></label>
-        
-            <select class="form-control form-control-lg" disabled name="idgerente"> 
-                <option value="{{Auth::user()->id}}">{{Auth::user()->name}}</option>
 
-            </select>
+            {{ Form::select('idgerente', [Auth::user()->id => Auth::user()->name], null, ['class' => 'form-control form-control-lg '.( $errors->has('idgerente') ? ' is-invalid' : '' ) , 'disabled' =>true]) }}
 
             @error('idgerente')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 

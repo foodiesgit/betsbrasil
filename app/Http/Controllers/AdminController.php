@@ -1000,7 +1000,6 @@ class AdminController extends Controller {
     public function postCadastrarCambistas(Request $request){
 
         $input = $request->all();
-
         $rules = [
 
             'name' => 'required',
