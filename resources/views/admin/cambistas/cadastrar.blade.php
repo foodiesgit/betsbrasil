@@ -113,7 +113,7 @@
 
             <label class="mb-1"><strong>Gerente Vinculado*</strong></label>
 
-            {{ Form::select('idgerente', [Auth::user()->id => Auth::user()->name], null, ['class' => 'form-control form-control-lg '.( $errors->has('idgerente') ? ' is-invalid' : '' ) , 'disabled' =>true]) }}
+            {{ Form::select('idgerente', [Auth::user()->id => Auth::user()->name], null, ['class' => 'form-control form-control-lg '.( $errors->has('idgerente') ? ' is-invalid' : '' ) ]) }}
 
             @error('idgerente')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
