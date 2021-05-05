@@ -105,14 +105,18 @@
                             <tr>
                               <td>Total Apostado</td>
                               <td>R$ {{number_format($aposta->valor_apostado, 2,',','.')}}</td>
+                            </tr>
+                            <tr>
                               <td>Cotação</td>
-                              <td>x {{number_format($aposta->total_cotas, 2,',','.')}}</td>
+                              <td>{{number_format($aposta->total_cotas, 2,',','.')}}</td>
+                            </tr>
+                            <tr>
                               <td>Possivel Retorno</td>
                               <td>R${{number_format($aposta->possivel_retorno, 2,',','.')}}</td>
                             </tr>
                             <tr>
                               <td>Data e hora</td>
-                              <td>{{$aposta->created_at->toDateTimeString()}}</td>
+                              <td>{{$aposta->created_at->format('d/m/Y H:i:s')}}</td>
                               <td>Status do Bilhete</td>
 
                               @if($aposta->status == 1)
