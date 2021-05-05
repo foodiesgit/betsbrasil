@@ -78,12 +78,6 @@
       <section class="section section-sm bg-gray-100">      
         <div class="container">
           <div class="row row-50">
-            <article class="heading-component">
-                <div class="heading-component-inner">
-                    <h5 class="heading-component-title">Resultados do bilhete
-                    </h5>
-                </div>
-            </article>
             <div class="col-lg-12">
               <div class="row row-50">
               <div class="col-lg-8">
