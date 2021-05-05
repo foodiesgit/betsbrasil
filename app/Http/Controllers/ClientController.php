@@ -69,6 +69,7 @@ use App\CupomApostaItem;
 use App\NovoCarrinho;
 
 use App\NovoCarrinhoItem;
+use App\CambistasComissoes;
 
 use Illuminate\Support\Facades\Cache;
 
@@ -1583,6 +1584,36 @@ class ClientController extends Controller{
 
                     $cupomAposta->save();
 
+                    if($cupomAposta) {}
+
+                    $jogos = CupomApostaItem::where('idcupom', $cupomAposta->id)->count();
+
+                    if(Auth::user()->idgerente){
+                       $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
+                       $porcentagem = $comissaoGerente->comissao / 100;
+                       $comissao = $cupomAposta->valor_apostado * $comissaoGerente->porcentagem;
+                       $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
+                       $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
+                       $credito->save();
+                    }
+                    $comissoes = CambistasComissoes::where('idusuario', Auth::user()->id)->first();
+
+                    if($comissoes){
+                        if($jogos == 1){ $porcentagem = $comissoes->comissao1jogo / 100; }
+                        if($jogos == 2){ $porcentagem = $comissoes->comissao2jogo / 100; }
+                        if($jogos == 3){ $porcentagem = $comissoes->comissao3jogo / 100; }
+                        if($jogos == 4){ $porcentagem = $comissoes->comissao4jogo / 100; }
+                        if($jogos == 5){ $porcentagem = $comissoes->comissao5jogo / 100; }
+                        if($jogos == 6){ $porcentagem = $comissoes->comissao6jogo / 100; }
+                        if($jogos == 7){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        if($jogos >= 8){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        $comissao = $cupomAposta->valor_apostado * $porcentagem;
+                        $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+                        $credito->saldo_liberado = $credito->saldo_liberado + $comissao;
+                        $credito->save();
+                        
+                    }
+                    
 
 
                     CarrinhoApostas::where('session_id', session()->getId())->delete();
