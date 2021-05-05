@@ -336,7 +336,6 @@
 
                 <?php
                     if(count($bilhetes) > 0){
-
                         foreach($bilhetes as $dados){
                             $cambista = \App\User::find($dados->idcambista); 
                             $cliente = \App\User::find($dados->idusuario); 
@@ -345,7 +344,7 @@
 
                                 $status = '<span class="badge badge-success">Aguardando Resultado</div>';
 
-                            }elseif($dados->status == 0){
+                            }elseif($dados->status == 4){
 
                                 $status = '<span class="badge badge-danger">Pré-bilhete</span>';
 
