@@ -95,8 +95,10 @@
             <h3 class="mb-0">Historico de Transações</h3>
         </div>
         <div class="col text-right">
+        @if(Auth::user()->tipo_usuario ==1)
             <button  type="button"  class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-saldo">Adicionar Saldo</button>
             <button  type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-saque">Solicitar Saque</button>
+        @endif
         </div>
     </div>
 <!-- 
@@ -280,7 +282,179 @@
 </div>
 
 </div>
+
+
+<div class="card">
+
+<div class="card-header d-block">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="mb-0">Todos os Bilhetes</h3>
+        </div>
+        <div class="col text-right">
+           
+        </div>
+    </div>
+<!-- 
+    <h4 class="card-title"></h4>
+
+    <p class="mb-0 subtitle">Resumo dos Cambistas Cadastrados</p> -->
+
 </div>
+
+<div class="card-body">
+
+    <div class="table-responsive">
+
+        <table id="example" class="datatable table align-items-center table-flush">
+
+            <thead>
+
+                <tr>
+
+                    <td>ID</td>
+                    <td>Data</td>
+
+                    <td>Cliente</td>
+                    <td>Cambista</td>
+
+                    <td>Valor Apostado</td>
+
+                    <td>Valor de Retorno</td>
+
+                    <td>Cotação</td>
+
+                    <td>Status</td>
+
+                    <td>Ações</td>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <?php
+                    if(count($bilhetes) > 0){
+
+                        foreach($bilhetes as $dados){
+                            $cambista = \App\User::find($dados->idcambista); 
+                            $cliente = \App\User::find($dados->idusuario); 
+                            $status = '';
+                            if($dados->status == 1){
+
+                                $status = '<span class="badge badge-success">Aguardando Resultado</div>';
+
+                            }elseif($dados->status == 0){
+
+                                $status = '<span class="badge badge-danger">Pré-bilhete</span>';
+
+                            }
+                            elseif($dados->status == 2){
+
+                                $status = '<span class="badge badge-danger">Vencedor</span>';
+
+                            }else{
+                                $status = '<span class="badge badge-danger">Perdeu</span>';
+
+                            }
+
+                            echo '
+
+                            <tr>
+
+                                <td>'.$dados->codigo_unico.'</td>
+                                <td>'.\Carbon\Carbon::parse($dados->created_at)->format('d/m/Y').'</td>
+
+                                <td>'.($cliente ? $cliente->name : "Cliente não declarado").'</td>
+                                <td>'.($cambista ? $cambista->name : "Cambista não declarado").'</td>
+
+                                <td><span class="badge badge-danger">
+
+                                    R$ '.number_format($dados->valor_apostado,2,',','.').'
+
+                                </span></td>
+
+                                <td><span class="badge badge-success">
+
+                                    R$ '.number_format($dados->possivel_retorno,2,',','.').'
+
+                                </span></td>
+
+                                <td><span class="badge badge-info">
+
+                                    '.$dados->total_cotas.'
+
+                                </span></td>
+
+                                <td>'.$status.'</td>
+
+                               
+                            ';
+                            if(Auth::user()->tipo_usuario != 2){
+                                echo '<td>
+
+                                <div class="dropdown">
+
+                                    <button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+
+                                    </button>
+
+                                    <div class="dropdown-menu">
+
+                                        <a class="dropdown-item" target="_blank" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>
+
+                                    </div>
+
+                                </div>
+                                </td>';
+
+                            }else{
+                               
+                              echo '<td>
+                              <div class="dropdown">
+
+                                <button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+
+                                </button>
+
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>
+
+                                </div>
+
+                            </div>
+                            </td>';
+                            }
+                            echo '</tr>';
+
+                        }
+
+                    }
+
+                ?>
+
+
+
+                
+
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</div>
+</div>
+@if(Auth::user()->tipo_usuario ==1)
 <div class="modal fade" id="modal-saldo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -360,6 +534,7 @@
     </div>
   </div>
 </div>
+@endif
 <input type="hidden" name="saldo1" value="R$ {{ number_format($sql['saldo_apostas'],2,',','.') }}" />
 
 <input type="hidden" name="saldo2" value="R$ {{ number_format($sql['saldo_liberado'],2,',','.') }}" />

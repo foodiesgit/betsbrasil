@@ -110,11 +110,22 @@ class AdminController extends Controller {
             }else{
                 $historico = Auth::user()->historics;
             }
+        if( Auth::user()->tipo_usuario == 2){
+            $bilhetes = CupomAposta::all();
 
+        }else if(Auth::user()->tipo_usuario == 1){
+            $bilhetes = CupomAposta::where('idusuario', Auth::user()->id)->get();
+        
+        }else{
+            $bilhetes = CupomAposta::where('idcambista', Auth::user()->id)->get();
+
+        }
         $data = [
 
             'sql' => $sql,
-            'historic' => $historico
+            'historic' => $historico,
+            'bilhetes' => $bilhetes
+
         ];
 
         return view('admin.dashboard.index',$data);
