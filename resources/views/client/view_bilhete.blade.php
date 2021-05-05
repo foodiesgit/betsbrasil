@@ -86,6 +86,60 @@
             </article>
             <div class="col-lg-12">
               <div class="row row-50">
+              <div class="col-lg-8">
+              <div class="player-info-corporate">
+                    <div class="player-info-main">
+                      <h4 class="player-info-title">Informações do bilhete</h4>
+                      <!-- <p class="player-info-subtitle"></p> -->
+                      <hr>
+                      <div class="player-info-table">
+                        <div class="table-custom-wrap">
+                          <table class="table-custom">
+                            <tbody>
+                            <tr>
+                              <?php $cliente = \App\User::find($aposta->idusuario);?>
+                              <?php $cambista = \App\User::find($aposta->idcambista);?>
+                              <th>Cliente: </th>
+                              <th>{{($cliente ? $cliente->name : "Cliente não informado")}}</th>
+                            </tr>
+                            <tr>
+                            <th>Cambista: </th>
+                              <th>{{($cambista ? $cambista->name : "Cambista não informado")}}</th>
+                              <th>Codigo do bilhete</th>
+                              <th>{{$aposta->codigo_unico}}</th>
+                            </tr>
+                            <tr>
+                              <td>Total Apostado</td>
+                              <td>R$ {{number_format($aposta->valor_apostado, 2,',','.')}}</td>
+                              <td>Cotação</td>
+                              <td>x {{number_format($aposta->total_cotas, 2,',','.')}}</td>
+                              <td>Possivel Retorno</td>
+                              <td>R${{number_format($aposta->possivel_retorno, 2,',','.')}}</td>
+                            </tr>
+                            <tr>
+                              <td>Data e hora</td>
+                              <td>{{$aposta->created_at->toDateTimeString()}}</td>
+                              <td>Status do Bilhete</td>
+
+                              @if($aposta->status == 1)
+                              <td>Aguardando Resultado</td>
+                              @else @if($aposta->status == 2)
+                                <td style="color:green">Ganhou</td>
+
+                              @else
+                                <td style="color:red">Perdeu</td>
+
+                              @endif
+                              @endif
+                            </tr>
+                          </tbody></table>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+
+              </div>
                   <!-- Heading Component-->
                   @foreach($jogos as $jogo)
                 <div class="col-lg-8">
