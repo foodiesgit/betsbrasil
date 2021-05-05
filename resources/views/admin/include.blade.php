@@ -161,7 +161,7 @@
               </div>
             </li>
             @endif
-            @if($user->tipo_usuario == 2||$user->tipo_usuario == 3 ||$user->tipo_usuario == 4)
+            @if($user->tipo_usuario == 2|| $user->tipo_usuario == 3)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-boxc" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxc">
                 <i class="ni ni-box-2  text-default"></i>
@@ -204,7 +204,7 @@
               </a>
             </li> -->
             @endif
-            @if($user->tipo_usuario != 1)
+            @if($user->tipo_usuario == 4)
             <li class="nav-item">
               <a class="nav-link" href="/admin/validar-bilhete">
                 <i class="ni ni-single-copy-04 text-default"></i>
