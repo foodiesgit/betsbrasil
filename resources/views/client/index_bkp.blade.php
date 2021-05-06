@@ -1,491 +1,1939 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Apostas</title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <!-- Custom Stylesheet -->
-    <link href="/assets2/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="/assets2/css/style.css" rel="stylesheet">
-    <link href="/assets2/css/custom.css" rel="stylesheet">
-
-    <link href="/assets2/vendor/glider/glider.css" rel="stylesheet">
-</head>
-
-<body>
-    @include('client.include')
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
-
-
-    <!--**********************************
-        Main wrapper start
-    ***********************************-->
-    <div id="main-wrapper" class="show menu-toggle">
-
-        <!--**********************************
-            Nav header start
-        ***********************************-->
-        <div class="nav-header">
-            <a href="/" class="brand-logo">
-                <!-- <img class="logo-abbr" src="/assets2/images/logo.png" alt="">
-                <img class="logo-compact" src="/assets2/images/logo-text.png" alt="">
-                <img class="brand-title" src="/assets2/images/logo-text.png" alt=""> -->
-            </a>
-
-            <div class="nav-control">
-                <div class="hamburger is-active">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
-            </div>
-        </div>
-        <!--**********************************
-            Nav header end 212224
-        ***********************************-->
-
-		<!--**********************************
-            Chat box start
-        ***********************************-->
-        @yield('chatbox')
-		<!--**********************************
-            Chat box End
-        ***********************************-->
-
-
-
-
-        <!--**********************************
-            Header start
-        ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                        <div class="header-left">
-                            <div class="dashboard_bar">
-
-                            </div>
-                        </div>
-
-                        <ul class="navbar-nav header-right">
-                            <li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link bell bell-link" href="#">
-                                    <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M20.4604 0.848846H3.31682C2.64742 0.849582 2.00565 1.11583 1.53231 1.58916C1.05897 2.0625 0.792727 2.70427 0.791992 3.37367V15.1562C0.792727 15.8256 1.05897 16.4674 1.53231 16.9407C2.00565 17.414 2.64742 17.6803 3.31682 17.681C3.53999 17.6812 3.75398 17.7699 3.91178 17.9277C4.06958 18.0855 4.15829 18.2995 4.15843 18.5226V20.3168C4.15843 20.6214 4.24112 20.9204 4.39768 21.1817C4.55423 21.4431 4.77879 21.6571 5.04741 21.8008C5.31602 21.9446 5.61861 22.0127 5.92292 21.998C6.22723 21.9833 6.52183 21.8863 6.77533 21.7173L12.6173 17.8224C12.7554 17.7299 12.9179 17.6807 13.0841 17.681H17.187C17.7383 17.68 18.2742 17.4993 18.7136 17.1664C19.1531 16.8334 19.472 16.3664 19.6222 15.8359L22.8965 4.05007C22.9998 3.67478 23.0152 3.28071 22.9413 2.89853C22.8674 2.51634 22.7064 2.15636 22.4707 1.8466C22.2349 1.53684 21.9309 1.28565 21.5822 1.1126C21.2336 0.93954 20.8497 0.849282 20.4604 0.848846ZM21.2732 3.60301L18.0005 15.3847C17.9499 15.5614 17.8432 15.7168 17.6964 15.8274C17.5496 15.938 17.3708 15.9979 17.187 15.9978H13.0841C12.5855 15.9972 12.098 16.1448 11.6836 16.4219L5.84165 20.3168V18.5226C5.84091 17.8532 5.57467 17.2115 5.10133 16.7381C4.62799 16.2648 3.98622 15.9985 3.31682 15.9978C3.09365 15.9977 2.87966 15.909 2.72186 15.7512C2.56406 15.5934 2.47534 15.3794 2.47521 15.1562V3.37367C2.47534 3.15051 2.56406 2.93652 2.72186 2.77871C2.87966 2.62091 3.09365 2.5322 3.31682 2.53206H20.4604C20.5905 2.53239 20.7187 2.56274 20.8352 2.62073C20.9516 2.67872 21.0531 2.7628 21.1318 2.86643C21.2104 2.97005 21.2641 3.09042 21.2886 3.21818C21.3132 3.34594 21.3079 3.47763 21.2732 3.60301Z" fill="#3E4954"/>
-										<path d="M5.84161 8.42333H10.0497C10.2729 8.42333 10.4869 8.33466 10.6448 8.17683C10.8026 8.019 10.8913 7.80493 10.8913 7.58172C10.8913 7.35851 10.8026 7.14445 10.6448 6.98661C10.4869 6.82878 10.2729 6.74011 10.0497 6.74011H5.84161C5.6184 6.74011 5.40433 6.82878 5.2465 6.98661C5.08867 7.14445 5 7.35851 5 7.58172C5 7.80493 5.08867 8.019 5.2465 8.17683C5.40433 8.33466 5.6184 8.42333 5.84161 8.42333Z" fill="#3E4954"/>
-										<path d="M13.4161 10.1065H5.84161C5.6184 10.1065 5.40433 10.1952 5.2465 10.353C5.08867 10.5109 5 10.7249 5 10.9481C5 11.1714 5.08867 11.3854 5.2465 11.5433C5.40433 11.7011 5.6184 11.7898 5.84161 11.7898H13.4161C13.6393 11.7898 13.8534 11.7011 14.0112 11.5433C14.169 11.3854 14.2577 11.1714 14.2577 10.9481C14.2577 10.7249 14.169 10.5109 14.0112 10.353C13.8534 10.1952 13.6393 10.1065 13.4161 10.1065Z" fill="#3E4954"/>
-									</svg>
-									<span class="badge light text-white bg-primary">5</span>
-                                </a>
-							</li>
-
-                            <?php
-                                if(Auth::check() && Session::has('idusuario')){
-                                    //esta logado
-                                    echo '
-                                    <li class="nav-item dropdown header-profile">
-                                        <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-        									<div class="header-info">
-        										<small>Bem vindo</small>
-        										<span>'.Auth::user()->nome.'</span>
-        									</div>
-                                            <img src="/assets2/images/profile/12.png" width="20" alt=""/>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="/minha-conta/dashboard" class="dropdown-item ai-icon">
-                                                <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                                <span class="ml-2">Minha Conta </span>
-                                            </a>
-                                            <a href="/minha-conta/minhas-mensagens" class="dropdown-item ai-icon">
-                                                <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" class="text-success" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                                <span class="ml-2">Minhas Mensagens </span>
-                                            </a>
-                                            <a href="/minha-conta/logout" class="dropdown-item ai-icon">
-                                                <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                                                <span class="ml-2">Sair </span>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    ';
-                                }else{
-                                    //nao esta logado
-                                    echo '
-                                    <li class="nav-item">
-                                        <a href="/login" class="btn btn-bets">Login ou Cadastro</a>
-                                    </li>
-                                    ';
-                                }
-                            ?>
-
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
-
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
-        <div class="deznav">
-            <div class="deznav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li class="mm-active">
-                        <a href="/" class="ai-icon" aria-expanded="false">
-                            <i class="flaticon-381-home-3"></i>
-                            <span class="nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="/esportes/" class="ai-icon" aria-expanded="false">
-                            <i class="flaticon-381-settings-2"></i>
-                            <span class="nav-text">Futebol</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/esportes/" class="ai-icon" aria-expanded="false">
-                            <i class="flaticon-381-settings-2"></i>
-                            <span class="nav-text">Voleibol</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/esportes/" class="ai-icon" aria-expanded="false">
-                            <i class="flaticon-381-settings-2"></i>
-                            <span class="nav-text">Basquete</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/esportes/" class="ai-icon" aria-expanded="false">
-                            <i class="flaticon-381-settings-2"></i>
-                            <span class="nav-text">Boxe</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/esportes/" class="ai-icon" aria-expanded="false">
-                            <i class="flaticon-381-settings-2"></i>
-                            <span class="nav-text">MMA</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/esportes/" class="ai-icon" aria-expanded="false">
-                            <i class="flaticon-381-settings-2"></i>
-                            <span class="nav-text">Formula 1</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!--**********************************
-            Sidebar end
-        ***********************************-->
-
-        <!--**********************************
-            Content body start
-        ***********************************-->
-
-        <style type="text/css">
-            .card-quick .times{
-                color: #FFF;
-                font-weight: 500;
-            }
-        </style>
-        <div class="content-body" style="background-color: #323335;">
-            <div class="container-fluid">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="glider-contain">
-                            <div class="glider">
-                            <?php
-                                if(count($array_jogos_carousel) > 0){
-                                    foreach($array_jogos_carousel as $dados){
-                                        echo '
-                                        <div>
-                                        <div class="card card-bets card-quick" style="margin-right: 25px;">
-                                            <div class="card-body">
-                                                <div class="d-flex flex-row justify-content-between">
-                                                    <span>'.$dados['liga'].'</span>
-                                                    <span>'.$dados['hora'].'</span>
-                                                </div>
-                                                <div class="d-flex flex-row justify-content-around mt-4 mb-4 times">
-                                                    <span>'.$dados['home'].'</span>
-                                                    <span>x</span>
-                                                    <span>'.$dados['away'].'</span>
-                                                </div>
-                                                <div class="d-flex flex-row justify-content-around mt-4">
-                                                    <span class="cota-padrao cota-padrao-success">'.$dados['oddhome_value'].'</span>
-                                                    <span class="cota-padrao cota-normal">'.$dados['odddraw_value'].'</span>
-                                                    <span class="cota-padrao cota-padrao-danger">'.$dados['oddaway_value'].'</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                        ';
-                                    }
-                                }
-                            ?>
-                                
-                               
-                            </div>
-
-                            <button aria-label="Previous" class="glider-prev">«</button>
-                            <button aria-label="Next" class="glider-next">»</button>
-                            <div role="tablist" class="dots"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xl-3 coluna">
-                        <div class="nocard-header">
-                            <h4 class="titulo">Destaques</h4>
-                            <span>Aposte agora </span>
-                        </div>
-                        <div class="nocard-body" style="margin-bottom: 50px;">
-                            <?php
-                                if(count($campeonatosDestaque) > 0){
-                                    foreach($campeonatosDestaque as $dados){
-                                        /*$totalOdds = DB::table('odds')->leftJoin('events', 'events.id','=','odds.idevent')
-                                            ->where('events.idliga', $dados->id)->select(DB::raw("sum(total_odds) as total_odds"))
-                                            ->get();
-
-                                        $total = 0;
-                                        if(count($totalOdds) > 0){
-                                            foreach($totalOdds as $dadosOdds){
-
-                                                $total = $dadosOdds->total_odds;
-                                            }
-                                        }*/
-
-                                        $totalEvents = DB::table('events')->where('idliga', $dados->id)->where('data','>',date('Y-m-d H:i:s'))->select(DB::raw("count(*) as total"))->get();
-
-                                        echo '
-                                            <a href="#" class="destaque-item">
-                                                <span class="titulo"><i class="fa fa-star mr-2"></i> '.$dados->nome_traduzido.'</span>
-                                                <span class="quantidade">+'.$totalEvents[0]->total.'</span>
-                                            </a>
-                                        ';
-                                    }
-                                }
-                            ?>
-                        </div>
-
-                        <div class="nocard-header">
-                            <h4 class="titulo">Escolha Por País</h4>
-                            <span>Todos os esportes em um pais</span>
-                        </div>
-                        <div class="nocard-body" style="margin-bottom: 50px;">
-                            <?php
-                                if(count($paisesDestaque) > 0){
-                                    foreach($paisesDestaque as $dados){
-                                        echo '
-                                            <a href="#" class="destaque-item">
-                                                <span class="titulo"><img src="/assets/bandeiras/'.$dados->bandeira.'"> '.$dados->nome_traduzido.'</span>
-                                                <span class="quantidade"></span>
-                                            </a>
-                                        ';
-                                    }
-                                }
-                            ?>
-                            
-                        </div>
-
-                        <div class="nocard-header">
-                            <h4 class="titulo">Todos os Esportes</h4>
-                            <span>Escolha qual esporte desejar</span>
-                        </div>
-                        <div class="nocard-body">
-                            <?php
-                                if(count($esportes) > 0){
-                                    foreach($esportes as $dados){
-                                        echo '
-                                        <a href="#" class="destaque-item">
-                                            <span class="titulo"><i class="fa fa-star mr-2"></i>'.$dados->nome_traduzido.'</span>
-                                            <span class="quantidade"></span>
-                                        </a>
-                                        ';
-                                    }
-                                }
-                            ?>
-                        </div>
-                    </div>
-                    <div class="col-xl-9">
-                        <div class="row mb-4">
-                            <div class="col-sm-12">
-                                <div class="glider-contain">
-                                    <div class="glider2">
-                                        <div style="max-height: 350px;"><img src="https://via.placeholder.com/1366"></div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card card-bets">
-                            <div class="card-header border-1" style="background-color: #202323; border-bottom: 1px solid #4c4c4c;">
-                                <h5 class="card-title">Mais Apostados</h5>
-                            </div>
-                            <div class="card-body">
-
-                                <div class="custom-tab-1">
-                                    <ul class="nav nav-tabs">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" href="#home1">Futebol</a>
-                                        </li>
-                                        
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active" id="home1" role="tabpanel">
-                                            <div class="pt-4 pb-4">
-                                                <div class="tabela-apostas">
-                                                <?php
-                                                    if(count($array_jogos_aba_futebol) > 0){
-                                                        foreach($array_jogos_aba_futebol as $dados){
-                                                            echo '<h4 style="color: #FED50A;">'.$dados['liga'].'</h4>';
-
-                                                            if(count($dados['jogos']) > 0){
-                                                                foreach($dados['jogos'] as $jogos){
-                                                                    echo '
-                                                                        <div class="item">
-                                                                            <div class="item-data">
-                                                                                <span class="hora">'.$jogos['hora'].'</span>
-                                                                                <span class="data">'.$jogos['data'].'</span>
-                                                                            </div>
-                                                                            <div class="item-times click_ir_jogo" data-id="'.$jogos['id'].'" style="cursor: pointer;">
-                                                                           
-                                                                                <span class="time-home">'.$jogos['oddhome_name'].'</span>
-                                                                                <span class="time-away">'.$jogos['oddaway_name'].'</span>
-                                                                            
-                                                                            </div>
-                                                                            <div class="item-cotas">
-                                                                                <span class="cota cota-normal">'.$jogos['oddhome_value'].'</span>
-                                                                                <span class="cota cota-normal">'.$jogos['odddraw_value'].'</span>
-                                                                                <span class="cota cota-normal">'.$jogos['oddaway_value'].'</span>
-                                                                            </div>
-                                                                            <div class="item-acoes">
-                                                                                <span>+'.$jogos['total_odds'].'</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        ';
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                ?>
-                                                
-                                                 
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- row -->
-
-            </div>
-        </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
-
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Footer</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-    </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <!-- Required vendors -->
-    <script src="/assets2/vendor/global/global.min.js"></script>
-	<script src="/assets2/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="/assets2/vendor/chart.js/Chart.bundle.min.js"></script>
-    <script src="/assets2/js/custom.min.js"></script>
-	<script src="/assets2/js/deznav-init.js"></script>
-	<script src="/assets2/vendor/apexchart/apexchart.js"></script>
-    <script src="/assets2/vendor/glider/glider.js"></script>
-
-    <script src="/assets2/js/geral.js"></script>
-
-    <script type="text/javascript">
-        window.addEventListener('load', function(){
-
-            new Glider(document.querySelector('.glider'), {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                scrollLock: true,
-                dots: '#resp-dots',
-                arrows: {
-                    prev: '.glider-prev',
-                    next: '.glider-next'
-                },
-                responsive: [
-                    {
-                        // screens greater than >= 775px
-                        breakpoint: 775,
-                        settings: {
-                            slidesToShow: 'auto',
-                            slidesToScroll: 'auto',
-                            itemWidth: 150,
-                            duration: 0.25
-                        }
-                    },{
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 'auto',
-                            slidesToScroll: 'auto',
-                            itemWidth: 350,
-                            duration: 0.25
-                        }
-                    }
-                ]
-            });
-
-            new Glider(document.querySelector('.glider2'), {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                scrollLock: true,
-            });
-        });
-        $(document).ready(function(e){
-
-        });
-    </script>
-</body>
-</html>
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+    <head>
+
+        <meta charset="UTF-8" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		
+        <meta name="Description" content="NoboBets" />
+
+        <meta name="Author" content="Novo Bets" />
+
+
+
+        <!-- Title -->
+
+        <title>Bets</title>
+
+
+
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+
+        <link href="/assets3/css/icons.css" rel="stylesheet" />
+
+        <link href="/assets3/plugins/sidebar/sidebar.css" rel="stylesheet" />
+
+        <link href="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+        <link href="/assets3/css/style.css" rel="stylesheet" />
+
+        <link href="/assets3/css/style-dark.css" rel="stylesheet" />
+
+
+
+        <link href="/assets3/switcher/css/switcher.css" rel="stylesheet" />
+
+        <link href="/assets3/switcher/demo.css" rel="stylesheet" />
+
+        <link href="/assets3/css/animate.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="/assets3/css/lite.css">
+        <link href="/assets3/css/floo.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <link href="/assets3/css/custom.css" rel="stylesheet" />
+    
+    </head>
+    <style>
+            .float{
+
+                position:fixed;
+
+                width:60px;
+
+                height:60px;
+
+                bottom:40px;
+
+                right:40px;
+
+                background-color:#fff;
+
+                color:#FFF;
+
+                border-radius:50px;
+
+                text-align:center;
+
+                box-shadow: 2px 2px 3px #999;
+
+            }
+            
+
+        .my-float{
+
+        margin-top:11px;
+
+        }
+
+    </style>
+    <style type="text/css">
+
+        @font-face {
+
+            font-weight: 400;
+
+            font-style:  normal;
+
+            font-family: 'Circular-Loom';
+
+            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Book-cd7d2bcec649b1243839a15d5eb8f0a3.woff2') format('woff2');
+
+        }
+
+
+
+        @font-face {
+
+            font-weight: 500;
+
+            font-style:  normal;
+
+            font-family: 'Circular-Loom';
+
+            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Medium-d74eac43c78bd5852478998ce63dceb3.woff2') format('woff2');
+
+        }
+
+
+
+        @font-face {
+
+            font-weight: 700;
+
+            font-style:  normal;
+
+            font-family: 'Circular-Loom';
+
+            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Bold-83b8ceaf77f49c7cffa44107561909e4.woff2') format('woff2');
+
+        }
+
+
+
+        @font-face {
+
+            font-weight: 900;
+
+            font-style:  normal;
+
+            font-family: 'Circular-Loom';
+
+            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Black-bf067ecb8aa777ceb6df7d72226febca.woff2') format('woff2');
+
+        }
+
+
+
+        .main{
+
+            background-color: #FFF !important;
+
+        }
+
+        .linha_aposta{
+
+        display: flex;
+
+        flex-direction: row;
+
+        flex-wrap: wrap;
+
+        justify-content: flex-start;
+
+        align-items: center;
+
+        transition: .3s;
+
+        }
+
+        .linha_aposta .header_aposta{
+
+        display: flex;
+
+        flex: 1 33%;
+
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: spance-between;
+
+        padding: 10px 15px;
+
+        }
+
+        .linha_aposta .header_aposta span{
+
+        font-weight: 500;
+
+        color: #808080;
+
+        }
+
+        .item_aposta{
+
+        display: flex;
+
+        flex: 1 33%;
+
+        align-items: center;
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+        padding: 10px 15px;
+
+        transition: .3s;
+
+        border: 1px solid #d7d7d7;
+
+        cursor: pointer;
+
+        }
+
+        .item_aposta:hover{
+
+        background-color: #e8e8e8;
+
+        transition: .3s;
+
+        }
+
+
+
+        .item_aposta_diferenciado{
+
+        display: flex;
+
+        flex: 1 33%;
+
+        align-items: center;
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+        padding: 20px 25px;
+
+        transition: .3s;
+
+        border: 1px solid #d7d7d7;
+
+        cursor: pointer;
+
+        }
+
+        .item_aposta_diferenciado:hover{
+
+        background-color: #e8e8e8;
+
+        transition: .3s;
+
+        }
+
+
+
+        .item_aposta .cotas{
+
+        font-weight: bold;
+
+        }
+
+
+
+        @media (max-width: 991.98px){
+
+        .item_aposta{
+
+        flex: 1 50%;
+
+        }
+
+        }
+
+        @media (max-width: 767.98px) {
+
+        .item_aposta{
+
+        flex: 1 100%;
+
+        }
+
+
+
+        }
+
+        </style>
+    <body class="main-body horizontal-color">
+
+        @include('client.include')
+
+
+
+
+
+        <div class="horizontalMenucontainer">
+
+            <!-- <div id="global-loader"><img src="/assets3/img/loader.gif" class="loader-img" alt="Loader" width="10%"/></div> -->
+
+
+
+            <div class="page">
+
+            <!-- main-header opened -->
+
+            @yield('main-header')
+
+            <!-- /main-header -->
+
+            <!--Horizontal-main -->
+
+            @yield('horizontal-menu')
+
+            <!--Horizontal-main -->
+
+
+
+
+
+
+
+            <!-- main-content opened -->
+
+            <div class="main-content horizontal-content">
+
+                <!-- container opened -->
+
+                <div class="container-fluid">
+
+
+
+
+
+                    <!-- breadcrumb -->
+
+                    <div class="breadcrumb-header justify-content-between">
+
+                        <div class="my-auto">
+
+                            <div class="d-flex">
+
+                                <h4 class="content-title mb-0 my-auto"></h4>
+
+                                <span class="text-muted mt-1 tx-13 ml-2 mb-0"></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- breadcrumb -->
+
+                    <!-- row -->
+
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <?php
+
+                                if(Session::has('sucesso')){
+
+                                    echo '<div class="alert alert-success">'.Session::get('sucesso').'</div>';
+
+                                }
+
+                                if(Session::has('erro')){
+
+                                    echo '<div class="alert alert-danger">'.Session::get('erro').'</div>';
+
+                                }
+
+                            ?>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <style type="text/css">
+
+
+
+                    </style>
+
+                    <div class="row">
+
+
+
+                    </div>
+
+                    <div class="row">
+
+                        <!-- <div class="col-lg-3 d-none d-lg-block">
+
+
+
+
+
+                            <div class="card-header bg-red">
+
+                                <h5 class="card-title">Esportes</h5>
+
+                                <h6 class="card-subtitle mb-2">Aposte por Esportes</h6>
+
+                            </div>
+
+                            <div class="card-body pd-0">
+
+                                <div class="list-group">
+
+                                <?php
+
+                                    /*if(count($esportes) > 0){
+
+                                        foreach($esportes as $dados){
+
+                                            echo '
+
+                                                <a href="sports/'.$dados->id.'"><div class="list-group-item list-group-item-action flex-column align-items-start">
+
+                                                    <div class="d-flex w-100 justify-content-between">
+
+                                                        <h5 class="mb-2 tx-14"><i class="fa fa-star mr-2"></i> '.$dados->nome_traduzido.'</h5>
+
+
+
+                                                    </div>
+
+                                                </div></a>
+
+                                            ';
+
+                                        }
+
+                                    }*/
+
+                                ?>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>-->
+
+
+
+                        <div class="col-lg-9 col-sm-12">
+
+                            <div class="card">
+
+                                <div class="card-header bg-red">
+
+                                    <h5 class="card-title">Mais Apostados</h5>
+
+                                    <h6 class="card-subtitle mb-2"></h6>
+
+                                </div>
+
+                                <div class="card-body no-padding-xs">
+
+                                    <div class="panel panel-primary tabs-style-1">
+
+                                        <div class="tab-menu-heading">
+
+                                            <div class="tabs-menu1">
+
+                                                <ul class="nav nav-tabs main-nav-line"  role="tablist">
+
+                                                    <li class="nav-item">
+
+                                                        <a href="#tab1" class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="tab1" aria-selected="true">Futebol</a>
+
+                                                    </li>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+
+
+
+
+
+
+                                        <div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">
+
+                                            <div id="tab1">
+
+                                                <div>
+                                                    <?php
+                                                        
+                                                        if( count($array_jogos_aba_futebol) > 0 ){
+
+                                                            foreach( $array_jogos_aba_futebol as $dados ){
+                                                               ; echo '<h5 style="margin-top: 15px;background: red; color:white; padding:10px; border-radius: 3px;" ><img src="/assets/bandeiras/'.$dados['bandeira'].'" style="width: 24px; height: 24px; margin-right: 5px; ">'.$dados['pais'].'</h5>';
+
+                                                               foreach($dados['ligas'] as $dados){
+                                                                    echo '
+                                                                    <h5 class="mb-10 liga" style="
+                                                                    background: black;
+                                                                    padding: 10px;
+                                                                    color: white;
+                                                                    border-radius: 3px;
+                                                                    ">'.$dados['liga'].'</h5>
+
+                                                                ';
+
+
+
+                                                                if(count($dados['jogos']) > 0){
+
+                                                                    foreach($dados['jogos'] as $jogos){
+
+
+
+                                                                        echo '<div class="panel tabela-apostas">
+
+                                                                        <div class="item">
+
+                                                                            <div class="item-data d-none d-lg-flex">
+
+                                                                                <span class="hora">'.$jogos['hora'].'</span>
+
+                                                                                <span class="data">'.$jogos['data'].'</span>
+
+                                                                            </div>
+
+                                                                            <div class="d-none d-lg-flex item-times click_ir_jogo" data-id="'.$jogos['id'].'" style="cursor: pointer;">
+
+                                                                                <span class="time-home">'.$jogos['oddhome_name'].'</span>
+
+                                                                                <span class="time-away">'.$jogos['oddaway_name'].'</span>
+
+                                                                            </div>
+
+                                                                            <div class="d-md-none">
+
+                                                                                <div class="item-times click_ir_jogo" data-id="'.$jogos['id'].'" style="cursor: pointer;">
+
+                                                                                    <span class="time-home">'.$jogos['oddhome_name'].'</span>
+
+                                                                                    <span class="time-away">'.$jogos['oddaway_name'].'</span>
+
+                                                                                    <div class="item-data">
+
+                                                                                        <span class="hora">'.$jogos['data'].' as '.$jogos['hora'].'</span>
+
+
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="item-cotas btn-group">
+
+                                                                                <span type="button" class="cota cota-normal cota-aposta" data-id="'.$jogos['oddhome_id'].'">'.$jogos['oddhome_value'].'</span>
+
+                                                                                <span type="button" class="cota cota-normal cota-aposta" data-id="'.$jogos['odddraw_id'].'">'.$jogos['odddraw_value'].'</span>
+
+                                                                                <span type="button" class="cota cota-normal cota-aposta" data-id="'.$jogos['oddaway_id'].'">'.$jogos['oddaway_value'].'</span>
+
+
+                                                                                <span type="button" class="cota cota-normal cota-aposta bg-white border-none moreOdds" style="color:black; border:none;"  data-id="'.$jogos['id'].'" data-bs-toggle="modal" data-bs-target="#moreOdds">+'.$jogos['total_odds'].'</span>
+
+
+                                                                            </div>
+                                                                            
+                                                                        
+                                                                        </div>
+
+                                                                        </div>';
+
+                                                                    }
+
+                                                                }
+                                                               }
+                                                           
+
+                                                            }
+
+                                                        }
+
+                                                    ?>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="col-md-3 d-none d-lg-block d-xl-block" >
+
+                            <div class="card">
+                            {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta']) }}
+
+                                <div class="card-header bg-red">
+
+                                    <h5 class="card-title" style="color: white;">Meu Cupom</h5>
+
+                                    <h6 class="card-subtitle mb-2"></h6>
+
+                                </div>
+
+                                <div class="card-body no-padding-xs">
+
+                                    <div class="bet-slip">
+
+                                        <!---->
+
+                                        <div class="bet-slip__inner" id="bet-slip-inner">
+
+
+
+                                        </div>
+
+
+
+                                        <div class="bet-slip__item bet-slip__item--row" id="divvalor">
+
+                                            <div class="bet-slip__item-footer bet-slip__item-footer--wide">
+
+                                                <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
+
+                                                    <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake" name="newstake">
+                                                    <input id="newstake_hidden" type="hidden" name="newstake_hidden">
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <div class="bet-slip-total">
+
+                                            <table class="bet-slip-total__table">
+
+                                                <tbody>
+
+                                                    <tr class="bet-slip-total__tr">
+
+                                                        <th class="bet-slip-total__th">Sua Aposta</th>
+
+                                                        <td class="bet-slip-total__td"><span id="slip_total_aposta">R$ 0,00</span></td>
+
+                                                    </tr>
+
+
+
+                                                    <tr class="bet-slip-total__tr">
+
+                                                        <th class="bet-slip-total__th">Total Odds</th>
+
+                                                        <td class="bet-slip-total__td"><span id="slip_total_odds">0.00</span></td>
+
+                                                    </tr>
+
+
+
+                                                    <tr class="bet-slip-total__tr">
+
+                                                        <th class="bet-slip-total__th">Possível Retorno</th>
+
+                                                        <td class="bet-slip-total__td"><span id="slip_total_retorno">R$ 0,00</span></td>
+
+
+
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                        {{ Form::close() }}
+
+                                        <button class="bet-slip__btn" type="button" id="btn_finalizar_aposta" disabled="disabled">Colocar Aposta</button>
+
+
+
+
+
+                                        <!---->
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <a class="float d-block d-sm-none d-xs-none d-md-block d-lg-none d-xl-none"  data-bs-toggle="modal" data-bs-target="#exampleModalFullscreenSm">
+                        <?php
+
+                        $totalItensCupom = DB::table('novo_carrinho')
+
+                            ->leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
+
+                            ->where('session_id', session()->getId())->select(DB::raw("count(*) as total"))->get();
+
+
+
+                        if(count($totalItensCupom) > 0){
+
+                            $total = $totalItensCupom[0]->total;
+
+                        }else{
+
+                            $total = 0;
+
+                        }
+
+                        ?>
+
+                        <span style="position: absolute; margin-left: 25px;"><span class="badge badge-danger" id="totalCupom">{{$total}}</span></span>
+
+                        <img src="/assets3/img/images/invoice.svg" height="32" width="32" class="my-float" style="margin-top: 14px !important;">
+
+                        </a>
+                        <div class="modal fade" id="moreOdds" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-fullscreen-sm-down">
+                                <div class="modal-content">
+                                <div class="modal-header bg-red">
+                                    <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel"  style="color: white;">Outras Cotações</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="renderMoreOdds">
+                                
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                        <div class="modal fade" id="exampleModalFullscreenSm" tabindex="-1" aria-labelledby="exampleModalFullscreenSmLabel" aria-hidden="true">
+                        {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta']) }}
+
+                            <div class="modal-dialog modal-fullscreen-sm-down">
+                                <div class="modal-content">
+                                <div class="modal-header bg-red">
+                                    <h5 class="modal-title h4" id="exampleModalFullscreenSmLabel"  style="color: white;">Meu Cupom</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <div class="bet-slip">
+
+                                <div class="bet-slip__inner" id="bet-slip-inner-mobile">
+
+                                </div>
+                                <div class="bet-slip__item bet-slip__item--row" id="divvalormobile">
+
+                                    <div class="bet-slip__item-footer bet-slip__item-footer--wide">
+
+                                        <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
+
+                                            <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake_mobile" name="newstake">
+                                            <input id="newstake_hidden_mobile" type="hidden" name="newstake_hidden_mobile">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="bet-slip-total">
+
+                                    <table class="bet-slip-total__table">
+
+                                        <tbody>
+
+                                            <tr class="bet-slip-total__tr">
+
+                                                <th class="bet-slip-total__th">Sua Aposta</th>
+
+                                                <td class="bet-slip-total__td"><span id="slip_total_aposta_mobile">R$ 0,00</span></td>
+
+                                            </tr>
+
+
+
+                                            <tr class="bet-slip-total__tr">
+
+                                                <th class="bet-slip-total__th">Total Odds</th>
+
+                                                <td class="bet-slip-total__td"><span id="slip_total_odds_mobile">0.00</span></td>
+
+                                            </tr>
+
+
+
+                                            <tr class="bet-slip-total__tr">
+
+                                                <th class="bet-slip-total__th">Possível Retorno</th>
+
+                                                <td class="bet-slip-total__td"><span id="slip_total_retorno_mobile">R$ 0,00</span></td>
+
+
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+
+
+
+
+
+                                {{ Form::close() }}
+
+                                <button class="bet-slip__btn" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Colocar Aposta</button>
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- row closed -->
+
+                </div>
+
+                <!-- Container closed -->
+
+            </div>
+
+            <!-- main-content closed -->
+
+            <!-- Sidebar-right-->
+
+            @yield('sidebar-right')
+
+            <!--/Sidebar-right-->
+
+
+
+            <!-- Message Modal -->
+
+
+
+            <!-- Footer opened -->
+
+
+
+
+
+            <!-- Footer closed -->
+
+        </div>
+
+        <!-- End Page -->
+
+
+
+
+
+
+
+        <script src="/assets3/plugins/jquery/jquery.min.js"></script>
+
+        <script src="/assets3/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <script src="/assets3/plugins/ionicons/ionicons.js"></script>
+
+        <script src="/assets3/plugins/moment/moment.js"></script>
+
+        <script src="/assets3/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+        <script src="/assets3/plugins/perfect-scrollbar/p-scroll.js"></script>
+
+        <script src="/assets3/js/eva-icons.min.js"></script>
+
+        <script src="/assets3/plugins/rating/jquery.rating-stars.js"></script>
+
+        <script src="/assets3/plugins/rating/jquery.barrating.js"></script>
+
+        <script src="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+        <script src="/assets3/plugins/horizontal-menu/horizontal-menu-2/horizontal-menu.js"></script>
+
+        <script src="/assets3/js/sticky.js"></script>
+
+        <script src="/assets3/plugins/sidebar/sidebar.js"></script>
+
+        <script src="/assets3/plugins/sidebar/sidebar-custom.js"></script>
+
+        <script src="/assets3/js/custom.js"></script>
+
+        <script src="/assets3/switcher/js/switcher.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" integrity="sha512-Rdk63VC+1UYzGSgd3u2iadi0joUrcwX0IWp2rTh6KXFoAmgOjRS99Vynz1lJPT8dLjvo6JZOqpAHJyfCEZ5KoA==" crossorigin="anonymous"></script>
+
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="/assets/autocomplete.js"></script>                                               
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+        <!-- <script src="/assets3/js/carrinho.js"></script> -->
+
+
+
+        <script type="text/javascript">
+
+            $(document).ready(function(e){
+            
+                $('#search').on('keyup keydown',function(e){ 
+
+                var query = $('#search').val();
+
+                $.ajax({
+
+                    url: '/ajax/search',
+
+                    method: 'GET',
+
+                    data: {
+
+                        query: query
+
+                    },
+
+                    success: function(res){
+                        $('.item').parent().remove();
+                        $('.liga').parent().remove();
+                        
+                        res.map((item => {
+                            $('#tab1').append(
+                            '<div class="panel tabela-apostas"> '+
+                                '<div class="item">'+
+
+                                    '<div class="item-data d-none d-lg-flex">'+
+
+                                        '<span class="hora">'+item.data+'</span>'+
+
+                                        '<span class="data">'+item.hora+'</span>'+
+
+                                    '</div>'+
+
+                                    '<div class="d-none d-lg-flex item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
+
+                                        '<span class="time-home">'+item.homeNome+'</span>'+
+
+                                        '<span class="time-away">'+item.awayNome+'</span>'+
+
+                                    '</div>'+
+
+                                    '<div class="d-md-none">'+
+
+                                        '<div class="item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
+
+                                        '<span class="time-home">'+item.homeNome+'</span>'+
+
+                                        '<span class="time-away">'+item.awayNome+'</span>'+
+
+                                            '<div class="item-data">'+
+
+                                                '<span class="hora">'+item.data+' as '+item.hora+'</span>'+
+
+
+
+                                            '</div>'+
+
+                                        '</div>'+
+
+                                    '</div>'+
+
+                                    '<div class="item-cotas">'+
+
+                                        '<span class="cota cota-normal cota-aposta" data-id="'+item.oddhome_id+'">'+item.oddhome_value+'</span>'+
+
+                                        '<span class="cota cota-normal cota-aposta" data-id="'+item.odddraw_id+'">'+item.odddraw_value+'</span>'+
+
+                                        '<span class="cota cota-normal cota-aposta" data-id="'+item.oddaway_id+'">'+item.oddaway_value+'</span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item-acoes d-none d-lg-flex">'+
+
+                                        '<span>+'+item.total_odds+'</span>'+
+
+                                    '</div>'+
+
+                                '</div>'+
+
+                                '</div>')
+                        }));
+                    },error: function(err){
+                    },complete: function(){
+                    }
+
+                    });    
+                });
+                $('#search-mobile').on('keyup',function(){
+                    var query = $('#search-mobile').val();
+                    if(query.length > 2){
+                        $.ajax({
+
+                            url: '/ajax/search',
+   
+                            method: 'GET',
+
+                            data: {
+
+                                query: query
+
+                            },
+
+                            success: function(res){
+                                $('.item').parent().remove();
+                                $('.liga').parent().remove();
+                                
+                                res.map((item => {
+                                    $('#tab1').append(
+                                    '<div class="panel tabela-apostas"> '+
+                                        '<div class="item">'+
+
+                                            '<div class="item-data d-none d-lg-flex">'+
+
+                                                '<span class="hora">'+item.data+'</span>'+
+
+                                                '<span class="data">'+item.hora+'</span>'+
+
+                                            '</div>'+
+
+                                            '<div class="d-none d-lg-flex item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
+
+                                                '<span class="time-home">'+item.homeNome+'</span>'+
+
+                                                '<span class="time-away">'+item.awayNome+'</span>'+
+
+                                            '</div>'+
+
+                                            '<div class="d-md-none">'+
+
+                                                '<div class="item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
+
+                                                '<span class="time-home">'+item.homeNome+'</span>'+
+
+                                                '<span class="time-away">'+item.awayNome+'</span>'+
+
+                                                    '<div class="item-data">'+
+
+                                                        '<span class="hora">'+item.data+' as '+item.hora+'</span>'+
+
+
+
+                                                    '</div>'+
+
+                                                '</div>'+
+
+                                            '</div>'+
+
+                                            '<div class="item-cotas">'+
+
+                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.oddhome_id+'">'+item.oddhome_value+'</span>'+
+
+                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.odddraw_id+'">'+item.odddraw_value+'</span>'+
+
+                                                '<span class="cota cota-normal cota-aposta" data-id="'+item.oddaway_id+'">'+item.oddaway_value+'</span>'+
+
+                                            '</div>'+
+
+                                            '<div class="item-acoes d-none d-lg-flex">'+
+
+                                                '<span>+'+item.total_odds+'</span>'+
+
+                                            '</div>'+
+
+                                        '</div>'+
+
+                                        '</div>')
+                                }));
+                            },error: function(err){
+                            },complete: function(){
+                            }
+
+                        });
+                    }
+                });
+                $('.ca-input').maskMoney({
+
+                    prefix: 'R$ ', thousands: '.', decimal: ',', allowZero: true, allowEmpty: true
+
+                });
+
+
+
+                $('#divvalor').hide();
+
+
+
+                $('#btn2').click(function(e){
+
+                    $(this).attr('disabled', 'disabled');
+
+                    $('#form2').submit();
+
+                });
+
+                
+                $('.moreOdds').click(function(e){
+
+                    var id = $(this).data('id');
+
+                    $('#renderMoreOdds').html('');
+
+                    $.ajax({
+
+                    url: '/ajax/moreOdds',
+
+                    method: 'GET',
+
+                    data: {
+
+                        id: id
+
+                    },
+
+                    success: function(res){
+                        $('#renderMoreOdds').append(
+                            '<div class="header-banner header-banner-wrapper" style="margin-bottom: 3rem;">'+
+
+                            '<div class="refresh-btns-wrapper">'+
+
+                                '<a href="#" class="refresh-btn refresh-btn--back banner-back-page">'+
+
+                                    '<i class="fa fa-arrow-back"></i>'+
+
+                                '</a>'+
+
+                            '</div>'+
+
+                            '<span class="header-banner__liga" style="margin-bottom: 2rem; color:black;">'+res.event[0].nome_traduzido+'</span>'+
+
+                            '<div class="match-wrapper">'+
+
+                                '<span class="header-banner__date">'+res.event[0].data_format+'</span>'+
+
+                                '<div class="commands-info__wrapper match-data--heading">'+
+
+                                    '<span class="commands-info__command" style="color:black;">'+res.home.nome+'</span>'+
+
+                                    '<span class="commands-info__command vs" style="color:black;">VS </span>'+
+
+                                    '<span class="commands-info__command" style="color:black;">'+res.away.nome+'</span>'+
+
+                                '</div>'+
+
+                                '<span class="header-banner__time  ">'+res.event[0].hora_format+'<span class="header-banner__time--red"></span> </span>'+
+
+                           '</div>'+
+
+                            '</div>');
+                        $('#renderMoreOdds').append(
+                            '<div class="panel panel-primary tabs-style-1" style="background-color: #FFF">'+
+
+                                '<div class=" tab-menu-heading">'+
+
+                                    '<div class="tabs-menu1">'+
+
+                                        '<ul class="nav panel-tabs main-nav-line" id="tabOdds">'+
+
+                                        
+                                        '</ul>'+
+
+                                    '</div>'+
+
+                                '</div>'+
+
+                            '</div>');
+                            $('#renderMoreOdds').append(
+                            '<div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">'+
+
+                                '<div id="moreOddsContent">'+
+                                '</div>'+
+                            '</div>');
+
+                            var i = 0;
+                            var group = 0;
+                            var active = '';
+                             res.odds_grupo.map((item => {
+                                i++;
+                                var odd_s = ''
+                                item.sub_grupo.map((items => {
+                                    
+                                    if(items.odds.length > 0) {
+                                        group++;
+                                        $('#moreOddsContent').append(
+                                        '<div class="card card-danger">'+
+
+                                            '<div class="card-header pb-0">'+
+
+                                                '<h5 class="card-title mb-0 pb-0">'+items.titulo_traduzido+'</h5>'+
+
+                                            '</div>'+
+
+                                        '<div class="card-body" id="oddsId'+group+'"></div></div>'
+                                        );
+
+                                        items.odds.map((item =>{
+                                            var primeiro_odd = items.odds[0].idbets;
+                                            if(primeiro_odd[0] == 'P'){
+
+                                                if(item.idbets[0] == 'P'){
+                                                    desenhaOdds(items.odds, group);
+                                                }
+
+                                            }else{
+
+                                                $('#oddsId'+group).append(
+                                                    '<div class="item_aposta cota-aposta" style="background:black;" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
+
+                                                        '<span class="time">'+item.name+'</span>'+
+
+                                                        '<span class="cotas">'+item.odds+'</span>'+
+
+                                                    '</div>'
+                                                );
+                                            }
+                                        }));
+                                    }
+
+                                }));
+                            }));
+
+                    },error: function(err){
+                    },complete: function(){
+                    }
+
+                    });
+
+                });
+                
+                function desenhaOdds(odds, group){
+
+                    if(odds[0].idsubgrupo == 84){
+
+                        $('#oddsId'+group).append('<div class="linha_aposta">'+
+
+                                '<div class="header_aposta"><span></span></div>'+
+
+                                '<div class="header_aposta"><span>Mais</span></div>'+
+
+                                '<div class="header_aposta"><span>Menos</span></div>'+
+
+                        '</div>'+
+
+
+
+                            '<div class="linha_aposta">'+
+                                   '<div class="item_aposta" style="background:black;">'+
+
+                                        '<span class="time">'+odds[0].name+'</span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'" style="background:black;">'+
+
+                                        '<span class="cotas " ><b>'+odds[1].odds+'</b></span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'" style="background:black;">'+
+
+                                        '<span class="cotas " ><b>'+odds[2].odds+'</b></span>'+
+
+                                    '</div>'+
+
+                            '</div>');
+
+
+
+                    }else if(odds[0].idsubgrupo == 93){
+
+                          $('#oddsId'+group).append('<div class="linha_aposta">'+
+
+
+                                '<div class="header_aposta"><span></span></div>'+
+
+                                '<div class="header_aposta"><span>Sim</span></div>'+
+
+                                '<div class="header_aposta"><span>Não</span></div>'+
+
+                        '</div>'+
+                        '<div class="linha_aposta">'+
+
+                            '<div class="item_aposta" style="background:black;"><span class="time">'+odds[0].name+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[3].id+'" data-idevent="'+odds[3].idevent+'" style="background:black;"><span class="cotas" >'+odds[3].odds+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[6].id+'" data-idevent="'+odds[6].idevent+'" style="background:black;"><span class="cotas " >'+odds[6].odds+'</span></div>'+
+
+                        '</div>'+
+
+                        '<div class="linha_aposta">'+
+
+                            '<div class="item_aposta" style="background:black;"><span class="time">'+odds[1].name+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[4].id+'" data-idevent="'+odds[4].idevent+'" style="background:black;"><span class="cotas " >'+odds[4].odds+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[7].id+'" data-idevent="'+odds[7].idevent+'" style="background:black;"><span class="cotas " >'+odds[7].odds+'</span></div>'+
+
+                        '</div>'+
+
+                       '<div class="linha_aposta">'+
+
+                            '<div class="item_aposta" style="background:black;"><span class="time">'+odds[2].name+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[5].id+'" data-idevent="'+odds[5].idevent+'" style="background:black;"><span class="cotas " >'+odds[5].odds+'</span></div>'+
+
+                            '<div class="item_aposta cota-aposta" data-id="'+odds[8].id+'" data-idevent="'+odds[8].idevent+'" style="background:black;"><span class="cotas " >'+odds[8].odds+'</span></div>'+
+
+                        '</div>');
+
+
+                    }else{
+
+                          $('#oddsId'+group).append('<div class="linha_aposta">'+
+
+                                '<div class="header_aposta"><span></span></div>'+
+
+                                '<div class="header_aposta"><span>Mais</span></div>'+
+
+                                '<div class="header_aposta"><span>Menos</span></div>'+
+
+                         '</div>'+
+
+
+
+                            '<div class="linha_aposta">'+
+
+                                    '<div class="item_aposta" style="background:black;">'+
+
+                                        '<span class="time">'+odds[0].name+'</span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'" style="background:black;">'+
+
+                                        '<span class="cotas " ><b>'+odds[1].odds+'</b></span>'+
+
+                                    '</div>'+
+
+                                    '<div class="item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'" style="background:black;">'+
+
+                                        '<span class="cotas " ><b>'+odds[2].odds+'</b></span>'+
+
+                                    '</div>'+
+
+
+                         '</div>');
+
+                    }
+
+                    }
+
+                $('.retirar_aposta').click(function(e){
+
+                    var id = $(this).attr('data-id');
+
+
+
+                    window.location.href = '/remove-selection/' + id;
+
+                });
+
+                $('#btn_finalizar_aposta').click(function(e){
+
+                    $(this).attr('disabled', 'disabled');
+
+
+
+                    Swal.fire({
+
+                        title: 'Confirma essa aposta?',
+
+                        text: "Tem certeza que deseja colocar essa aposta?",
+
+                        icon: 'warning',
+
+                        showCancelButton: true,
+
+                        confirmButtonColor: '#3085d6',
+
+                        cancelButtonColor: '#d33',
+
+                        confirmButtonText: 'Confirmar'
+
+                    }).then((result) => {
+
+                        if (result.isConfirmed) {
+
+                            $('#form_finalizar_aposta').submit();
+
+                        }else{
+
+                            $('#btn_finalizar_aposta').removeAttr('disabled');
+
+                        }
+
+                    });
+
+                });
+
+
+
+                $('#btn_finalizar_aposta_mobile').click(function(e){
+
+                    $(this).attr('disabled', 'disabled');
+
+                    Swal.fire({
+
+                        title: 'Confirma essa aposta?',
+
+                        text: "Tem certeza que deseja colocar essa aposta?",
+
+                        icon: 'warning',
+
+                        showCancelButton: true,
+
+                        confirmButtonColor: '#3085d6',
+
+                        cancelButtonColor: '#d33',
+
+                        confirmButtonText: 'Confirmar'
+
+                    }).then((result) => {
+
+                        if (result.isConfirmed) {
+
+                            $('#form_finalizar_aposta').submit();
+
+                        }else{
+
+                            $('#btn_finalizar_aposta_mobile').removeAttr('disabled');
+
+                        }
+
+                    });
+
+                });
+
+                $('body').on('keyup', '#newstake', function(e){
+
+                    e.preventDefault();
+
+
+
+                    var valor = $(this).val();
+
+                    valor = valor.replace("R$ ", "");
+
+                    valor = valor.replace(".", "");
+
+                    valor = valor.replace(",", ".");
+
+
+
+                    valor = parseFloat(valor);
+
+                    $('#newstake_hidden').val(valor)
+                    $('#newstake_hidden_mobile').val(valor)
+
+                    if( valor > 0.00 ){
+
+                        var totalcotas = $('#slip_total_odds').html();
+
+                        totalcotas = parseFloat(totalcotas);
+
+
+
+                        var total = valor * totalcotas;
+
+                        console.log(total);
+
+
+
+                        $('#slip_total_aposta').html( $('#newstake').val() );
+
+                        $('#slip_total_retorno').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
+
+
+
+                        $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
+
+                    }else{
+
+                        $('#btn_finalizar_aposta').attr('disabled');
+
+                    }
+
+                });
+
+                $('body').on('keyup', '#newstake_mobile', function(e){
+
+                        e.preventDefault();
+
+
+
+                        var valor = $(this).val();
+
+                        valor = valor.replace("R$ ", "");
+
+                        valor = valor.replace(".", "");
+
+                        valor = valor.replace(",", ".");
+
+
+
+                        valor = parseFloat(valor);
+
+                        $('#newstake_hidden').val(valor)
+
+
+                        if( valor > 0.00 ){
+
+                            var totalcotas = $('#slip_total_odds').html();
+
+                            totalcotas = parseFloat(totalcotas);
+
+
+
+                            var total = valor * totalcotas;
+
+                            console.log(total);
+
+
+
+                            $('#slip_total_aposta_mobile').html( $('#newstake_mobile').val() );
+
+                            $('#slip_total_retorno_mobile').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
+
+                            $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
+
+                        }else{
+
+                            console.log("valor = 0");
+
+                            $('#btn_finalizar_aposta_mobile').attr('disabled');
+
+                        }
+
+                    });
+
+                $('body').on('click', '.cota-aposta', function(e){
+
+                    e.preventDefault();
+
+
+
+                    var id = $(this).attr('data-id');
+
+                    $(this).addClass('selecionado');
+                    
+
+                    $.ajax({
+
+                        url: '/ajax/carrinho/adicionar-aposta',
+
+                        method: 'GET',
+
+                        data: {
+
+                            id: id
+
+                        },
+
+                        success: function(res){
+
+
+
+                            if(res.status == 'ok'){
+
+                                var total = $('#totalCupom').html();
+
+                                total = parseInt(total);
+
+
+
+                                if(res.acao == 'select'){
+
+                                    $('.cota-aposta[data-idevent='+res.idevent+']').removeClass('selecionado');
+
+                                    $('.cota-aposta[data-id='+id+']').addClass('selecionado');
+
+                                }else if(res.acao == 'unselect'){
+
+                                    $('.cota-aposta[data-id='+id+']').removeClass('selecionado');
+
+                                }
+
+
+
+                                var geral = 0;
+
+                                geral = parseInt(geral);
+
+                                $.each( $('.selecionado'), function(i, item) {
+
+                                    geral++;
+
+                                });
+
+
+
+                                $('#totalCupom').html( geral );
+
+                            }
+
+                        },error: function(err){
+
+
+
+                        },complete: function(){
+
+                            recuperaCarrinho();
+
+                        }
+
+                    });
+
+                });
+
+
+
+                function recuperaCarrinho(){
+
+                    $.ajax({
+
+                        url: '/operacao-carrinho/recuperar-carrinho',
+
+                        method: 'GET',
+
+                        success: function(res){
+
+                            $('.cota-aposta').removeClass('selecionado');
+
+
+
+                            if(res.status == 'ok'){
+
+                                $('#bet-slip-inner').html('');
+                                $('#bet-slip-inner-mobile').html('');
+
+                                $('#newstake').val( res.valor_total_apostado_format );
+
+                                $('#newstake-mobile').val( res.valor_total_apostado_format );
+
+                                $('#slip_total_aposta_mobile').html( res.valor_total_apostado_format );
+                                $('#slip_total_aposta').html( res.valor_total_apostado_format );
+
+
+                                $('#slip_total_odds').html( res.valor_total_cotas );
+                                $('#slip_total_odds_mobile').html( res.valor_total_cotas );
+
+
+                                $('#slip_total_retorno_mobile').html( res.possivel_retorno_format );
+
+                                $('#slip_total_retorno_mobile').html( res.possivel_retorno_format );
+
+
+                                var total_de_apostas = 0;
+
+
+
+                                $.each(res.response, function(i, item) {
+
+                                    total_de_apostas++;
+
+                                    $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
+
+                                    $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
+
+
+
+                                    $('.cota-aposta[data-id='+item.idodds+']').addClass('selecionado');
+
+                                    $('#divvalor').show();
+                                    $('#divvalormobile').show();
+
+
+
+                                    $('#bet-slip-inner').append('<app-betslip-item>'+
+
+                                        '<div class="bet-slip__item">'+
+
+                                            '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
+
+                                            '<div class="bet-slip__item-inner">'+
+
+                                                '<div class="bet-slip__teams">'+
+
+                                                    '<div class="bet-slip__team">'+
+
+                                                        '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
+
+                                                    '</div>'+
+
+                                                    '<div class="bet-slip__team">'+
+
+                                                        '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
+
+                                                    '</div>'+
+
+                                                '</div>'+
+
+                                                '<div class="bet-slip__info">'+
+
+                                                    '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
+
+                                                '</div>'+
+
+                                                '<div class="bet-slip__info">'+
+
+                                                    '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
+
+                                                    '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
+
+                                                '</div>'+
+
+                                            '</div>'+
+
+                                        '</div>'+
+
+                                    '</app-betslip-item>');
+
+                               
+
+                                $('#bet-slip-inner-mobile').append('<app-betslip-item>'+
+
+                                        '<div class="bet-slip__item">'+
+
+                                            '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
+
+                                            '<div class="bet-slip__item-inner">'+
+
+                                                '<div class="bet-slip__teams">'+
+
+                                                    '<div class="bet-slip__team">'+
+
+                                                        '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
+
+                                                    '</div>'+
+
+                                                    '<div class="bet-slip__team">'+
+
+                                                        '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
+
+                                                    '</div>'+
+
+                                                '</div>'+
+
+                                                '<div class="bet-slip__info">'+
+
+                                                    '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
+
+                                                '</div>'+
+
+                                                '<div class="bet-slip__info">'+
+
+                                                    '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
+
+                                                    '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
+
+                                                '</div>'+
+
+                                            '</div>'+
+
+                                        '</div>'+
+
+                                    '</app-betslip-item>');
+
+                                });
+                                if(total_de_apostas == 0){
+
+                                    $('#bet-slip-inner').html('<p class="text-center">Nenhuma aposta selecionada</p>');
+
+                                }
+
+
+
+                            }
+
+                        },error: function(err){
+
+
+
+                        },complete: function(){
+
+
+
+                        }
+
+                    });
+
+                }
+
+
+
+                recuperaCarrinho();
+
+
+
+
+
+                /*$.ajax({
+
+                    url: '/ajax/carrinho/recupera-carrinho',
+
+                    method: 'GET',
+
+                    success: function(res){
+
+                        $('.cota-aposta').removeClass('selecionado');
+
+
+
+                        console.log('recuperaCarrinho');
+
+                        console.log(res);
+
+                        if(res.status == 'ok'){
+
+                            $('#bet-slip-inner').html('');
+
+
+
+                            $.each(res.response, function(i, item) {
+
+                                $('.cota-aposta[data-id='+item.idodds+']').addClass('selecionado');
+
+
+
+                                $('#bet-slip-inner').append('<app-betslip-item>'+
+
+                                    '<div class="bet-slip__item">'+
+
+                                        '<button class="bet-slip__item-close" type="button"></button>'+
+
+                                        '<div class="bet-slip__item-inner">'+
+
+                                            '<div class="bet-slip__teams">'+
+
+                                                '<div class="bet-slip__team">'+
+
+                                                    '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
+
+                                                '</div>'+
+
+                                                '<div class="bet-slip__team">'+
+
+                                                    '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
+
+                                                '</div>'+
+
+                                            '</div>'+
+
+                                            '<div class="bet-slip__info">'+
+
+                                                '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
+
+                                            '</div>'+
+
+                                            '<div class="bet-slip__info">'+
+
+                                                '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
+
+                                                '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
+
+                                            '</div>'+
+
+                                        '</div>'+
+
+                                    '</div>'+
+
+                                '</app-betslip-item>');
+
+                            });
+
+                        }
+
+                    },error: function(err){
+
+
+
+                    },complete: function(){
+
+
+
+                    }
+
+                });*/
+
+            });
+
+        </script>
+
+    </div>
+
+    <div class="main-navbar-backdrop"></div>
+
+</body>
+
+
+
+
+
+</html>
+

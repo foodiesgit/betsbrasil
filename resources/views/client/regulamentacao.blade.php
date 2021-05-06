@@ -1,175 +1,25 @@
-<!DOCTYPE html>
-
-<html lang="en" dir="ltr">
-
-    <head>
-
-        <meta charset="UTF-8" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
-
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template" />
-
-        <meta name="Author" content="Spruko Technologies Private Limited" />
-
-        <meta
-
-            name="Keywords"
-
-            content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4"
-
-        />
-
-        <!-- Title -->
-
-        <title>Bets</title>
 
 
+        @include('client.include_sbet')
+        @yield('main-header')
 
-        <link rel="icon" href="/assets3/img/brand/favicon.png" type="image/x-icon" />
+        <section class="section section-sm bg-gray-100">
 
-        <link href="/assets3/css/icons.css" rel="stylesheet" />
-
-        <link href="/assets3/plugins/sidebar/sidebar.css" rel="stylesheet" />
-
-        <link href="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
-
-        <link href="/assets3/css/style.css" rel="stylesheet" />
-
-        <link href="/assets3/css/style-dark.css" rel="stylesheet" />
-
-
-
-        <link href="/assets3/switcher/css/switcher.css" rel="stylesheet" />
-
-        <link href="/assets3/switcher/demo.css" rel="stylesheet" />
-
-        <link href="/assets3/css/animate.css" rel="stylesheet" />
-
-
-
-        <link href="/assets3/css/custom.css" rel="stylesheet" />
-
-        <link href="/assets3/css/floo.css" rel="stylesheet" />
-
-    </head>
-
-    <body class="main-body horizontal-color">
-
-        @include('client.include')
-
-
-
-
-
-        <div class="horizontalMenucontainer">
-
-            <div id="global-loader" style="display: none;"><img src="/assets3/img/loader.svg" class="loader-img" alt="Loader" /></div>
-
-
-
-            <div class="page">
-
-            <!-- main-header opened -->
-
-            @yield('main-header')
-
-            <!-- /main-header -->
-
-            <!--Horizontal-main -->
-
-            @yield('horizontal-menu')
-
-            <!--Horizontal-main -->
-
-
-
-
-
-
-
-            <!-- main-content opened -->
-
-            <div class="main-content horizontal-content">
-
-                <!-- container opened -->
-
-                <div class="container-fluid">
-
-                    <!-- breadcrumb -->
-
-                    <div class="breadcrumb-header justify-content-between">
-
-                        <div class="my-auto">
-
-                        </div>
-
+        <div class="player-info-main">
+            <h4 class="player-info-title">Regulamentação</h4>
+            <!-- <p class="player-info-subtitle"></p> -->
+            <hr>
+            <div class="player-info-table">
+                <div class="table-custom-wrap">
+                @yield('alert')
+                    <div class="form-group">
+                            <?php echo $dados->regulamento; ?>
                     </div>
-
-                    <!-- breadcrumb -->
-
-                    <!-- row -->
-
-
-
-                    <style type="text/css">
-
-
-
-                    </style>
-
-                    <div class="row">
-
-                        <div class="col-lg-12">
-
-                            <div class="card">
-
-                                <div class="card-header bg-red">
-
-                                    <h5 class="card-title">Regulamentação da plataforma</h5>
-
-                                    <h6 class="card-subtitle mb-2"></h6>
-
-                                </div>
-
-                                <div class="card-body">
-
-                                    <?php echo $dados->regulamento; ?>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-
-                    </div>
-
-                    <!-- row closed -->
-
                 </div>
-
-                <!-- Container closed -->
-
             </div>
-
-
-
-
-
-
-
         </div>
 
-        <!-- End Page -->
-
-
-
-        <a href="#top" id="back-to-top"><i class="las la-angle-double-up"></i></a>
-
+        </section>
 
 
         <script src="/assets3/plugins/jquery/jquery.min.js"></script>
@@ -212,11 +62,12 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+        <div class="snackbars" id="form-output-global"></div>
+        <!-- Javascript-->
+        <script src="js/core.min.js"></script>
+        <script src="js/script.js"></script>
 
 
-    </div>
-
-    <div class="main-navbar-backdrop"></div>
 
 </body>
 

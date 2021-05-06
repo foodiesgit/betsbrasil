@@ -211,7 +211,7 @@ class ResultController extends Controller
                             $result =  app(\App\Http\Controllers\Results\UnderOverController::class)->index($response->results[0]->ss,[ucfirst(strtolower($jogo->header)), $odd->name], $response->results[0]->time_status); 
                             if($result['ganhou'] == true){
                                 $win++;
-                                                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
+                                    $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
                                     $odd->status_resultado = 1;
                                     $odd->status_conferido = 1;
                                     $odd->save(); 
@@ -227,7 +227,7 @@ class ResultController extends Controller
                         }
 
                         if($response->results[0]->time_status == 3){
-                            $finalizado = 1;
+                            $finalizado++;
                         }
                         // if($jogo->idsubgrupo == "CHANCE DUPLA"){
                         //     $quebrapalpite = explode("OU",$jogo->name);
@@ -386,7 +386,7 @@ class ResultController extends Controller
                     }
                 } 
             }
-            if($finalizado){
+            if($finalizado == 1){
                 if($win == $total_jogos){
                     $aposta->status = 2;
                     $aposta->save();
