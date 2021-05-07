@@ -1382,7 +1382,7 @@
 
                     }
 
-                    }
+                }
 
                 $('.retirar_aposta').click(function(e){
 
