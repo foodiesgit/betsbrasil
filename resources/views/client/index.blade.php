@@ -1133,7 +1133,7 @@ if(odds[0].idsubgrupo == 84){
 
         var id = $(this).attr('data-id');
 
-        $(this).addClass('selecionado');
+        $(this).addClass('active');
         
 
         $.ajax({
