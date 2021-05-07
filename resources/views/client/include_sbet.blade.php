@@ -92,7 +92,7 @@
                   <ul class="rd-navbar-nav"> 
                     <li class="rd-nav-item active"><a class="rd-nav-link" href="/">Início</a>
                     </li>
-                    <li class="rd-nav-item active"><a class="rd-nav-link" href="/jogos-ao-vivo">Ao Vivo</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="/jogos-ao-vivo">Ao Vivo</a>
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/verifica-bilhete">Verifica Bilhete</a>
                     </li>
