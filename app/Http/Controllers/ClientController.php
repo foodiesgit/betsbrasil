@@ -397,7 +397,7 @@ class ClientController extends Controller{
 
             'total_carrinho' => $total_carrinho
 
-        ];
+        ];  
        
         return view('client.index', $data);
 

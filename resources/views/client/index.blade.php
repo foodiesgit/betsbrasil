@@ -112,9 +112,10 @@
                             ; echo '<div class="sport-table-header"><img src="/assets/bandeiras/'.$dados['bandeira'].'" style="width: 24px; height: 24px; margin-right: 5px; ">'.$dados['pais'].'</div>';
 
                             foreach($dados['ligas'] as $dados){
+                            if(count($dados['jogos']) > 0){
+
                                 echo ' <div class="sport-table-header">'.$dados['liga'].'</div>';
 
-                            if(count($dados['jogos']) > 0){
 
                                 foreach($dados['jogos'] as $jogos){
 
@@ -436,8 +437,9 @@
 
     </a>
   </div>
-    <!-- <div class="snackbars" id="form-output-global"></div> -->
+    <div class="snackbars" id="form-output-global"></div>
     <!-- Javascript-->
+    
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
 
