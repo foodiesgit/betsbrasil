@@ -1,36 +1,75 @@
+<!DOCTYPE html>
+<html class="wide wow-animation desktop landscape rd-navbar-static-linked" lang="en">
+<head>
+    <meta charset="UTF-8" />
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template" />
+
+    <meta name="Author" content="Spruko Technologies Private Limited" />
+
+    <meta
+
+        name="Keywords"
+
+        content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4"
+
+    />
+    <!-- Site Title-->
+    <title>Bets - Resultado Bilhete</title>
+
+    
+    <!-- <script type="text/javascript" async="" src="/assets3/ec.js"></script> -->
+    <!-- <script src="/assets3/3ts2ksMwXvKRuG480KNifJ2_JNM.js"></script><script src="/assets3/4o300efCt-CXoq1JEC-sVReFz48.js"></script> -->
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="/assets3/css.css">
+    <link rel="stylesheet" href="/assets3/bootstrap.css">
+    <link rel="stylesheet" href="/assets3/fonts.css">
+    <link rel="stylesheet" href="/assets3/style.css">
+
+    <link rel="icon" href="/assets3/img/brand/favicon.png" type="image/x-icon" />
+
+    <link href="/assets3/css/icons.css" rel="stylesheet" />
+
+    <link href="/assets3/plugins/sidebar/sidebar.css" rel="stylesheet" />
+
+    <link href="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+    <link href="/assets3/css/style.css" rel="stylesheet" />
+
+    <link href="/assets3/css/style-dark.css" rel="stylesheet" />
+
+
+
+    <link href="/assets3/switcher/css/switcher.css" rel="stylesheet" />
+
+    <link href="/assets3/switcher/demo.css" rel="stylesheet" />
+
+    <link href="/assets3/css/animate.css" rel="stylesheet" />
+
+
+
+    <link href="/assets3/css/custom.css" rel="stylesheet" />
+
+    <link href="/assets3/css/floo.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="data:text/css;charset=utf-8;base64,Y2xvdWRmbGFyZS1hcHBbYXBwLWlkPSJhLWJldHRlci1icm93c2VyIl0gewogIGRpc3BsYXk6IGJsb2NrOwogIGJhY2tncm91bmQ6ICM0NTQ4NGQ7CiAgY29sb3I6ICNmZmY7CiAgbGluZS1oZWlnaHQ6IDEuNDU7CiAgcG9zaXRpb246IGZpeGVkOwogIHotaW5kZXg6IDkwMDAwMDAwOwogIHRvcDogMDsKICBsZWZ0OiAwOwogIHJpZ2h0OiAwOwogIHBhZGRpbmc6IC41ZW0gMWVtOwogIHRleHQtYWxpZ246IGNlbnRlcjsKICAtd2Via2l0LXVzZXItc2VsZWN0OiBub25lOwogICAgIC1tb3otdXNlci1zZWxlY3Q6IG5vbmU7CiAgICAgIC1tcy11c2VyLXNlbGVjdDogbm9uZTsKICAgICAgICAgIHVzZXItc2VsZWN0OiBub25lOwp9CgpjbG91ZGZsYXJlLWFwcFthcHAtaWQ9ImEtYmV0dGVyLWJyb3dzZXIiXVtkYXRhLXZpc2liaWxpdHk9ImhpZGRlbiJdIHsKICBkaXNwbGF5OiBub25lOwp9CgpjbG91ZGZsYXJlLWFwcFthcHAtaWQ9ImEtYmV0dGVyLWJyb3dzZXIiXSBjbG91ZGZsYXJlLWFwcC1tZXNzYWdlIHsKICBkaXNwbGF5OiBibG9jazsKfQoKY2xvdWRmbGFyZS1hcHBbYXBwLWlkPSJhLWJldHRlci1icm93c2VyIl0gYSB7CiAgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7CiAgY29sb3I6ICNlYmViZjQ7Cn0KCmNsb3VkZmxhcmUtYXBwW2FwcC1pZD0iYS1iZXR0ZXItYnJvd3NlciJdIGE6aG92ZXIsCmNsb3VkZmxhcmUtYXBwW2FwcC1pZD0iYS1iZXR0ZXItYnJvd3NlciJdIGE6YWN0aXZlIHsKICBjb2xvcjogI2RiZGJlYjsKfQoKY2xvdWRmbGFyZS1hcHBbYXBwLWlkPSJhLWJldHRlci1icm93c2VyIl0gY2xvdWRmbGFyZS1hcHAtY2xvc2UgewogIGRpc3BsYXk6IGJsb2NrOwogIGN1cnNvcjogcG9pbnRlcjsKICBmb250LXNpemU6IDEuNWVtOwogIHBvc2l0aW9uOiBhYnNvbHV0ZTsKICByaWdodDogLjRlbTsKICB0b3A6IC4zNWVtOwogIGhlaWdodDogMWVtOwogIHdpZHRoOiAxZW07CiAgbGluZS1oZWlnaHQ6IDE7Cn0KCmNsb3VkZmxhcmUtYXBwW2FwcC1pZD0iYS1iZXR0ZXItYnJvd3NlciJdIGNsb3VkZmxhcmUtYXBwLWNsb3NlOmFjdGl2ZSB7CiAgLXdlYmtpdC10cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTsKICAgICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgxcHgpOwp9CgpjbG91ZGZsYXJlLWFwcFthcHAtaWQ9ImEtYmV0dGVyLWJyb3dzZXIiXSBjbG91ZGZsYXJlLWFwcC1jbG9zZTpob3ZlciB7CiAgb3BhY2l0eTogLjllbTsKICBjb2xvcjogI2ZmZjsKfQo=">
+  <script src="https://kit.fontawesome.com/9b4191c7d5.js" crossorigin="anonymous"></script>
+  </head>
+  <body class="">
   @include('client.include_sbet')
 
-<!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
-  <head>
-    <!-- Site Title-->
-    <title>Team overview</title>
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <script src="/cdn-cgi/apps/head/3ts2ksMwXvKRuG480KNifJ2_JNM.js"></script><link rel="icon" href="/images/favicon.png" type="image/x-icon">
-    <!-- Stylesheets-->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Kanit:300,400,500,500i,600%7CRoboto:400,900">
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/fonts.css">
-    <link rel="stylesheet" href="/css/style.css">
-  </head>
-
-
-  <body>
-    <div class="ie-panel"><a href="https://windows.microsoft.com/en-US/internet-explorer/"><img src="/images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
-    <div class="preloader">
-      <div class="preloader-body">
-        <div class="preloader-item"></div>
-      </div>
-    </div>
+    <!-- Page-->
+    <div class="page animated" style="animation-duration: 500ms;">
+    
     @yield('main-header')
 
-    <!-- Page-->
-    <div class="">
-    <section class="section section-sm bg-gray-100">      
+      <div id="global-loader"><img src="/assets3/img/loader.gif" class="loader-img" alt="Loader" width="10%"/></div>
+
+      <section class="section section-sm bg-gray-100">      
         <div class="container">
           <div class="row row-50">
             <div class="col-lg-12">
@@ -283,13 +322,44 @@
         </div>
       </section>
 
+     
     </div>
     <!-- Global Mailform Output-->
     <div class="snackbars" id="form-output-global"></div>
     <!-- Javascript-->
-    <script src="/js/core.min.js"></script>
-    <script src="/js/script.js"></script>
- 
+    <script src="/assets3/core.min.js"></script>
+    <script src="/assets3/plugins/jquery/jquery.min.js"></script>
+
+    <script src="/assets3/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/assets3/plugins/ionicons/ionicons.js"></script>
+
+    <script src="/assets3/plugins/moment/moment.js"></script>
+
+    <script src="/assets3/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+    <script src="/assets3/plugins/perfect-scrollbar/p-scroll.js"></script>
+
+    <script src="/assets3/js/eva-icons.min.js"></script>
+
+    <script src="/assets3/plugins/rating/jquery.rating-stars.js"></script>
+
+    <script src="/assets3/plugins/rating/jquery.barrating.js"></script>
+
+    <script src="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="/assets3/plugins/horizontal-menu/horizontal-menu-2/horizontal-menu.js"></script>
+
+    <script src="/assets3/js/sticky.js"></script>
+
+    <script src="/assets3/plugins/sidebar/sidebar.js"></script>
+
+    <script src="/assets3/plugins/sidebar/sidebar-custom.js"></script>
+
+    <script src="/assets3/js/custom.js"></script>
+
+    <script src="/assets3/switcher/js/switcher.js"></script>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" integrity="sha512-Rdk63VC+1UYzGSgd3u2iadi0joUrcwX0IWp2rTh6KXFoAmgOjRS99Vynz1lJPT8dLjvo6JZOqpAHJyfCEZ5KoA==" crossorigin="anonymous"></script>
@@ -395,4 +465,4 @@
         }
       });
     </script>
-    </html>
+</body></html>

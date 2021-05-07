@@ -792,11 +792,18 @@ success: function(res){
                         }else{
 
                             $('#oddsId'+group).append(
-                                '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
+                                '<div class="sport-table-wager-button item_aposta cota-aposta d-block d-sm-none d-none d-sm-block d-md-none" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
 
                                     '<span class="time">'+item.name+'</span>'+
 
                                     '<span class="cotas">'+item.odds+'</span>'+
+
+                                '</div>'+
+                                '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
+
+                                '<span class="time">'+item.name+'</span>'+
+
+                                '<span class="cotas">'+item.odds+'</span>'+
 
                                 '</div>'
                             );
