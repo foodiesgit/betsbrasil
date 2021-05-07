@@ -31,7 +31,7 @@
       </div>
     </div> -->
     <!-- Page-->
-    <div class="page">
+    <div class="">
       <!-- Page Header-->
       <header class="section page-header rd-navbar-dark">
         <!-- RD Navbar-->
