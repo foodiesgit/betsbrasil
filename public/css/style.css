@@ -14038,7 +14038,13 @@ span.page-link:hover, span.page-link:focus, span.page-link:active {
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
-
+.sport-table-wager-home{
+	display: flex;
+	flex-wrap: nowrap;
+	margin-left: 5px;
+	justify-content: space-between;
+	align-items: flex-end;
+}
 .sport-table-wager-button {
 	flex-basis: 100%;
 	max-width: 100%;

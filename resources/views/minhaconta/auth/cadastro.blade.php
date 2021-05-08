@@ -215,7 +215,7 @@
 
                                     <div class="new-account mt-5">
 
-                                        <p>Já tem uma conta? <a class="text-primary" href="/login">Entrar</a></p>
+                                        <p>Já tem uma conta? <a class="text-primary" href="/admin/login">Entrar</a></p>
 
                                     </div>
 

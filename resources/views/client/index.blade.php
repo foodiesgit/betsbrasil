@@ -137,7 +137,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-10 col-md-6 col-lg-7">
-                                                    <div class="sport-table-wager">
+                                                    <div class="sport-table-wager-home">
                                                     
                                                         <a class="sport-table-wager-button cota-aposta" data-id="'.$jogos['oddhome_id'].'">
                                                         <span>1</span>
