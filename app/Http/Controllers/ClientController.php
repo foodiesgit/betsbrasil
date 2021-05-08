@@ -1290,7 +1290,15 @@ class ClientController extends Controller{
 
         if(count($sql_Carrinho) > 0){
 
-            CarrinhoApostas::where('id', $sql_Carrinho[0]->id)->delete();
+            CarrinhoApostas::where('id', $sql_Carrinho[0]->id)->destroy();
+            return response()->json([
+
+                'status' => 'erro',
+
+                'mensagem' => 'Jogo removido do carrinho'
+
+            ]);
+
 
         }
 

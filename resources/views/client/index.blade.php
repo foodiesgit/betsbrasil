@@ -1225,115 +1225,115 @@ if(odds[0].idsubgrupo == 84){
 
 
                     var total_de_apostas = 0;
-
-
-
+                    
                     $.each(res.response, function(i, item) {
+                        if(item.id != null){
+                            total_de_apostas++;
 
-                        total_de_apostas++;
+                            $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
 
-                        $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
-
-                        $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
-
-
-
-                        $('.cota-aposta[data-id='+item.idodds+']').addClass('active');
-
-                        $('#divvalor').show();
-                        $('#divvalormobile').show();
+                            $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
 
 
 
-                        $('#bet-slip-inner').append('<app-betslip-item>'+
+                            $('.cota-aposta[data-id='+item.idodds+']').addClass('active');
 
-                            '<div class="bet-slip__item">'+
+                            $('#divvalor').show();
+                            $('#divvalormobile').show();
 
-                                '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
 
-                                '<div class="bet-slip__item-inner">'+
 
-                                    '<div class="bet-slip__teams">'+
+                            $('#bet-slip-inner').append('<app-betslip-item>'+
 
-                                        '<div class="bet-slip__team">'+
+                                '<div class="bet-slip__item">'+
 
-                                            '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
+                                    '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
+
+                                    '<div class="bet-slip__item-inner">'+
+
+                                        '<div class="bet-slip__teams">'+
+
+                                            '<div class="bet-slip__team">'+
+
+                                                '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
+
+                                            '</div>'+
+
+                                            '<div class="bet-slip__team">'+
+
+                                                '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
+
+                                            '</div>'+
 
                                         '</div>'+
 
-                                        '<div class="bet-slip__team">'+
+                                        '<div class="bet-slip__info">'+
 
-                                            '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
+                                            '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
 
                                         '</div>'+
 
-                                    '</div>'+
+                                        '<div class="bet-slip__info">'+
 
-                                    '<div class="bet-slip__info">'+
+                                            '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
 
-                                        '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
+                                            '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
 
-                                    '</div>'+
-
-                                    '<div class="bet-slip__info">'+
-
-                                        '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
-
-                                        '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
+                                        '</div>'+
 
                                     '</div>'+
 
                                 '</div>'+
 
-                            '</div>'+
+                            '</app-betslip-item>');
 
-                        '</app-betslip-item>');
 
-                   
 
-                    $('#bet-slip-inner-mobile').append('<app-betslip-item>'+
+                            $('#bet-slip-inner-mobile').append('<app-betslip-item>'+
 
-                            '<div class="bet-slip__item">'+
+                                '<div class="bet-slip__item">'+
 
-                                '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
+                                    '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
 
-                                '<div class="bet-slip__item-inner">'+
+                                    '<div class="bet-slip__item-inner">'+
 
-                                    '<div class="bet-slip__teams">'+
+                                        '<div class="bet-slip__teams">'+
 
-                                        '<div class="bet-slip__team">'+
+                                            '<div class="bet-slip__team">'+
 
-                                            '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
+                                                '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
+
+                                            '</div>'+
+
+                                            '<div class="bet-slip__team">'+
+
+                                                '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
+
+                                            '</div>'+
 
                                         '</div>'+
 
-                                        '<div class="bet-slip__team">'+
+                                        '<div class="bet-slip__info">'+
 
-                                            '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
+                                            '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
 
                                         '</div>'+
 
-                                    '</div>'+
+                                        '<div class="bet-slip__info">'+
 
-                                    '<div class="bet-slip__info">'+
+                                            '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
 
-                                        '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
+                                            '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
 
-                                    '</div>'+
-
-                                    '<div class="bet-slip__info">'+
-
-                                        '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
-
-                                        '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
+                                        '</div>'+
 
                                     '</div>'+
 
                                 '</div>'+
 
-                            '</div>'+
+                            '</app-betslip-item>');
+                        }
 
-                        '</app-betslip-item>');
 
                     });
                     if(total_de_apostas == 0){
