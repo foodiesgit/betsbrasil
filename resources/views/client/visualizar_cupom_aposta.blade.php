@@ -82,6 +82,7 @@
         </style>
 
 
+<div class="page animated" style="animation-duration: 500ms;">
 
         <div class="hr"></div>
 
@@ -459,6 +460,7 @@
 
 
   </div>
+</div>
 
 
 
