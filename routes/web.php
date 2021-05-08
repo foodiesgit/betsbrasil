@@ -24,29 +24,29 @@ Route::prefix('ajax')->group(function(){
 
 });
 
-Route::prefix('lite')->group(function(){
-    Route::get('/', 'LiteController@viewIndex');
-    Route::get('/ver-evento/{id}', 'LiteController@verEventoById');
-    Route::get('/leagues/{id}', 'LiteController@verEventosPorLiga');
-    Route::get('/meu-cupom', 'LiteController@viewMeuCupom');
-    Route::get('/atualizar-aposta', 'LiteController@viewAtualizarAposta');
-    Route::get('limpar-apostas', 'LiteController@limparApostas');
-    Route::post('finalizar-aposta', 'LiteController@postFinalizarAposta');
-    Route::get('remove-selection/{id}', 'LiteController@removeSelection');
+// Route::prefix('lite')->group(function(){
+//     Route::get('/', 'LiteController@viewIndex');
+//     Route::get('/ver-evento/{id}', 'LiteController@verEventoById');
+//     Route::get('/leagues/{id}', 'LiteController@verEventosPorLiga');
+//     Route::get('/meu-cupom', 'LiteController@viewMeuCupom');
+//     Route::get('/atualizar-aposta', 'LiteController@viewAtualizarAposta');
+//     Route::get('limpar-apostas', 'LiteController@limparApostas');
+//     Route::post('finalizar-aposta', 'LiteController@postFinalizarAposta');
+//     Route::get('remove-selection/{id}', 'LiteController@removeSelection');
 
-    Route::get('/login', 'LiteController@viewLogin');
-    Route::post('/login', 'LiteController@postLogin');
+//     Route::get('/login', 'LiteController@viewLogin');
+//     Route::post('/login', 'LiteController@postLogin');
 
-    Route::get('/cadastrar', 'LiteController@viewCadastro');
-    Route::post('/cadastrar', 'LiteController@potsCadastro');
+//     Route::get('/cadastrar', 'LiteController@viewCadastro');
+//     Route::post('/cadastrar', 'LiteController@potsCadastro');
 
-    Route::get('/sports/{id}', 'ClientController@viewJogosPorEsporte');
+//     Route::get('/sports/{id}', 'ClientController@viewJogosPorEsporte');
 
-    /* Rotas para a conta do usuário */
-    Route::get('minhas-apostas', 'LiteController@viewMinhasApostas');
-    Route::get('minhas-apostas/visualizar-cupom/{codigo_unico}', 'LiteController@viewVisualizarApostaById');
+//     /* Rotas para a conta do usuário */
+//     Route::get('minhas-apostas', 'LiteController@viewMinhasApostas');
+//     Route::get('minhas-apostas/visualizar-cupom/{codigo_unico}', 'LiteController@viewVisualizarApostaById');
 
-});
+// });
 
 Route::prefix('operacao-carrinho')->group(function(){
     Route::get('recuperar-carrinho', 'CarrinhoController@recuperarCarrinho');
@@ -77,8 +77,8 @@ Route::get('/carrinho/recupera-carrinho', 'ClientController@ajaxRecuperaApostasC
 Route::get('ver-cupom/{random}', 'ClientController@verCupom');
 Route::get('verifica-bilhete', 'ClientController@verificaBilhete');
 
-Route::get('login', 'MinhaContaController@viewLogin');
-Route::post('login', 'MinhaContaController@postLogin');
+// Route::get('login', 'MinhaContaController@viewLogin');
+// Route::post('login', 'MinhaContaController@postLogin');
 Route::get('cadastro', 'MinhaContaController@viewCadastro');
 Route::post('cadastro', 'MinhaContaController@postCadastro');
 Route::get('minhas-apostas', 'MinhaContaController@viewMinhasApostas');
