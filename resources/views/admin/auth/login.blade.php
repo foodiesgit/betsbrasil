@@ -30,6 +30,7 @@
 
 </head>
 
+@include('client.include_sbet')
 
 
 <body class="" style="background-image: url('/assets3/img/932701.jpg'); height: 100vh; background-size: 'cover';">
@@ -185,6 +186,12 @@
 	<script src="/assets2/vendor/apexchart/apexchart.js"></script>
 
     <script src="/assets2/vendor/glider/glider.js"></script>
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="/js/core.min.js"></script>
+    <script src="/js/script.js"></script>
+ 
+
 
 
 

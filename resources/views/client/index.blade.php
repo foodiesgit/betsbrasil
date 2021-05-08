@@ -18,12 +18,9 @@
 <link href="/assets3/switcher/demo.css" rel="stylesheet" />
 
 <link href="/assets3/css/animate.css" rel="stylesheet" />
-
-<link rel="stylesheet" href="/assets3/css/lite.css">
 <link href="/assets3/css/floo.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-<link href="/assets3/css/custom.css" rel="stylesheet" />
 <style>
   a {
     text-decoration: none;
@@ -60,6 +57,7 @@
   }
 </style>
 @yield('main-header')
+<div class="col-lg-12">
 <div class="page animated" style="animation-duration: 500ms;">
       
       <!-- All Sports-->
@@ -306,7 +304,7 @@
           </div>
         </div>
       </footer>
-      <div class="modal modal-sport fade" id="sportModal" tabindex="-1" role="dialog" aria-labelledby="sportModalTitle" aria-hidden="true">
+      <div class="modal modal-sport" id="sportModal" tabindex="-1" role="dialog" aria-labelledby="sportModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -331,78 +329,78 @@
             <div class="modal-body" >
             <div class="bet-slip">
 
-<div class="bet-slip__inner" id="bet-slip-inner-mobile">
+                    <div class="bet-slip__inner" id="bet-slip-inner-mobile">
 
-</div>
-<div class="bet-slip__item bet-slip__item--row" id="divvalormobile">
+                    </div>
+                    <div class="bet-slip__item bet-slip__item--row" id="divvalormobile">
 
-    <div class="bet-slip__item-footer bet-slip__item-footer--wide">
+                        <div class="bet-slip__item-footer bet-slip__item-footer--wide">
 
-        <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
+                            <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
 
-            <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake_mobile" name="newstake">
-            <input id="newstake_hidden_mobile" type="hidden" name="newstake_hidden_mobile">
+                                <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake_mobile" name="newstake">
+                                <input id="newstake_hidden_mobile" type="hidden" name="newstake_hidden_mobile">
 
-        </div>
+                            </div>
 
-    </div>
+                        </div>
 
-</div>
-
-
-
-<div class="bet-slip-total">
-
-    <table class="bet-slip-total__table">
-
-        <tbody>
-
-            <tr class="bet-slip-total__tr">
-
-                <th class="bet-slip-total__th">Sua Aposta</th>
-
-                <td class="bet-slip-total__td"><span id="slip_total_aposta_mobile">R$ 0,00</span></td>
-
-            </tr>
+                    </div>
 
 
 
-            <tr class="bet-slip-total__tr">
+                    <div class="bet-slip-total">
 
-                <th class="bet-slip-total__th">Total Odds</th>
+                        <table class="bet-slip-total__table">
 
-                <td class="bet-slip-total__td"><span id="slip_total_odds_mobile">0.00</span></td>
+                            <tbody>
 
-            </tr>
+                                <tr class="bet-slip-total__tr">
 
+                                    <th class="bet-slip-total__th">Sua Aposta</th>
 
+                                    <td class="bet-slip-total__td"><span id="slip_total_aposta_mobile">R$ 0,00</span></td>
 
-            <tr class="bet-slip-total__tr">
-
-                <th class="bet-slip-total__th">Possível Retorno</th>
-
-                <td class="bet-slip-total__td"><span id="slip_total_retorno_mobile">R$ 0,00</span></td>
+                                </tr>
 
 
 
-            </tr>
+                                <tr class="bet-slip-total__tr">
 
-        </tbody>
+                                    <th class="bet-slip-total__th">Total Odds</th>
 
-    </table>
+                                    <td class="bet-slip-total__td"><span id="slip_total_odds_mobile">0.00</span></td>
 
-</div>
+                                </tr>
 
 
+
+                                <tr class="bet-slip-total__tr">
+
+                                    <th class="bet-slip-total__th">Possível Retorno</th>
+
+                                    <td class="bet-slip-total__td"><span id="slip_total_retorno_mobile">R$ 0,00</span></td>
+
+
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
 
 
 
-{{ Form::close() }}
 
-<button class="bet-slip__btn" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Colocar Aposta</button>
 
-</div>
+                    {{ Form::close() }}
+
+                    <button class="bet-slip__btn" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Colocar Aposta</button>
+
+                    </div>
             </div>
           </div>
         </div>
@@ -437,6 +435,7 @@
 
     </a>
   </div>
+  </div>
     <div class="snackbars" id="form-output-global"></div>
     <!-- Javascript-->
     
@@ -445,33 +444,9 @@
 
     <script src="/assets3/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="/assets3/plugins/ionicons/ionicons.js"></script>
 
     <script src="/assets3/plugins/moment/moment.js"></script>
 
-    <script src="/assets3/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-
-    <script src="/assets3/plugins/perfect-scrollbar/p-scroll.js"></script>
-
-    <script src="/assets3/js/eva-icons.min.js"></script>
-
-    <script src="/assets3/plugins/rating/jquery.rating-stars.js"></script>
-
-    <script src="/assets3/plugins/rating/jquery.barrating.js"></script>
-
-    <script src="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-
-    <script src="/assets3/plugins/horizontal-menu/horizontal-menu-2/horizontal-menu.js"></script>
-
-    <script src="/assets3/js/sticky.js"></script>
-
-    <script src="/assets3/plugins/sidebar/sidebar.js"></script>
-
-    <script src="/assets3/plugins/sidebar/sidebar-custom.js"></script>
-
-    <script src="/assets3/js/custom.js"></script>
-
-    <script src="/assets3/switcher/js/switcher.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 

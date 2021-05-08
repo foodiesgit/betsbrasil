@@ -1,257 +1,66 @@
-<html lang="en" class="js-focus-visible" data-js-focus-visible=""><head>
 
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-
-
-    <meta name="robots" content="index, nofollow">
-
-    <link rel="stylesheet" href="/assets3/css/lite.css">
-
-    <link rel="stylesheet" href="/assets3/css/style.css">
-
-
-
-    <style>
-
-        .float{
-
-            position:fixed;
-
-            width:60px;
-
-            height:60px;
-
-            bottom:40px;
-
-            right:40px;
-
-            background-color:#fff;
-
-            color:#FFF;
-
-            border-radius:50px;
-
-            text-align:center;
-
-            box-shadow: 2px 2px 3px #999;
-
-        }
-
-
-
-        .my-float{
-
-            margin-top:11px;
-
-        }
-
-
-
-        .selecionado{
-
-            background-color: #CA3B1B;
-
-            color: #FFF !important;
-
-            transition: .4s;
-
-        }
-
-
-
-        @media print{
-
-            .main-header{
-
-                display: none;
-
-            }
-
-            .upheader{
-
-                display: none;
-
-            }
-
-            .sticky{
-
-                display: none;
-
-            }
-
-            .jumps-prevent{
-
-                display: none;
-
-            }
-
-            .users-footer{
-
-                display: none;
-
-            }
-
-            .footer-bottom-text-wrapper{
-
-                display: none;
-
-            }
-
-            .btn_imprimir{
-
-                display: none;
-
-            }
-
-            .betslip-page{
-
-                visibility: visible !important;
-
-            }
-
-        }
-
-    </style>
-
-
-
-    <title>Novo BETS</title>
-
-
-
-    <style type="text/css">
-
-        @font-face {
-
-            font-weight: 400;
-
-            font-style:  normal;
-
-            font-family: 'Circular-Loom';
-
-            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Book-cd7d2bcec649b1243839a15d5eb8f0a3.woff2') format('woff2');
-
-        }
-
-
-
-        @font-face {
-
-            font-weight: 500;
-
-            font-style:  normal;
-
-            font-family: 'Circular-Loom';
-
-            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Medium-d74eac43c78bd5852478998ce63dceb3.woff2') format('woff2');
-
-        }
-
-
-
-        @font-face {
-
-            font-weight: 700;
-
-            font-style:  normal;
-
-            font-family: 'Circular-Loom';
-
-            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Bold-83b8ceaf77f49c7cffa44107561909e4.woff2') format('woff2');
-
-        }
-
-
-
-        @font-face {
-
-            font-weight: 900;
-
-            font-style:  normal;
-
-            font-family: 'Circular-Loom';
-
-            src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Black-bf067ecb8aa777ceb6df7d72226febca.woff2') format('woff2');
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    @include('client.include')
-
-    <div class="wrapper">
-
-        <div style="color:#f9f9f9; font-size:12px; font-weight:33px; padding:10px 5px 5px; background-color: #96250c;" class="upheader">
-
-            <div class="bets-table__teams-info">
-
-                <?php
-
-                    if(Auth::check()){
-
-                        $sqlCreditos = DB::table('creditos')->where('idusuario', auth()->user()->id)->select(DB::raw("sum(saldo_apostas + saldo_liberado) as soma"), 'saldo_apostas', 'saldo_liberado')->get();
-
-
-
-                        echo '
-
-                        <div class="bets-table__teams-info-odd" style="text-align:right;">
-
-                            <a href="#" style="color:#fff;">Meu Saldo</a>
-
-                        </div>
-
-
-
-                        <div class="bets-table__teams-info-odd" style="text-align:left;"><span style="font-size:13px; padding-left:5px;padding-right:5px;text-align:center;">→</span> <strong style="font-size:13px;">R$ '.number_format($sqlCreditos[0]->soma, 2, ',', '.' ).'</strong></div>
-
-                        ';
-
-                    }else{
-
-                        echo '
-
-                        <div class="bets-table__teams-info-odd" style="text-align:right;">
-
-                            <a href="/lite/login" style="color:#fff;">Entre para ver o seu saldo</a>
-
-                        </div>
-
-
-
-
-
-                        ';
-
-                    }
-
-                ?>
-
-
-
-
-
-            </div>
-
-        </div>
-
+    @include('client.include_sbet')
 
 
         @yield('main-header')
 
+        <style>
 
 
-        @yield('horizontal-menu')
 
+@media print{
+
+    .main-header{
+
+        display: none;
+
+    }
+
+    .upheader{
+
+        display: none;
+
+    }
+
+    .sticky{
+
+        display: none;
+
+    }
+
+    .jumps-prevent{
+
+        display: none;
+
+    }
+
+    .users-footer{
+
+        display: none;
+
+    }
+
+    .footer-bottom-text-wrapper{
+
+        display: none;
+
+    }
+
+    .btn_imprimir{
+
+        display: none;
+
+    }
+
+    .betslip-page{
+
+        visibility: visible !important;
+
+    }
+
+}
+
+</style>
 
 
         <style type="text/css">
@@ -282,7 +91,7 @@
 
 
 
-        <div class="wrapper">
+        <div class="">
 
             <div class="betslip-page">
 
@@ -657,22 +466,15 @@
 
   <script src="/assets3/plugins/moment/moment.js"></script>
 
-  <script src="/assets3/plugins/horizontal-menu/horizontal-menu-2/horizontal-menu.js"></script>
-
-  <script src="/assets3/js/sticky.js"></script>
-
-  <script src="/assets3/plugins/sidebar/sidebar.js"></script>
-
-  <script src="/assets3/plugins/sidebar/sidebar-custom.js"></script>
-
-  <script src="/assets3/js/custom.js"></script>
-
-  <script src="/assets3/js/carrinho.js"></script>
-
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" integrity="sha512-Rdk63VC+1UYzGSgd3u2iadi0joUrcwX0IWp2rTh6KXFoAmgOjRS99Vynz1lJPT8dLjvo6JZOqpAHJyfCEZ5KoA==" crossorigin="anonymous"></script>
 
+  <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="/js/core.min.js"></script>
+    <script src="/js/script.js"></script>
+ 
 
 
 <script type="text/javascript">
