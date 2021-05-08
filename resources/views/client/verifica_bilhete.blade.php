@@ -2,28 +2,33 @@
 
 
 @yield('main-header')
+<div class="page animated" style="animation-duration: 500ms;">
+
 <section class="section section-sm bg-gray-100">
 
-    <div class="player-info-main">
-        <h4 class="player-info-title">Informações do bilhete</h4>
-        <!-- <p class="player-info-subtitle"></p> -->
-        <hr>
-        <div class="player-info-table">
-            <div class="table-custom-wrap">
-            @yield('alert')
+    <div class="container">
+        <div class="player-info-main">
+            <h4 class="player-info-title">Informações do bilhete</h4>
+            <!-- <p class="player-info-subtitle"></p> -->
+            <hr>
+            <div class="player-info-table">
+                <div class="table-custom-wrap">
+                @yield('alert')
 
-                <div class="form-group">
-                        <label for="exampleInputEmail1">Codigo do Bilhete</label>
-                        <input type="text" class="form-control" name="bilhete" id="bilhete">
-                        <small id="emailHelp" class="form-text text-muted">Informe o codigo de acesso que se encontra em seu bilhete</small>
-                        </br>
-                        <button  id="btnVerificar" class="btn btn-primary">Verificar</button>
+                    <div class="form-group">
+                            <label for="exampleInputEmail1">Codigo do Bilhete</label>
+                            <input type="text" class="form-control" name="bilhete" id="bilhete">
+                            <small id="emailHelp" class="form-text text-muted">Informe o codigo de acesso que se encontra em seu bilhete</small>
+                            </br>
+                            <button  id="btnVerificar" class="btn btn-primary">Verificar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 </section>
+</div>
 
 
 <script src="/assets3/plugins/jquery/jquery.min.js"></script>

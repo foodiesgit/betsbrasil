@@ -27,6 +27,7 @@
       </div>
     </div>
     @yield('main-header')
+    <div class="page animated" style="animation-duration: 500ms;">
 
     <!-- Page-->
     <div class="">

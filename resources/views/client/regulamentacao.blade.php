@@ -2,24 +2,28 @@
 
         @include('client.include_sbet')
         @yield('main-header')
+        <div class="page animated" style="animation-duration: 500ms;">
 
         <section class="section section-sm bg-gray-100">
 
-        <div class="player-info-main">
-            <h4 class="player-info-title">Regulamentação</h4>
-            <!-- <p class="player-info-subtitle"></p> -->
-            <hr>
-            <div class="player-info-table">
-                <div class="table-custom-wrap">
-                @yield('alert')
-                    <div class="form-group">
-                            <?php echo $dados->regulamento; ?>
+        <div class="container">
+            <div class="player-info-main">
+                <h4 class="player-info-title">Regulamentação</h4>
+                <!-- <p class="player-info-subtitle"></p> -->
+                <hr>
+                <div class="player-info-table">
+                    <div class="table-custom-wrap">
+                    @yield('alert')
+                        <div class="form-group">
+                                <?php echo $dados->regulamento; ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         </section>
+        </div>
 
 
         <script src="/assets3/plugins/jquery/jquery.min.js"></script>
