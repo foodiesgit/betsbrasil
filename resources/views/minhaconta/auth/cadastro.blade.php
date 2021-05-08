@@ -30,10 +30,13 @@
 
 </head>
 
+@include('client.include_sbet')
 
 
 <body class="" style="background-image: url('/assets3/img/932701.jpg'); height: 100vh; background-size: 'cover';">
+<div class="page" style="animation-duration: 500ms;">
 
+    <div class="container">
     <div class="authincation h-100">
 
         <div class="container h-100">
@@ -47,16 +50,6 @@
                         <div class="row no-gutters">
 
                             <div class="col-xl-12">
-
-                                <div class="modal-header">
-
-                                    <a href="/"><button aria-label="Close" class="close" data-dismiss="modal" type="button">
-
-                                        <span aria-hidden="true">×</span>
-
-                                    </button></a>
-
-                                </div>
 
 
 
@@ -243,6 +236,9 @@
     </div>
 
 
+    </div>
+
+</div>
 
     <!--**********************************
 
@@ -268,6 +264,12 @@
 
     <script src="https://unpkg.com/imask"></script>
 
+
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="/js/core.min.js"></script>
+    <script src="/js/script.js"></script>
+ 
 
 
     <script type="text/javascript">
