@@ -264,7 +264,7 @@
 
                                         {{ Form::close() }}
 
-                                        <button class="btn btn-primary " type="button" id="btn_finalizar_aposta" disabled="disabled">Efetuar Aposta</button>
+                                        <button class="btn btn-primary active" type="button" id="btn_finalizar_aposta" disabled="disabled">Efetuar Aposta</button>
 
 
 
@@ -398,7 +398,7 @@
 
                     {{ Form::close() }}
 
-                    <button class="btn btn-primary" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Efetuar Aposta</button>
+                    <button class="btn btn-primary active" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Efetuar Aposta</button>
 
                     </div>
             </div>
