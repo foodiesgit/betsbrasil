@@ -102,10 +102,7 @@
                   </ul>
                   <div class="rd-navbar-main-element">
                     <ul class="list-inline list-inline-sm">
-                      <li><a class="icon icon-xs fa fa-facebook" href="#"></a></li>
-                      <li><a class="icon icon-xs fa fa-twitter" href="#"></a></li>
-                      <li><a class="icon icon-xs fa fa-google-plus" href="#"></a></li>
-                      <li><a class="icon icon-xs fa fa-instagram" href="#"></a></li>
+                      
                     </ul>
                   </div>
                 </div>

@@ -157,7 +157,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2 col-md-1 col-lg-1">
-                                                    <div class="sport-table-bonus moreOdds" data-id="'.$jogos['id'].'" data-toggle="modal" data-target="#sportModal" data-team-name="Arsenal" data-confrontation="Arsenal vs Everton" data-wager-count="2.83" data-score="1:0"><span class="sport-table-bonus-count">+'.$jogos['total_odds'].'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>
+                                                    <div class="sport-table-bonus moreOdds" data-id="'.$jogos['id'].'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'.$jogos['total_odds'].'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -304,7 +304,7 @@
           </div>
         </div>
       </footer>
-      <div class="modal modal-sport" id="sportModal" tabindex="-1" role="dialog" aria-labelledby="sportModalTitle" aria-hidden="true">
+      <div class="modal modal-sport fade" id="sportModal" tabindex="-1" role="dialog" aria-labelledby="sportModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -659,141 +659,149 @@ $(document).ready(function(e){
                   
     $('.moreOdds').click(function(e){
 
-var id = $(this).data('id');
+    var id = $(this).data('id');
 
-$('#renderMoreOdds').html('');
+    $('#renderMoreOdds').html('');
 
-$.ajax({
+    $.ajax({
 
-url: '/ajax/moreOdds',
+    url: '/ajax/moreOdds',
 
-method: 'GET',
+    method: 'GET',
 
-data: {
+    data: {
 
-    id: id
+        id: id
 
-},
+    },
 
-success: function(res){
-    $('#renderMoreOdds').append(
-        '<div class="header-banner header-banner-wrapper" style="margin-bottom: 3rem;">'+
+    success: function(res){
+        $('#renderMoreOdds').append(
+            '<div class="header-banner header-banner-wrapper" style="margin-bottom: 3rem;">'+
 
-        '<div class="refresh-btns-wrapper">'+
+            '<div class="refresh-btns-wrapper">'+
 
-            '<a href="#" class="refresh-btn refresh-btn--back banner-back-page">'+
+                '<a href="#" class="refresh-btn refresh-btn--back banner-back-page">'+
 
-                '<i class="fa fa-arrow-back"></i>'+
+                    '<i class="fa fa-arrow-back"></i>'+
 
-            '</a>'+
-
-        '</div>'+
-
-        '<span class="header-banner__liga" style="margin-bottom: 2rem; color:black;">'+res.event[0].nome_traduzido+'</span>'+
-
-        '<div class="match-wrapper">'+
-
-            '<span class="header-banner__date">'+res.event[0].data_format+'</span>'+
-
-            '<div class="commands-info__wrapper match-data--heading">'+
-
-                '<span class="commands-info__command" style="color:black;">'+res.home.nome+'</span>'+
-
-                '<span class="commands-info__command vs" style="color:black;">VS </span>'+
-
-                '<span class="commands-info__command" style="color:black;">'+res.away.nome+'</span>'+
+                '</a>'+
 
             '</div>'+
 
-            '<span class="header-banner__time  ">'+res.event[0].hora_format+'<span class="header-banner__time--red"></span> </span>'+
+            '<span class="header-banner__liga" style="margin-bottom: 2rem; color:black;">'+res.event[0].nome_traduzido+'</span>'+
 
-       '</div>'+
+            '<div class="match-wrapper">'+
 
-        '</div>');
-    $('#renderMoreOdds').append(
-        '<div class="panel panel-primary tabs-style-1" style="background-color: #FFF">'+
+                '<span class="header-banner__date">'+res.event[0].data_format+'</span>'+
 
-            '<div class=" tab-menu-heading">'+
+                '<div class="commands-info__wrapper match-data--heading">'+
 
-                '<div class="tabs-menu1">'+
+                    '<span class="commands-info__command" style="color:black;">'+res.home.nome+'</span>'+
 
-                    '<ul class="nav panel-tabs main-nav-line" id="tabOdds">'+
+                    '<span class="commands-info__command vs" style="color:black;">VS </span>'+
 
-                    
-                    '</ul>'+
+                    '<span class="commands-info__command" style="color:black;">'+res.away.nome+'</span>'+
 
                 '</div>'+
 
-            '</div>'+
+                '<span class="header-banner__time  ">'+res.event[0].hora_format+'<span class="header-banner__time--red"></span> </span>'+
 
-        '</div>');
+        '</div>'+
+
+            '</div>');
         $('#renderMoreOdds').append(
-        '<div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">'+
+            '<div class="panel panel-primary tabs-style-1" style="background-color: #FFF">'+
 
-            '<div id="moreOddsContent">'+
-            '</div>'+
-        '</div>');
+                '<div class=" tab-menu-heading">'+
 
-        var i = 0;
-        var group = 0;
-        var active = '';
-         res.odds_grupo.map((item => {
-            i++;
-            var odd_s = ''
-            item.sub_grupo.map((items => {
-                
-                if(items.odds.length > 0) {
-                    group++;
-                    $('#moreOddsContent').append(
-                    '<div class="card card-danger">'+
+                    '<div class="tabs-menu1">'+
 
-                        '<div class="card-header pb-0">'+
+                        '<ul class="nav panel-tabs main-nav-line" id="tabOdds">'+
 
-                            '<h5 class="card-title mb-0 pb-0">'+items.titulo_traduzido+'</h5>'+
+                        
+                        '</ul>'+
 
-                        '</div>'+
+                    '</div>'+
 
-                    '<div class="card-body" id="oddsId'+group+'"></div></div>'
-                    );
+                '</div>'+
 
-                    items.odds.map((item =>{
-                        var primeiro_odd = items.odds[0].idbets;
-                        if(primeiro_odd[0] == 'P'){
+            '</div>');
+            $('#renderMoreOdds').append(
+            '<div class="panel-body tabs-menu-body main-content-body-right border-top-0 border">'+
 
-                            if(item.idbets[0] == 'P'){
-                                desenhaOdds(items.odds, group);
-                            }
+                '<div id="moreOddsContent">'+
+                '</div>'+
+            '</div>');
 
-                        }else{
+            var i = 0;
+            var group = 0;
+            var active = '';
+            res.odds_grupo.map((item => {
+                i++;
+                var odd_s = ''
+                item.sub_grupo.map((items => {
+                    
+                    if(items.odds.length > 0) {
+                        group++;
+                        $('#moreOddsContent').append(
+                        '<div class="card card-danger">'+
 
-                            $('#oddsId'+group).append(
-                                '<div class="sport-table-wager-button item_aposta cota-aposta d-block d-sm-none d-none d-sm-block d-md-none" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
+                            '<div class="card-header pb-0">'+
+
+                                '<h5 class="card-title mb-0 pb-0">'+items.titulo_traduzido+'</h5>'+
+
+                            '</div>'+
+
+                        '<div class="card-body" id="oddsId'+group+'"></div></div>'
+                        );
+                        var visivel = 0;
+                        items.odds.map((item =>{
+                            var primeiro_odd = items.odds[0].idbets;
+                            if(primeiro_odd[0] == 'P'){
+
+                                if(item.idbets[0] == 'P'){
+                                    if(item.idsubgrupo == 93 && visivel == 0){
+                                        visivel = 1;
+                                        desenhaOdds(items.odds, group);
+
+                                    }
+                                    if(item.idsubgrupo != 93 ){
+                                        desenhaOdds(items.odds, group);
+
+                                    }
+                                }
+
+                            }else{
+
+                                $('#oddsId'+group).append(
+                                    '<div class="sport-table-wager-button item_aposta cota-aposta d-block d-sm-none d-none d-sm-block d-md-none" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
+
+                                        '<span class="time">'+item.name+'</span>'+
+
+                                        '<span class="cotas">'+item.odds+'</span>'+
+
+                                    '</div>'+
+                                    '<div class="sport-table-wager-button item_aposta cota-aposta d-md-block d-lg-block  d-xl-block  d-xxl-block" style="min-width:100%" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
 
                                     '<span class="time">'+item.name+'</span>'+
 
                                     '<span class="cotas">'+item.odds+'</span>'+
 
-                                '</div>'+
-                                '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+item.id+'" data-idevent="'+item.idevent+'">'+
+                                    '</div>'
+                                );
+                            }
+                        }));
+                    }
 
-                                '<span class="time">'+item.name+'</span>'+
-
-                                '<span class="cotas">'+item.odds+'</span>'+
-
-                                '</div>'
-                            );
-                        }
-                    }));
-                }
-
+                }));
             }));
-        }));
 
-},error: function(err){
-},complete: function(){
-}
+    },error: function(err){
+    },complete: function(){
+    }
 
-});
+    });
 
 });
 
@@ -801,120 +809,121 @@ function desenhaOdds(odds, group){
 
 if(odds[0].idsubgrupo == 84){
 
-    $('#oddsId'+group).append('<div class="linha_aposta">'+
+    $('#oddsId'+group).append(
+    '<tr>'+
 
-            '<div class="header_aposta"><span></span></div>'+
+            '<th class="sport-table-header"><span>Gols</span></th>'+
 
-            '<div class="header_aposta"><span>Mais</span></div>'+
+            '<th class="sport-table-header"><span>Mais</span></th>'+
 
-            '<div class="header_aposta"><span>Menos</span></div>'+
+            '<th class="sport-table-header"><span>Menos</span></th>'+
 
-    '</div>'+
+    '</tr>'+
 
 
 
-        '<div class="linha_aposta">'+
-               '<div class="item_aposta" style="background:black;">'+
+        '<tr class="sport-table-wager-home">'+
+               '<td class="sport-table-header" style="background:white; color:black;">'+
 
                     '<span class="time">'+odds[0].name+'</span>'+
 
-                '</div>'+
+                '</td>'+
 
-                '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'" >'+
+                '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'" >'+
 
-                    '<span class="cotas " ><b>'+odds[1].odds+'</b></span>'+
+                    '<span class="cotas" ><b>'+odds[1].odds+'</b></span>'+
 
-                '</div>'+
+                '</td>'+
 
-                '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'" >'+
+                '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'" >'+
 
                     '<span class="cotas " ><b>'+odds[2].odds+'</b></span>'+
 
-                '</div>'+
+                '</td>'+
 
-        '</div>');
+        '</tr>');
 
 
 
 }else if(odds[0].idsubgrupo == 93){
+      $('#oddsId'+group).append(
+      '<tr class="linha_aposta">'+
 
-      $('#oddsId'+group).append('<div class="linha_aposta">'+
 
+            '<th class="sport-table-header"><span>Resultado</span></th>'+
 
-            '<div class="header_aposta"><span></span></div>'+
+            '<th class="sport-table-header"><span>Sim</span></th>'+
 
-            '<div class="header_aposta"><span>Sim</span></div>'+
+            '<th class="sport-table-header"><span>Não</span></th>'+
 
-            '<div class="header_aposta"><span>Não</span></div>'+
+    '</tr>'+
+    '<tr class="sport-table-wager-home">'+
 
-    '</div>'+
-    '<div class="linha_aposta">'+
+        '<td class="sport-table-header" style="background:white; color:black;><span class="time">'+odds[0].name+'</span></td>'+
 
-        '<div class="item_aposta"><span class="time">'+odds[0].name+'</span></div>'+
+        '<td class="sport-table-wager-button item_aposta  cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[3].id+'" data-idevent="'+odds[3].idevent+'"><span class="cotas" >'+odds[3].odds+'</span></td>'+
 
-        '<div class="sport-table-wager-button item_aposta  cota-aposta" data-id="'+odds[3].id+'" data-idevent="'+odds[3].idevent+'"><span class="cotas" >'+odds[3].odds+'</span></div>'+
+        '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[6].id+'" data-idevent="'+odds[6].idevent+'"><span class="cotas " >'+odds[6].odds+'</span></td>'+
 
-        '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[6].id+'" data-idevent="'+odds[6].idevent+'"><span class="cotas " >'+odds[6].odds+'</span></div>'+
+    '</tr>'+
 
-    '</div>'+
+    '<tr class="sport-table-wager-home">'+
 
-    '<div class="linha_aposta">'+
+        '<td class="sport-table-header" style="background:white; color:black;><span class="time">'+odds[1].name+'</span></td>'+
 
-        '<div class="sport-table-wager-button item_aposta"><span class="time">'+odds[1].name+'</span></div>'+
+        '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[4].id+'" data-idevent="'+odds[4].idevent+'"><span class="cotas " >'+odds[4].odds+'</span></td>'+
 
-        '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[4].id+'" data-idevent="'+odds[4].idevent+'"><span class="cotas " >'+odds[4].odds+'</span></div>'+
+        '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[7].id+'" data-idevent="'+odds[7].idevent+'"><span class="cotas " >'+odds[7].odds+'</span></td>'+
 
-        '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[7].id+'" data-idevent="'+odds[7].idevent+'"><span class="cotas " >'+odds[7].odds+'</span></div>'+
+    '</tr>'+
 
-    '</div>'+
+   '<tr class="sport-table-wager-home">'+
 
-   '<div class="linha_aposta">'+
+        '<td class="sport-table-header" style="background:white; color:black;><span class="time">'+odds[2].name+'</span></td>'+
 
-        '<div class="item_aposta"><span class="time">'+odds[2].name+'</span></div>'+
+        '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[5].id+'" data-idevent="'+odds[5].idevent+'"><span class="cotas " >'+odds[5].odds+'</span></td>'+
 
-        '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[5].id+'" data-idevent="'+odds[5].idevent+'"><span class="cotas " >'+odds[5].odds+'</span></div>'+
+        '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[8].id+'" data-idevent="'+odds[8].idevent+'"><span class="cotas " >'+odds[8].odds+'</span></td>'+
 
-        '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[8].id+'" data-idevent="'+odds[8].idevent+'"><span class="cotas " >'+odds[8].odds+'</span></div>'+
-
-    '</div>');
+    '</tr>');
 
 
 }else{
 
-      $('#oddsId'+group).append('<div class="linha_aposta">'+
+      $('#oddsId'+group).append('<tr class="linha_aposta">'+
 
-            '<div class="header_aposta"><span></span></div>'+
+            '<th class="sport-table-header"><span></span></th>'+
 
-            '<div class="header_aposta"><span>Mais</span></div>'+
+            '<th class="sport-table-header"><span>Mais</span></th>'+
 
-            '<div class="header_aposta"><span>Menos</span></div>'+
+            '<th class="sport-table-header"><span>Menos</span></th>'+
 
-     '</div>'+
+     '</tr>'+
 
 
 
-        '<div class="linha_aposta">'+
+        '<tr class="sport-table-wager-home">'+
 
-                '<div class="item_aposta">'+
+                '<td class="sport-table-header">'+
 
                     '<span class="time">'+odds[0].name+'</span>'+
 
-                '</div>'+
+                '</td>'+
 
-                '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'">'+
+                '<td class="sport-table-wager-button item_aposta cota-aposta"  style="border-radius:0px; padding:10px" data-id="'+odds[1].id+'" data-idevent="'+odds[1].idevent+'">'+
 
                     '<span class="cotas " ><b>'+odds[1].odds+'</b></span>'+
 
-                '</div>'+
+                '</td>'+
 
-                '<div class="sport-table-wager-button item_aposta cota-aposta" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'">'+
+                '<td class="sport-table-wager-button item_aposta cota-aposta"  style="border-radius:0px; padding:10px" data-id="'+odds[2].id+'" data-idevent="'+odds[2].idevent+'">'+
 
                     '<span class="cotas " ><b>'+odds[2].odds+'</b></span>'+
 
-                '</div>'+
+                '</td>'+
 
 
-     '</div>');
+     '</tr>');
 
 }
 
