@@ -859,7 +859,7 @@ if(odds[0].idsubgrupo == 84){
     '</tr>'+
     '<tr class="sport-table-wager-home">'+
 
-        '<td class="sport-table-header" style="background:white; color:black;><span class="time">'+odds[0].name+'</span></td>'+
+        '<td class="sport-table-header" style="background:white; color:black;word-break: keep-all;"><span class="time">'+odds[0].name+'</span></td>'+
 
         '<td class="sport-table-wager-button item_aposta  cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[3].id+'" data-idevent="'+odds[3].idevent+'"><span class="cotas" >'+odds[3].odds+'</span></td>'+
 
@@ -869,7 +869,7 @@ if(odds[0].idsubgrupo == 84){
 
     '<tr class="sport-table-wager-home">'+
 
-        '<td class="sport-table-header" style="background:white; color:black;><span class="time">'+odds[1].name+'</span></td>'+
+        '<td class="sport-table-header" style="background:white; color:black;word-break: keep-all"><span class="time">'+odds[1].name+'</span></td>'+
 
         '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[4].id+'" data-idevent="'+odds[4].idevent+'"><span class="cotas " >'+odds[4].odds+'</span></td>'+
 
@@ -879,7 +879,7 @@ if(odds[0].idsubgrupo == 84){
 
    '<tr class="sport-table-wager-home">'+
 
-        '<td class="sport-table-header" style="background:white; color:black;><span class="time">'+odds[2].name+'</span></td>'+
+        '<td class="sport-table-header" style="background:white; color:black;word-break: keep-all"><span class="time">'+odds[2].name+'</span></td>'+
 
         '<td class="sport-table-wager-button item_aposta cota-aposta" style="border-radius:0px; padding:10px" data-id="'+odds[5].id+'" data-idevent="'+odds[5].idevent+'"><span class="cotas " >'+odds[5].odds+'</span></td>'+
 
