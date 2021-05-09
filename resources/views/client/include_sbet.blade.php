@@ -78,7 +78,7 @@
                     <button class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search"><span></span></button>
                     <form class="rd-search" action="search-results.html" data-search-live="rd-search-results-live" method="GET">
                       <div class="form-wrap">
-                        <label class="form-label" for="rd-navbar-search-form-input">Enter your search request here...</label>
+                        <label class="form-label" for="rd-navbar-search-form-input">Pesquise seu jogo</label>
                         <input class="rd-navbar-search-form-input form-input" id="rd-navbar-search-form-input" type="text" name="s" autocomplete="off">
                         <div class="rd-search-results-live" id="rd-search-results-live"></div>
                       </div>
@@ -99,9 +99,15 @@
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/regulamentacao">Regulamento</a>
                     </li>
+                    @if(isset(Auth::user()->id))
+                          <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/dashboard">Minha Conta</a></li>
+                      @else
+                          <li class="rd-nav-item"><a class="rd-nav-link" href="/cadastro">Cadastra-se</a></li>
+                          <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/login">Login</a></li>
+                      @endif
                   </ul>
                   <div class="rd-navbar-main-element">
-                    <ul class="list-inline list-inline-sm">
+                    <ul class="list-inline list-inline-sm d-xl-none d-lg-none d-md-none ">
                       
                     </ul>
                   </div>
