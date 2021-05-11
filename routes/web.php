@@ -107,8 +107,8 @@ Route::prefix('admin')->group(function(){
         Route::get('usuarios/editar/{id}', 'AdminController@viewEditarUsuarios');
         Route::post('usuarios/editar/{id}', 'AdminController@postEditarUsuarios');
         Route::get('logout', 'AdminController@logout');
-        Route::get('ajaxviewcambistra', 'AdminController@ajaxViewCaixaCambista');
-
+        Route::get('ajaxviewcambista', 'AdminController@ajaxViewCaixaCambista');
+        Route::get('ajaxviewgerente', 'AdminController@ajaxViewCaixaGerente');
         /*Gerênciar API */
         Route::get('api/esportes/listar', 'AdminController@viewListarEsportes');
         Route::get('api/esportes/editar/{id}', 'AdminController@viewEditarEsportes');

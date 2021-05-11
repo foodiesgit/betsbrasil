@@ -165,6 +165,7 @@
 </div>
 
 
+
     @yield('footer')
 
 <script type="text/javascript">
@@ -188,7 +189,7 @@
         var table = $('#cambista').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "/admin/ajaxviewcambistra",
+            ajax: "/admin/ajaxviewcambista",
             columns: [{
                     data: 'id',
                     name: 'id',
