@@ -403,6 +403,7 @@
       $(document).ready(function(e){
         $('.datatable').DataTable();
 
+
       });
 
     </script>

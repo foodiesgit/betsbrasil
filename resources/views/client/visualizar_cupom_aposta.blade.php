@@ -1,5 +1,6 @@
 
     @include('client.include_sbet')
+    <?php $config =\DB::table('campos_fixos')->first(); ?>
 
 
         @yield('main-header')
@@ -112,7 +113,7 @@
 
                 <div class="col-12">
 
-                    <h5 class="text-center">Bellagio Esportes</h5>
+                    <h5 class="text-center">{{$config->nome_banca}}</h5>
 
                     <div class="dashed_hr"></div>
 

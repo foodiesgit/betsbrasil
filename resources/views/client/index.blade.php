@@ -59,6 +59,7 @@
 @yield('main-header')
 <div class="col-lg-12">
 <div class="page animated" style="animation-duration: 500ms;">
+@yield('alert')
       
       <!-- All Sports-->
       <section class="section section-sm bg-gray-100">
@@ -941,7 +942,6 @@ if(odds[0].idsubgrupo == 84){
     $('#btn_finalizar_aposta').click(function(e){
 
         $(this).attr('disabled', 'disabled');
-
 
 
         Swal.fire({

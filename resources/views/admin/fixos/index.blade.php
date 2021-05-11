@@ -65,7 +65,7 @@
         </div>
         <div class="form-group col-sm-12">
             <label for="valor-maximo-aposta">Valor máximo por aposta (Ao Vivo) (R$)</label>
-            <input type="text" class="form-control" id="valor-maximo-aposta-av" name="valor-maximo-aposta-av"value="{{$sql[0]->premio_maximo}}" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="valor-maximo-aposta-av" name="valor-maximo-aposta-av" value="{{$sql[0]->premio_maximo}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="premio-maximo">Prêmio Máximo (R$)</label>
@@ -221,54 +221,54 @@
 
             });
 
-            $('input[name=valor-minimo-aposta]').maskMoney({
+            // $('input[name=valor-minimo-aposta]').maskMoney({
 
-            prefix: 'R$ ',
+            // prefix: 'R$ ',
 
-            thousands: '.',
+            // thousands: '.',
 
-            decimal: ','
+            // decimal: ','
 
-            });
+            // });
 
-            $('input[name=valor-maximo-aposta]').maskMoney({
+            // $('input[name=valor-maximo-aposta]').maskMoney({
 
-            prefix: 'R$ ',
+            // prefix: 'R$ ',
 
-            thousands: '.',
+            // thousands: '.',
 
-            decimal: ','
+            // decimal: ','
 
-            });
+            // });
             
-            $('input[name=premio-maximo]').maskMoney({
+            // $('input[name=premio-maximo]').maskMoney({
 
-            prefix: 'R$ ',
+            // prefix: 'R$ ',
 
-            thousands: '.',
+            // thousands: '.',
 
-            decimal: ','
+            // decimal: ','
 
-            });
+            // });
             
-            $('input[name=valor-maximo-aposta-av]').maskMoney({
+            // $('input[name=valor-maximo-aposta-av]').maskMoney({
 
-            prefix: 'R$ ',
+            // prefix: 'R$ ',
 
-            thousands: '.',
+            // thousands: '.',
 
-            decimal: ','
+            // decimal: ','
 
-            });
-            $('input[name=premio-maximo]').maskMoney({
+            // });
+            // $('input[name=premio-maximo]').maskMoney({
 
-            prefix: 'R$ ',
+            // prefix: 'R$ ',
 
-            thousands: '.',
+            // thousands: '.',
 
-            decimal: ','
+            // decimal: ','
 
-            });
+            // });
             
 
         });

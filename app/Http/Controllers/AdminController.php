@@ -1839,7 +1839,12 @@ class AdminController extends Controller {
                         </button>
     
                         <div class="dropdown-menu">';
-                            if(Auth::user()->tipo_usuario == 3 || Auth::user()->tipo_usuario == 2 ){
+                            if(Auth::user()->tipo_usuario == 2 ){
+                                $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('valor_apostado');
+                                $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('cupom_aposta.status',2)->where('cupom_aposta.caixa' , 0)->sum('possivel_retorno');
+                                $comissao = number_format($row->saldo_liberado,2,',','.');
+
+                                $action .= '<a class="dropdown-item caixa" href="#" data-toggle="modal" data-target="#caixa" data-id="'.$row->id.'" data-nome="'.$row->name.'" data-entrada="'.number_format($entrada,2,',','.').'" data-saida="'.number_format($saida,2,',','.').'" data-saida="'.$comissao.'" >Ver Caixa</a>';
                                 $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/cambista/'.$row->idusuario.'">Fechar Caixa</a>';
                                 $action .= '<a class="dropdown-item" href="/admin/cambista/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
                             }
@@ -1914,9 +1919,9 @@ class AdminController extends Controller {
                         <div class="dropdown-menu">';
                             if(Auth::user()->tipo_usuario == 2 ){
                                 $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/gerente/'.$row->idusuario.'">Fechar Caixa</a>';
-                                $action .= '<a class="dropdown-item" href="/admin/gerente/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
+                                $action .= '<a class="dropdown-item" href="/admin/gerente/historico/'.$row->idusuario.'">Ver Historico de Pagamento</a>';
                             }
-                            $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Ver Bilhetes</a>
+                            $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Ver Cambistas</a>
                         </div>
                     </div>';
                       return $action;
@@ -1964,7 +1969,7 @@ class AdminController extends Controller {
 
     }
     public function fecharCaixaCambista(Request $request){
-        if(Auth::user()->tipo_usuario == 2 || Auth::user()->tipo_usuario == 3){
+        if(Auth::user()->tipo_usuario == 2){
             try {
                 DB::beginTransaction();
 
@@ -2815,21 +2820,19 @@ class AdminController extends Controller {
 
         $input = $request->all();
 
-
-
         DB::table('campos_fixos')->where('id', 1)->update([
 
             
             'regulamento' => $input['regulamento'],
             'nome_banca' => $input['nome_banca'],
             'telefone' => $input['telefone'],
-            'valor_minimo_aposta' => $input['valor-minimo-aposta'],
-            'valor_maximo_aposta' => $input['valor-maximo-aposta'],
-            'valor_maximo_aposta_av' => $input['valor-maximo-aposta-av'],
-            'premio_maximo' => $input['premio-maximo'],
-            'nao_pagar_comissao_menor' => $input['nao-pagar-comissao-menor'],
-            'cotacao_minima' => $input['cotacao-minima'],
-            'cotacao_maxima' => $input['cotacao-maxima'],
+            'valor_minimo_aposta' => floatval($input['valor-minimo-aposta']),
+            'valor_maximo_aposta' => floatval($input['valor-maximo-aposta']),
+            'valor_maximo_aposta_av' => floatval($input['valor-maximo-aposta-av']),
+            'premio_maximo' => floatval($input['premio-maximo']),
+            'nao_pagar_comissao_menor' =>floatval( $input['nao-pagar-comissao-menor']),
+            'cotacao_minima' => floatval($input['cotacao-minima']),
+            'cotacao_maxima' => floatval($input['cotacao-maxima']),
             'nao_exibir_cotacao_menor' => $input['nao-exibir-cotacao-menor'],
             'quantidade_minima_jogos' => $input['quantidade-minima-jogos'],
             'quantidade_maxima_times_v' => $input['quantidade-maxima-times-v'],

@@ -466,6 +466,7 @@ class ClientController extends Controller{
     public function postFinalizarAposta(Request $request){
 
         $input = $request->all();
+        $config =\DB::table('campos_fixos')->first();
 
         $sql = NovoCarrinho::where('session_id', session()->getId())->get();
 
@@ -482,12 +483,18 @@ class ClientController extends Controller{
 
         }
 
-  
+
         $sqlItem = NovoCarrinhoItem::where('idcarrinho', $sql[0]->id)->get();
 
 
 
         if(count($sqlItem) < 1){
+
+            return redirect('/')->with('erro', 'Cupom de aposta esta vazio');
+
+        }
+
+        if(count($sqlItem) < $config->quantidade_minima_jogos && $config->quantidade_minima_jogos != 0 ){
 
             return redirect('/')->with('erro', 'Cupom de aposta esta vazio');
 
@@ -525,6 +532,14 @@ class ClientController extends Controller{
 
             }
 
+            if($config->valor_minimo_aposta >  $valor_total_apostado && $config->valor_minimo_aposta != 0){
+                return redirect('/')->with('erro', 'O Valor minimo para aposta é: R$ '.number_format($config->valor_minimo_aposta,2,',','.'));
+            
+            }
+            if($config->valor_maximo_aposta <  $valor_total_apostado && $config->valor_maximo_aposta != 0){
+                return redirect('/')->with('erro', 'O Valor maximo para aposta é: R$ '.number_format($config->valor_maximo_aposta,2,',','.'));
+            
+            }
             $creditos = Creditos::where('idusuario', auth()->user()->id)->select(DB::raw("sum(saldo_apostas + saldo_liberado) as soma"), 'saldo_apostas', 'saldo_liberado')->get();
 
 

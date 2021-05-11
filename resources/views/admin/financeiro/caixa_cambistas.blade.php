@@ -148,9 +148,6 @@
 
             <tbody>
 
-               
-                
-
 
 
             </tbody>
@@ -163,8 +160,45 @@
 
 </div>
 </div>
+<div class="modal fade" id="caixa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Caixa cambista <spam id="cambistaNome"></spam></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Entrada</td>
 
+            <td id="entrada"></td>
+          </tr>
+          <tr>
+          <td>Saida</td>
 
+            <td id="saida"></td>
+          </tr>
+
+          <tr>
+          <td>Comissão</td>
+
+            <td id="comissao"></td>
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" id="fecharCaixa" href="" >Fechar Caixa</button>
+      </div>
+    </div>
+  </div>
+</div>
 
     @yield('footer')
 
@@ -185,6 +219,8 @@
         $('#saldo2').html( saldo2 );
 
         $('#saldo3').html( saldo3 );
+
+
 
         var table = $('#cambista').DataTable({
             processing: true,
@@ -239,7 +275,41 @@
                 
             ]
         });
+        $('#caixa').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var nome = button.data('nome') // Extract info from data-* attributes
+        var id = button.data('id') // Extract info from data-* attributes
+        var entrada = button.data('entrada') // Extract info from data-* attributes
+        var comissao = button.data('comissao') // Extract info from data-* attributes
+        var saida = button.data('saida') // Extract info from data-* attributes
 
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('Caixa Cambista ' + nome)
+        modal.find('#comissao').html('<span class="badge badge-info">'+entrada+'</span>'); 
+        modal.find('#entrada').html('<span class="badge badge-success">'+entrada+'</span>'); 
+        modal.find('#saida').html('<span class="badge badge-danger">'+saida+'</span>'); 
+        modal.find('#fecharCaixa').attr('href','/admin/cambistas/caixa/historico/'+id); 
+
+        // modal.find('.modal-body input').val(recipient)
+})
+        
+        // $('.caixa').click(function(e){
+
+        // var id = $(this).attr('data-id');
+        // console.log(id);
+
+        // var comissao = $(this).attr('data-comissao');
+        // var entrada = $(this).attr('data-entrada');
+        // var saida = $(this).attr('data-saida');
+        // var nome = $(this).attr('data-nome');
+        // var id = $(this).attr('data-id');
+        // $('#cambistaNome').html(nome); 
+        // $('#comissao').html(comissao);
+        // $('#entrada').html(entrada);
+        // $('#saida').html(saida);
+        // });
     });
 
 </script>
