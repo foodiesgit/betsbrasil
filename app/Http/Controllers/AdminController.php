@@ -64,6 +64,7 @@ use App\CuponsIguaisItens;
 
 use App\CambistasComissoes;
 use Illuminate\Support\Facades\Redirect;
+use DataTables;
 
 class AdminController extends Controller {
 
@@ -1687,10 +1688,12 @@ class AdminController extends Controller {
 
         if(Auth::user()->tipo_usuario == 2){
             $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
-
             ->where('tipo_usuario', 4)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
-
             ->get();
+            $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->sum('creditos.saldo_liberado');
+            $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->sum('cupom_aposta.valor_apostado');
+            $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
+            $comissao = $entrada - $comissoes;
 
         }else if(Auth::user()->tipo_usuario == 3){
             $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
@@ -1698,6 +1701,12 @@ class AdminController extends Controller {
             ->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
 
             ->get();
+             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->sum('creditos.saldo_liberado');
+             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,'!=',4)->sum('cupom_aposta.valor_apostado');
+             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
+             $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
+             $comissao = $credito->saldo_liberado;
+             
         }
         else if(Auth::user()->tipo_usuario == 4){
             $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
@@ -1705,27 +1714,109 @@ class AdminController extends Controller {
             ->where('tipo_usuario', 4)->where('idusuario', Auth::user()->id)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
 
             ->get();
+
+            $entrada = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,'!=',4)->sum('valor_apostado');
+            $saida = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,2)->sum('possivel_retorno');
+            $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
+            $comissao = $credito->saldo_liberado;
         }
         else{
             return Redirect()->back();
 
         }
 
+        // $entrada = CupomAposta::joinwhere('idcambista', $row->idusuario)->where('status' ,'!=',4)->sum('valor_apostado');
        
+        // $saida = CupomAposta::where('idcambista', $row->idusuario)->where('status' ,2)->sum('possivel_retorno');
 
 
         $data = [
 
-            'sql' => $sql
+            'sql' => $sql,
+            'comissoes' => $comissoes,
+            'entrada' => $entrada,
+            'saida' => $saida,
+            'comissao' => $comissao,
 
         ];
-
 
 
         return view('admin.financeiro.caixa_cambistas', $data);
 
     }
 
+
+    public function ajaxViewCaixaCambista(){
+        if(Auth::user()->tipo_usuario == 3 || Auth::user()->tipo_usuario == 2){
+            $model =  User::leftJoin('creditos', 'creditos.idusuario','=','users.id');
+            if(Auth::user()->tipo_usuario == 3){
+                $model->where('users.idgerente', Auth::user()->id);
+            }
+            
+            $model->where('tipo_usuario', 4)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*');
+            // $model =  User::where('tipo_usuario', 4)->toArray();
+            return Datatables::of( $model)
+                    ->addIndexColumn()
+                    ->addColumn('entrada', function($row){
+                        $entrada = CupomAposta::where('idcambista', $row->idusuario)->where('status' ,'!=',4)->sum('valor_apostado');
+                        return  "<span class='badge badge-success'>
+                        R$ ".number_format($entrada,2,',','.')." </span>";
+                    })
+                    ->addColumn('saida', function($row){
+                        $saida = CupomAposta::where('idcambista', $row->idusuario)->where('status',2)->sum('possivel_retorno');
+                        return  "<span class='badge badge-danger'>
+                        R$ ".number_format($saida,2,',','.')." </span>";
+                    })
+                    ->addColumn('comissao', function($row){
+                        return  "<span class='badge badge-warning'>
+                        R$ ".number_format($row->saldo_liberado,2,',','.')." </span>";
+                    })
+                 
+                    ->addColumn('status', function($row){
+                        $status = '';
+    
+    
+    
+                        if($row->status == 1){
+    
+                            $status = '<span class="badge badge-success">Ativo</div>';
+    
+                        }elseif($row->status == 0){
+    
+                            $status = '<span class="badge badge-danger">Inativo</span>';
+    
+                        }
+                        return $status;
+                      
+                    })
+                    ->addColumn('action', function($row){
+                        return '<div class="dropdown">
+    
+                        <button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+    
+                            <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+    
+                        </button>
+    
+                        <div class="dropdown-menu">
+    
+                            <a class="dropdown-item" href="/admin/cambistas/caixa/lancamentos/'.$row->idusuario.'">Realizar Lançamento</a>
+    
+                            <a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Histórico Financeiro</a>
+    
+                        </div>
+    
+                    </div>';
+                      
+                    })
+    
+                    ->rawColumns(['entrada','saida','comissao', 'status', 'action'])
+                    ->make();
+        }else{
+            return Redirect()->back();
+        }
+        
+    }
 
 
     public function viewLancamentoCaixaCambista($id){
