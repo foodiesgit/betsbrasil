@@ -1798,12 +1798,12 @@ class AdminController extends Controller {
             return Datatables::of( $model)
                     ->addIndexColumn()
                     ->addColumn('entrada', function($row){
-                        $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('valor_apostado');
+                        $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('valor_apostado');
                         return  "<span class='badge badge-success'>
                         R$ ".number_format($entrada,2,',','.')." </span>";
                     })
                     ->addColumn('saida', function($row){
-                        $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('status',2)->where('cupom_aposta.caixa' , 0)->sum('possivel_retorno');
+                        $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('cupom_aposta.status',2)->where('cupom_aposta.caixa' , 0)->sum('possivel_retorno');
                         return  "<span class='badge badge-danger'>
                         R$ ".number_format($saida,2,',','.')." </span>";
                     })
@@ -1845,6 +1845,8 @@ class AdminController extends Controller {
                             $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Ver Bilhetes</a>
                         </div>
                     </div>';
+                    return $action;
+
                       
                     })
     
@@ -1915,7 +1917,7 @@ class AdminController extends Controller {
                             $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Ver Bilhetes</a>
                         </div>
                     </div>';
-                      
+                      return $action;
                     })
     
                     ->rawColumns(['entrada','saida','comissao', 'status', 'action'])
