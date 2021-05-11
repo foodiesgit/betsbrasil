@@ -500,8 +500,8 @@ class ClientController extends Controller{
 
         }
 
-
-
+       
+   
         /*if( !Auth::check() ){
 
             return redirect('/lite/login')->with('erro', 'Digite o seu email e senha para continuar');
@@ -660,10 +660,31 @@ class ClientController extends Controller{
                         $cupomAposta = CupomAposta::find($cupomAposta->id);
 
                         $cupomAposta->valor_apostado = $valor_total_apostado;
+                        if($sql[0]->valor_total_cotas < $config->cotacao_minima && $config->cotacao_minima != 0 ){
 
-                        $cupomAposta->possivel_retorno = $valor_total_apostado * $sql[0]->valor_total_cotas;
+                            $cupomAposta->possivel_retorno = $valor_total_apostado * $config->cotacao_minima;
 
-                        $cupomAposta->total_cotas = $sql[0]->valor_total_cotas;
+                            $cupomAposta->total_cotas = $config->cotacao_minima;
+                
+                
+                        }else if($sql[0]->valor_total_cotas > $config->cotacao_maxima && $config->cotacao_maxima != 0 ){
+                
+                            $cupomAposta->possivel_retorno = $valor_total_apostado * $config->cotacao_maxima;
+
+                            $cupomAposta->total_cotas = $config->cotacao_maxima;
+                
+                
+                        }else{
+                            
+                            $cupomAposta->possivel_retorno = $valor_total_apostado * $sql[0]->valor_total_cotas;
+
+                            $cupomAposta->total_cotas = $sql[0]->valor_total_cotas;
+
+                        }
+
+                        if($config->premio_maximo < ($valor_total_apostado * $sql[0]->valor_total_cotas) && $config->premio_maximo != 0 || $config->premio_maximo < ($valor_total_apostado * $config->cotacao_maxima) && $config->premio_maximo != 0 ){
+                            $cupomAposta->possivel_retorno = $config->premio_maximo;
+                        }
 
                         $cupomAposta->save();
 

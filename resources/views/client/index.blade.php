@@ -59,11 +59,12 @@
 @yield('main-header')
 <div class="col-lg-12">
 <div class="page animated" style="animation-duration: 500ms;">
-@yield('alert')
       
       <!-- All Sports-->
       <section class="section section-sm bg-gray-100">
         <div class="container">
+            @yield('alert')
+        
           <div class="row isotope-wrap row-30">
             <!-- Isotope Filters-->
             <div class="col-lg-12">
