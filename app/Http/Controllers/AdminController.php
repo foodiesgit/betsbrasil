@@ -149,9 +149,79 @@ class AdminController extends Controller {
         return view('admin.dashboard.index',$data);
 
     }
+    public function viewCambista(Request $request){
+        if(Auth::user()->tipo_usuario == 2 || Auth::user()->tipo_usuario == 3){
+            if(Auth::user()->tipo_usuario == 2 || Auth::user()->tipo_usuario == 3){
+                $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
+    
+                ->where('users.id', $request->id)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
+        
+                ->first();
+        
+        
+                $historico = User::find($request->id)->historics;
+            
+        
+                $bilhetes = CupomAposta::where('idcambista', $request->id)->get();
+                $entrada = CupomAposta::where('idcambista',  $request->id)->where('status' ,'!=',4)->sum('valor_apostado');
+                $saida = CupomAposta::where('idcambista',  $request->id)->where('status' ,2)->sum('possivel_retorno');
+                $credito = Creditos::where('idusuario',  $request->id)->first();
+                $comissao = $credito->saldo_liberado;
+        
+            $data = [
+        
+                'sql' => $sql,
+                'historic' => $historico,
+                'bilhetes' => $bilhetes,
+                'entrada' => $entrada,
+                'saida' => $saida,
+                'comissao' => $comissao,
+        
+            ];
+        
+            return view('admin.cambistas.view_bilhetes',$data);
+            }
+           
+            return Redirect()->back()->with('erro', 'Sem permissão');
+        }
 
+    }
 
+    public function viewGerente(Request $request){
+        if(Auth::user()->tipo_usuario == 2 ){
+                $sql = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')
+    
+                ->where('users.id', $request->id)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*')
+        
+                ->first();
+        
+        
+                $historico = User::find($request->id)->historics;
 
+                $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->where('idgerente',  $request->id)->sum('creditos.saldo_liberado');
+                $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  $request->id)->where('cupom_aposta.status' ,'!=',4)->sum('cupom_aposta.valor_apostado');
+                $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  $request->id)->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
+                $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
+                $comissao = $credito->saldo_liberado;
+                $cambistas = User::where('idgerente', $request->id)->get();
+        
+            $data = [
+        
+                'sql' => $sql,
+                'historic' => $historico,
+                'cambistas' => $cambistas,
+                'entrada' => $entrada,
+                'saida' => $saida,
+                'comissao' => $comissao,
+                'comissoes' => $comissoes,
+        
+            ];
+        
+            return view('admin.cambistas.view_bilhetes',$data);
+            }
+        return Redirect()->back()->with('erro', 'Sem permissão');
+
+    }
     public function viewListarUsuarios(Request $request){
 
         $input = $request->all();
@@ -1846,9 +1916,77 @@ class AdminController extends Controller {
 
                                 $action .= '<a class="dropdown-item caixa" href="#" data-toggle="modal" data-target="#caixa" data-id="'.$row->id.'" data-nome="'.$row->name.'" data-entrada="'.number_format($entrada,2,',','.').'" data-saida="'.number_format($saida,2,',','.').'" data-saida="'.$comissao.'" >Ver Caixa</a>';
                                 $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/cambista/'.$row->idusuario.'">Fechar Caixa</a>';
-                                $action .= '<a class="dropdown-item" href="/admin/cambista/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
+                                // $action .= '<a class="dropdown-item" href="/admin/cambista/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
                             }
-                            $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Ver Bilhetes</a>
+                            $action .= '<a class="dropdown-item" href="/admin/ver/cambista/'.$row->idusuario.'">Ver Bilhetes</a>
+                        </div>
+                    </div>';
+                    return $action;
+
+                      
+                    })
+    
+                    ->rawColumns(['entrada','saida','comissao', 'status', 'action'])
+                    ->make();
+        }else{
+            return Redirect()->back();
+        }
+        
+    }
+    public function ajaxViewCaixaCambistaGerente(){
+        if(Auth::user()->tipo_usuario == 3 || Auth::user()->tipo_usuario == 2){
+            $model =  User::leftJoin('creditos', 'creditos.idusuario','=','users.id');
+            if(Auth::user()->tipo_usuario == 3){
+                $model->where('users.idgerente', Auth::user()->id);
+            }
+            
+            $model->where('tipo_usuario', 4)->select('users.name', 'users.email', 'users.status', 'users.id as idusuario', 'creditos.*');
+            // $model =  User::where('tipo_usuario', 4)->toArray();
+            return Datatables::of( $model)
+                    ->addIndexColumn()
+                    ->addColumn('entrada', function($row){
+                        $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('valor_apostado');
+                        return  "<span class='badge badge-success'>
+                        R$ ".number_format($entrada,2,',','.')." </span>";
+                    })
+                    ->addColumn('saida', function($row){
+                        $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('cupom_aposta.status',2)->where('cupom_aposta.caixa' , 0)->sum('possivel_retorno');
+                        return  "<span class='badge badge-danger'>
+                        R$ ".number_format($saida,2,',','.')." </span>";
+                    })
+                    ->addColumn('comissao', function($row){
+                        return  "<span class='badge badge-warning'>
+                        R$ ".number_format($row->saldo_liberado,2,',','.')." </span>";
+                    })
+                 
+                    ->addColumn('status', function($row){
+                        $status = '';
+    
+    
+    
+                        if($row->status == 1){
+    
+                            $status = '<span class="badge badge-success">Ativo</div>';
+    
+                        }elseif($row->status == 0){
+    
+                            $status = '<span class="badge badge-danger">Inativo</span>';
+    
+                        }
+                        return $status;
+                      
+                    })
+                    ->addColumn('action', function($row){
+                        $action = '<div class="dropdown">
+    
+                        <button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+    
+                            <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+    
+                        </button>
+    
+                        <div class="dropdown-menu">';
+                            $action .= '<a class="dropdown-item" href="/admin/ver/cambista/'.$row->idusuario.'">Ver Bilhetes</a>
                         </div>
                     </div>';
                     return $action;
@@ -1921,7 +2059,7 @@ class AdminController extends Controller {
                                 $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/gerente/'.$row->idusuario.'">Fechar Caixa</a>';
                                 $action .= '<a class="dropdown-item" href="/admin/gerente/historico/'.$row->idusuario.'">Ver Historico de Pagamento</a>';
                             }
-                            $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Ver Cambistas</a>
+                            $action .= '<a class="dropdown-item" href="/admin/ver/gerente/'.$row->idusuario.'">Ver Gerente</a>
                         </div>
                     </div>';
                       return $action;

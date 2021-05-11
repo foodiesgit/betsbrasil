@@ -10,161 +10,84 @@
 
     @yield('nav')
 
-<div class="header bg-dark pb-6">
-  <div class="container-fluid">
-    <div class="header-body">
-      <div class="row align-items-center py-4">
-        <div class="col-lg-6 col-7">
-          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-              <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-            </ol>
-          </nav>
+    <div class="header bg-dark pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+        <div class="row align-items-center py-4">
+            <div class="col-lg-6 col-7">
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                </ol>
+            </nav>
+            </div>
         </div>
-      </div>
-      <!-- Card stats -->
-      <div class="row">
-     @if(Auth::user()->tipo_usuario == 1)
+        <!-- Card stats -->
+        <div class="row">
 
         <div class="col-xl-4 col-md-6">
-          <div class="card card-stats">
+        <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+            <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Saldo Disponível para Apostas</h5>
-                  <span class="h2 font-weight-bold mb-0" id="saldo1">R$ 0,00</span>
+                <h5 class="card-title text-uppercase text-muted mb-0">Entradas</h5>
+                <span class="h2 font-weight-bold mb-0" >R$ {{number_format($entrada,2,',','.')}} </span>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
                     <i class="ni ni-money-coins"></i>
-                  </div>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
+            </div>
+        </div>
         </div>
         <div class="col-xl-4 col-md-6">
-          <div class="card card-stats">
+        <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+            <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Saldo Disponível para Saque</h5>
-                  <span class="h2 font-weight-bold mb-0"id="saldo2">R$ 0,00</span>
+                <h5 class="card-title text-uppercase text-muted mb-0">Saidas</h5>
+                <span class="h2 font-weight-bold mb-0" ">R$ {{number_format($saida,2,',','.')}}</span>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
                     <i class="ni ni-money-coins"></i>
-                  </div>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
+            </div>
+        </div>
         </div>
         <div class="col-xl-4 col-md-6">
-          <div class="card card-stats">
+        <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
-              <div class="row">
+            <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Saldo Bloqueado</h5>
-                  <span class="h2 font-weight-bold mb-0"id="saldo3">R$ 0,00</span>
+                <h5 class="card-title text-uppercase text-muted mb-0">Comissão do Cambista</h5>
+                <span class="h2 font-weight-bold mb-0" ">R$ {{number_format($comissao,2,',','.')}}</span>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
                     <i class="ni ni-money-coins"></i>
-                  </div>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
-        </div>
-      @else
-      <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Entradas</h5>
-                  <span class="h2 font-weight-bold mb-0" >R$ {{number_format($entrada,2,',','.')}} </span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Saidas</h5>
-                  <span class="h2 font-weight-bold mb-0" ">R$ {{number_format($saida,2,',','.')}}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        @if(Auth::user()->tipo_usuario == 2 ||Auth::user()->tipo_usuario == 3)
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Comissões</h5>
-                  <span class="h2 font-weight-bold mb-0"">R$ {{number_format($comissoes,2,',','.')}}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
             </div>
             
-          </div>
         </div>
-        @endif
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Sua Comissões</h5>
-                  <span class="h2 font-weight-bold mb-0" ">R$ {{number_format($comissao,2,',','.')}}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
         </div>
-      </div>
+        </div>
 
-      </div>
-      @endif
+        </div>
+
     </div>
-  </div>
-
+    </div>
+   
 
 <div class="container-fluid mt--6">
 @yield('alert')
@@ -177,10 +100,7 @@
             <h3 class="mb-0">Historico de Transações</h3>
         </div>
         <div class="col text-right">
-        @if(Auth::user()->tipo_usuario ==1)
-            <button  type="button"  class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-saldo">Adicionar Saldo</button>
-            <button  type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-saque">Solicitar Saque</button>
-        @endif
+       
         </div>
     </div>
 <!-- 
@@ -535,87 +455,6 @@
 
 </div>
 </div>
-@if(Auth::user()->tipo_usuario ==1)
-<div class="modal fade" id="modal-saldo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Solicitação de deposito</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            <div class="card bg-secondary shadow border-0">
-                <form action="/admin/deposit" method="post"> 
-                @csrf
-                <div class="card-body px-lg-5 py-lg-5">
-                    <div class="text-center text-muted mb-4">
-                        <small>Informe um valor para efetuar sua solicitação de deposito</small>
-                    </div>
-                    <form role="form">
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-alternative">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
-                                </div>
-                                <input class="form-control" placeholder="R$ 0,00" id="recarrega-saldo" name="recarrega-saldo" type="text">
-                                <input class="form-control"  id="recarrega-saldo-hidden"name="recarrega-saldo-hidden" type="hidden">
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Solicitar Saldo</button>
-        </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="modal-saque" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Solicitação de saque</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            <div class="card bg-secondary shadow border-0">
-            <form action="/admin/saque" method="post"> 
-                @csrf
-                <div class="card-body px-lg-5 py-lg-5">
-                    <div class="text-center text-muted mb-4">
-                        <small>Informe um valor para efetuar sua solicitação de saque</small>
-                    </div>
-                    <form role="form">
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-alternative">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
-                                </div>
-                                <input class="form-control" placeholder="R$ 0,00" id="saque-saldo" name="saque-saldo" type="text">
-                                <input class="form-control"  id="saque-saldo-hidden"name="saque-saldo-hidden" type="hidden">
-
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Solicitar Saldo</button>
-        </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-@endif
 <input type="hidden" name="saldo1" value="R$ {{ number_format($sql['saldo_apostas'],2,',','.') }}" />
 
 <input type="hidden" name="saldo2" value="R$ {{ number_format($sql['saldo_liberado'],2,',','.') }}" />
