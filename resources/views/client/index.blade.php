@@ -949,7 +949,7 @@ if(odds[0].idsubgrupo == 84){
 
             title: 'Confirma essa aposta?',
 
-            text: "Tem certeza que deseja colocar essa aposta?",
+            text: "Tem certeza que deseja colocar essa aposta? Se o valor de retorno for maior que o valor maximo permitido o sistema automaticamente atribui esse valor ao seu retorno.",
 
             icon: 'warning',
 
