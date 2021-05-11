@@ -1840,7 +1840,8 @@ class AdminController extends Controller {
     
                         <div class="dropdown-menu">';
                             if(Auth::user()->tipo_usuario == 3 || Auth::user()->tipo_usuario == 2 ){
-                                $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/lancamentos/'.$row->idusuario.'">Fechar Caixa</a>';
+                                $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/cambista/'.$row->idusuario.'">Fechar Caixa</a>';
+                                $action .= '<a class="dropdown-item" href="/admin/cambista/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
                             }
                             $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Ver Bilhetes</a>
                         </div>
@@ -1912,7 +1913,8 @@ class AdminController extends Controller {
     
                         <div class="dropdown-menu">';
                             if(Auth::user()->tipo_usuario == 2 ){
-                                $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/lancamentos/'.$row->idusuario.'">Fechar Caixa</a>';
+                                $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/gerente/'.$row->idusuario.'">Fechar Caixa</a>';
+                                $action .= '<a class="dropdown-item" href="/admin/gerente/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
                             }
                             $action .= '<a class="dropdown-item" href="/admin/cambistas/caixa/historico/'.$row->idusuario.'">Ver Bilhetes</a>
                         </div>
@@ -1926,6 +1928,77 @@ class AdminController extends Controller {
             return Redirect()->back();
         }
         
+    }
+
+    public function fecharCaixaGerente(Request $request){
+        if(Auth::user()->tipo_usuario == 2){
+            try {
+                DB::beginTransaction();
+
+                $credito = Creditos::where('idusuario',  $request->id)->first();
+
+                $id = hexdec(uniqid());
+                $historic = User::find($request->id)->historics()->create([
+                    'type' => 'P',
+                    'user_id_transaction' =>  Auth::user()->id,
+                    'amount' => $credito->saldo_liberado,
+                    'total_before' => $credito->saldo_liberado,
+                    'total_after' => 0,
+                    'date' => date('Ymdhis'),
+                    'status' => 1
+                ]);
+                $credito->saldo_liberado =  0 ;
+                $credito->save();
+                DB::commit();
+    
+                return Redirect()->back()->with('sucesso', 'Caixa Fechado com Sucesso');
+
+    
+            } catch (\Throwable $th) {
+                DB::rollback();
+                dd($th);
+                return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
+               
+            }
+        }
+
+    }
+    public function fecharCaixaCambista(Request $request){
+        if(Auth::user()->tipo_usuario == 2 || Auth::user()->tipo_usuario == 3){
+            try {
+                DB::beginTransaction();
+
+                $credito = Creditos::where('idusuario',  $request->id)->first();
+                $bilhetes = CupomAposta::where('caixa',  0)->where('idcambista', $request->id)->get();
+                foreach($bilhetes as $bilhete){
+                    $bilhete->caixa = 1;
+                    $bilhete->save();
+                }
+                $id = hexdec(uniqid());
+                $historic = User::find($request->id)->historics()->create([
+                    'type' => 'P',
+                    'user_id_transaction' => Auth::user()->id,
+                    'amount' => $credito->saldo_liberado,
+                    'total_before' => $credito->saldo_liberado,
+                    'total_after' => 0,
+                    'date' => date('Ymdhis'),
+                    'status' => 1
+                ]);
+                $credito->saldo_liberado =  0 ;
+                $credito->save();
+                DB::commit();
+    
+                return Redirect()->back()->with('sucesso', 'Caixa Fechado com Sucesso');
+
+    
+            } catch (\Throwable $th) {
+                DB::rollback();
+                dd($th);
+                return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
+               
+            }
+        }
+
     }
 
     public function viewLancamentoCaixaCambista($id){
