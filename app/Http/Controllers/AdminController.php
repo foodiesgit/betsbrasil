@@ -1821,7 +1821,7 @@ class AdminController extends Controller {
             ->get();
              $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->sum('creditos.saldo_liberado');
              $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.valor_apostado');
-             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,2)->where('cupom_aposta.caixa' , 0)>sum('cupom_aposta.possivel_retorno');
+             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,2)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.possivel_retorno');
              $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
              $comissao = $credito->saldo_liberado;
              
