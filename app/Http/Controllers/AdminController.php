@@ -217,7 +217,7 @@ class AdminController extends Controller {
         
             ];
         
-            return view('admin.cambistas.view_bilhetes',$data);
+            return view('admin.gerentes.view_cambistas',$data);
             }
         return Redirect()->back()->with('erro', 'Sem permissão');
 

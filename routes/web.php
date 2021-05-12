@@ -114,7 +114,7 @@ Route::prefix('admin')->group(function(){
         Route::get('fechar/caixa/gerente/{id}', 'AdminController@fecharCaixaGerente');
         Route::get('fechar/caixa/cambista/{id}', 'AdminController@fecharCaixaCambista');
         Route::get('ver/cambista/{id}', 'AdminController@viewCambista');
-        Route::get('ver/gerente/{id}', 'AdminController@viewCambista');
+        Route::get('ver/gerente/{id}', 'AdminController@viewGerente');
         /*Gerênciar API */
         Route::get('api/esportes/listar', 'AdminController@viewListarEsportes');
         Route::get('api/esportes/editar/{id}', 'AdminController@viewEditarEsportes');
