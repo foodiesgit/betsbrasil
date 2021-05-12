@@ -106,11 +106,11 @@ class AdminController extends Controller {
             ->first();
 
 
-            if(Auth::user()->tipo_usuario == 2){
-                $historico = Historic::all();
-            }else{
-                $historico = Auth::user()->historics;
-            }
+        if(Auth::user()->tipo_usuario == 2){
+            $historico = Historic::all();
+        }else{
+            $historico = Auth::user()->historics;
+        }
         if( Auth::user()->tipo_usuario == 2){
             $bilhetes = CupomAposta::all();
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', '!=', 1)->where('tipo_usuario', '!=', 2)->sum('creditos.saldo_liberado');
@@ -120,19 +120,27 @@ class AdminController extends Controller {
 
         }else if(Auth::user()->tipo_usuario == 1){
             $bilhetes = CupomAposta::where('idusuario', Auth::user()->id)->get();
-        
+            $entrada = 0;
+            $saida = 0;
+            $comissao = 0;
+            $comissoes =  0;
         }else if(Auth::user()->tipo_usuario == 4){
             $bilhetes = CupomAposta::where('idcambista', Auth::user()->id)->get();
             $entrada = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,'!=',4)->sum('valor_apostado');
             $saida = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,2)->sum('possivel_retorno');
             $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
             $comissao = $credito->saldo_liberado;
+            $comissoes = 0;
+
         }else{
+            $bilhetes = CupomAposta::join('users','cupom_aposta.idcambista','users.id')->where('users.idgerente', Auth::user()->id)->get();
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->sum('creditos.saldo_liberado');
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,'!=',4)->sum('cupom_aposta.valor_apostado');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
             $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
             $comissao = $credito->saldo_liberado;
+            $comissoes = 0;
+
         }
         $data = [
 

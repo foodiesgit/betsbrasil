@@ -45,7 +45,7 @@
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header d-flex align-items-center">
-        <a class="navbar-brand" href="/pages/dashboards/dashboard.html">
+        <a class="navbar-brand" href="/">
           <img src="/logo_principal.png" class="navbar-brand-img" alt="..."> 
         </a>
         <div class="ml-auto">
@@ -148,7 +148,7 @@
               </div>
             </li>
             @endif
-            @if($user->tipo_usuario == 2||$user->tipo_usuario == 3)
+            @if($user->tipo_usuario == 2)
             <li class="nav-item">
               <a class="nav-link" href="#navbar-boxg" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxg">
                 <i class="ni ni-box-2 text-default"></i>
@@ -173,8 +173,9 @@
                 <ul class="nav nav-sm flex-column">
 
                 <li class="nav-item"><a href="/admin/cambistas/caixa" class="nav-link">Dashboard</a></li>
-
-                <li class="nav-item"><a href="/admin/cambistas/caixa/historico" class="nav-link">Movimentações</a></li>
+                @if($user->tipo_usuario == 2)
+                  <li class="nav-item"><a href="/admin/cambistas/caixa/historico" class="nav-link">Movimentações</a></li>
+                @endif
                 </ul>
               </div>
             </li>
