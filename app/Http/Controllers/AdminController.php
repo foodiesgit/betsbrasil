@@ -3167,6 +3167,15 @@ class AdminController extends Controller {
             try {
                 $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', 4)->first();
                 if($aposta) {
+
+
+                    $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', 'events.id')->where('idcupom', $aposta->id)->get();
+
+                    foreach ($jogos as $jogo){
+                        if($jogo->data < \Carbon\Carbon::now()){
+                             return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
+                        }
+                    }
                     DB::beginTransaction();
                     $aposta->idcambista = Auth::user()->id;
                     $aposta->status = 1;
