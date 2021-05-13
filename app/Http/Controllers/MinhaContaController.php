@@ -35,6 +35,7 @@ use Carbon\Carbon;
 use App\CupomAposta;
 use App\CupomApostaItem;
 use App\Times;
+use App\Creditos;
 
 
 use App\Usuarios;
@@ -257,9 +258,9 @@ class MinhaContaController extends Controller{
 
 
 
-        $usuarios = new Usuarios;
+        $usuarios = new User;
 
-        $usuarios->nome = $input['nome'];
+        $usuarios->name = $input['nome'];
 
         $usuarios->password = Hash::make($input['password']);
 
@@ -272,6 +273,7 @@ class MinhaContaController extends Controller{
         $usuarios->email = $input['email'];
 
         $usuarios->status = 1;
+        $usuarios->tipo_usuario = 1;
 
         $usuarios->save();
 
