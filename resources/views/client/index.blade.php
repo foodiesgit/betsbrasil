@@ -413,14 +413,14 @@
 
     $totalItensCupom = DB::table('novo_carrinho')
 
-        ->leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
+        ->join('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
 
         ->where('session_id', session()->getId())->select(DB::raw("count(*) as total"))->get();
 
 
 
     if(count($totalItensCupom) > 0){
-
+        
         $total = $totalItensCupom[0]->total;
 
     }else{
@@ -1126,6 +1126,7 @@ if(odds[0].idsubgrupo == 84){
         var id = $(this).attr('data-id');
 
         $(this).addClass('active');
+        $(this).addClass('odd');
         
 
         $.ajax({
@@ -1155,12 +1156,16 @@ if(odds[0].idsubgrupo == 84){
                     if(res.acao == 'select'){
 
                         $('.cota-aposta[data-idevent='+res.idevent+']').removeClass('active');
+                        $('.cota-aposta[data-idevent='+res.idevent+']').removeClass('odd');
+
 
                         $('.cota-aposta[data-id='+id+']').addClass('active');
+                        $('.cota-aposta[data-id='+id+']').addClass('odd');
 
                     }else if(res.acao == 'unselect'){
 
                         $('.cota-aposta[data-id='+id+']').removeClass('active');
+                        $('.cota-aposta[data-id='+id+']').removeClass('odd');
 
                     }
 
@@ -1170,7 +1175,7 @@ if(odds[0].idsubgrupo == 84){
 
                     geral = parseInt(geral);
 
-                    $.each( $('.active'), function(i, item) {
+                    $.each( $('.odd'), function(i, item) {
 
                         geral++;
 
@@ -1209,6 +1214,7 @@ if(odds[0].idsubgrupo == 84){
             success: function(res){
 
                 $('.cota-aposta').removeClass('active');
+                $('.cota-aposta').removeClass('odd');
 
 
 
@@ -1247,6 +1253,7 @@ if(odds[0].idsubgrupo == 84){
 
 
                             $('.cota-aposta[data-id='+item.idodds+']').addClass('active');
+                            $('.cota-aposta[data-id='+item.idodds+']').addClass('odd');
 
                             $('#divvalor').show();
                             $('#divvalormobile').show();
