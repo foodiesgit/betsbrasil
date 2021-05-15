@@ -1382,12 +1382,13 @@ if(odds[0].idsubgrupo == 84){
 
 
                     });
+                    $('#totalCupom').html(total_de_apostas);
+
                     if(total_de_apostas == 0){
 
                         $('#bet-slip-inner').html('<p class="text-center">Nenhuma aposta selecionada</p>');
 
                     }
-
 
 
                 }
