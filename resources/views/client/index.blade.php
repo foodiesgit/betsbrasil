@@ -311,6 +311,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="sportModalTitle">Todas as apostas</h5>
+              <button class="close" data-dismiss="modal" ><span class="mdi mdi-close" aria-hidden="true"></span></button>
               
             </div>
             <div class="modal-body" id="renderMoreOdds">
@@ -700,11 +701,9 @@ $(document).ready(function(e){
 
                 '<div class="commands-info__wrapper match-data--heading">'+
 
-                    '<span class="commands-info__command" style="color:black;">'+res.home.nome+'</span>'+
-
-                    '<span class="commands-info__command vs" style="color:black;">VS </span>'+
-
-                    '<span class="commands-info__command" style="color:black;">'+res.away.nome+'</span>'+
+                    '<span class="commands-info__command" style="color:black;"><b>'+res.home.nome+'</b></span>'+
+                    '<span class="commands-info__command vs" style="color:black;"><b> VS </b></span>'+
+                    '<span class="commands-info__command" style="color:black;"><b>'+res.away.nome+'</b></span>'+
 
                 '</div>'+
 
@@ -1201,8 +1200,37 @@ if(odds[0].idsubgrupo == 84){
         });
 
     });
+    $('body').on('click', '.remove-cota', function(e){
+
+    e.preventDefault();
 
 
+    var id = $(this).attr('data-id');
+
+
+
+    $.ajax({
+
+        url: '/remove-selection/'+id,
+
+        method: 'GET',
+
+        success: function(res){
+
+
+        },error: function(err){
+
+
+
+        },complete: function(){
+
+            recuperaCarrinho();
+
+        }
+
+    });
+
+});
 
     function recuperaCarrinho(){
 
@@ -1265,7 +1293,7 @@ if(odds[0].idsubgrupo == 84){
 
                                 '<div class="bet-slip__item">'+
 
-                                    '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
+                                    '<a href="#" data-id="'+item.id+'" class="bet-slip__item-close remove-cota" ></a>'+
 
                                     '<div class="bet-slip__item-inner">'+
 
@@ -1311,7 +1339,7 @@ if(odds[0].idsubgrupo == 84){
 
                                 '<div class="bet-slip__item">'+
 
-                                    '<a href="/remove-selection/'+item.id+'" class="bet-slip__item-close" type="button"></a>'+
+                                '<a href="#" data-id="'+item.id+'" class="bet-slip__item-close remove-cota" ></a>'+
 
                                     '<div class="bet-slip__item-inner">'+
 

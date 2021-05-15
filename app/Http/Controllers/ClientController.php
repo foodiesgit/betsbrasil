@@ -928,7 +928,7 @@ class ClientController extends Controller{
 
 
 
-        return back();
+        return Response()->json('Removido com sucesso');
 
     }
 
