@@ -26,7 +26,7 @@
 
 
 
-    <link href="/assets2/vendor/glider/glider.css" rel="stylesheet">
+    <link href="/assets2/vendor/glider/glider.css" rel="stylesheet"> 
 
 </head>
 
@@ -147,7 +147,7 @@
 
                                             <label class="mb-1"><strong>Nome Completo*</strong></label>
 
-                                            {{ Form::text('nome', null, ['class' => 'form-control form-control-lg '.( $errors->has('nome') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o seu nome completo']) }}
+                                            {{ Form::text('nome', null, ['class' => 'form-control'.( $errors->has('nome') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o seu nome completo']) }}
 
                                             @error('nome')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -157,7 +157,7 @@
 
                                             <label class="mb-1"><strong>CPF</strong></label>
 
-                                            {{ Form::text('cpf', null, ['id' => 'cpf', 'class' => 'form-control form-control-lg '.( $errors->has('cpf') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o seu CPF']) }}
+                                            {{ Form::text('cpf', null, ['id' => 'cpf', 'class' => 'form-control'.( $errors->has('cpf') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o seu CPF']) }}
 
                                             @error('cpf')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -167,7 +167,7 @@
 
                                             <label class="mb-1"><strong>Telefone</strong></label>
 
-                                            {{ Form::text('telefone', null, ['id' => 'cpf', 'class' => 'form-control form-control-lg '.( $errors->has('telefone') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o seu telefone com DDD']) }}
+                                            {{ Form::text('telefone', null, ['id' => 'cpf', 'class' => 'form-control'.( $errors->has('telefone') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o seu telefone com DDD']) }}
 
                                             @error('telefone')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -177,7 +177,7 @@
 
                                             <label class="mb-1"><strong>Data de Nascimento*</strong></label>
 
-                                            {{ Form::text('data_nascimento', null, ['id' => 'data_nascimento', 'class' => 'form-control form-control-lg '.( $errors->has('data_nascimento') ? ' is-invalid' : '' ), 'placeholder' => 'Ex.: 01/06/1977']) }}
+                                            {{ Form::text('data_nascimento', null, ['id' => 'data_nascimento', 'class' => 'form-control'.( $errors->has('data_nascimento') ? ' is-invalid' : '' ), 'placeholder' => 'Ex.: 01/06/1977']) }}
 
                                             @error('data_nascimento')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -187,7 +187,7 @@
 
                                             <label class="mb-1"><strong>Email*</strong></label>
 
-                                            {{ Form::text('email', null, ['class' => 'form-control form-control-lg '.( $errors->has('email') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o seu email']) }}
+                                            {{ Form::text('email', null, ['class' => 'form-control'.( $errors->has('email') ? ' is-invalid' : '' ), 'placeholder' => 'Digite o seu email']) }}
 
                                             @error('email')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
@@ -197,7 +197,7 @@
 
                                             <label class="mb-1"><strong>Senha*</strong></label>
 
-                                            {{ Form::password('password', ['class' => 'form-control form-control-lg '.( $errors->has('password') ? ' is-invalid' : '' ), 'placeholder' => 'Digite uma senha de acesso']) }}
+                                            {{ Form::password('password', ['class' => 'form-control'.( $errors->has('password') ? ' is-invalid' : '' ), 'placeholder' => 'Digite uma senha de acesso']) }}
 
                                             @error('password')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 

@@ -527,7 +527,7 @@
             var number = $('#numberWhatsapp').val();
             var bilhete = "{{ $cupomAposta[0]->codigo_unico }}";
             var dominio = window.location.hostname;
-            window.open('https://api.whatsapp.com/send?phone=55'+encodeURI(number)+'&text='+encodeURI('Gostaria que valida-se esse bilhete: *'+bilhete+'*  '+dominio+'/verifica-bilhete/'+bilhete), '_blank');
+            window.open('https://api.whatsapp.com/send?phone=55'+encodeURI(number)+'&text='+encodeURI('Segue codigo do bilhete: *'+bilhete+'*  e o link de acompanhamento do bilhete '+dominio+'/verifica-bilhete/'+bilhete+' valido somente depois da validação'), '_blank');
             $('#numberWhatsapp').val('');
             $('#whatsappModal').val('hide');
 
