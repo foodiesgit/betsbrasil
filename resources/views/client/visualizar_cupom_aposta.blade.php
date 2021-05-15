@@ -458,6 +458,7 @@
     <div class="d-flex flex-row justify-content-center" style="margin-top: 20px;">
 
         <button class="btn btn-sm btn-primary" id="btn_imprimir"><i class="fa fa-print"></i>Imprimir</button>
+        <button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#whatsappModal">Encaminhar</button>
 
     </div>
 
@@ -481,13 +482,35 @@
     <script src="/js/script.js"></script>
  
 
-
+    <div class="modal fade" id="whatsappModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Encaminhar Bilhete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Informe o numero do seu cambista favorito para enviar o seu bilhete para validação via Whatsapp.</p>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Numero de Whatsapp</label>
+                <input type="text" class="form-control" id="numberWhatsapp" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted"></small>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" id="btn_encaminhar">Encaminhar</button>
+        </div>
+        </div>
+    </div>
+    </div>
 <script type="text/javascript">
 
     $(document).ready(function(e){
 
         $('#btn_imprimir').click(function(e){
-            console.log(e)
             var printContents = document.getElementById('print').innerHTML;
             var originalContents = document.body.innerHTML;
 
@@ -499,8 +522,17 @@
 
         });
 
-    });
 
+        $('#btn_encaminhar').click(function(e){
+            var number = $('#numberWhatsapp').val();
+            var bilhete = "{{ $cupomAposta[0]->codigo_unico }}";
+            var dominio = window.location.hostname;
+            window.open('https://api.whatsapp.com/send?phone=55'+encodeURI(number)+'&text='+encodeURI('Gostaria que valida-se esse bilhete: *'+bilhete+'*  '+dominio+'/verifica-bilhete/'+bilhete), '_blank');
+            $('#numberWhatsapp').val('');
+            $('#whatsappModal').val('hide');
+
+        });
+    });
 </script>
 
 
