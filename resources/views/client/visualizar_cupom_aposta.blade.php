@@ -204,7 +204,7 @@
                                 <div class="d-flex flex-column flex-start">
 
                                     <span><b>'.$dados->nome_esporte.' - '.$dados->nome_liga.'</b></span>
-                                    <span><b>'.\Carbon\Carbon::parse($dados->data)->format('d/m/Y H:m:i').'</b></span>
+                                    <span><b>'.\Carbon\Carbon::parse($dados->data)->format('d/m/Y H:m').'</b></span>
 
                                     <span>'.$dados->time_home.' x '.$dados->time_away.'</span>
 

@@ -365,7 +365,7 @@
                             <tr>
 
                                 <td>'.$dados->codigo_unico.'</td>
-                                <td>'.\Carbon\Carbon::parse($dados->created_at)->format('d/m/Y H:m').'</td>
+                                <td>'.\Carbon\Carbon::parse($dados->created_at)->format('d/m/Y H:m:i').'</td>
 
                                 <td>'.($cliente ? $cliente->name : "Cliente não declarado").'</td>
                                 <td>'.($cambista ? $cambista->name : "Cambista não declarado").'</td>
