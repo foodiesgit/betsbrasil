@@ -149,7 +149,7 @@ class MinhaContaController extends Controller{
 
         ->leftJoin('esportes', 'esportes.id','=','ligas.idesporte')
 
-        ->where('cupom_aposta_item.idcupom', $cupomAposta[0]->id)->select('cupom_aposta_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'odds.id as idodds', 'valor_momento', 'esportes.nome_traduzido as nome_esporte', 'ligas.nome_traduzido as nome_liga', 'cupom_aposta_item.valor_momento', 'cupom_aposta_item.status_resultado')->get();
+        ->where('cupom_aposta_item.idcupom', $cupomAposta[0]->id)->select('cupom_aposta_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'odds.id as idodds', 'valor_momento', 'esportes.nome_traduzido as nome_esporte', 'ligas.nome_traduzido as nome_liga', 'cupom_aposta_item.valor_momento', 'cupom_aposta_item.status_resultado', 'events.data')->get();
 
 
 
@@ -159,8 +159,6 @@ class MinhaContaController extends Controller{
 
             foreach($cupomApostaItem as $dados){
 
-
-
                 if($dados->idhome != ''){
 
                     $sql_time_home = Times::find($dados->idhome);
@@ -169,6 +167,7 @@ class MinhaContaController extends Controller{
 
 
 
+                    $cupomApostaItem[$i]->time_home = $sql_time_home->nome;
                     $cupomApostaItem[$i]->time_home = $sql_time_home->nome;
 
                     $cupomApostaItem[$i]->time_away = $sql_time_away->nome;

@@ -95,7 +95,7 @@
 
 <div class="">
 
-    <div class="betslip-page">
+    <div id="print" class="betslip-page">
 
         <h4 class="light-block__title light-block__title--bet-slip text-center" style="color: #000;">
 
@@ -204,6 +204,7 @@
                                 <div class="d-flex flex-column flex-start">
 
                                     <span><b>'.$dados->nome_esporte.' - '.$dados->nome_liga.'</b></span>
+                                    <span><b>'.\Carbon\Carbon::parse($dados->data)->format('d/m/Y H:m:i').'</b></span>
 
                                     <span>'.$dados->time_home.' x '.$dados->time_away.'</span>
 
@@ -319,11 +320,6 @@
 
 
 
-                    <div class="d-flex flex-row justify-content-center" style="margin-top: 20px;">
-
-                        <a href="#" class="btn btn-sm btn-primary" id="btn_imprimir"><i class="fa fa-print"></i>Imprimir</a>
-
-                    </div>
 
                 </div>
 
@@ -435,7 +431,7 @@
 
                                     <div class="card-footer" style="padding: .5rem;">
 
-                                        <a href="/lite/minhas-apostas/visualizar-cupom/'.$dados->codigo_unico.'" class="btn btn-sm btn-info">+ detalhes</a>
+                                        <a href="/minhas-apostas/visualizar-cupom/'.$dados->codigo_unico.'" class="btn btn-sm btn-info">+ detalhes</a>
 
                                     </div>
 
@@ -459,6 +455,11 @@
 
     </div>
 
+    <div class="d-flex flex-row justify-content-center" style="margin-top: 20px;">
+
+        <button class="btn btn-sm btn-primary" id="btn_imprimir"><i class="fa fa-print"></i>Imprimir</button>
+
+    </div>
 
 </div>
         </div>
@@ -474,8 +475,6 @@
 
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" integrity="sha512-Rdk63VC+1UYzGSgd3u2iadi0joUrcwX0IWp2rTh6KXFoAmgOjRS99Vynz1lJPT8dLjvo6JZOqpAHJyfCEZ5KoA==" crossorigin="anonymous"></script>
-
   <div class="snackbars" id="form-output-global"></div>
     <!-- Javascript-->
     <script src="/js/core.min.js"></script>
@@ -487,17 +486,16 @@
 
     $(document).ready(function(e){
 
-        $('.ca-input').maskMoney({
-
-            prefix: '', thousands: '.', decimal: ',', allowZero: true, allowEmpty: true
-
-        });
-
-
-
         $('#btn_imprimir').click(function(e){
+            console.log(e)
+            var printContents = document.getElementById('print').innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
 
             window.print();
+
+            document.body.innerHTML = originalContents;
 
         });
 
