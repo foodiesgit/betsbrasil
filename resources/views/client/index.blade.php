@@ -311,7 +311,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="sportModalTitle">Todas as apostas</h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="mdi mdi-close" aria-hidden="true"></span></button>
+              
             </div>
             <div class="modal-body" id="renderMoreOdds">
             </div>
@@ -320,12 +320,12 @@
         </div>
       </div>
 
-      <div class="modal modal-sport fade" id="sportModalCard" tabindex="-1" role="dialog" aria-labelledby="sportModalTitle" aria-hidden="true">
+      <div class="modal fade" id="sportModalCard" tabindex="-1" role="dialog" aria-labelledby="sportModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="sportModalTitle">Carrinho de apostas</h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="mdi mdi-close" aria-hidden="true"></span></button>
+              <button class="close" data-dismiss="modal" ><span class="mdi mdi-close" aria-hidden="true"></span></button>
 
             </div>
             <div class="modal-body" >
@@ -401,6 +401,7 @@
                     {{ Form::close() }}
 
                     <button class="btn btn-primary active" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Efetuar Aposta</button>
+                    <button class="btn btn-secondary" type="button" id="btn_finalizar_aposta_mobile" data-dismiss="modal" >Fechar</button>
 
                     </div>
             </div>
@@ -408,7 +409,7 @@
         </div>
       </div>
     </div>
-    <a class="float d-block d-sm-none d-xs-none d-md-block d-lg-none d-xl-none"  data-bs-toggle="modal" data-bs-target="#sportModalCard">
+    <a class="float d-block d-sm-none d-xs-none d-md-block d-lg-none d-xl-none"  data-toggle="modal" data-target="#sportModalCard">
     <?php
 
     $totalItensCupom = DB::table('novo_carrinho')
