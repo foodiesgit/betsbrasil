@@ -96,7 +96,7 @@
                   <!-- Heading Component-->
                   <article class="heading-component">
                     <div class="heading-component-inner">
-                      <h5 class="heading-component-title">Futebol
+                      <h5 class="heading-component-title">Futebol - Ao Vivo
                       </h5>
                       <div>
                         <ul class="list-inline list-inline-xs">
