@@ -58,6 +58,7 @@ Route::get('/', 'ClientController@viewIndex');
 Route::get('/events/{idevent}', 'ClientController@viewEvent');
 Route::get('/leagues/{id}', 'ClientController@viewJogosPorLiga');
 Route::get('sports/{id}', 'ClientController@viewJogosPorEsporte');
+Route::get('jogos-ao-vivo', 'AovivoController@showJogosAoVivo');
 Route::get('regulamentacao', 'ClientController@viewRegulamentacao');
 Route::get('/verifica-bilhete/{bilhete}', 'ClientController@resultBilhete');
 Route::get('/ajax-verifica-bilhete/{bilhete}', 'ClientController@ajaxResultBilhete');
