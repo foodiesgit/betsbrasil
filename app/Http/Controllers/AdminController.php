@@ -1941,6 +1941,101 @@ class AdminController extends Controller {
         }
         
     }
+
+
+    public function cancelarBilhete(Request $request){
+
+        $bilhete = CupomAposta::find($request->id);
+
+        if($bilhete){
+            if(Auth::user()->tipo_usuario == 2 ){
+                $bilhete->status = 5;
+                $bilhete->save();
+
+                $cambista = User::find( $bilhete->idcambista);
+                $quantidade = CupomApostaItem::where('idcupom',$bilhete->id)->count();
+
+                if(isset($cambista->idgerente)){
+                   $comissaoGerente = GerentesCampos::where('idusuario',$cambista->idgerente)->first();
+                   $porcentagem = $comissaoGerente->comissao / 100;
+                   $comissao = $bilhete->valor_apostado * $comissaoGerente->porcentagem;
+                   $credito = Creditos::where('idusuario',$cambista->idgerente)->first();
+                   $credito->saldo_liberado =  $credito->saldo_liberado - $comissao;
+                   $credito->save();
+                }
+                if($cambista){
+                    $comissoes = CambistasComissoes::where('idusuario', $cambista->id)->first();
+
+                    if($comissoes){
+                        if($quantidade == 1){ $porcentagem = $comissoes->comissao1jogo / 100; }
+                        if($quantidade == 2){ $porcentagem = $comissoes->comissao2jogo / 100; }
+                        if($quantidade == 3){ $porcentagem = $comissoes->comissao3jogo / 100; }
+                        if($quantidade == 4){ $porcentagem = $comissoes->comissao4jogo / 100; }
+                        if($quantidade == 5){ $porcentagem = $comissoes->comissao5jogo / 100; }
+                        if($quantidade == 6){ $porcentagem = $comissoes->comissao6jogo / 100; }
+                        if($quantidade == 7){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        if($quantidade >= 8){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        $comissao = $bilhete->valor_apostado * $porcentagem;
+                        $credito = Creditos::where('idusuario', $cambista->id)->first();
+                        $credito->saldo_liberado = $credito->saldo_liberado - $comissao;
+                        $credito->save();
+                        
+                    }
+                }
+            }else{
+
+                if($bilhete->created_at->addMinutes(20) < \Carbon\Carbon::now()){
+                    return Redirect()->back()->with('error', 'Tempo expirado para cancelamento de aposta');
+                }
+
+                $jogos = CupomApostaItem::where('idcupom', $bilhete->id)->get();
+                foreach ($jogos as $jogo) {
+                    if($jogo->data < \Carbon\Carbon::now()){
+                        return Redirect()->back()->with('error', 'Você não pode cancelar apostas com jogos já iniciado');
+
+                    }
+                }
+                $bilhete->status = 5;
+                $bilhete->save();
+                $cambista = User::find( $bilhete->idcambista);
+                $quantidade = CupomApostaItem::where('idcupom',$bilhete->id)->count();
+
+                if(isset($cambista->idgerente)){
+                   $comissaoGerente = GerentesCampos::where('idusuario',$cambista->idgerente)->first();
+                   $porcentagem = $comissaoGerente->comissao / 100;
+                   $comissao = $bilhete->valor_apostado * $comissaoGerente->porcentagem;
+                   $credito = Creditos::where('idusuario',$cambista->idgerente)->first();
+                   $credito->saldo_liberado =  $credito->saldo_liberado - $comissao;
+                   $credito->save();
+                }
+
+                if($cambista){
+                    $comissoes = CambistasComissoes::where('idusuario', $cambista->id)->first();
+
+                    if($comissoes){
+                        if($quantidade == 1){ $porcentagem = $comissoes->comissao1jogo / 100; }
+                        if($quantidade == 2){ $porcentagem = $comissoes->comissao2jogo / 100; }
+                        if($quantidade == 3){ $porcentagem = $comissoes->comissao3jogo / 100; }
+                        if($quantidade == 4){ $porcentagem = $comissoes->comissao4jogo / 100; }
+                        if($quantidade == 5){ $porcentagem = $comissoes->comissao5jogo / 100; }
+                        if($quantidade == 6){ $porcentagem = $comissoes->comissao6jogo / 100; }
+                        if($quantidade == 7){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        if($quantidade >= 8){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        $comissao = $bilhete->valor_apostado * $porcentagem;
+                        $credito = Creditos::where('idusuario', $cambista->id)->first();
+                        $credito->saldo_liberado = $credito->saldo_liberado - $comissao;
+                        $credito->save();
+                        
+                    }
+                }
+
+
+            }
+
+        }
+
+
+    }
     public function ajaxViewCaixaCambistaGerente(){
         if(Auth::user()->tipo_usuario == 3 || Auth::user()->tipo_usuario == 2){
             $model =  User::leftJoin('creditos', 'creditos.idusuario','=','users.id');

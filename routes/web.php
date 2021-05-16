@@ -162,6 +162,7 @@ Route::prefix('admin')->group(function(){
         Route::post('deposit', 'AdminController@deposit');
         Route::post('saque', 'AdminController@saque');
         Route::get('cancelar-solicitacao/{id}', 'AdminController@cancelarSolicitacao');
+        Route::get('cancelar-bilhete/{id}', 'AdminController@cancelarBilhete');
         Route::get('rejeitar-solicitacao/{id}', 'AdminController@rejeitarSolicitacao');
         Route::get('aprovar-solicitacao/{id}', 'AdminController@aprovarSolicitacao');
         Route::get('validar-bilhete', 'AdminController@viewValidarBilhete');
