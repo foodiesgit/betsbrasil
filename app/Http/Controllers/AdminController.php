@@ -1982,7 +1982,9 @@ class AdminController extends Controller {
                         
                     }
                 }
-            }else{
+                return Redirect()->back()->with('sucesso', 'Bilhete Cancelado com sucesso!');
+
+            }else if(Auth::user()->tipo_usuario == 4){
 
                 if($bilhete->created_at->addMinutes(20) < \Carbon\Carbon::now()){
                     return Redirect()->back()->with('error', 'Tempo expirado para cancelamento de aposta');
@@ -2029,6 +2031,10 @@ class AdminController extends Controller {
                     }
                 }
 
+                return Redirect()->back()->with('sucesso', 'Bilhete Cancelado com sucesso!');
+
+            }else{
+                return Redirect()->back()->with('error', 'Você não tem permissão');
 
             }
 
