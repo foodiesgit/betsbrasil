@@ -103,7 +103,7 @@ class ClientController extends Controller{
 */
 
 
-        $sql1 = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
+        $sql1 = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', date('Y-m-d').' 23:59:59')->orderBy('data', 'asc')
 
         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
@@ -123,7 +123,7 @@ class ClientController extends Controller{
 
         foreach($sql1 as $dados1){
 
-            $jogos_aba_futebol = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
+            $jogos_aba_futebol = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', date('Y-m-d').' 23:59:59')->orderBy('data', 'asc')
 
                 ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
@@ -147,7 +147,7 @@ class ClientController extends Controller{
 
 
 
-                    $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', $nextD)  ->orderBy('data', 'asc')
+                    $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', date('Y-m-d').' 23:59:59')  ->orderBy('data', 'asc')
 
                         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
