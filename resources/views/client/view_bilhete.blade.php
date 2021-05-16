@@ -55,6 +55,9 @@
                             <tr>
                             <th>Cambista: </th>
                               <th>{{($cambista ? $cambista->name : "Cambista não informado")}}</th>
+                              
+                            </tr>
+                            <tr>
                               <th>Codigo do bilhete</th>
                               <th>{{$aposta->codigo_unico}}</th>
                             </tr>
@@ -73,6 +76,8 @@
                             <tr>
                               <td>Data e hora</td>
                               <td>{{$aposta->created_at->format('d/m/Y H:i:s')}}</td>
+                            <tr>
+                        
                               <td>Status do Bilhete</td>
 
                               @if($aposta->status == 1)

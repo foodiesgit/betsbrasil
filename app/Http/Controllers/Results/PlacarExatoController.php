@@ -10,6 +10,8 @@ class PlacarExatoController extends Controller
     public function index($placar, $palpite, $tempo){
         $palpite = explode("-",$palpite);
         $placar = explode("-",$placar);
+        $resultado = ['status' => "Aguardando", "ganhou"=> null];
+
         if($palpite[0] != "Outros"){
             if($palpite[0] == $placar[0]  && $palpite[1] == $placar[1]){
                 if($tempo == 3){
@@ -22,6 +24,7 @@ class PlacarExatoController extends Controller
                     $resultado = ['status' => "Aguardando", "ganhou"=> null];
                 }
             }
+
         }else{
             if($palpite[0] == $placar[0]  && $palpite[1] == $placar[1]){
                 if($tempo == 3){
@@ -33,7 +36,12 @@ class PlacarExatoController extends Controller
                 }else{
                     $resultado = ['status' => "Aguardando", "ganhou"=> null];
                 }
+
+
             }
         }
+
+        return $resultado;
+
     }
 }

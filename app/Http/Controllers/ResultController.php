@@ -16,15 +16,19 @@ class ResultController extends Controller
         $apostas = CupomAposta::where('cupom_aposta.status', 1)->get();
 
         foreach ($apostas as $aposta){
-            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)->where('status_resultado', 0)->orwhere('status_resultado', 1)->orwhere('status_resultado', 2)->get();
+            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)->get();
             $win = 0;
             $total_jogos = $jogos->count();
             $derrota = 0;
             $finalizado = 0;
             foreach($jogos as $jogo){
+
                 if($jogo->data < $now){
+
                     // dd('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$jogo->bet365_id.'');
                     $response = \Http::get('https://api.b365api.com/v1/bet365/result?token='.config('app.API_TOKEN').'&event_id='.$jogo->bet365_id);
+
+
                     if( $response->successful() ){
                         $response = json_decode($response->body());
                         $home = Times::find($jogo->idhome);
@@ -148,7 +152,7 @@ class ResultController extends Controller
                             }
                         }
                         if($jogo->idsubgrupo == 81 ){ //CORRECT_SCORE
-                            $result =  app(\App\Http\Controllers\Results\PlacarExatoController::class)->index($response->results[0]->ss, 'EMPATE', $response->results[0]->time_status); 
+                            $result =  app(\App\Http\Controllers\Results\PlacarExatoController::class)->index($response->results[0]->ss, $jogo->name, $response->results[0]->time_status); 
                             if($result['ganhou'] == true){
                                 $win++;
                                     $odd = CupomApostaItem::where('idodds', $jogo->idodds)->first();
@@ -386,7 +390,8 @@ class ResultController extends Controller
                     }
                 } 
             }
-            if($finalizado == 1){
+
+            if($finalizado == $total_jogos){
                 if($win == $total_jogos){
                     $aposta->status = 2;
                     $aposta->save();
