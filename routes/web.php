@@ -61,6 +61,7 @@ Route::get('sports/{id}', 'ClientController@viewJogosPorEsporte');
 Route::get('regulamentacao', 'ClientController@viewRegulamentacao');
 Route::get('/verifica-bilhete/{bilhete}', 'ClientController@resultBilhete');
 Route::get('/ajax-verifica-bilhete/{bilhete}', 'ClientController@ajaxResultBilhete');
+Route::get('/ajax-atualiza-aovivo', 'AovivoController@index');
 
 Route::get('teste', 'ClientController@teste');
 
