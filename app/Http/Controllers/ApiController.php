@@ -67,6 +67,8 @@ use App\OddsSubGrupo;
 class ApiController extends Controller {
 
     public function salvaOdds($idevent, $idsubgrupo, $item){
+        $config =\DB::table('campos_fixos')->first();
+
 
         $odds = Odds::where('idbets', $item->id)->get();
 
@@ -97,7 +99,11 @@ class ApiController extends Controller {
         if(trim($item->odds) == ''){ $item_odds = 0.00; }else{ $item_odds = $item->odds; }
 
 
+        if(count($item_odds) < $config->nao_exibir_cotacao_menor && $config->nao_exibir_cotacao_menor != 0 ){
 
+            $item_odds =  $config->nao_exibir_cotacao_menor;
+
+        }
         $odds->odds = $item_odds;
 
         $odds->status = 1;
