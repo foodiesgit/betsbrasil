@@ -400,6 +400,7 @@
                                             </table>';
 
 
+                                           echo $config->rodape_cupom;
 
                                             if($dados->status == 1){
 
@@ -450,7 +451,6 @@
 
 
             </div>
-
         </div>
 
     </div>
@@ -458,7 +458,7 @@
     <div class="d-flex flex-row justify-content-center" style="margin-top: 20px;">
 
         <button class="btn btn-sm btn-primary" id="btn_imprimir"><i class="fa fa-print"></i>Imprimir</button>
-        <button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#whatsappModal">Encaminhar</button>
+        <button class="btn btn-sm btn-secondary" id="btn_encaminhar">Encaminhar</button>
 
     </div>
 
@@ -524,12 +524,9 @@
 
 
         $('#btn_encaminhar').click(function(e){
-            var number = $('#numberWhatsapp').val();
             var bilhete = "{{ $cupomAposta[0]->codigo_unico }}";
             var dominio = window.location.hostname;
-            window.open('https://api.whatsapp.com/send?phone=55'+encodeURI(number)+'&text='+encodeURI('Segue codigo do bilhete: *'+bilhete+'*  e o link de acompanhamento do bilhete '+dominio+'/verifica-bilhete/'+bilhete+' valido somente depois da validação'), '_blank');
-            $('#numberWhatsapp').val('');
-            $('#whatsappModal').val('hide');
+            window.open('https://api.whatsapp.com/send?text='+encodeURI('Segue codigo do bilhete: *'+bilhete+'*  e o link de acompanhamento do bilhete '+dominio+'/verifica-bilhete/'+bilhete+' valido somente depois da validação'), '_blank');
 
         });
     });

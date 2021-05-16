@@ -3081,10 +3081,11 @@ class AdminController extends Controller {
             'cotacao_minima' => floatval($input['cotacao-minima']),
             'cotacao_maxima' => floatval($input['cotacao-maxima']),
             'nao_exibir_cotacao_menor' => $input['nao-exibir-cotacao-menor'],
+            'nao_exibir_cotacao_maior' => floatval($input['nao-exibir-cotacao-maior']),
             'quantidade_minima_jogos' => $input['quantidade-minima-jogos'],
             'quantidade_maxima_times_v' => $input['quantidade-maxima-times-v'],
-
-            'rodape_cupom' => $input['rodape_cupom']
+            'rodape_cupom' => $input['rodape_cupom'],
+            'pagamento' => $input['pagamento']
 
         ]);
 

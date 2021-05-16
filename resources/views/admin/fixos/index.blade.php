@@ -64,8 +64,8 @@
             <input type="text" class="form-control" id="valor-maximo-aposta" name="valor-maximo-aposta"value="{{$sql[0]->valor_maximo_aposta}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
-            <label for="valor-maximo-aposta">Valor máximo por aposta (Ao Vivo) (R$)</label>
-            <input type="text" class="form-control" id="valor-maximo-aposta-av" name="valor-maximo-aposta-av" value="{{$sql[0]->premio_maximo}}" aria-describedby="emailHelp">
+            <!-- <label for="valor-maximo-aposta">Valor máximo por aposta (Ao Vivo) (R$)</label> -->
+            <input type="hidden" class="form-control" id="valor-maximo-aposta-av" name="valor-maximo-aposta-av" value="{{$sql[0]->premio_maximo}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
             <label for="premio-maximo">Prêmio Máximo (R$)</label>
@@ -88,17 +88,18 @@
             <input type="number" class="form-control" id="nao-exibir-cotacao-menor" name="nao-exibir-cotacao-menor"value="{{$sql[0]->nao_exibir_cotacao_menor}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
+            <label for="nao-exibir-cotacao-menor">Não exibir cotações maiores que</label>
+            <input type="number" class="form-control" id="nao-exibir-cotacao-maior" name="nao-exibir-cotacao-maior"value="{{$sql[0]->nao_exibir_cotacao_maior}}" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group col-sm-12">
             <label for="quantidade-minima-jogos">Quantidade minima de jogos por bilhete</label>
             <input type="number" class="form-control" id="quantidade-minima-jogos" name="quantidade-minima-jogos"value="{{$sql[0]->quantidade_minima_jogos}}" aria-describedby="emailHelp">
         </div>
         <div class="form-group col-sm-12">
-            <label for="quantidade-maxima-times-v">Quantidade máxima de times visitantes do mesmo campeonato por bilhete</label>
-            <input type="number" class="form-control" id="quantidade-maxima-times-v" name="quantidade-maxima-times-v"value="{{$sql[0]->quantidade_maxima_times_v}}" aria-describedby="emailHelp">
+            <!-- <label for="quantidade-maxima-times-v">Quantidade máxima de times visitantes do mesmo campeonato por bilhete</label> -->
+            <input type="hidden" class="form-control" id="quantidade-maxima-times-v" name="quantidade-maxima-times-v"value="{{$sql[0]->quantidade_maxima_times_v}}" aria-describedby="emailHelp">
         </div>
-        <div class="form-group col-sm-12">
-            <label for="texto-rodape">Texto rodapé bilhete</label>
-            <textarea class="form-control" id="texto-rodape" rows="3"></textarea>
-        </div>
+
         <div class="form-group col-sm-12">
 
             <label class="mb-1"><strong>Regulamento*</strong></label>
@@ -108,14 +109,23 @@
             @error('regulamento')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 
         </div>
+        <div class="form-group col-sm-12">
+
+            <label for="texto-rodape">Pagamento Deposito</label>
 
 
+            {{ Form::textarea('pagamento', null, ['class' => 'summernote form-control form-control-lg '.( $errors->has('pagamento') ? ' is-invalid' : '' ), 'placeholder' => 'Digite aqui suas forma de pagamento']) }}
+
+            @error('pagamento')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
+
+        </div>
 
         <div class="form-group col-sm-12">
 
-            <label class="mb-1"><strong>Rodapé*</strong></label>
+            <label for="texto-rodape">Rodapé bilhete</label>
 
-            {{ Form::textarea('rodape_cupom', null, ['class' => 'form-control form-control-lg '.( $errors->has('rodape_cupom') ? ' is-invalid' : '' ), 'placeholder' => 'Digite aqui o rodapé']) }}
+
+            {{ Form::textarea('rodape_cupom', null, ['class' => 'summernote form-control form-control-lg '.( $errors->has('rodape_cupom') ? ' is-invalid' : '' ), 'placeholder' => 'Digite aqui o rodapé']) }}
 
             @error('rodape_cupom')<div class="invalid-feedback animated fadeInUp">{{ $message }}</div>@enderror
 

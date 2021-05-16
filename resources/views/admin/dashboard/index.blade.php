@@ -9,6 +9,7 @@
 
 
     @yield('nav')
+    <?php $config =\DB::table('campos_fixos')->first(); ?>
 
 <div class="header bg-dark pb-6">
   <div class="container-fluid">
@@ -564,16 +565,18 @@
                     <div class="text-center text-muted mb-4">
                         <small>Informe um valor para efetuar sua solicitação de deposito</small>
                     </div>
-                    <form role="form">
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-alternative">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
-                                </div>
-                                <input class="form-control" placeholder="R$ 0,00" id="recarrega-saldo" name="recarrega-saldo" type="text">
-                                <input class="form-control"  id="recarrega-saldo-hidden"name="recarrega-saldo-hidden" type="hidden">
-                            </div>
-                        </div>
+
+                      <div class="input-group input-group-alternative">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
+                          </div>
+                          <input class="form-control" placeholder="R$ 0,00" id="recarrega-saldo" name="recarrega-saldo" type="text">
+                          <input class="form-control"  id="recarrega-saldo-hidden"name="recarrega-saldo-hidden" type="hidden">
+                      </div>
+                      <div class="text-center text-muted mb-4" style="padding:10px">
+                        <?php echo $config->rodape_cupom; ?>
+                      </div>
+                    
                     </div>
             </div>
         </div>
