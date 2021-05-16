@@ -83,6 +83,7 @@ class ClientController extends Controller{
 
     public function viewIndex(){
         $date = \Carbon\Carbon::now();
+        
         $nextD = $date->addDay(1)->toDateTime();
         $campeonatosDestaque = Ligas::where('status', 1)->where('destaque', 1)->get();
 
@@ -118,7 +119,19 @@ class ClientController extends Controller{
         $array_pais = [];
 
 
+        if($sql1->count() == 0 ){
+                
+            $sql1 = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
 
+            ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
+
+            ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
+
+            ->where('idesporte', 1)//->where('ligas.status', 1)
+
+            ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->get();
+
+        }
         if(count($sql1) > 0){
 
         foreach($sql1 as $dados1){
@@ -134,7 +147,20 @@ class ClientController extends Controller{
                 ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
 
 
+            
+            if($sql1->count() == 0 ){
+                $jogos_aba_futebol = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
 
+                ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
+
+                ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
+
+                ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais', $dados1->idpais)
+
+                ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
+
+            }
+                
 
 
             $array_ligas = [];
@@ -159,7 +185,17 @@ class ClientController extends Controller{
 
                     $array_jogos = [];
 
+                    if($sql1->count() == 0){
+                        $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', $nextD)  ->orderBy('data', 'asc')
 
+                        ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
+
+                        ->where('idesporte', 1)->where('idliga', $dados->idliga)
+
+                        ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->take('20')->get();
+
+
+                    }
                     if(count($jogos) > 0){
 
                         foreach($jogos as $dados2){
