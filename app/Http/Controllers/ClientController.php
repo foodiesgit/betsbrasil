@@ -496,7 +496,7 @@ class ClientController extends Controller{
 
         if(count($sqlItem) < $config->quantidade_minima_jogos && $config->quantidade_minima_jogos != 0 ){
 
-            return redirect('/')->with('erro', 'Cupom de aposta esta vazio');
+            return redirect('/')->with('erro', 'A quantidade minima de jogos por bilhete é:'.$config->quantidade_minima_jogos);
 
         }
 
@@ -764,7 +764,14 @@ class ClientController extends Controller{
                     $valor_total_apostado =$input['newstake_hidden_mobile'];
     
                 }
-    
+                if($config->valor_minimo_aposta >  $valor_total_apostado && $config->valor_minimo_aposta != 0){
+                    return redirect('/')->with('erro', 'O Valor minimo para aposta é: R$ '.number_format($config->valor_minimo_aposta,2,',','.'));
+                
+                }
+                if($config->valor_maximo_aposta <  $valor_total_apostado && $config->valor_maximo_aposta != 0){
+                    return redirect('/')->with('erro', 'O Valor maximo para aposta é: R$ '.number_format($config->valor_maximo_aposta,2,',','.'));
+                
+                }
 
                 //faz a aposta real
 

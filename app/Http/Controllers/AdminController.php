@@ -1987,13 +1987,13 @@ class AdminController extends Controller {
             }else if(Auth::user()->tipo_usuario == 4){
 
                 if($bilhete->created_at->addMinutes(20) < \Carbon\Carbon::now()){
-                    return Redirect()->back()->with('error', 'Tempo expirado para cancelamento de aposta');
+                    return Redirect()->back()->with('erro', 'Tempo expirado para cancelamento de aposta');
                 }
 
                 $jogos = CupomApostaItem::where('idcupom', $bilhete->id)->get();
                 foreach ($jogos as $jogo) {
                     if($jogo->data < \Carbon\Carbon::now()){
-                        return Redirect()->back()->with('error', 'Você não pode cancelar apostas com jogos já iniciado');
+                        return Redirect()->back()->with('erro', 'Você não pode cancelar apostas com jogos já iniciado');
 
                     }
                 }
