@@ -418,7 +418,12 @@
 
                                                 echo '<span class="badge badge-info" style="margin-top: .5rem;">'.$dados->status_cupom.'</span>';
 
+                                            }elseif($dados->status == 5){
+
+                                                echo '<span class="badge badge-info" style="margin-top: .5rem;">'.$dados->status_cupom.'</span>';
+
                                             }
+
 
 
 
