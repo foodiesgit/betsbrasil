@@ -716,9 +716,9 @@ class AdminController extends Controller {
 
             'name' => 'required',
 
-            'email' => 'required|email|unique:usuarios,email',
+            'email' => 'required|email|unique:users,email',
 
-            'cpf' => 'unique:usuarios,cpf',
+            'cpf' => 'unique:users,cpf',
 
             'data_nascimento' => 'required',
 
@@ -1111,9 +1111,9 @@ class AdminController extends Controller {
 
             'name' => 'required',
 
-            'email' => 'required|email|unique:usuarios,email',
+            'email' => 'required|email|unique:users,email',
 
-            'cpf' => 'required|unique:usuarios,cpf',
+            'cpf' => 'required|unique:users,cpf',
 
             'data_nascimento' => 'required',
 
