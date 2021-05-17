@@ -81,13 +81,17 @@
                               <td>Status do Bilhete</td>
 
                               @if($aposta->status == 1)
-                              <td>Aguardando Resultado</td>
+                                <td>Aguardando Resultado</td>
                               @else @if($aposta->status == 2)
                                 <td style="color:green">Ganhou</td>
+
+                              @else @if($aposta->status == 5)
+                              <td style="color:red">Cancelado</td>
 
                               @else
                                 <td style="color:red">Perdeu</td>
 
+                              @endif
                               @endif
                               @endif
                             </tr>
