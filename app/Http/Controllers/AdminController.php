@@ -1990,7 +1990,7 @@ class AdminController extends Controller {
                     return Redirect()->back()->with('erro', 'Tempo expirado para cancelamento de aposta');
                 }
 
-                $jogos = CupomApostaItem::where('idcupom', $bilhete->id)->get();
+                $jogos = CupomApostaItem::join('events','events.id', 'cupom_aposta_item.idevent')->where('idcupom', $bilhete->id)->get();
                 foreach ($jogos as $jogo) {
                     if($jogo->data < \Carbon\Carbon::now()){
                         return Redirect()->back()->with('erro', 'Você não pode cancelar apostas com jogos já iniciado');

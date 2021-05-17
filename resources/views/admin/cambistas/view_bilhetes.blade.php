@@ -405,8 +405,14 @@ view_bilhetes
 
                                     <div class="dropdown-menu">
 
-                                        <a class="dropdown-item" target="_blank" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>
-                                        <a class="dropdown-item" href="/admin/cancelar-bilhete/'.$dados->id.'">Cancelar Bilhete</a>
+                                        <a class="dropdown-item" target="_blank" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>';
+                                        if($dados->created_at->addMinutes(20) > \Carbon\Carbon::now() && $dados->status != 5){
+                                            echo '<a class="dropdown-item"  href="/admin/cancelar-bilhete/'.$dados->id.'">Cancelar Bilhete</a>';
+      
+                                        }
+                                         
+                                      echo'
+                                     
 
                                     </div>
 
@@ -426,7 +432,7 @@ view_bilhetes
 
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>';
-                                    if($dados->created_at->addMinutes(20) < \Carbon\Carbon::now()){
+                                    if($dados->status != 5){
                                         echo '<a class="dropdown-item"  href="/admin/cancelar-bilhete/'.$dados->id.'">Cancelar Bilhete</a>';
   
                                     }
