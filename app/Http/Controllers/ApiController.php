@@ -99,7 +99,7 @@ class ApiController extends Controller {
         if(trim($item->odds) == ''){ $item_odds = 0.00; }else{ $item_odds = $item->odds; }
 
 
-        if(count($item_odds) < $config->nao_exibir_cotacao_menor && $config->nao_exibir_cotacao_menor != 0 ){
+        if($item_odds < $config->nao_exibir_cotacao_menor && $config->nao_exibir_cotacao_menor != 0 ){
 
             $item_odds =  $config->nao_exibir_cotacao_menor;
 
