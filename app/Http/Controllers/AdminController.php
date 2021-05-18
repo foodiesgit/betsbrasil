@@ -1927,6 +1927,8 @@ class AdminController extends Controller {
                                 // $action .= '<a class="dropdown-item" href="/admin/cambista/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
                             }
                             $action .= '<a class="dropdown-item" href="/admin/ver/cambista/'.$row->idusuario.'">Ver Bilhetes</a>
+                            <a class="dropdown-item" target="_blank" href="/minha-apostas/visualizar-cupom/'.$row->codigo_unico.'">Ver Cupom</a>
+
                         </div>
                     </div>';
                     return $action;
@@ -2096,6 +2098,8 @@ class AdminController extends Controller {
     
                         <div class="dropdown-menu">';
                             $action .= '<a class="dropdown-item" href="/admin/ver/cambista/'.$row->idusuario.'">Ver Bilhetes</a>
+                            <a class="dropdown-item" target="_blank" href="/minha-apostas/visualizar-cupom/'.$row->codigo_unico.'">Ver Cupom</a>
+
                         </div>
                     </div>';
                     return $action;
