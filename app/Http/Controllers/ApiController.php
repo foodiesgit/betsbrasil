@@ -442,182 +442,189 @@ class ApiController extends Controller {
 
     public function recuperaUpcomingEvents($idesporte, $pais){
         set_time_limit(-1);
-        $i = 1;
-
-        $sair = false;
-
-
-
-        do{
-            $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&&cc='.$pais.'&page='.$i);
-            
-
-            if($response->successful()){
-                $json = json_decode($response->body(), false);
-
-
-
-                
-
-                if(count($json->results) > 0){
-
-
-
-                    foreach($json->results as $dados_json){
-
-
-                        $events = Events::find($dados_json->id);
-
-
-
-                        if($events == null){ $events = new Events; }
-
-
-
-                        if(isset($dados_json->id)){
-                            $data = \Carbon\Carbon::createFromTimestamp($dados_json->time, 'America/Sao_Paulo')->format('Y-m-d H:i:s'); 
-                            $events->id = $dados_json->id;
-
-                            $events->data_time = $dados_json->time;
-                            $events->data = $data;
-
-                            $events->idliga = $dados_json->league->id;
-
-
-
-                            //Verifica se o time Home ja esta cadastrado
-
-                            $times = Times::find($dados_json->home->id);
-
-
-
-                            if($times == null){
-
-                                $sqlPais = Paises::where('cc', $dados_json->home->cc)->get();
-                                // $idpais = 0;
-                                if(count($sqlPais) > 0){ $idpais = $sqlPais[0]->id; }else{ $idpais = 0; }
-
-
-
-                                $times = new Times;
-
-                                $times->id = $dados_json->home->id;
-
-                                $times->nome = $dados_json->home->name;
-
-                                $times->image_id = $dados_json->home->image_id;
-
-                                $times->idpais = $idpais;
-
-                                $times->save();
-
+        $responsePaises = Http::get('https://betsapi.com/docs/samples/countries.json');
+        if( $responsePaises->successful() ){
+            $json = json_decode($responsePaises->body(), false);
+            foreach( $json->results as $paises){
+                $i = 1;
+        
+                $sair = false;
+        
+        
+        
+                do{
+                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&&cc='. $paises->cc.'&page='.$i);
+                    
+        
+                    if($response->successful()){
+                        $json = json_decode($response->body(), false);
+        
+        
+        
+                        
+        
+                        if(count($json->results) > 0){
+        
+        
+        
+                            foreach($json->results as $dados_json){
+        
+        
+                                $events = Events::find($dados_json->id);
+        
+        
+        
+                                if($events == null){ $events = new Events; }
+        
+        
+        
+                                if(isset($dados_json->id)){
+                                    $data = \Carbon\Carbon::createFromTimestamp($dados_json->time, 'America/Sao_Paulo')->format('Y-m-d H:i:s'); 
+                                    $events->id = $dados_json->id;
+        
+                                    $events->data_time = $dados_json->time;
+                                    $events->data = $data;
+        
+                                    $events->idliga = $dados_json->league->id;
+        
+        
+        
+                                    //Verifica se o time Home ja esta cadastrado
+        
+                                    $times = Times::find($dados_json->home->id);
+        
+        
+        
+                                    if($times == null){
+        
+                                        $sqlPais = Paises::where('cc', $dados_json->home->cc)->get();
+                                        // $idpais = 0;
+                                        if(count($sqlPais) > 0){ $idpais = $sqlPais[0]->id; }else{ $idpais = 0; }
+        
+        
+        
+                                        $times = new Times;
+        
+                                        $times->id = $dados_json->home->id;
+        
+                                        $times->nome = $dados_json->home->name;
+        
+                                        $times->image_id = $dados_json->home->image_id;
+        
+                                        $times->idpais = $idpais;
+        
+                                        $times->save();
+        
+                                    }
+        
+                                    $events->idhome = $times->id;
+        
+        
+        
+                                    //Verifica se o time Away ja esta cadastrado
+        
+                                    $times = Times::find($dados_json->away->id);
+        
+                                    if($times == null){
+        
+                                        $sqlPais = Paises::where('cc', $dados_json->away->cc)->get();
+                                        // $idpais = 0;
+        
+        
+                                        if(count($sqlPais) > 0){ $idpais = $sqlPais[0]->id; }else{ $idpais = 0; }
+        
+        
+        
+                                        $times = new Times;
+        
+                                        $times->id = $dados_json->away->id;
+        
+                                        $times->nome = $dados_json->away->name;
+        
+                                        $times->image_id = $dados_json->away->image_id;
+        
+                                        $times->idpais = $idpais;
+        
+                                        $times->save();
+        
+                                    }
+        
+                                    $events->idaway = $times->id;
+        
+                                    if(isset($dados_json->id)){
+                                      
+                                        $events->bet365_id = isset($dados_json->bet365_id) ? $dados_json->bet365_id: 0;
+        
+                                    }
+        
+        
+        
+                                    if(isset($dados_json->extra->stadium_data->id)){
+        
+                                        $estadio = Estadios::find($dados_json->extra->stadium_data->id);
+        
+        
+        
+                                        if($estadio == null){ $estadio = new Estadios; }
+        
+        
+        
+                                        $estadio->id = $dados_json->extra->stadium_data->id;
+        
+                                        $estadio->name = $dados_json->extra->stadium_data->name;
+        
+                                        $estadio->city = $dados_json->extra->stadium_data->city;
+        
+                                        $estadio->country = $dados_json->extra->stadium_data->country;
+        
+                                        $estadio->capacity = $dados_json->extra->stadium_data->capacity;
+        
+                                        $estadio->googlecoords = $dados_json->extra->stadium_data->googlecoords;
+        
+                                        $estadio->save();
+        
+        
+        
+                                        $events->idestadio = $estadio->id;
+        
+                                    }
+        
+        
+        
+                                    $events->save();
+                                    $this->atualizaOdds($events->id);
+        
+                                    $this->somaTotalOdds($events->id);
+        
+                                }
+        
                             }
-
-                            $events->idhome = $times->id;
-
-
-
-                            //Verifica se o time Away ja esta cadastrado
-
-                            $times = Times::find($dados_json->away->id);
-
-                            if($times == null){
-
-                                $sqlPais = Paises::where('cc', $dados_json->away->cc)->get();
-                                // $idpais = 0;
-
-
-                                if(count($sqlPais) > 0){ $idpais = $sqlPais[0]->id; }else{ $idpais = 0; }
-
-
-
-                                $times = new Times;
-
-                                $times->id = $dados_json->away->id;
-
-                                $times->nome = $dados_json->away->name;
-
-                                $times->image_id = $dados_json->away->image_id;
-
-                                $times->idpais = $idpais;
-
-                                $times->save();
-
-                            }
-
-                            $events->idaway = $times->id;
-
-                            if(isset($dados_json->id)){
-                              
-                                $events->bet365_id = isset($dados_json->bet365_id) ? $dados_json->bet365_id: 0;
-
-                            }
-
-
-
-                            if(isset($dados_json->extra->stadium_data->id)){
-
-                                $estadio = Estadios::find($dados_json->extra->stadium_data->id);
-
-
-
-                                if($estadio == null){ $estadio = new Estadios; }
-
-
-
-                                $estadio->id = $dados_json->extra->stadium_data->id;
-
-                                $estadio->name = $dados_json->extra->stadium_data->name;
-
-                                $estadio->city = $dados_json->extra->stadium_data->city;
-
-                                $estadio->country = $dados_json->extra->stadium_data->country;
-
-                                $estadio->capacity = $dados_json->extra->stadium_data->capacity;
-
-                                $estadio->googlecoords = $dados_json->extra->stadium_data->googlecoords;
-
-                                $estadio->save();
-
-
-
-                                $events->idestadio = $estadio->id;
-
-                            }
-
-
-
-                            $events->save();
-                            $this->atualizaOdds($events->id);
-
-                            $this->somaTotalOdds($events->id);
-
+        
+                        }else{
+        
+                            $sair = true;
+        
                         }
-
+        
+                    }else{
+        
+                        $sair = true;
+        
                     }
-
-                }else{
-
-                    $sair = true;
-
-                }
-
-            }else{
-
-                $sair = true;
-
+        
+        
+        
+                    if($i == 99){ $sair = true; }
+        
+        
+        
+                    $i++;
+        
+                }while($sair == false);
+        
             }
-
-
-
-            if($i == 99){ $sair = true; }
-
-
-
-            $i++;
-
-        }while($sair == false);
-
+        }
+        
     }
 
     public function viewRecuperaLigasPorEsporte(){
