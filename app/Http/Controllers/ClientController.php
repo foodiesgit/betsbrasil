@@ -119,9 +119,9 @@ class ClientController extends Controller{
         $array_pais = [];
 
 
-        if($sql1->count() == 0 ){
+        if(count($sql1) == 0){
                 
-            $sql1 = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
+            $sql1 = Events::whereDate('data', '>=', date('Y-m-d H:i:s'))->whereDate('data','<=', $nextD)->orderBy('data', 'asc')
 
             ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
@@ -130,6 +130,7 @@ class ClientController extends Controller{
             ->where('idesporte', 1)//->where('ligas.status', 1)
 
             ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->get();
+
 
         }
         if(count($sql1) > 0){
@@ -148,7 +149,7 @@ class ClientController extends Controller{
 
 
             
-            if($sql1->count() == 0 ){
+            if(count($jogos_aba_futebol) == 0){
                 $jogos_aba_futebol = Events::where('data', '>=', date('Y-m-d H:i:s'))->where('data','<=', $nextD)->orderBy('data', 'asc')
 
                 ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
@@ -183,9 +184,8 @@ class ClientController extends Controller{
 
 
 
-                    $array_jogos = [];
 
-                    if($sql1->count() == 0){
+                    if(count($jogos) == 0){
                         $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', $nextD)  ->orderBy('data', 'asc')
 
                         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
@@ -196,6 +196,8 @@ class ClientController extends Controller{
 
 
                     }
+                    $array_jogos = [];
+
                     if(count($jogos) > 0){
 
                         foreach($jogos as $dados2){
