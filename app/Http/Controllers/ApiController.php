@@ -442,10 +442,10 @@ class ApiController extends Controller {
 
     public function recuperaUpcomingEvents($idesporte, $pais){
         set_time_limit(-1);
-        $responsePaises = Http::get('https://betsapi.com/docs/samples/countries.json');
-        if( $responsePaises->successful() ){
-            $json = json_decode($responsePaises->body(), false);
-            foreach( $json->results as $paises){
+        // $responsePaises = Http::get('https://betsapi.com/docs/samples/countries.json');
+        // if( $responsePaises->successful() ){
+        //     $json = json_decode($responsePaises->body(), false);
+        //     foreach( $json->results as $paises){
                 $i = 1;
         
                 $sair = false;
@@ -622,8 +622,8 @@ class ApiController extends Controller {
         
                 }while($sair == false);
         
-            }
-        }
+        //     }
+        // }
         
     }
 
