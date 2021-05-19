@@ -69,23 +69,12 @@
                   <!-- RD Navbar Brand-->
                   <div class="rd-navbar-brand">
                     <!-- Brand-->
-                    <a class="brand" href="index.html">
+                    <a class="brand" href="/">
                         <img class="brand-logo-dark" src="/logo_principal.png" alt="" width="106" height="41"/>
                         <img class="brand-logo-light" src="/logo_principal.png" alt="" width="106" height="41"/>
                     </a>
                   </div>
                   <!-- RD Navbar Search-->
-                  <div class="rd-navbar-search">
-                    <button class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search"><span></span></button>
-                    <form class="rd-search" action="search-results.html" data-search-live="rd-search-results-live" method="GET">
-                      <div class="form-wrap">
-                        <label class="form-label" for="rd-navbar-search-form-input">Pesquise seu jogo</label>
-                        <input class="rd-navbar-search-form-input form-input" id="rd-navbar-search-form-input" type="text" name="s" autocomplete="off">
-                        <div class="rd-search-results-live" id="rd-search-results-live"></div>
-                      </div>
-                      <button class="rd-search-form-submit fl-budicons-launch-search81" type="submit"></button>
-                    </form>
-                  </div>
                 </div>
               </div>
               <div class="rd-navbar-main-bottom rd-navbar-darker">
