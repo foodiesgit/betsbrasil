@@ -208,31 +208,29 @@ class AjaxController extends Controller{
 
     public function search(Request $request){
         $q = $request->all();
+
         if(isset($q['query'])){
-            $jogos = Events::leftJoin('times as home', 'home.id', '=','events.idhome')
-            ->leftJoin('times as away', 'away.id', '=','events.idaway')
-            ->orWhere(function($query) use($q) {
-                $query->where('data','like', '%'.$q['query'].'%');
+            $jogos = Events::join('times as home', 'home.id', '=','events.idhome')
+            ->join('times as away', 'away.id', '=','events.idaway')
+            ->where(function($query) use($q) {
                 $query->where('data', '>', date('Y-m-d H:i:s'));
-            })
-            ->orWhere(function($query) use($q) {
                 $query->where('home.nome','like', '%'.$q['query'].'%');
-                $query->where('data', '>', date('Y-m-d H:i:s'));
+                $query->orwhere('away.nome','like', '%'.$q['query'].'%');
+                $query->orwhere('data','like', '%'.$q['query'].'%');
             })
-            ->orWhere(function($query) use($q) {
-                $query->where('away.nome','like', '%'.$q['query'].'%');
-                $query->where('data', '>', date('Y-m-d H:i:s'));
-            })
+          
             // ->orWhere(function($query) use($q) {
             //     $query->where('ligas.nome','like', '%'.$q['query'].'%');
             // })
             ->where('data', '>', date('Y-m-d H:i:s'))
             // ->where('idesporte', 1)
-            ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id as betid', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds', 'away.nome as awayNome','home.nome as homeNome')->take('5')
+            ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id as betid', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds', 'away.nome as awayNome','home.nome as homeNome')->take(100)
             ->get();
+
             foreach ($jogos as $jogo) {
+                
                 $sql_odds_principal = Odds::where('idevent', $jogo['betid'])->get();
-                if($jogo->total_odds > 0){
+                if(count($sql_odds_principal) > 0){
                     $jogo['oddhome_id'] = $sql_odds_principal[0]->id;
 
                     $jogo['oddhome_value'] = $sql_odds_principal[0]->odds;
