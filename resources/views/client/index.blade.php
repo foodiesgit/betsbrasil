@@ -146,7 +146,7 @@
                   <!-- Heading Component-->
                   <article class="heading-component">
                     <div class="heading-component-inner">
-                      <h5 class="heading-component-title">Futebol
+                      <h5 class="heading-component-title">Futebol - {{\Carbon\Carbon::now()->locale('pt_BR')->isoFormat('dddd')}}
                       </h5>
                       <div>
                         <ul class="list-inline list-inline-xs">
