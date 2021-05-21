@@ -84,7 +84,120 @@
                     <li class="rd-nav-item active"><a class="rd-nav-link" href="/">Início</a>
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/jogos-ao-vivo">Ao Vivo</a>
-                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="#">Campeonatos</a>
+                    <article class="rd-menu rd-navbar-megamenu rd-megamenu-2-columns context-light">
+                      <div class="rd-megamenu-main">
+                          <div class="rd-megamenu-item rd-megamenu-item-nav">
+                            <!-- Heading Component-->
+
+                            <div class="rd-megamenu-list-outer">
+
+
+                              <ul class="rd-megamenu-list">
+                              <?php
+
+                                $campeonatosDestaque = App\Ligas::where('ligas.status', 1)
+
+                                    ->leftJoin('paises', 'paises.id','=','ligas.idpais')
+
+                                    ->select("ligas.id", "ligas.nome_traduzido", "paises.bandeira", "paises.id as idpais", "paises.nome_traduzido as nome_pais")
+
+                                    ->groupBy('idpais')->get();
+
+
+
+                                $array_pais = [];
+
+                                if(count($campeonatosDestaque) > 0){
+
+                                    foreach($campeonatosDestaque as $dados){
+
+                                        $c = App\Ligas::where('ligas.status', 1)
+
+                                            ->where('idpais', $dados->idpais)
+
+                                            ->leftJoin('paises', 'paises.id','=','ligas.idpais')
+
+                                            ->select("ligas.id", "ligas.nome_traduzido", "paises.nome_traduzido as nome_pais")->get();
+
+
+
+                                        $array_ligas = [];
+
+
+
+
+
+                                        if(count($c) > 0){
+
+                                            foreach($c as $dados2){
+
+                                                $array_ligas[] = [
+
+                                                    'id' => $dados2->id,
+
+                                                    'nome_liga' => $dados2->nome_traduzido,
+
+                                                ];
+
+                                            }
+
+                                        }
+
+
+
+                                        $array_pais[] = [
+
+                                            'id' => $dados->id,
+
+                                            'nome' => $dados->nome_pais,
+
+                                            'bandeira' => $dados->bandeira,
+
+                                            'ligas' => $array_ligas
+
+                                        ];
+
+                                    }
+
+                                }
+
+
+
+
+
+                                if(count($array_pais) > 0){
+
+                                    foreach($array_pais as $dados){
+
+
+
+                                        $totalEvents = DB::table('events')->where('idliga', $dados['id'])->where('data','>',date('Y-m-d H:i:s'))->select(DB::raw("count(*) as total"))->get();
+
+
+
+                                                if(count($dados['ligas']) > 0){
+
+                                                    foreach($dados['ligas'] as $dados2){
+                                                      echo '<li class="rd-megamenu-list-item"><a class="rd-megamenu-list-link" href="/leagues/'.$dados2['id'].'">'.$dados2['nome_liga'].'</a></li>';
+
+                                                    }
+
+                                                }
+
+                    
+
+
+                                    }
+
+                                }
+
+                                ?>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                    </article>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/verifica-bilhete">Verifica Bilhete</a>
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/regulamentacao">Regulamento</a>
@@ -108,7 +221,6 @@
         </div>
       </header>
       @stop
-
 
  @section('alert')
 <?php
