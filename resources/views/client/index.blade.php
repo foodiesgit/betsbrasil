@@ -62,7 +62,7 @@
 
 <div class="col-lg-12">
 <div class="page animated" style="animation-duration: 500ms;">
-<div class="modal" id="loading"><div class="ldio-jyt9oirj2cl">
+<div class="modal" id="loading" style="z-index: 100000;"><div class="ldio-jyt9oirj2cl">
 <div></div>
 </div></div>
 <style type="text/css">
@@ -534,6 +534,7 @@ $(document).ready(function(e){
         // $('.item').parent().remove();
         // $('.liga').parent().remove();
         $('#tab1').css('display', "block");
+        $('#tab1').html('');
         $('#ns').css('display', "none");
         $('#messageSearch').css('display', "block");
         // if(suggestion != ""){
@@ -545,7 +546,6 @@ $(document).ready(function(e){
         // }
     },
     onSearchComplete: function (suggestion, jogos) {
-
             jogos['data'].map((item => {
             $('#tab1').append(
                 '<div class="sport-table">'+
@@ -1254,8 +1254,6 @@ if(odds[0].idsubgrupo == 84){
 
         var id = $(this).attr('data-id');
 
-
-
         window.location.href = '/remove-selection/' + id;
 
     });
@@ -1527,6 +1525,7 @@ if(odds[0].idsubgrupo == 84){
     $('body').on('click', '.remove-cota', function(e){
 
     e.preventDefault();
+    $('#loading').css('display','block')
 
 
     var id = $(this).attr('data-id');
@@ -1549,6 +1548,7 @@ if(odds[0].idsubgrupo == 84){
         },complete: function(){
 
             recuperaCarrinho();
+            $('#loading').css('display','none')
 
         }
 

@@ -61,7 +61,7 @@
 @yield('main-header')
 <div class="col-lg-12">
 <div class="page animated" style="animation-duration: 500ms;">
-<div class="modal" id="loading"><div class="ldio-jyt9oirj2cl">
+<div class="modal" id="loading" style="z-index: 100000;"><div class="ldio-jyt9oirj2cl">
 <div></div>
 </div></div>
 <style type="text/css">
@@ -1443,6 +1443,7 @@ if(odds[0].idsubgrupo == 84){
 
     e.preventDefault();
 
+    $('#loading').css('display','block')
 
     var id = $(this).attr('data-id');
 
@@ -1464,6 +1465,7 @@ if(odds[0].idsubgrupo == 84){
         },complete: function(){
 
             recuperaCarrinho();
+            $('#loading').css('display','none')
 
         }
 
