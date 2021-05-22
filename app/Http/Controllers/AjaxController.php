@@ -269,7 +269,7 @@ class AjaxController extends Controller{
                 }
 
             }
-            return Response()->json($jogos);
+            return Response()->json(['suggestions' => ['value'=> '', 'data' => $jogos]]);
         }
     }
 
