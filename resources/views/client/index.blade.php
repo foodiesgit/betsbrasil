@@ -537,9 +537,10 @@ $(document).ready(function(e){
         }
         $('.item').parent().remove();
         $('.liga').parent().remove();
+        $('#tab1').html('');
+
         $('#tab1').css('display', "block");
         $('#ns').css('display', "none");
-        $('#messageSearch').css('display', "block");
         jogos['data'].map((item => {
             $('#tab1').append(
                 '<div class="sport-table">'+
@@ -586,8 +587,6 @@ $(document).ready(function(e){
                 '</div>'+
                 '</div>')
         }));
-        $('#messageSearch').css('display', "none");
-
     },
 
     });
