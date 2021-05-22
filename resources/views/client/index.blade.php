@@ -545,7 +545,7 @@ $(document).ready(function(e){
         // }
     },
     onSearchComplete: function (suggestion, jogos) {
-        if(suggestion != ""){
+
             jogos['data'].map((item => {
             $('#tab1').append(
                 '<div class="sport-table">'+
@@ -592,7 +592,7 @@ $(document).ready(function(e){
                 '</div>'+
                 '</div>')
         }));
-        }
+        $('#messageSearch').css('display', "none");
 
     }
 
