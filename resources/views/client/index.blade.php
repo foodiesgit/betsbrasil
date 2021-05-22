@@ -528,20 +528,25 @@ $(document).ready(function(e){
 
     $('#search').autocomplete({
     serviceUrl: '/ajax/search',
-    onSearchComplete: function (suggestion, jogos) {
+    onSearchStart: function (suggestion) {
+        $('.item').parent().remove();
+        $('.liga').parent().remove();
+        $('#tab1').html('');
+        $('#tab1').css('display', "block");
+        $('#ns').css('display', "none");
+        $('#messageSearch').css('display', "block");
         if(suggestion == ""){
             $('#tab1').css('display', "none");
             $('#ns').css('display', "block");
             $('#messageSearch').css('display', "none");
 
         }
-        $('.item').parent().remove();
-        $('.liga').parent().remove();
-        $('#tab1').html('');
-
-        $('#tab1').css('display', "block");
-        $('#ns').css('display', "none");
-        jogos['data'].map((item => {
+    },
+    showNoSuggestionNotice: true,
+    noSuggestionNotice: "Nenhum usuário encontrado!",
+    onSearchComplete: function (suggestion, jogos) {
+        if(suggestion != ""){}
+            jogos['data'].map((item => {
             $('#tab1').append(
                 '<div class="sport-table">'+
                     '<div class="sport-table-tr">'+
@@ -587,7 +592,9 @@ $(document).ready(function(e){
                 '</div>'+
                 '</div>')
         }));
-    },
+        }
+
+    }
 
     });
     var odd =  '';
