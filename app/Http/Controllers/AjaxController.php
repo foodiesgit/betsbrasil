@@ -639,7 +639,7 @@ class AjaxController extends Controller{
         $input = $request->all();
 
         $id = $input['id'];
-
+        $config =\DB::table('campos_fixos')->first(); 
 
 
         $novoCarrinho = NovoCarrinho::where('session_id', session()->getId())->get();
@@ -726,7 +726,9 @@ class AjaxController extends Controller{
 
             }
 
+            $cota = ($sqlodd[0]->odds < $config->cotacao_minima &&  $config->cotacao_minima != 0 ? $config->cotacao_minima:  $sqlodd[0]->odds);
 
+            $cota =  ( $cota > $config->cotacao_maxima &&  $config->cotacao_maxima != 0 ? $config->cotacao_maxima:  $cota);
 
             $item = new NovoCarrinhoItem;
 
@@ -736,7 +738,7 @@ class AjaxController extends Controller{
 
             $item->idodd = $sqlodd[0]->id;
 
-            $item->cota_momento = $sqlodd[0]->odds;
+            $item->cota_momento = $cota;
 
             $item->save();
 
@@ -774,7 +776,7 @@ class AjaxController extends Controller{
 
         NovoCarrinho::where('session_id', session()->getId())->update([
 
-            'valor_total_cotas' => $multiplicacao
+            'valor_total_cotas' =>  ($multiplicacao  >  $config->premio_maximo &&  $config->premio_maximo != 0 ? $config->premio_maximo :  $multiplicacao )
 
         ]);
 
