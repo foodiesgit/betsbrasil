@@ -30,8 +30,8 @@
 				wow:                     $(".wow"),
 				owl:                     $(".owl-carousel"),
 				swiper:                  $(".swiper-slider"),
-				search:                  $(".rd-search"),
-				searchResults:           $('.rd-search-results'),
+				// search:                  $(".rd-search"),
+				// searchResults:           $('.rd-search-results'),
 				popover:                 $('[data-toggle="popover"]'),
 				checkbox:                $("input[type='checkbox']"),
 				customToggle:            $("[data-custom-toggle]"),
@@ -414,32 +414,32 @@
 
 		/**
 		 * Live Search
-		 * @description  create live search results
+		 * @description  create live 111111111111111111111111111 results
 		 */
-		function liveSearch(options) {
-			$('#' + options.live).removeClass('cleared').html();
-			options.current++;
-			options.spin.addClass('loading');
-			$.get(handler, {
-				s:          decodeURI(options.term),
-				liveSearch: options.live,
-				dataType:   "html",
-				liveCount:  options.liveCount,
-				filter:     options.filter,
-				template:   options.template
-			}, function (data) {
-				options.processed++;
-				var live = $('#' + options.live);
-				if ((options.processed === options.current) && !live.hasClass('cleared')) {
-					live.find('> #search-results').removeClass('active');
-					live.html(data);
-					setTimeout(function () {
-						live.find('> #search-results').addClass('active');
-					}, 50);
-				}
-				options.spin.parents('.rd-search').find('.input-group-addon').removeClass('loading');
-			})
-		}
+		// function liveSearch(options) {
+		// 	$('#' + options.live).removeClass('cleared').html();
+		// 	options.current++;
+		// 	options.spin.addClass('loading');
+		// 	$.get(handler, {
+		// 		s:          decodeURI(options.term),
+		// 		liveSearch: options.live,
+		// 		dataType:   "html",
+		// 		liveCount:  options.liveCount,
+		// 		filter:     options.filter,
+		// 		template:   options.template
+		// 	}, function (data) {
+		// 		options.processed++;
+		// 		var live = $('#' + options.live);
+		// 		if ((options.processed === options.current) && !live.hasClass('cleared')) {
+		// 			live.find('> #search-results').removeClass('active');
+		// 			live.html(data);
+		// 			setTimeout(function () {
+		// 				live.find('> #search-results').addClass('active');
+		// 			}, 50);
+		// 		}
+		// 		options.spin.parents('.rd-search').find('.input-group-addon').removeClass('loading');
+		// 	})
+		// }
 
 		/**
 		 * @desc Attach form validation to elements
@@ -978,93 +978,93 @@
 		 * RD Search
 		 * @description Enables search
 		 */
-		if (plugins.search.length || plugins.searchResults) {
-			var handler = "bat/rd-search.php";
-			var defaultTemplate = '<h6 class="search-title"><a target="_top" href="#{href}" class="search-link">#{title}</a></h6>' +
-					'<p>...#{token}...</p>' +
-					'<p class="match"><em>Terms matched: #{count} - URL: #{href}</em></p>';
-			var defaultFilter = '*.html';
+		// if (plugins.search.length || plugins.searchResults) {
+		// 	var handler = "bat/rd-search.php";
+		// 	var defaultTemplate = '<h6 class="search-title"><a target="_top" href="#{href}" class="search-link">#{title}</a></h6>' +
+		// 			'<p>...#{token}...</p>' +
+		// 			'<p class="match"><em>Terms matched: #{count} - URL: #{href}</em></p>';
+		// 	var defaultFilter = '*.html';
 
-			if (plugins.search.length) {
-				for (var i = 0; i < plugins.search.length; i++) {
-					var searchItem = $(plugins.search[i]),
-							options = {
-								element:   searchItem,
-								filter:    (searchItem.attr('data-search-filter')) ? searchItem.attr('data-search-filter') : defaultFilter,
-								template:  (searchItem.attr('data-search-template')) ? searchItem.attr('data-search-template') : defaultTemplate,
-								live:      (searchItem.attr('data-search-live')) ? searchItem.attr('data-search-live') : false,
-								liveCount: (searchItem.attr('data-search-live-count')) ? parseInt(searchItem.attr('data-search-live'), 10) : 4,
-								current:   0,
-								processed: 0,
-								timer:     {}
-							};
+		// 	if (plugins.search.length) {
+		// 		for (var i = 0; i < plugins.search.length; i++) {
+		// 			var searchItem = $(plugins.search[i]),
+		// 					options = {
+		// 						element:   searchItem,
+		// 						filter:    (searchItem.attr('data-search-filter')) ? searchItem.attr('data-search-filter') : defaultFilter,
+		// 						template:  (searchItem.attr('data-search-template')) ? searchItem.attr('data-search-template') : defaultTemplate,
+		// 						live:      (searchItem.attr('data-search-live')) ? searchItem.attr('data-search-live') : false,
+		// 						liveCount: (searchItem.attr('data-search-live-count')) ? parseInt(searchItem.attr('data-search-live'), 10) : 4,
+		// 						current:   0,
+		// 						processed: 0,
+		// 						timer:     {}
+		// 					};
 
-					var $toggle = $('.rd-navbar-search-toggle');
-					if ($toggle.length) {
-						$toggle.on('click', (function (searchItem) {
-							return function () {
-								if (!($(this).hasClass('active'))) {
-									searchItem.find('input').val('').trigger('propertychange');
-								}
-							}
-						})(searchItem));
-					}
+		// 			var $toggle = $('.rd-navbar-search-toggle');
+		// 			if ($toggle.length) {
+		// 				$toggle.on('click', (function (searchItem) {
+		// 					return function () {
+		// 						if (!($(this).hasClass('active'))) {
+		// 							searchItem.find('input').val('').trigger('propertychange');
+		// 						}
+		// 					}
+		// 				})(searchItem));
+		// 			}
 
-					if (options.live) {
-						var clearHandler = false;
+		// 			if (options.live) {
+		// 				var clearHandler = false;
 
-						searchItem.find('input').on("input propertychange", $.proxy(function () {
-							this.term = this.element.find('input').val().trim();
-							this.spin = this.element.find('.input-group-addon');
+		// 				searchItem.find('input').on("input propertychange", $.proxy(function () {
+		// 					this.term = this.element.find('input').val().trim();
+		// 					this.spin = this.element.find('.input-group-addon');
 
-							clearTimeout(this.timer);
+		// 					clearTimeout(this.timer);
 
-							if (this.term.length > 2) {
-								this.timer = setTimeout(liveSearch(this), 200);
+		// 					if (this.term.length > 2) {
+		// 						this.timer = setTimeout(liveSearch(this), 200);
 
-								if (clearHandler === false) {
-									clearHandler = true;
+		// 						if (clearHandler === false) {
+		// 							clearHandler = true;
 
-									$body.on("click", function (e) {
-										if ($(e.toElement).parents('.rd-search').length === 0) {
-											$('#rd-search-results-live').addClass('cleared').html('');
-										}
-									})
-								}
+		// 							$body.on("click", function (e) {
+		// 								if ($(e.toElement).parents('.rd-search').length === 0) {
+		// 									$('#rd-search-results-live').addClass('cleared').html('');
+		// 								}
+		// 							})
+		// 						}
 
-							} else if (this.term.length === 0) {
-								$('#' + this.live).addClass('cleared').html('');
-							}
-						}, options, this));
-					}
+		// 					} else if (this.term.length === 0) {
+		// 						$('#' + this.live).addClass('cleared').html('');
+		// 					}
+		// 				}, options, this));
+		// 			}
 
-					searchItem.submit($.proxy(function () {
-						$('<input />').attr('type', 'hidden')
-						.attr('name', "filter")
-						.attr('value', this.filter)
-						.appendTo(this.element);
-						return true;
-					}, options, this))
-				}
-			}
+		// 			searchItem.submit($.proxy(function () {
+		// 				$('<input />').attr('type', 'hidden')
+		// 				.attr('name', "filter")
+		// 				.attr('value', this.filter)
+		// 				.appendTo(this.element);
+		// 				return true;
+		// 			}, options, this))
+		// 		}
+		// 	}
 
-			if (plugins.searchResults.length) {
-				var regExp = /\?.*s=([^&]+)\&filter=([^&]+)/g;
-				var match = regExp.exec(location.search);
+		// 	if (plugins.searchResults.length) {
+		// 		var regExp = /\?.*s=([^&]+)\&filter=([^&]+)/g;
+		// 		var match = regExp.exec(location.search);
 
-				if (match !== null) {
-					$.get(handler, {
-						s:        decodeURI(match[1]),
-						dataType: "html",
-						filter:   match[2],
-						template: defaultTemplate,
-						live:     ''
-					}, function (data) {
-						plugins.searchResults.html(data);
-					})
-				}
-			}
-		}
+		// 		if (match !== null) {
+		// 			$.get(handler, {
+		// 				s:        decodeURI(match[1]),
+		// 				dataType: "html",
+		// 				filter:   match[2],
+		// 				template: defaultTemplate,
+		// 				live:     ''
+		// 			}, function (data) {
+		// 				plugins.searchResults.html(data);
+		// 			})
+		// 		}
+		// 	}
+		// }
 
 		/**
 		 * Swiper

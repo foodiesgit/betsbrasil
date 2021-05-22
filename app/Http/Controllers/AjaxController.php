@@ -269,7 +269,7 @@ class AjaxController extends Controller{
                 }
 
             }
-            return Response()->json(['suggestions' => ['value'=> '', 'data' => $jogos]]);
+            return Response()->json(['suggestions' => ['value'=> '1', 'data' => $jogos]]);
         }
     }
 
@@ -793,7 +793,6 @@ class AjaxController extends Controller{
 
     public function recuperaCarrinho(Request $request){
         $config =\DB::table('campos_fixos')->first(); 
-        dd($config);
 
         $sql = NovoCarrinho::leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
 
