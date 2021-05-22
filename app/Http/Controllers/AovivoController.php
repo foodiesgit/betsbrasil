@@ -693,7 +693,9 @@ class AovivoController extends Controller
                             $array_ligas = [];
                             $array_jogos = [];
 
-
+                            $sql_odds_principal = Odds::where('idevent', $jogos->jogoId)->where('idsubgrupo', 79)->get();
+                            if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
+        
                             array_push($array_jogos,[
     
                                 'id' => $jogos->jogoId,
@@ -727,6 +729,7 @@ class AovivoController extends Controller
                                 'oddaway_name' => $sql_odds_principal[2]->name,
     
                             ]);
+                            }
                             array_push($array_ligas, [
     
                                 'id' =>  $evento->league->id,
