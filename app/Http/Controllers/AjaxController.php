@@ -637,7 +637,7 @@ class AjaxController extends Controller{
     public function adicionarAposta(Request $request){
 
         $input = $request->all();
-
+ 
         $id = $input['id'];
         $config =\DB::table('campos_fixos')->first(); 
 
@@ -726,9 +726,6 @@ class AjaxController extends Controller{
 
             }
 
-            $cota = ($sqlodd[0]->odds < $config->cotacao_minima &&  $config->cotacao_minima != 0 ? $config->cotacao_minima:  $sqlodd[0]->odds);
-
-            $cota =  ( $cota > $config->cotacao_maxima &&  $config->cotacao_maxima != 0 ? $config->cotacao_maxima:  $cota);
 
             $item = new NovoCarrinhoItem;
 
@@ -738,7 +735,7 @@ class AjaxController extends Controller{
 
             $item->idodd = $sqlodd[0]->id;
 
-            $item->cota_momento = $cota;
+            $item->cota_momento = $sqlodd[0]->odds;
 
             $item->save();
 
@@ -776,11 +773,9 @@ class AjaxController extends Controller{
 
         NovoCarrinho::where('session_id', session()->getId())->update([
 
-            'valor_total_cotas' =>  ($multiplicacao  >  $config->premio_maximo &&  $config->premio_maximo != 0 ? $config->premio_maximo :  $multiplicacao )
+            'valor_total_cotas' =>  $multiplicacao
 
         ]);
-
-
 
         return response()->json([
 
@@ -797,6 +792,8 @@ class AjaxController extends Controller{
 
 
     public function recuperaCarrinho(Request $request){
+        $config =\DB::table('campos_fixos')->first(); 
+        dd($config);
 
         $sql = NovoCarrinho::leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
 
@@ -860,17 +857,19 @@ class AjaxController extends Controller{
 
         $valor_total_apostado = 0;
 
-
+       
 
         if(count($sqlTotal) > 0){
 
             $valor_total_cotas = $sqlTotal[0]->valor_total_cotas;
 
-            $valor_total_apostado = $sqlTotal[0]->valor_total_apostado;
+            $valor_total_apostado = ($sqlTotal[0]->valor_total_apostado  >  $config->premio_maximo &&  $config->premio_maximo != 0 ? $config->premio_maximo : $sqlTotal[0]->valor_total_apostado);
 
         }
 
+        $valor_total_cotas = ($valor_total_cotas < $config->cotacao_minima &&  $config->cotacao_minima != 0 ? $config->cotacao_minima:  $valor_total_cotas);
 
+        $valor_total_cotas =  ( $valor_total_cotas > $config->cotacao_maxima &&  $config->cotacao_maxima != 0 ? $config->cotacao_maxima:  $valor_total_cotas);
 
         return response()->json([
 

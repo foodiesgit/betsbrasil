@@ -1253,6 +1253,58 @@ if(odds[0].idsubgrupo == 84){
 
     $('body').on('keyup', '#newstake', function(e){
 
+    e.preventDefault();
+
+
+
+    var valor = $(this).val();
+
+    valor = valor.replace("R$ ", "");
+
+    valor = valor.replace(".", "");
+
+    valor = valor.replace(",", ".");
+
+
+
+    valor = parseFloat(valor);
+
+    $('#newstake_hidden').val(valor)
+    $('#newstake_hidden_mobile').val(valor)
+
+    if( valor > 0.00 ){
+
+        var totalcotas = $('#slip_total_odds').html();
+
+        totalcotas = parseFloat(totalcotas);
+
+
+
+        var total = valor * totalcotas;
+
+    
+        if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
+            total =  <?php echo $config->premio_maximo;?> ;
+        }
+
+        $('#slip_total_aposta').html( $('#newstake').val() );
+
+        $('#slip_total_retorno').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
+
+
+
+        $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
+
+    }else{
+
+        $('#btn_finalizar_aposta').attr('disabled');
+
+    }
+
+    });
+
+    $('body').on('keyup', '#newstake_mobile', function(e){
+
         e.preventDefault();
 
 
@@ -1270,7 +1322,7 @@ if(odds[0].idsubgrupo == 84){
         valor = parseFloat(valor);
 
         $('#newstake_hidden').val(valor)
-        $('#newstake_hidden_mobile').val(valor)
+
 
         if( valor > 0.00 ){
 
@@ -1282,77 +1334,27 @@ if(odds[0].idsubgrupo == 84){
 
             var total = valor * totalcotas;
 
-            console.log(total);
 
 
 
-            $('#slip_total_aposta').html( $('#newstake').val() );
+            if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
+            total =  <?php echo $config->premio_maximo;?> ;
+            }
 
-            $('#slip_total_retorno').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
+            $('#slip_total_aposta_mobile').html( $('#newstake_mobile').val() );
 
+            $('#slip_total_retorno_mobile').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
 
-
-            $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
+            $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
 
         }else{
 
-            $('#btn_finalizar_aposta').attr('disabled');
+
+            $('#btn_finalizar_aposta_mobile').attr('disabled');
 
         }
 
-    });
-
-    $('body').on('keyup', '#newstake_mobile', function(e){
-
-            e.preventDefault();
-
-
-
-            var valor = $(this).val();
-
-            valor = valor.replace("R$ ", "");
-
-            valor = valor.replace(".", "");
-
-            valor = valor.replace(",", ".");
-
-
-
-            valor = parseFloat(valor);
-
-            $('#newstake_hidden').val(valor)
-
-
-            if( valor > 0.00 ){
-
-                var totalcotas = $('#slip_total_odds').html();
-
-                totalcotas = parseFloat(totalcotas);
-
-
-
-                var total = valor * totalcotas;
-
-                console.log(total);
-
-
-
-                $('#slip_total_aposta_mobile').html( $('#newstake_mobile').val() );
-
-                $('#slip_total_retorno_mobile').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
-
-                $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
-
-            }else{
-
-                console.log("valor = 0");
-
-                $('#btn_finalizar_aposta_mobile').attr('disabled');
-
-            }
-
-        });
-
+});
     $('body').on('click', '.cota-aposta', function(e){
 
         e.preventDefault();

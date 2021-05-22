@@ -58,6 +58,8 @@
   }
 </style>
 @yield('main-header')
+<?php $config =\DB::table('campos_fixos')->first(); ?>
+
 <div class="col-lg-12">
 <div class="page animated" style="animation-duration: 500ms;">
 <div class="modal" id="loading"><div class="ldio-jyt9oirj2cl">
@@ -1364,9 +1366,10 @@ if(odds[0].idsubgrupo == 84){
 
             var total = valor * totalcotas;
 
-            console.log(total);
-
-
+          
+            if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
+                total =  <?php echo $config->premio_maximo;?> ;
+            }
 
             $('#slip_total_aposta').html( $('#newstake').val() );
 
@@ -1415,9 +1418,12 @@ if(odds[0].idsubgrupo == 84){
 
                 var total = valor * totalcotas;
 
-                console.log(total);
 
 
+     
+                if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
+                  total =  <?php echo $config->premio_maximo;?> ;
+                }
 
                 $('#slip_total_aposta_mobile').html( $('#newstake_mobile').val() );
 
@@ -1427,7 +1433,6 @@ if(odds[0].idsubgrupo == 84){
 
             }else{
 
-                console.log("valor = 0");
 
                 $('#btn_finalizar_aposta_mobile').attr('disabled');
 
