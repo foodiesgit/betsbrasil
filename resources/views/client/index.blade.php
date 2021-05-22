@@ -531,11 +531,11 @@ $(document).ready(function(e){
     onSearchStart: function (suggestion) {
         $('.item').parent().remove();
         $('.liga').parent().remove();
-        $('#tab1').html('');
         $('#tab1').css('display', "block");
         $('#ns').css('display', "none");
         $('#messageSearch').css('display', "block");
-        if(suggestion == ""){
+        if(suggestion != ""){
+            $('#tab1').html('');
             $('#tab1').css('display', "none");
             $('#ns').css('display', "block");
             $('#messageSearch').css('display', "none");
