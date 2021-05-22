@@ -529,23 +529,20 @@ $(document).ready(function(e){
     $('#search').autocomplete({
     serviceUrl: '/ajax/search',
     onSearchStart: function (suggestion) {
-        $('.item').parent().remove();
-        $('.liga').parent().remove();
+        // $('.item').parent().remove();
+        // $('.liga').parent().remove();
         $('#tab1').css('display', "block");
         $('#ns').css('display', "none");
         $('#messageSearch').css('display', "block");
-        if(suggestion != ""){
-            $('#tab1').html('');
-            $('#tab1').css('display', "none");
-            $('#ns').css('display', "block");
-            $('#messageSearch').css('display', "none");
+        // if(suggestion != ""){
+        //     $('#tab1').html('');
+        //     $('#tab1').css('display', "none");
+        //     $('#ns').css('display', "block");
+        //     $('#messageSearch').css('display', "none");
 
-        }
+        // }
     },
-    showNoSuggestionNotice: true,
-    noSuggestionNotice: "Nenhum usuário encontrado!",
     onSearchComplete: function (suggestion, jogos) {
-        console.log(suggestion)
         if(suggestion != ""){
             jogos['data'].map((item => {
             $('#tab1').append(
