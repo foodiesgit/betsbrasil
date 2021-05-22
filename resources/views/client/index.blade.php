@@ -545,7 +545,7 @@ $(document).ready(function(e){
     showNoSuggestionNotice: true,
     noSuggestionNotice: "Nenhum usuário encontrado!",
     onSearchComplete: function (suggestion, jogos) {
-        if(suggestion != ""){}
+        if(suggestion != ""){
             jogos['data'].map((item => {
             $('#tab1').append(
                 '<div class="sport-table">'+
