@@ -208,7 +208,6 @@ class AjaxController extends Controller{
 
     public function search(Request $request){
         $q = $request->all();
-
         if(isset($q['query'])){
             $jogos = Events::join('times as home', 'home.id', '=','events.idhome')
             ->join('times as away', 'away.id', '=','events.idaway')

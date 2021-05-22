@@ -116,7 +116,7 @@
                       <h3 class="game-info-title">{{$jogo->nome_traduzido}}</h3>
                       <div class="game-info-main">
                         <div class="game-info-team game-info-team-first">
-                          <figure><img src="https://assets.b365api.com/images/team/s/{{$jogo->homeImage}}.png" alt="" width="20" height="20">
+                          <figure><img src="https://assets.b365api.com/images/team/b/{{$jogo->homeImage}}.png" alt="" width="20" height="20">
                           </figure>
                           <div class="game-result-team-name">{{$jogo->homeNome}}</div>
                           <!-- <div class="game-result-team-country">USA</div> -->
@@ -129,7 +129,7 @@
                           <div class="game-result-divider-wrap"><span class="game-info-team-divider">VS</span></div>
                         </div>
                         <div class="game-info-team game-info-team-second">
-                          <figure><img src="https://assets.b365api.com/images/team/s/{{$jogo->awayImage}}.png" alt="" width="20" height="20">
+                          <figure><img src="https://assets.b365api.com/images/team/b/{{$jogo->awayImage}}.png" alt="" width="20" height="20">
                           </figure>
                           <div class="game-result-team-name">{{$jogo->awayNome}}</div>
                           <!-- <div class="game-result-team-country">Germany</div> -->
