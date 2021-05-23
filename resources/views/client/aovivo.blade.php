@@ -90,107 +90,108 @@
             </div>
             <!-- Isotope Content-->
             <div class="col-lg-8">
-              <div class="row isotope row-30" data-isotope-layout="masonry" data-column-class=".col-1" data-isotope-group="gallery" style="position: relative; height: 3033px;">
+              <div class="row isotope row-30" data-isotope-layout="masonry" data-column-class=".col-1" data-isotope-group="gallery" style="position: relative;">
                 <div class="col-1 isotope-item isotope-sizer" style="position: absolute; left: 0px; top: 0px;"></div>
                 <!-- Football-->
-                <div class="col-lg-12 isotope-item" data-filter="football" style="position: absolute; left: 0px; top: 0px;">
-                  <!-- Heading Component-->
-                  <article class="heading-component">
-                    <div class="heading-component-inner">
-                      <h5 class="heading-component-title">Futebol - Ao Vivo
-                      </h5>
-                      <div>
-                        <ul class="list-inline list-inline-xs">
-                      
-                        </ul>
-                      </div>
-                    </div>
-                  </article>
-                  <div id="atualizaAovivo">
-                  <?php                                   
-                    if( count($array_jogos_aba_futebol) > 0 ){
+                    <div class="col-lg-12 isotope-item" data-filter="football" style="position: absolute; left: 0px; top: 0px;">
+                    <!-- Heading Component-->
+                    <article class="heading-component">
+                        <div class="heading-component-inner">
+                        <h5 class="heading-component-title">Futebol - Ao Vivo
+                        </h5>
+                        <div>
+                            <ul class="list-inline list-inline-xs">
+                        
+                            </ul>
+                        </div>
+                        </div>
+                    </article>
+                    <div id="atualizaAovivo">
+                    <?php                                   
+                        if( count($array_jogos_aba_futebol) > 0 ){
 
-                        foreach( $array_jogos_aba_futebol as $dados ){
+                            foreach( $array_jogos_aba_futebol as $dados ){
 
-                            if(!is_null($dados['pais']) && count($dados['ligas']) > 0 ){
-                                echo '<div class="sport-table-header"><img src="/assets/bandeiras/'.$dados['bandeira'].'" style="width: 24px; height: 24px; margin-right: 5px; ">'.$dados['pais'].'</div>';
+                                if(!is_null($dados['pais']) && count($dados['ligas']) > 0 ){
+                                    echo '<div class="sport-table-header"><img src="/assets/bandeiras/'.$dados['bandeira'].'" style="width: 24px; height: 24px; margin-right: 5px; ">'.$dados['pais'].'</div>';
 
-                                foreach($dados['ligas'] as $dados){
-                                if(count($dados['jogos']) > 0){
-    
-                                    echo ' <div class="sport-table-header">'.$dados['liga'].'</div>';
-    
-    
-                                    foreach($dados['jogos'] as $jogos){
-    
-                                        echo '
-                                        <div class="sport-table">
-                                            <div class="sport-table-tr">
-                                                <div class="row sport-row align-items-center row-15">
-                                                    <div class="col-sm-1 col-md-1 col-lg-1">
-                                                        <div class="sport-table-icon">
-                                                            '.$jogos['time'].'"
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-9 col-md-4 col-lg-3">
-                                                        <div class="sport-table-title">
-                                                            <div class="sport-table-title-item sport-table-title-item-left">
-                                                                <span class="sport-table-title-team">'.$jogos['oddhome_name'].' X</span>
-                                                                <span class="sport-table-title-team">'.$jogos['oddaway_name'].'</span>
-                                                            </div>
-                                                            <div class="sport-table-title-item sport-table-title-item-right">
+                                    foreach($dados['ligas'] as $dados){
+                                    if(count($dados['jogos']) > 0){
+        
+                                        echo ' <div class="sport-table-header">'.$dados['liga'].'</div>';
+        
+        
+                                        foreach($dados['jogos'] as $jogos){
+        
+                                            echo '
+                                            <div class="sport-table">
+                                                <div class="sport-table-tr">
+                                                    <div class="row sport-row align-items-center row-15">
+                                                        <div class="col-sm-1 col-md-1 col-lg-1">
+                                                            <div class="sport-table-icon">
+                                                                '.$jogos['time'].'"
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-10 col-md-6 col-lg-7">
-                                                        <div class="sport-table-wager-home">
-                                                        
-                                                            <a class="sport-table-wager-button cota-aposta" data-id="'.$jogos['oddhome_id'].'">
-                                                            <span>1</span>
-                                                            <span class="sport-table-wager-button-count">'.$jogos['oddhome_value'].'</span>
-                                                           </a>
-    
-                                                            <a class="sport-table-wager-button cota-aposta" data-id="'.$jogos['odddraw_id'].'">
-                                                            <span>X</span>
-                                                            <span class="sport-table-wager-button-count">'.$jogos['odddraw_value'].'</span>
-                                                            </a>
-    
-                                                            <a class="sport-table-wager-button cota-aposta" data-id="'.$jogos['oddaway_id'].'">
-                                                            <span>2</span>
-                                                            <span class="sport-table-wager-button-count">'.$jogos['oddaway_value'].'</span>
-                                                            </a>
-                                            
+                                                        <div class="col-sm-9 col-md-4 col-lg-3">
+                                                            <div class="sport-table-title">
+                                                                <div class="sport-table-title-item sport-table-title-item-left">
+                                                                    <span class="sport-table-title-team">'.$jogos['oddhome_name'].' X</span>
+                                                                    <span class="sport-table-title-team">'.$jogos['oddaway_name'].'</span>
+                                                                </div>
+                                                                <div class="sport-table-title-item sport-table-title-item-right">
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-2 col-md-1 col-lg-1">
-                                                        <div class="sport-table-bonus moreOdds" data-id="'.$jogos['id'].'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'.$jogos['total_odds'].'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>
+                                                        <div class="col-sm-10 col-md-6 col-lg-7">
+                                                            <div class="sport-table-wager-home">
+                                                            
+                                                                <a class="sport-table-wager-button cota-aposta" data-id="'.$jogos['oddhome_id'].'">
+                                                                <span>1</span>
+                                                                <span class="sport-table-wager-button-count">'.$jogos['oddhome_value'].'</span>
+                                                            </a>
+        
+                                                                <a class="sport-table-wager-button cota-aposta" data-id="'.$jogos['odddraw_id'].'">
+                                                                <span>X</span>
+                                                                <span class="sport-table-wager-button-count">'.$jogos['odddraw_value'].'</span>
+                                                                </a>
+        
+                                                                <a class="sport-table-wager-button cota-aposta" data-id="'.$jogos['oddaway_id'].'">
+                                                                <span>2</span>
+                                                                <span class="sport-table-wager-button-count">'.$jogos['oddaway_value'].'</span>
+                                                                </a>
+                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2 col-md-1 col-lg-1">
+                                                            <div class="sport-table-bonus moreOdds" data-id="'.$jogos['id'].'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'.$jogos['total_odds'].'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                      </div>';
-    
+                                        </div>';
+        
+                                        }
+        
                                     }
+                                    }
+                                }
     
-                                }
-                                }
+                            
+
                             }
- 
-                        
 
                         }
 
-                    }
+                    ?>
 
-                ?>
-
+                    </div>
+                    
+                  
                 </div>
-                  
-                  
-                  </div>
 
 
               </div>
             </div>
+        </div>
                       
         <div class="col-md-4 d-none d-lg-block d-xl-block"> 
 
