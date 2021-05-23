@@ -59,6 +59,7 @@
 @yield('main-header')
 <div class="col-lg-12">
 <div class="page animated" style="animation-duration: 500ms;">
+<?php $config =\DB::table('campos_fixos')->first(); ?>
       
       <!-- All Sports-->
       <section class="section section-sm bg-gray-100">
@@ -1043,9 +1044,11 @@ if(odds[0].idsubgrupo == 84){
 
             var total = valor * totalcotas;
 
-            console.log(total);
 
-
+ 
+            if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
+                total =  <?php echo $config->premio_maximo;?> ;
+            }
 
             $('#slip_total_aposta').html( $('#newstake').val() );
 
@@ -1094,7 +1097,10 @@ if(odds[0].idsubgrupo == 84){
 
                 var total = valor * totalcotas;
 
-                console.log(total);
+                
+                if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
+                    total =  <?php echo $config->premio_maximo;?> ;
+                }
 
 
 
