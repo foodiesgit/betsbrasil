@@ -105,6 +105,7 @@
                       </div>
                     </div>
                   </article>
+                  <div id="atualizaAovivo">
                   <?php                                   
                     if( count($array_jogos_aba_futebol) > 0 ){
 
@@ -127,7 +128,7 @@
                                                 <div class="row sport-row align-items-center row-15">
                                                     <div class="col-sm-1 col-md-1 col-lg-1">
                                                         <div class="sport-table-icon">
-                                                            '.$jogos['data'].' '.$jogos['hora'].'
+                                                            '.$jogos['time'].'"
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-9 col-md-4 col-lg-3">
@@ -182,6 +183,10 @@
                 ?>
 
                 </div>
+                  
+                  
+                  </div>
+
 
               </div>
             </div>
@@ -469,93 +474,81 @@
 
 $(document).ready(function(e){
 
-    $('#search').on('keyup keydown',function(e){ 
+    function atualizaAovivo(){
+        setInterval(function(){ 
+        $.ajax({
+            url: '/ajax/atualiza-aovivo',
 
-    var query = $('#search').val();
+            method: 'GET',
+            success: function(res){
+                $('.item').parent().remove();
+                $('.liga').parent().remove();
+                $('#atualizaAovivo').html('');
+                res.data.map((item => {
+                    $('#atualizaAovivo').append('<div class="sport-table-header"><img src="/assets/bandeiras/'+item.bandeira+'" style="width: 24px; height: 24px; margin-right: 5px; ">'+item.pais+'</div>');
+                    
+                    item.ligas.map((item => {
+                    $('#atualizaAovivo').append('<div class="sport-table-header">'+item.liga+'</div>');
 
-    $.ajax({
+                        item.jogos.map((item => {
+                            $('#atualizaAovivo').append(
+                            '<div class="sport-table">'+
+                                '<div class="sport-table-tr">'+
+                                    '<div class="row sport-row align-items-center row-15">'+
+                                        '<div class="col-sm-1 col-md-1 col-lg-1">'+
+                                            '<div class="sport-table-icon">'+
+                                                item.time+'"'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="col-sm-9 col-md-4 col-lg-3">'+
+                                            '<div class="sport-table-title">'+
+                                                '<div class="sport-table-title-item sport-table-title-item-left">'+
+                                                    '<span class="sport-table-title-team">'+item.oddhome_name+' X</span>'+
+                                                    '<span class="sport-table-title-team">'+item.oddaway_name+'</span>'+
+                                                '</div>'+
+                                                '<div class="sport-table-title-item sport-table-title-item-right">'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="col-sm-10 col-md-6 col-lg-7">'+
+                                            '<div class="sport-table-wager-home">'+
+                                            
+                                                '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddhome_id+'">'+
+                                                '<span>1</span>'+
+                                                '<span class="sport-table-wager-button-count">'+item.oddhome_value+'</span>'+
+                                            '</a>'+
 
-        url: '/ajax/search',
+                                                '<a class="sport-table-wager-button cota-aposta" data-id="'+item.odddraw_id+'">'+
+                                                '<span>X</span>'+
+                                                '<span class="sport-table-wager-button-count">'+item.odddraw_value+'</span>'+
+                                            '</a>'+
 
-        method: 'GET',
-
-        data: {
-
-            query: query
-
-        },
-
-        success: function(res){
-            $('.item').parent().remove();
-            $('.liga').parent().remove();
-            
-            res.map((item => {
-                $('#tab1').append(
-                '<div class="panel tabela-apostas"> '+
-                    '<div class="item">'+
-
-                        '<div class="item-data d-none d-lg-flex">'+
-
-                            '<span class="hora">'+item.data+'</span>'+
-
-                            '<span class="data">'+item.hora+'</span>'+
-
-                        '</div>'+
-
-                        '<div class="d-none d-lg-flex item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
-
-                            '<span class="time-home">'+item.homeNome+'</span>'+
-
-                            '<span class="time-away">'+item.awayNome+'</span>'+
-
-                        '</div>'+
-
-                        '<div class="d-md-none">'+
-
-                            '<div class="item-times click_ir_jogo" data-id="'+item.id+'" style="cursor: pointer;">'+
-
-                            '<span class="time-home">'+item.homeNome+'</span>'+
-
-                            '<span class="time-away">'+item.awayNome+'</span>'+
-
-                                '<div class="item-data">'+
-
-                                    '<span class="hora">'+item.data+' as '+item.hora+'</span>'+
-
-
-
+                                                '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddaway_id+'">'+
+                                                '<span>2</span>'+
+                                                '<span class="sport-table-wager-button-count">'+item.oddaway_value+'</span>'+
+                                                '</a>'+
+                                
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="col-sm-2 col-md-1 col-lg-1">'+
+                                            '<div class="sport-table-bonus moreOdds" data-id="'+item.id+'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'+item.total_odds+'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
+                                        '</div>'+
+                                    '</div>'+
                                 '</div>'+
+                        '</div>')
+                        }));
+                    }));
+                }));
+            },error: function(err){
+            },complete: function(){
+            }
 
-                            '</div>'+
+        });
 
-                        '</div>'+
-
-                        '<div class="item-cotas">'+
-
-                            '<span class="cota cota-normal cota-aposta" data-id="'+item.oddhome_id+'">'+item.oddhome_value+'</span>'+
-
-                            '<span class="cota cota-normal cota-aposta" data-id="'+item.odddraw_id+'">'+item.odddraw_value+'</span>'+
-
-                            '<span class="cota cota-normal cota-aposta" data-id="'+item.oddaway_id+'">'+item.oddaway_value+'</span>'+
-
-                        '</div>'+
-
-                        '<div class="item-acoes d-none d-lg-flex">'+
-
-                            '<span>+'+item.total_odds+'</span>'+
-
-                        '</div>'+
-
-                    '</div>'+
-
-                    '</div>')
-            }));
-        },error: function(err){
-        },complete: function(){
-        }
-
-        });    
-    });
+    },60000);
+    }
+    atualizaAovivo();
+   
     $('#search-mobile').on('keyup',function(){
         var query = $('#search-mobile').val();
         if(query.length > 2){
