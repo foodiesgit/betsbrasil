@@ -3278,9 +3278,27 @@ class AdminController extends Controller {
                     $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', 'events.id')->where('idcupom', $aposta->id)->get();
 
                     foreach ($jogos as $jogo){
-                        if($jogo->data < \Carbon\Carbon::now()){
-                             return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
+
+                        if($jogo->inplay){
+                            $response = \Http::get('https://api.b365api.com/v1/event/view?token=&LNG_ID=22&event_id='.$jogo->bet365_id.'&token='.config('app.API_TOKEN'));
+                            if( $response->successful() ){
+                                $response = json_decode($response->body());
+
+                                if($response->results[0]->timer){
+                                    $time = $response->results[0]->timer->tm * 60 +  $response->results[0]->timer->ts;
+                                    if($time > 30){
+                                        return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
+                                    }
+                                }
+                            }else{
+                                return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
+                            }
+                        }else{
+                            if($jogo->data < \Carbon\Carbon::now()){
+                                return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
+                           }
                         }
+                      
                     }
                     DB::beginTransaction();
                     $aposta->idcambista = Auth::user()->id;

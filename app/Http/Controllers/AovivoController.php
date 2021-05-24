@@ -906,7 +906,7 @@ class AovivoController extends Controller
     
                                 'oddhome_id' => $sql_odds_principal[0]->id,
     
-                                'oddhome_value' => $sql_odds_principal[0]->odds,
+                                'oddhome_value' =>$sql_odds_principal[0]->odds,
     
                                 'oddhome_name' => $sql_odds_principal[0]->name,
     

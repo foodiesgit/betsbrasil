@@ -122,7 +122,6 @@
         
         
                                         foreach($dados['jogos'] as $jogos){
-        
                                             echo '
                                             <div class="sport-table">
                                                 <div class="sport-table-tr">
@@ -141,8 +140,10 @@
                                                                 <div class="sport-table-title-item sport-table-title-item-right">
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-sm-10 col-md-6 col-lg-7">
+                                                        </div>';
+
+                                                        if($jogos['time'] < 30){
+                                                            echo '<div class="col-sm-10 col-md-6 col-lg-7">
                                                             <div class="sport-table-wager-home">
                                                             
                                                                 <a class="sport-table-wager-button cota-aposta" data-id="'.$jogos['oddhome_id'].'">
@@ -164,8 +165,40 @@
                                                         </div>
                                                         <div class="col-sm-2 col-md-1 col-lg-1">
                                                             <div class="sport-table-bonus moreOdds" data-id="'.$jogos['id'].'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'.$jogos['total_odds'].'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>
+                                                        </div>';
+                                                        }else{
+                                                            echo '<div class="col-sm-10 col-md-6 col-lg-7">
+                                                            <div class="sport-table-wager-home">
+                                                            
+                                                                <a class="sport-table-wager-button disabled">
+                                                                <span>1</span>
+                                                                <span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                                                              </svg></span>
+                                                                </a>
+        
+                                                                <a class="sport-table-wager-button disabled" >
+                                                                <span>X</span>
+                                                                <span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                                                              </svg></span>
+                                                                </a>
+        
+                                                                <a class="sport-table-wager-button disabled">
+                                                                <span>2</span>
+                                                                <span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                                                                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+                                                              </svg></span>
+                                                                </a>
+                                                
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        <div class="col-sm-2 col-md-1 col-lg-1">
+                                                            <div class="sport-table-bonus" d><span class="sport-table-bonus-count">+'.$jogos['total_odds'].'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>
+                                                        </div>';
+                                                        }
+
+                                                    echo '</div>
                                                 </div>
                                         </div>';
         
@@ -510,8 +543,10 @@ $(document).ready(function(e){
                                                 '<div class="sport-table-title-item sport-table-title-item-right">'+
                                                 '</div>'+
                                             '</div>'+
-                                        '</div>'+
-                                        '<div class="col-sm-10 col-md-6 col-lg-7">'+
+                                        '</div>');
+                                        if(item.time < 30) {
+                                            $('#atualizaAovivo').append(
+                                            '<div class="col-sm-10 col-md-6 col-lg-7">'+
                                             '<div class="sport-table-wager-home">'+
                                             
                                                 '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddhome_id+'">'+
@@ -533,10 +568,38 @@ $(document).ready(function(e){
                                         '</div>'+
                                         '<div class="col-sm-2 col-md-1 col-lg-1">'+
                                             '<div class="sport-table-bonus moreOdds" data-id="'+item.id+'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'+item.total_odds+'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
+                                        '</div>');
+                                        }else {
+                                            $('#atualizaAovivo').append(
+                                            '<div class="col-sm-10 col-md-6 col-lg-7">'+
+                                            '<div class="sport-table-wager-home">'+
+                                            
+                                                '<a class="sport-table-wager-button">'+
+                                                '<span>1</span>'+
+                                                '<span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg></span>'+
+                                            '</a>'+
+
+                                                '<a class="sport-table-wager-button">'+
+                                                '<span>X</span>'+
+                                                '<span class="sport-table-wager-button-count">     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg></span>'+
+                                            '</a>'+
+
+                                                '<a class="sport-table-wager-button">'+
+                                                '<span>2</span>'+
+                                                '<span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg></span>'+
+                                                '</a>'+
+                                
+                                            '</div>'+
                                         '</div>'+
-                                    '</div>'+
+                                        '<div class="col-sm-2 col-md-1 col-lg-1">'+
+                                            '<div class="sport-table-bonus"><span class="sport-table-bonus-count">+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg></span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
+                                        '</div>');
+                                        }
+                                        
+                                   
+                         $('#atualizaAovivo').append('</div>'+
                                 '</div>'+
-                        '</div>')
+                        '</div>');
                         }));
                     }));
                 }));
