@@ -639,6 +639,7 @@ class AovivoController extends Controller
                         $sql_time_home = Times::find($jogos->idhome);
 
                         $sql_time_away = Times::find($jogos->idaway);
+                        $placar = explode('-', $evento->ss);
     
                         $sql_odds_principal = Odds::where('idevent', $jogos->jogoId)->where('idsubgrupo', 79)->get();
                         if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
@@ -655,7 +656,8 @@ class AovivoController extends Controller
                                 'home' => $sql_time_home->nome,
     
                                 'away' => $sql_time_away->nome,
-    
+                                'placarHome' =>   $placar[0],
+                                'placarAway' =>  $placar[1],
                                 'total_odds' => $jogos->total_odds,
     
                                 'oddhome_id' => $sql_odds_principal[0]->id,
@@ -696,6 +698,7 @@ class AovivoController extends Controller
                             $pais_id = $paises->idpais;
                             $array_ligas = [];
                             $array_jogos = [];
+                            $placar = explode('-', $evento->ss);
 
                             $sql_odds_principal = Odds::where('idevent', $jogos->jogoId)->where('idsubgrupo', 79)->get();
                             if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
@@ -713,7 +716,8 @@ class AovivoController extends Controller
                                 'home' => $sql_time_home->nome,
     
                                 'away' => $sql_time_away->nome,
-    
+                                'placarHome' =>   $placar[0],
+                                'placarAway' =>  $placar[1],
                                 'total_odds' => $jogos->total_odds,
     
                                 'oddhome_id' => $sql_odds_principal[0]->id,
@@ -886,6 +890,8 @@ class AovivoController extends Controller
                         $sql_time_away = Times::find($jogos->idaway);
 
                         $time = $evento->timer->tm * 60 + $evento->timer->ts;
+
+                        $placar = explode('-', $evento->ss);
                         $sql_odds_principal = Odds::where('idevent', $jogos->jogoId)->where('idsubgrupo', 79)->get();
                         if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
     
@@ -901,6 +907,8 @@ class AovivoController extends Controller
                                 'home' => $sql_time_home->nome,
     
                                 'away' => $sql_time_away->nome,
+                                'placarHome' =>   $placar[0],
+                                'placarAway' =>  $placar[1],
     
                                 'total_odds' => $jogos->total_odds,
     
@@ -942,6 +950,7 @@ class AovivoController extends Controller
                             $pais_id = $paises->idpais;
                             $array_ligas = [];
                             $array_jogos = [];
+                            $placar = explode('-', $evento->ss);
 
                             $sql_odds_principal = Odds::where('idevent', $jogos->jogoId)->where('idsubgrupo', 79)->get();
                             if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
@@ -958,7 +967,8 @@ class AovivoController extends Controller
                                 'home' => $sql_time_home->nome,
     
                                 'away' => $sql_time_away->nome,
-    
+                                'placarHome' =>   $placar[0],
+                                'placarAway' =>  $placar[1],
                                 'total_odds' => $jogos->total_odds,
     
                                 'oddhome_id' => $sql_odds_principal[0]->id,

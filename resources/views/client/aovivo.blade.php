@@ -138,6 +138,8 @@
                                                                     <span class="sport-table-title-team">'.$jogos['oddaway_name'].'</span>
                                                                 </div>
                                                                 <div class="sport-table-title-item sport-table-title-item-right">
+                                                                <span class="sport-table-title-score"><span>'.$jogos['placarHome'].'</span></span>
+                                                                <span class="sport-table-title-score"><span>'.$jogos['placarAway'].'</span></span>
                                                                 </div>
                                                             </div>
                                                         </div>';
@@ -539,6 +541,8 @@ $(document).ready(function(e){
                                                                     '<span class="sport-table-title-team">'+item.oddaway_name+'</span>'+
                                                                 '</div>'+
                                                                 '<div class="sport-table-title-item sport-table-title-item-right">'+
+                                                                '<span class="sport-table-title-score"><span>'+item.placarHome+'</span></span>'+
+                                                                '<span class="sport-table-title-score"><span>'+item.placarAway+'</span></span>'+
                                                                 '</div>'+
                                                             '</div>'+
                                                         '</div>'+
