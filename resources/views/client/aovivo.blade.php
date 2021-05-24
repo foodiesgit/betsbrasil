@@ -170,21 +170,21 @@
                                                             echo '<div class="col-sm-10 col-md-6 col-lg-7">
                                                             <div class="sport-table-wager-home">
                                                             
-                                                                <a class="sport-table-wager-button disabled">
+                                                                <a class="sport-table-wager-button disable">
                                                                 <span>1</span>
                                                                 <span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
                                                                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
                                                               </svg></span>
                                                                 </a>
         
-                                                                <a class="sport-table-wager-button disabled" >
+                                                                <a class="sport-table-wager-button disable" >
                                                                 <span>X</span>
                                                                 <span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
                                                                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
                                                               </svg></span>
                                                                 </a>
         
-                                                                <a class="sport-table-wager-button disabled">
+                                                                <a class="sport-table-wager-button disable">
                                                                 <span>2</span>
                                                                 <span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
                                                                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
@@ -522,85 +522,53 @@ $(document).ready(function(e){
                     $('#atualizaAovivo').append('<div class="sport-table-header"><img src="/assets/bandeiras/'+item.bandeira+'" style="width: 24px; height: 24px; margin-right: 5px; ">'+item.pais+'</div>');
                     
                     item.ligas.map((item => {
-                    $('#atualizaAovivo').append('<div class="sport-table-header">'+item.liga+'</div>');
-
-                        item.jogos.map((item => {
-                            $('#atualizaAovivo').append(
-                            '<div class="sport-table">'+
-                                '<div class="sport-table-tr">'+
-                                    '<div class="row sport-row align-items-center row-15">'+
-                                        '<div class="col-sm-1 col-md-1 col-lg-1">'+
-                                            '<div class="sport-table-icon">'+
-                                                item.time+'"'+
-                                            '</div>'+
-                                        '</div>'+
-                                        '<div class="col-sm-9 col-md-4 col-lg-3">'+
-                                            '<div class="sport-table-title">'+
-                                                '<div class="sport-table-title-item sport-table-title-item-left">'+
-                                                    '<span class="sport-table-title-team">'+item.oddhome_name+' X</span>'+
-                                                    '<span class="sport-table-title-team">'+item.oddaway_name+'</span>'+
+                        $('#atualizaAovivo').append('<div class="sport-table-header">'+item.liga+'</div>');
+                            item.jogos.map((item => {
+                                     $('#atualizaAovivo').append('<div class="sport-table">'+
+                                                '<div class="sport-table-tr">'+
+                                                    '<div class="row sport-row align-items-center row-15">'+
+                                                        '<div class="col-sm-1 col-md-1 col-lg-1">'+
+                                                            '<div class="sport-table-icon">'+
+                                                                item.time+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="col-sm-9 col-md-4 col-lg-3">'+
+                                                            '<div class="sport-table-title">'+
+                                                                '<div class="sport-table-title-item sport-table-title-item-left">'+
+                                                                    '<span class="sport-table-title-team">'+item.oddhome_name+' X</span>'+
+                                                                    '<span class="sport-table-title-team">'+item.oddaway_name+'</span>'+
+                                                                '</div>'+
+                                                                '<div class="sport-table-title-item sport-table-title-item-right">'+
+                                                                '</div>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="col-sm-10 col-md-6 col-lg-7">'+
+                                                            '<div class="sport-table-wager-home">'+
+                                                            
+                                                                '<a class="sport-table-wager-button '+(item.time < 30 ? 'cota-aposta' :'')+'" data-id="'+(item.time < 30 ? item.oddhome_id :'_')+'">'+
+                                                                '<span>1</span>'+
+                                                                '<span class="sport-table-wager-button-count">'+(item.time < 30 ? item.oddhome_value : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>')+'</svg></span>'+
+                                                            '</a>'+
+        
+                                                                '<a class="sport-table-wager-button '+(item.time < 30 ? 'cota-aposta' :'')+'" data-id="'+(item.time < 30 ? item.odddraw_id :'_')+'">'+
+                                                                '<span>X</span>'+
+                                                                '<span class="sport-table-wager-button-count">'+(item.time < 30 ? item.odddraw_value : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>')+'</svg></span>'+
+                                                                '</a>'+
+    
+                                                                '<a class="sport-table-wager-button '+(item.time < 30 ? 'cota-aposta' :'')+'" data-id="'+(item.time < 30 ? item.oddaway_id :'_')+'">'+
+                                                                '<span>2</span>'+
+                                                                '<span class="sport-table-wager-button-count">'+(item.time < 30 ? item.oddaway_value : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>')+'</svg></span>'+
+                                                                '</a>'+
+                                                
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="col-sm-2 col-md-1 col-lg-1">'+
+                                                            '<div class="sport-table-bonus '+(item.time < 30 ? 'moreOdds' :'')+'" data-id="'+(item.time < 30 ? item.id :'_')+'"  '+(item.time < 30 ? 'data-toggle="modal" data-target="#sportModal"' :'')+'><span class="sport-table-bonus-count"><span class="sport-table-bonus-count">+'+(item.time < 30 ? item.total_odds : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>')+'</svg></span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
+                                                        '</div></div>'+
                                                 '</div>'+
-                                                '<div class="sport-table-title-item sport-table-title-item-right">'+
-                                                '</div>'+
-                                            '</div>'+
                                         '</div>');
-                                        if(item.time < 30) {
-                                            $('#atualizaAovivo').append(
-                                            '<div class="col-sm-10 col-md-6 col-lg-7">'+
-                                            '<div class="sport-table-wager-home">'+
-                                            
-                                                '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddhome_id+'">'+
-                                                '<span>1</span>'+
-                                                '<span class="sport-table-wager-button-count">'+item.oddhome_value+'</span>'+
-                                            '</a>'+
+                            }))
 
-                                                '<a class="sport-table-wager-button cota-aposta" data-id="'+item.odddraw_id+'">'+
-                                                '<span>X</span>'+
-                                                '<span class="sport-table-wager-button-count">'+item.odddraw_value+'</span>'+
-                                            '</a>'+
-
-                                                '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddaway_id+'">'+
-                                                '<span>2</span>'+
-                                                '<span class="sport-table-wager-button-count">'+item.oddaway_value+'</span>'+
-                                                '</a>'+
-                                
-                                            '</div>'+
-                                        '</div>'+
-                                        '<div class="col-sm-2 col-md-1 col-lg-1">'+
-                                            '<div class="sport-table-bonus moreOdds" data-id="'+item.id+'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'+item.total_odds+'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
-                                        '</div>');
-                                        }else {
-                                            $('#atualizaAovivo').append(
-                                            '<div class="col-sm-10 col-md-6 col-lg-7">'+
-                                            '<div class="sport-table-wager-home">'+
-                                            
-                                                '<a class="sport-table-wager-button">'+
-                                                '<span>1</span>'+
-                                                '<span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg></span>'+
-                                            '</a>'+
-
-                                                '<a class="sport-table-wager-button">'+
-                                                '<span>X</span>'+
-                                                '<span class="sport-table-wager-button-count">     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg></span>'+
-                                            '</a>'+
-
-                                                '<a class="sport-table-wager-button">'+
-                                                '<span>2</span>'+
-                                                '<span class="sport-table-wager-button-count"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg></span>'+
-                                                '</a>'+
-                                
-                                            '</div>'+
-                                        '</div>'+
-                                        '<div class="col-sm-2 col-md-1 col-lg-1">'+
-                                            '<div class="sport-table-bonus"><span class="sport-table-bonus-count">+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg></span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
-                                        '</div>');
-                                        }
-                                        
-                                   
-                         $('#atualizaAovivo').append('</div>'+
-                                '</div>'+
-                        '</div>');
-                        }));
                     }));
                 }));
             },error: function(err){
