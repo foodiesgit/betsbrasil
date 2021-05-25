@@ -93,7 +93,7 @@
 
                             if(count($gerente) > 0){
 
-                                $gerente = '<span class="badge badge-success">'.$gerente[0]->nome.'<br>'.$gerente[0]->email.'</div>';
+                                $gerente = '<span class="badge badge-success">'.$gerente[0]->name.'<br>'.$gerente[0]->email.'</div>';
 
                             }else{
 
