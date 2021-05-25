@@ -865,7 +865,6 @@ class AjaxController extends Controller{
 
         }
 
-        $valor_total_cotas = ($valor_total_cotas < $config->cotacao_minima &&  $config->cotacao_minima != 0 ? $config->cotacao_minima:  $valor_total_cotas);
 
         $valor_total_cotas =  ( $valor_total_cotas > $config->cotacao_maxima &&  $config->cotacao_maxima != 0 ? $config->cotacao_maxima:  $valor_total_cotas);
 

@@ -92,7 +92,6 @@ class ClientController extends Controller{
         $esportes = Esportes::where('status', 1)->get();
 
 
-
         /*$jogos_aba_futebol = Events::where('data', '>', date('Y-m-d H:i:s'))->orderBy('data', 'asc')
 
             ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
@@ -182,9 +181,6 @@ class ClientController extends Controller{
 
                         ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->take('20')->get();
 
-
-
-
                     if(count($jogos) == 0){
                         $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', $nextD)  ->orderBy('data', 'asc')
 
@@ -209,10 +205,6 @@ class ClientController extends Controller{
                             $sql_time_away = Times::find($dados2->idaway);
 
                             $sql_odds_principal = Odds::where('idevent', $dados2->id)->where('idsubgrupo', 79)->get();
-
-
-
-
 
                             if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
 
@@ -295,78 +287,8 @@ class ClientController extends Controller{
         }
 
 
-
         $array_jogos_aba_futebol = $array_pais;
-
-
-
-        $array_jogos_carousel = [];
-
-
-
-        $jogos_carousel = Events::whereDate('data', '>=', $date)->orderBy('data', 'asc')
-
-                    ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')->where('destaque_carousel', 1)->where('ligas.status', 1)
-
-                    ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'ligas.nome_traduzido')->take('20')->get();
-
-
-
-        if(count($jogos_carousel) > 0){
-
-            foreach($jogos_carousel as $dados2){
-
-
-
-                $sql_time_home = Times::find($dados2->idhome);
-
-                $sql_time_away = Times::find($dados2->idaway);
-
-                $sql_odds_principal = Odds::where('idevent', $dados2->id)->where('idsubgrupo', 79)->get();
-
-
-
-                if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
-
-                    $array_jogos_carousel[] = [
-
-                        'id' => $dados2->id,
-
-                        'liga' => $dados2->nome_traduzido,
-
-                        'data' => $dados2->data,
-
-                        'hora' => $dados2->hora,
-
-                        'home' => $sql_time_home->nome,
-
-                        'away' => $sql_time_away->nome,
-
-                        'oddhome_id' => $sql_odds_principal[0]->id,
-
-                        'oddhome_value' => $sql_odds_principal[0]->odds,
-
-                        'oddhome_name' => $sql_odds_principal[0]->name,
-
-                        'odddraw_id' => $sql_odds_principal[1]->id,
-
-                        'odddraw_value' => $sql_odds_principal[1]->odds,
-
-                        'odddraw_name' => $sql_odds_principal[1]->name,
-
-                        'oddaway_id' => $sql_odds_principal[2]->id,
-
-                        'oddaway_value' => $sql_odds_principal[2]->odds,
-
-                        'oddaway_name' => $sql_odds_principal[2]->name,
-
-                    ];
-
-                }
-
-            }
-
-        }
+      
 
 
 
@@ -425,11 +347,7 @@ class ClientController extends Controller{
 
             'esportes' => $esportes,
 
-            // 'jogos_aba_futebol' => $jogos_aba_futebol,
-
             'array_jogos_aba_futebol' => $array_jogos_aba_futebol,
-
-            'array_jogos_carousel' => $array_jogos_carousel,
 
             'sqlNovoCarrinho' => $sqlNovoCarrinho,
 
@@ -561,7 +479,11 @@ class ClientController extends Controller{
 
         }
 
-       
+        if($sql[0]->valor_total_cotas < $config->cotacao_minima && $config->cotacao_minima != 0 ){
+
+            return redirect('/')->with('erro', 'A quantidade minima da cotação:'.number_format($config->cotacao_minima,2,'.',','));
+
+        }
    
         /*if( !Auth::check() ){
 
@@ -721,14 +643,7 @@ class ClientController extends Controller{
                         $cupomAposta = CupomAposta::find($cupomAposta->id);
 
                         $cupomAposta->valor_apostado = $valor_total_apostado;
-                        if($sql[0]->valor_total_cotas < $config->cotacao_minima && $config->cotacao_minima != 0 ){
-
-                            $cupomAposta->possivel_retorno = $valor_total_apostado * $config->cotacao_minima;
-
-                            $cupomAposta->total_cotas = $config->cotacao_minima;
-                
-                
-                        }else if($sql[0]->valor_total_cotas > $config->cotacao_maxima && $config->cotacao_maxima != 0 ){
+                        if($sql[0]->valor_total_cotas > $config->cotacao_maxima && $config->cotacao_maxima != 0 ){
                 
                             $cupomAposta->possivel_retorno = $valor_total_apostado * $config->cotacao_maxima;
 
@@ -893,14 +808,7 @@ class ClientController extends Controller{
                 $cupomAposta = CupomAposta::find($cupomAposta->id);
 
                 $cupomAposta->valor_apostado = $valor_total_apostado;
-                if($sql[0]->valor_total_cotas < $config->cotacao_minima && $config->cotacao_minima != 0 ){
-
-                    $cupomAposta->possivel_retorno = $valor_total_apostado * $config->cotacao_minima;
-
-                    $cupomAposta->total_cotas = $config->cotacao_minima;
-        
-        
-                }else if($sql[0]->valor_total_cotas > $config->cotacao_maxima && $config->cotacao_maxima != 0 ){
+                if($sql[0]->valor_total_cotas > $config->cotacao_maxima && $config->cotacao_maxima != 0 ){
         
                     $cupomAposta->possivel_retorno = $valor_total_apostado * $config->cotacao_maxima;
 

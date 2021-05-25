@@ -155,7 +155,6 @@ class CarrinhoController extends Controller{
 
         $possivel_retorno = ($possivel_retorno > $config->premio_maximo &&  $config->premio_maximo != 0 ? $config->premio_maximo: $possivel_retorno);
 
-        $valor_total_cotas = ($valor_total_cotas < $config->cotacao_minima &&  $config->cotacao_minima != 0 ? $config->cotacao_minima:  $valor_total_cotas);
 
         $valor_total_cotas =  ( $valor_total_cotas > $config->cotacao_maxima &&  $config->cotacao_maxima != 0 ? $config->cotacao_maxima:  $valor_total_cotas);
 
