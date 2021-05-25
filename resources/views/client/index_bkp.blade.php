@@ -640,7 +640,7 @@
 
                                                 <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
 
-                                                    <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake" name="newstake">
+                                                    <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00"  type="text" id="newstake" name="newstake">
                                                     <input id="newstake_hidden" type="hidden" name="newstake_hidden">
 
                                                 </div>
@@ -775,7 +775,7 @@
 
                                         <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
 
-                                            <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00" value="R$ 0,00" type="text" id="newstake_mobile" name="newstake">
+                                            <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake" placeholder="R$ 0,00"  type="text" id="newstake_mobile" name="newstake">
                                             <input id="newstake_hidden_mobile" type="hidden" name="newstake_hidden_mobile">
 
                                         </div>
