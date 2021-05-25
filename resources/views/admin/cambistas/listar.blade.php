@@ -89,7 +89,7 @@
 
 
 
-                            $gerente = DB::table('usuarios')->where('id', $dados->idgerente)->get();
+                            $gerente = DB::table('users')->where('id', $dados->idgerente)->get();
 
                             if(count($gerente) > 0){
 
