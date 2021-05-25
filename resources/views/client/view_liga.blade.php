@@ -1,6 +1,6 @@
 
 @include('client.include_sbet')
-
+<?php $config =\DB::table('campos_fixos')->first(); ?>
 
 <link href="/assets3/css/icons.css" rel="stylesheet" />
 
