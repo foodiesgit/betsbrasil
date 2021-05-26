@@ -105,7 +105,46 @@
       <section class="section section-sm bg-gray-100">
         <div class="container">
             @yield('alert')
-        
+            <section class="section section-md bg-gray-100">
+                <div class="container">
+                    <div class="row row-50">
+                        <div class="col-lg-12">
+                        <div class="row row-30">
+                            <div class="col-md-6 col-lg-4">
+                            <article class="post-badly">
+                                <div class="post-badly-body">
+                                <div class="post-badly-body-top">
+                                    <div class="post-badly-team"><span>Manchester United</span><span>Leicester City</span></div>
+                                    <div class="post-badly-time"><span class="icon mdi mdi-clock"></span><a href="#">April 15, 2020</a></div>
+                                </div>
+                                </div>
+                            </article>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                            <article class="post-badly">
+                                <div class="post-badly-body">
+                                <div class="post-badly-body-top">
+                                    <div class="post-badly-team"><span>Esther Burns</span><span>Jessica Norris</span></div>
+                                    <div class="post-badly-time"><span class="icon mdi mdi-clock"></span><a href="#">April 15, 2020</a></div>
+                                </div>
+                                </div>
+                            </article>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                            <article class="post-badly">
+                                <div class="post-badly-body">
+                                <div class="post-badly-body-top">
+                                    <div class="post-badly-team"><span>Lesley Moody</span><span>Christopher Benson</span></div>
+                                    <div class="post-badly-time"><span class="icon mdi mdi-clock"></span><a href="#">April 15, 2020</a></div>
+                                </div>
+                                </div>
+                            </article>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
           <div class="row isotope-wrap row-30">
             <!-- Isotope Filters-->
             <div class="col-lg-12">
@@ -119,7 +158,7 @@
                       </div>
                       <button class="rd-search-form-submit fl-budicons-launch-search81" type="submit"></button>
                 </div>
-                  </div>
+                </div>
               <!-- <div class="isotope-filters isotope-filters-horizontal">
                 <button class="isotope-filters-toggle button" data-custom-toggle="#isotope-filters" data-custom-toggle-hide-on-blur="true" data-custom-toggle-disable-on-blur="true">Select<span class="caret"></span></button>
                 <ul class="isotope-filters-list" id="isotope-filters">
@@ -138,7 +177,7 @@
                   <p class="isotope-filters-info-text"> All Sports (29)</p>
                 </div>
               </div> --> 
-            </div>
+
             <!-- Isotope Content-->
             <div class="col-lg-8">
               <div class="row isotope row-30" data-isotope-layout="masonry" data-column-class=".col-1" data-isotope-group="gallery" style="position: relative; height: 3033px;">

@@ -406,7 +406,7 @@ view_bilhetes
                                     <div class="dropdown-menu">
 
                                         <a class="dropdown-item" target="_blank" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>
-                                        <a class="dropdown-item" target="_blank" href="/minha-apostas/visualizar-cupom/'.$dados->codigo_unico.'">Ver Cupom</a>';
+                                        <a class="dropdown-item" target="_blank" href="/minhas-apostas/visualizar-cupom/'.$dados->codigo_unico.'">Ver Cupom</a>';
 
                                         if($dados->created_at->addMinutes(20) > \Carbon\Carbon::now() && $dados->status != 5){
                                             echo '<a class="dropdown-item"  href="/admin/cancelar-bilhete/'.$dados->id.'">Cancelar Bilhete</a>';
@@ -434,7 +434,7 @@ view_bilhetes
 
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>
-                                    <a class="dropdown-item" target="_blank" href="/minha-apostas/visualizar-cupom/'.$dados->codigo_unico.'">Ver Cupom</a>';
+                                    <a class="dropdown-item" target="_blank" href="/minhas-apostas/visualizar-cupom/'.$dados->codigo_unico.'">Ver Cupom</a>';
 
                                     if($dados->status != 5){
                                         echo '<a class="dropdown-item"  href="/admin/cancelar-bilhete/'.$dados->id.'">Cancelar Bilhete</a>';
