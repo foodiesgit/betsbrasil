@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function(){
-    Route::post('login-cambista', 'ApiAndroidController@loginCambista');
+    Route::post('login', 'ApiAndroidController@loginCambista');
 
     Route::middleware('auth:api')->group(function(){
         Route::get('recupera-cambista', 'ApiAndroidController@recuperaCambista');
