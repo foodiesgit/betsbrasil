@@ -14,7 +14,7 @@
 <style type="text/css">
 
 @page { 
-size: 58mm 500mm; }
+size: 88mm 500mm; }
 .recibo{
 
   font-family: verdana;  
