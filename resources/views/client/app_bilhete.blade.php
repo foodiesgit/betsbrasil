@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+<?php $config =\DB::table('campos_fixos')->first(); ?>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>Título Opcional</title>
+        <title>{{$config->nome_banca}} - {{$cupomAposta->codigo_unico}}</title>
  
         <!--Custon CSS (está em /public/assets/site/css/certificate.css)-->
     </head>
@@ -10,9 +12,9 @@
          
  
 <style type="text/css">
-<?php $config =\DB::table('campos_fixos')->first(); ?>
 
-@page { size: 88mm 500mm }
+@page { margin: 0; 
+size: 88mm 500mm; }
 .recibo{
 
   font-family: verdana;  
