@@ -13,7 +13,7 @@
  
 <style type="text/css">
 
-@page { margin: 0; 
+@page { 
 size: 58mm 500mm; }
 .recibo{
 
