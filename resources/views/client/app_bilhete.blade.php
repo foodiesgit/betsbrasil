@@ -10,6 +10,8 @@
          
  
 <style type="text/css">
+<?php $config =\DB::table('campos_fixos')->first(); ?>
+
 @page { size: 88mm 500mm }
 .recibo{
 
@@ -48,7 +50,7 @@ h5{
 
   border-bottom:1px dotted #6B6B6B;
 
-  letter-spacing: 4px;
+  /* letter-spacing: 4px; */
 
 }
 
@@ -110,27 +112,27 @@ hr{
 
 
 
-<h6 class="text-center destaque"> Nome do $sql_time_home</h6>
+<h6 class="text-center destaque">{{$config->nome_banca}}</h6>
 
 <h5 class="text-center titulo">Detalhe da Aposta</h5>
 
-<p><span class="titulo">Hora:</span><b> {{date('d/m/Y H:i:s')}}</b></p>
+<p><span class="titulo">Hora:</span><b> {{$cupomAposta->data_aposta}}</b></p>
 
-<p><span class="titulo">Nome Cliente:</span> Nome do Cliente</p>
+<p><span class="titulo">Nome Cliente:</span>{{$cupomAposta->name}}</p>
 
-<p><span class="titulo">Vendedor:</span> Nome do Cambista</p>
+<p><span class="titulo">Cambista:</span>{{$cupomAposta->cambistaName}}</p>
 
 <h5 class="text-center titulo">Jogos</h5>
 
 
 
-<table align="center">
+<table style="table-layout: fixed;width:100%">
 
 <thead>
 
-<tr class="linha">
+<tr>
 
-    <th style="width:90%;">Aposta</th>
+    <th style="min-width:90%;">Partida</th>
 
     <th>Cotação</th>
 
@@ -143,19 +145,20 @@ hr{
 
 <tr>
 
-    <td><br>
+    <td style="min-width:90%;"><br>
 
-    <p class="destaque">Nome da partida </p>
+    <p class="destaque">{{$bilhete->nome_esporte}} - {{$bilhete->nome_liga}}</p>
+    <p class="destaque">{{$bilhete->time_home}} x  {{$bilhete->time_away}}</p>
 
-    <p><small>Data :</small></p>
+    <p><small>Data : {{\Carbon\Carbon::parse($bilhete->data)->format('d/m/Y H:i:s')}}</small></p>
 
-    <p>Palpite: <span class="destaque">Palpite</span></p>
+    <p>Palpite: <span class="destaque">{{$bilhete->subgrupo}} -  {{$bilhete->name}}</span></p>
 
     </td>
 
     <!-- cotação -->
 
-    <td class="text-center"><p>3.00</p></td>
+    <td style="min-width:10%;" align="center"><p> {{$bilhete->valor_momento}}</p></td>
 
 </tr>
 
@@ -167,17 +170,17 @@ hr{
 
 <tr>
 
-    <td class="text-right"><p>Total Apostado R$</p> </td>
+    <td><p>Total Apostado</p> </td>
 
-    <td class="text-center"><p>10.000</p></td>
+    <td  align="center"><p>R$ {{number_format($cupomAposta->valor_apostado,2,'.',',')}}</p></td>
 
 </tr>
 
 <tr>
 
-    <td class="text-right"><p>Possiveis Ganhos R$</p></td>
+    <td><p>Possiveis Ganhos</p></td>
 
-    <td class="text-center"><p>50.0000</p></td>
+    <td  align="center"><p>R$ {{number_format($cupomAposta->possivel_retorno,2,'.',',')}}</p></td>
 
 </tr>
 
@@ -191,7 +194,7 @@ hr{
 
 <div class="text-center campo_codigo">
 
-<p>Codigo de Ativação<br><span class="codigo_ativ">0000000000</span></p>
+<p>Codigo de Ativação<br><span class="codigo_ativ">{{$cupomAposta->codigo_unico}}</span></p>
 
 </div>
 

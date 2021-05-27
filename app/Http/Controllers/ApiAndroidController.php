@@ -684,13 +684,12 @@ class ApiAndroidController extends Controller{
         
         $cupomAposta = CupomAposta::where('codigo_unico', $request->codigo)
 
-        ->leftJoin('usuarios', 'usuarios.id', '=', 'cupom_aposta.idusuario')
+        ->leftJoin('users as usuario', 'usuario.id', '=', 'cupom_aposta.idusuario')
+        ->leftJoin('users as cambista', 'cambista.id','=','cupom_aposta.idcambista')
+        ->select('cupom_aposta.*', 'usuario.id as idusuario', 'usuario.name', 'cambista.id as idcambista', 'cambista.name as cambistaName', DB::raw("date_format(cupom_aposta.created_at, '%d/%m/%Y as %H:%i:%s') as data_aposta"))->first();
 
-        ->select('cupom_aposta.*', 'usuarios.id as idusuario', 'usuarios.nome', DB::raw("date_format(cupom_aposta.created_at, '%d/%m/%Y as %H:%i:%s') as data_aposta"))->get();
 
-
-
-    if(count($cupomAposta) < 1){
+    if(!$cupomAposta){
 
         return redirect('/lite/minhas-apostas')->with('erro', 'Cupom não encontrado');
 
@@ -708,7 +707,7 @@ class ApiAndroidController extends Controller{
 
     ->leftJoin('esportes', 'esportes.id','=','ligas.idesporte')
 
-    ->where('cupom_aposta_item.idcupom', $cupomAposta[0]->id)->select('cupom_aposta_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'odds.id as idodds', 'valor_momento', 'esportes.nome_traduzido as nome_esporte', 'ligas.nome_traduzido as nome_liga', 'cupom_aposta_item.valor_momento', 'cupom_aposta_item.status_resultado', 'events.data')->get();
+    ->where('cupom_aposta_item.idcupom', $cupomAposta->id)->select('cupom_aposta_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'odds.id as idodds', 'valor_momento', 'esportes.nome_traduzido as nome_esporte', 'ligas.nome_traduzido as nome_liga', 'cupom_aposta_item.valor_momento', 'cupom_aposta_item.status_resultado', 'events.data')->get();
 
 
 
