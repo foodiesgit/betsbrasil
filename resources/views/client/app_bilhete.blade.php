@@ -1,4 +1,14 @@
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Título Opcional</title>
+ 
+        <!--Custon CSS (está em /public/assets/site/css/certificate.css)-->
+    </head>
+    <body>
+         
+ 
 <style type="text/css">
 
 .recibo{
