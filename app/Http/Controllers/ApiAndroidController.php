@@ -678,5 +678,81 @@ class ApiAndroidController extends Controller{
 
     }
 
+
+    public function recuperaBilhete(Request $request) {
+
+        
+        $cupomAposta = CupomAposta::where('codigo_unico', $request->codigo)
+
+        ->leftJoin('usuarios', 'usuarios.id', '=', 'cupom_aposta.idusuario')
+
+        ->select('cupom_aposta.*', 'usuarios.id as idusuario', 'usuarios.nome', DB::raw("date_format(cupom_aposta.created_at, '%d/%m/%Y as %H:%i:%s') as data_aposta"))->get();
+
+
+
+    if(count($cupomAposta) < 1){
+
+        return redirect('/lite/minhas-apostas')->with('erro', 'Cupom não encontrado');
+
+    }
+
+
+
+    $cupomApostaItem = CupomApostaItem::leftJoin('events', 'events.id','=','cupom_aposta_item.idevent')
+
+    ->leftJoin('odds', 'odds.id','=','cupom_aposta_item.idodds')
+
+    ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
+
+    ->leftJoin('ligas', 'ligas.id','=','events.idliga')
+
+    ->leftJoin('esportes', 'esportes.id','=','ligas.idesporte')
+
+    ->where('cupom_aposta_item.idcupom', $cupomAposta[0]->id)->select('cupom_aposta_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'odds.id as idodds', 'valor_momento', 'esportes.nome_traduzido as nome_esporte', 'ligas.nome_traduzido as nome_liga', 'cupom_aposta_item.valor_momento', 'cupom_aposta_item.status_resultado', 'events.data')->get();
+
+
+
+    if(count($cupomApostaItem) > 0){
+
+        $i = 0;
+
+        foreach($cupomApostaItem as $dados){
+
+            if($dados->idhome != ''){
+
+                $sql_time_home = Times::find($dados->idhome);
+
+                $sql_time_away = Times::find($dados->idaway);
+
+
+
+                $cupomApostaItem[$i]->time_home = $sql_time_home->nome;
+                $cupomApostaItem[$i]->time_home = $sql_time_home->nome;
+
+                $cupomApostaItem[$i]->time_away = $sql_time_away->nome;
+
+
+
+                $i++;
+
+            }
+
+        }
+
+    }
+
+
+
+    $data = [
+
+        'cupomAposta' => $cupomAposta,
+
+        'cupomApostaItem' => $cupomApostaItem
+
+    ];
+    return view('client.app_bilhete', $data);
+
+    }
+
 }
 
