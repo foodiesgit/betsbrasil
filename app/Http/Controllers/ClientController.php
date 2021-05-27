@@ -1852,9 +1852,15 @@ class ClientController extends Controller{
 
         $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', '!=', 4)->first();
         if($aposta){
-            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->join('odds_subgrupo', 'odds_subgrupo.id', '=', 'odds.idsubgrupo')->join('times as home', 'home.id', '=', 'events.idhome')->join('times as away', 'away.id', '=', 'events.idaway')->join('estadios', 'estadios.id', '=', 'events.idestadio')->join('ligas', 'ligas.id', '=', 'events.idliga')
+            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')
+            ->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')
+            ->join('odds_subgrupo', 'odds_subgrupo.id', '=', 'odds.idsubgrupo')
+            ->join('times as home', 'home.id', '=', 'events.idhome')
+            ->join('times as away', 'away.id', '=', 'events.idaway')
+            // ->join('estadios', 'estadios.id', '=', 'events.idestadio')
+            ->join('ligas', 'ligas.id', '=', 'events.idliga')
             ->where('idcupom',  $aposta->id)
-            ->select('events.*','events.bet365_id as betid','cupom_aposta_item.status_resultado as ticketStatus', 'odds.*', 'home.nome as homeNome', 'home.image_id as homeImage','away.image_id as awayImage','away.nome as awayNome', 'estadios.city', 'estadios.name as estadio', 'estadios.country', 'ligas.nome_traduzido', 'odds_subgrupo.titulo_traduzido')
+            ->select('events.*','events.bet365_id as betid','cupom_aposta_item.status_resultado as ticketStatus', 'odds.*', 'home.nome as homeNome', 'home.image_id as homeImage','away.image_id as awayImage','away.nome as awayNome', 'ligas.nome_traduzido', 'odds_subgrupo.titulo_traduzido')
             ->get();
             // dd($jogos);
             return view('client.view_bilhete', compact('aposta', 'jogos'));
@@ -1867,23 +1873,20 @@ class ClientController extends Controller{
 
     public function ajaxResultBilhete(Request $request){
         $now = \Carbon\Carbon::now(); 
-        if (Cache::has($request->bilhete)) {
-            $result = Cache::get($request->bilhete);
-            $result = json_decode($result);
-        }else{
+        // if (Cache::has($request->bilhete)) {
+        //     $result = Cache::get($request->bilhete);
+        //     $result = json_decode($result);
+        // }else{
             $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', '!=', 4)->first();
             
-            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)
-            ->orWhere(function($query) {
-                $query->where('status_resultado', 0);
-                $query->where('status_resultado', 1);
-                $query->where('status_resultado', 2);
-            })->get();
+            $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)->get();
+            
             $result = [];
             foreach($jogos as $jogo){
-    
+                // dd($jogo,$jogo->bet365_id);
                 if($jogo->data < $now){
                     $response = \Http::get('https://api.b365api.com/v1/bet365/result?token='.config('app.API_TOKEN').'&event_id='.$jogo->bet365_id);
+
                     if( $response->successful() ){
                         $response = json_decode($response->body());
                         array_push($result, $response->results);
@@ -1891,7 +1894,7 @@ class ClientController extends Controller{
                 } 
             }
             Cache::put($request->bilhete, json_encode($result), 180);
-        }
+        // }
        
 
         return Response()->json($result);

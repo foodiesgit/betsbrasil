@@ -110,7 +110,8 @@
                   <!-- Game Result Bug-->
                   <article class="game-result">
                     <div class="game-info game-info-classic">
-                      <p class="game-info-subtitle">{{$jogo->estadio}} - {{$jogo->city}} - {{$jogo->country}} 
+                      <p class="game-info-subtitle">
+                      <!-- {{$jogo->estadio}} - {{$jogo->city}} - {{$jogo->country}}  -->
                         <time datetime="{{$jogo->data}}">{{\Carbon\Carbon::create($jogo->data)->locale('pt_BR')->toDayDateTimeString()}}</time>
                       </p>
                       <h3 class="game-info-title">{{$jogo->nome_traduzido}}</h3>
