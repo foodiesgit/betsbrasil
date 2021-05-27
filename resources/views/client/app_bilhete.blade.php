@@ -10,7 +10,7 @@
          
  
 <style type="text/css">
-
+@page { size: 88mm 500mm }
 .recibo{
 
   font-family: verdana;  
@@ -36,41 +36,6 @@ th {
   color:black;
 
 }
-
-
-
-/* Small devices (tablets, 768px and up) */
-
-@media (min-width: @screen-sm-min) { 
-
-  .desktop{ display: none !important; }
-
-}
-
-
-
-/* Medium devices (desktops, 992px and up) */
-
-@media (min-width: @screen-md-min) { 
-
-  .mobile{ display: none !important; }
-
-}
-
-
-
-
-
-/* Large devices (large desktops, 1200px and up) */
-
-@media (min-width: @screen-lg-min) { 
-
-  .mobile{ display: none !important; }
-
-
-
-}
-
 
 
 h5{
@@ -140,136 +105,101 @@ hr{
 
 
 
-      <section class="section section-sm bg-gray-100">
 
-        <div class="container">
+<div id="bilhete" style="background-color: #f5f5db; padding: 5px;" align="left">
 
-          <div class="row isotope-wrap row-30">
 
-            <!-- Isotope Filters-->
 
-            <div class="col-lg-12">
+<h6 class="text-center destaque"> Nome do $sql_time_home</h6>
 
-              <div class="isotope-filters isotope-filters-horizontal">
+<h5 class="text-center titulo">Detalhe da Aposta</h5>
 
-                <button class="btn btn-success btn-block voyager-print" onclick="printDiv('bilhete')"><div class="isotope-filters-info">
+<p><span class="titulo">Hora:</span><b> {{date('d/m/Y H:i:s')}}</b></p>
 
-                  <p style="color:white;">Imprimir Bilhete</p>
+<p><span class="titulo">Nome Cliente:</span> Nome do Cliente</p>
 
-                </div></button>
+<p><span class="titulo">Vendedor:</span> Nome do Cambista</p>
 
-              </div>
+<h5 class="text-center titulo">Jogos</h5>
 
 
 
-            <div id="bilhete" style="background-color: #f5f5db; padding: 5px;" align="left">
+<table align="center">
 
+<thead>
 
+<tr class="linha">
 
-             <h6 class="text-center destaque"> Nome do $sql_time_home</h6>
+    <th style="width:90%;">Aposta</th>
 
-             <h5 class="text-center titulo">Detalhe da Aposta</h5>
+    <th>Cotação</th>
 
-             <p><span class="titulo">Hora:</span><b> {{date('d/m/Y H:i:s')}}</b></p>
+</tr>
 
-             <p><span class="titulo">Nome Cliente:</span> Nome do Cliente</p>
+</thead>
 
-             <p><span class="titulo">Vendedor:</span> Nome do Cambista</p>
+<tbody>
+@foreach($cupomApostaItem as $bilhete)
 
-             <h5 class="text-center titulo">Jogos</h5>
+<tr>
 
+    <td><br>
 
+    <p class="destaque">Nome da partida </p>
 
-             <table align="center">
+    <p><small>Data :</small></p>
 
-              <thead>
+    <p>Palpite: <span class="destaque">Palpite</span></p>
 
-                <tr class="linha">
+    </td>
 
-                  <th style="width:90%;">Aposta</th>
+    <!-- cotação -->
 
-                  <th>Cotação</th>
+    <td class="text-center"><p>3.00</p></td>
 
-                </tr>
+</tr>
 
-              </thead>
 
-              <tbody>
-                @foreach($cupomApostaItem as $bilhete)
 
-                <tr>
+@endforeach
 
-                  <td><br>
 
-                    <p class="destaque">Nome da partida </p>
 
-                    <p><small>Data :</small></p>
+<tr>
 
-                    <p>Palpite: <span class="destaque">Palpite</span></p>
+    <td class="text-right"><p>Total Apostado R$</p> </td>
 
-                  </td>
+    <td class="text-center"><p>10.000</p></td>
 
-                  <!-- cotação -->
+</tr>
 
-                  <td class="text-center"><p>3.00</p></td>
+<tr>
 
-                </tr>
+    <td class="text-right"><p>Possiveis Ganhos R$</p></td>
 
+    <td class="text-center"><p>50.0000</p></td>
 
+</tr>
 
-                @endforeach
 
 
+</tbody>
 
-                <tr>
+</table>
 
-                  <td class="text-right"><p>Total Apostado R$</p> </td>
 
-                  <td class="text-center"><p>10.000</p></td>
 
-                </tr>
+<div class="text-center campo_codigo">
 
-                <tr>
+<p>Codigo de Ativação<br><span class="codigo_ativ">0000000000</span></p>
 
-                  <td class="text-right"><p>Possiveis Ganhos R$</p></td>
+</div>
 
-                  <td class="text-center"><p>50.0000</p></td>
+<div class="text-center">
 
-                </tr>
+<p>Para validar sua aposta envie o código de ativação para o seu revendedor! <br> O revendedor efetuará a ativação após o pagamento</p>
 
-
-
-              </tbody>
-
-            </table>
-
-
-
-            <div class="text-center campo_codigo">
-
-             <p>Codigo de Ativação<br><span class="codigo_ativ">0000000000</span></p>
-
-           </div>
-
-           <div class="text-center">
-
-             <p>Para validar sua aposta envie o código de ativação para o seu revendedor! <br> O revendedor efetuará a ativação após o pagamento</p>
-
-           </div>
-
-            </div>
-
-         </div>
-
-       </div>
-
-
-
-     </div>
-
-   </div>
-
- </div>
+</div>
 
 </div>
 
