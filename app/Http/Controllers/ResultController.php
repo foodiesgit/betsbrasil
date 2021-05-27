@@ -13,7 +13,7 @@ class ResultController extends Controller
 {
     public function Result(Request $request){
         $now = \Carbon\Carbon::now(); 
-        $apostas = CupomAposta::where('id',3)->get();
+        $apostas = CupomAposta::where('cupom_aposta.status', 1)->get();
 
         foreach ($apostas as $aposta){
             $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', '=', 'events.id')->join('odds', 'cupom_aposta_item.idodds', '=', 'odds.id')->where('idcupom',  $aposta->id)->get();
