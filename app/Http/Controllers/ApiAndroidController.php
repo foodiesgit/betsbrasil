@@ -750,7 +750,9 @@ class ApiAndroidController extends Controller{
         'cupomApostaItem' => $cupomApostaItem
 
     ];
-    return view('client.app_bilhete', $data);
+    return \PDF::loadView('client.app_bilhete',  $data)
+    // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
+    ->stream('nome-arquivo-pdf-gerado.pdf');
 
     }
 
