@@ -85,9 +85,9 @@
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/jogos-ao-vivo">Ao Vivo</a>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="#">Campeonatos</a></li>
-                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none" ><a class="rd-nav-link" href="/regulamentacao">Jogos do dia {{\Carbon\Carbon::now()->locale('pt_BR')->format('d/m/Y')}}</a></li>
-                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none"><a class="rd-nav-link" href="/regulamentacao">Jogos do dia {{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</a></li>
-                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none"><a class="rd-nav-link" href="/regulamentacao">Jogos do dia {{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</a></li>
+                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none" ><a class="rd-nav-link" href="/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">Jogos do dia {{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</a></li>
+                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none"><a class="rd-nav-link" href="/{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('Y-m-d')}}">Jogos do dia {{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</a></li>
+                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none"><a class="rd-nav-link" href="/{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('Y-m-d')}}">Jogos do dia {{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('d/m/Y')}}</a></li>
                     <article class="rd-menu rd-navbar-megamenu rd-megamenu-2-columns context-light">
                       <div class="rd-megamenu-main">
                           <div class="rd-megamenu-item rd-megamenu-item-nav">
