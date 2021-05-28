@@ -115,7 +115,7 @@
                     <div class="post-badly-body-top">
                         <a href="/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">
                         <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->locale('pt_BR')->format('d/m/Y')}}</div>
+                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</div>
                         </a>
                     </div>
                     </div>
