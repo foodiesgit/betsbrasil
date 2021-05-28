@@ -55,7 +55,7 @@ Route::prefix('operacao-carrinho')->group(function(){
 Route::get('layout', 'ClientController@viewLayout');
 
 Route::get('/', 'ClientController@viewIndex');
-Route::get('/{date}', 'ClientController@viewIndexData');
+Route::get('/data/{date}', 'ClientController@viewIndexData');
 Route::get('/events/{idevent}', 'ClientController@viewEvent');
 Route::get('/leagues/{id}', 'ClientController@viewJogosPorLiga');
 Route::get('sports/{id}', 'ClientController@viewJogosPorEsporte');
