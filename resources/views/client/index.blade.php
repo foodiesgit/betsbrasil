@@ -105,8 +105,9 @@
       <section class="section section-sm bg-gray-100">
         <div class="container">
           @yield('alert')
-          <div class="row row-50">
-            <div class="col-lg-12">
+          <div class="row row-50 d-none d-lg-block d-xl-block">
+
+            <div class="col-lg-12 ">
             <div class="row row-30">
                 <div class="col-md-6 col-lg-4">
                 <article class="post-badly">
@@ -140,7 +141,8 @@
                 </div>
             </div>
             </div>
-        </div>
+            </div>
+
           <div class="row isotope-wrap row-30">
             <!-- Isotope Filters-->
             <div class="col-lg-12">

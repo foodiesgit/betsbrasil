@@ -84,7 +84,10 @@
                     <li class="rd-nav-item active"><a class="rd-nav-link" href="/">Início</a>
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/jogos-ao-vivo">Ao Vivo</a>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="#">Campeonatos</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="#">Campeonatos</a></li>
+                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none" ><a class="rd-nav-link" href="/regulamentacao">Jogos do dia {{\Carbon\Carbon::now()->locale('pt_BR')->format('d/m/Y')}}</a></li>
+                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none"><a class="rd-nav-link" href="/regulamentacao">Jogos do dia {{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</a></li>
+                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none"><a class="rd-nav-link" href="/regulamentacao">Jogos do dia {{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</a></li>
                     <article class="rd-menu rd-navbar-megamenu rd-megamenu-2-columns context-light">
                       <div class="rd-megamenu-main">
                           <div class="rd-megamenu-item rd-megamenu-item-nav">
@@ -200,8 +203,8 @@
                     </article>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/verifica-bilhete">Verifica Bilhete</a>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="/regulamentacao">Regulamento</a>
-                    </li>
+                   <li class="rd-nav-item "><a class="rd-nav-link" href="/regulamentacao">Regulamento</a></li>
+
                     @if(isset(Auth::user()->id))
                           <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/dashboard">Minha Conta</a></li>
                       @else
