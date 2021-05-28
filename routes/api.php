@@ -27,7 +27,8 @@ Route::prefix('v1')->group(function(){
 
         Route::get('recupera-ligas-destaque', 'ApiAndroidController@recuperaLigasDestaque');
         Route::get('recupera-jogos-destaque', 'ApiAndroidController@recuperaJogosDestaque');
-
+        Route::get('adiciona-aposta/{id}', 'ApiAndroidController@adicionarAposta');
+       
         Route::get('recupera-jogos-principal', 'ApiAndroidController@recuperaJogosPrincipal');
         Route::get('recupera-bilhete/{codigo}', 'ApiAndroidController@recuperaBilhete');
     });

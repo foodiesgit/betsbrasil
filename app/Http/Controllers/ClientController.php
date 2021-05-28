@@ -823,10 +823,9 @@ class ClientController extends Controller{
 
                 }
 
-                if($config->premio_maximo < ($valor_total_apostado * $sql[0]->valor_total_cotas) && $config->premio_maximo != 0 || $config->premio_maximo < ($valor_total_apostado * $config->cotacao_maxima) && $config->premio_maximo != 0 ){
+                if($config->premio_maximo < ($valor_total_apostado * $cupomAposta->total_cotas) && $config->premio_maximo != 0 ){
                     $cupomAposta->possivel_retorno = $config->premio_maximo;
                 }
-
 
                 $cupomAposta->save();
 
@@ -1848,6 +1847,7 @@ class ClientController extends Controller{
     public function verificaBilhete(){
         return view('client.verifica_bilhete');
     }
+    
     public function resultBilhete(Request $request){
 
         $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', '!=', 4)->first();

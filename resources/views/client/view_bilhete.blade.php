@@ -144,13 +144,14 @@
                               <tr>
                                 @if($jogo->ticketStatus == 0)
                                 <td class="table-game-info-number">Aguardando Resultado</td>
-                                @else @if($jogo->ticketStatus == 1)
+                                @elseif($jogo->ticketStatus == 1)
                                  <td class="table-game-info-number" style="background-color:green; color:white">Ganhou</td>
 
-                                @else
+                                @elseif($jogo->ticketStatus == 2)
                                  <td class="table-game-info-number" style="background-color:red; color:white">Perdeu</td>
+                                @else
+                                <td class="table-game-info-number" style="background-color:red; color:white">Cancelado</td>
 
-                                @endif
                                 @endif
 
                                 <td class="table-game-info-category">{{$jogo->titulo_traduzido}} - {{$jogo->name}}</td>

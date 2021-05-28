@@ -61,6 +61,8 @@ use App\OddsGrupo;
 use App\OddsSubGrupo;
 
 use App\CarrinhoApostas;
+use App\NovoCarrinhoItem;
+use App\NovoCarrinho;
 
 use App\CupomAposta;
 
@@ -752,6 +754,163 @@ class ApiAndroidController extends Controller{
     return \PDF::loadView('client.app_bilhete', $data)->stream('nome-arquivo-pdf-gerado.pdf');
 
     }
+
+    public function adicionarAposta(Request $request){
+
+        $input = $request->all();
+ 
+        $id = $input['id'];
+        $config =\DB::table('campos_fixos')->first(); 
+
+
+        $novoCarrinho = NovoCarrinho::where('session_id', session()->getId())->get();
+
+
+
+        if(count($novoCarrinho) > 0){
+
+            $idcarrinho = $novoCarrinho[0]->id;
+
+        }else{
+
+            $novoCarrinho = new NovoCarrinho;
+
+            $novoCarrinho->session_id = session()->getId();
+
+            $novoCarrinho->valor_total_cotas = 0;
+
+            $novoCarrinho->valor_total_apostado = 0;
+
+            $novoCarrinho->save();
+
+
+
+            $idcarrinho = $novoCarrinho->id;
+
+        }
+
+
+
+        $item = NovoCarrinhoItem::where('idcarrinho', $idcarrinho)->where('idodd', $id)->get();
+
+
+
+        if(count($item) > 0){
+
+            //ja tem essa selecão, então remove
+
+            NovoCarrinhoItem::where('id', $item[0]->id)->delete();
+
+
+
+            return response()->json([
+
+                'status' => 'ok',
+
+                'acao' => 'unselect'
+
+            ]);
+
+        }else{
+
+
+
+            $sqlodd = Odds::leftJoin('events', 'events.id','=','odds.idevent')
+
+                ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
+
+                ->where('odds.id', $id)->select('odds.id', 'odds.idevent', 'odds.name', 'odds.odds','odds_subgrupo.titulo_traduzido as subgrupo')->get();
+
+
+
+            if(count($sqlodd) < 1){
+
+                return response()->json([
+
+                    'status' => 'erro',
+
+                    'mensagem' => 'Odd não encontrada'
+
+                ]);
+
+            }
+
+
+
+            $e = NovoCarrinhoItem::where('idevent', $sqlodd[0]->idevent)->get();
+
+
+
+            if(count($e) > 0){
+
+                NovoCarrinhoItem::where('id', $e[0]->id)->delete();
+
+            }
+
+
+            $item = new NovoCarrinhoItem;
+
+            $item->idcarrinho = $idcarrinho;
+
+            $item->idevent = $sqlodd[0]->idevent;
+
+            $item->idodd = $sqlodd[0]->id;
+
+            $item->cota_momento = $sqlodd[0]->odds;
+
+            $item->save();
+
+        }
+
+
+
+        //faz a multiplicacao das cotas e atualiza o carrinho
+
+        $itensCarrinho = NovoCarrinhoItem::leftJoin('novo_carrinho', 'novo_carrinho.id','=','novo_carrinho_item.idcarrinho')
+
+            ->select("novo_carrinho_item.*")->where('session_id', session()->getId())->get();
+
+
+
+        $multiplicacao = 1;
+
+        $soma = 0;
+
+
+
+        if(count($itensCarrinho) > 0){
+
+            foreach($itensCarrinho as $dados){
+
+                $multiplicacao = $multiplicacao * $dados->cota_momento;
+
+                $soma = $soma + $dados->cota_momento;
+
+            }
+
+        }
+
+
+
+        NovoCarrinho::where('session_id', session()->getId())->update([
+
+            'valor_total_cotas' =>  $multiplicacao
+
+        ]);
+
+        return response()->json([
+
+            'status' => 'ok',
+
+            'acao' => 'select',
+
+            'idevent' => $sqlodd[0]->idevent
+
+        ]);
+
+    }
+
+
 
 }
 
