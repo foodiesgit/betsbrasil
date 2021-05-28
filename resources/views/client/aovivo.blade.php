@@ -69,45 +69,45 @@
 
                 <div class="col-lg-12 ">
                 <div class="row row-30">
-                    <div class="col-md-6 col-lg-4">
-                    <article class="post-badly">
-                        <div class="post-badly-body">
-                        <div class="post-badly-body-top">
-                            <a href="/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">
-                            <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                            <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</div>
-                            </a>
-                        </div>
-                        </div>
-                    </article>
+                <div class="col-md-6 col-lg-4">
+                <article class="post-badly">
+                    <div class="post-badly-body">
+                    <div class="post-badly-body-top">
+                        <a href="/data/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">
+                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
+                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</div>
+                        </a>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                    <article class="post-badly">
-                        <div class="post-badly-body">
-                        <div class="post-badly-body-top">
-                            <a href="/{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('Y-m-d')}}">
-
-                            <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                            <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</div>
-                            </a>
-                        </div>
-                        </div>
-                    </article>
                     </div>
-                    <div class="col-md-6 col-lg-4">
-                    <article class="post-badly">
-                        <div class="post-badly-body">
-                        <div class="post-badly-body-top">
-                            <a href="/{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('Y-m-d')}}">
-
-                            <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                            <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('d/m/Y')}}</div>
-                            </a>
-                        </div>
-                        </div>
-                    </article>
-                    </div>
+                </article>
                 </div>
+                <div class="col-md-6 col-lg-4">
+                <article class="post-badly">
+                    <div class="post-badly-body">
+                    <div class="post-badly-body-top">
+                        <a href="/data/{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('Y-m-d')}}">
+
+                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
+                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</div>
+                        </a>
+                    </div>
+                    </div>
+                </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                <article class="post-badly">
+                    <div class="post-badly-body">
+                    <div class="post-badly-body-top">
+                        <a href="/data/{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('Y-m-d')}}">
+
+                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
+                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('d/m/Y')}}</div>
+                        </a>
+                    </div>
+                    </div>
+                </article>
+                </div>
+            </div>
                 </div>
                 </div>
 
