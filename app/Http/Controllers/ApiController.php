@@ -167,7 +167,7 @@ class ApiController extends Controller {
 
         $events = Events::find($idevent);
         // dd('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
-        $response = Http::get('https://api.betsapi.com/v1/bet365/prematch?LNG_ID=22&token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
+        $response = Http::get('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
 
         if( $response->successful() ){
             
@@ -322,7 +322,6 @@ class ApiController extends Controller {
 
                 if(isset($json->results[0]->main->sp->full_time_result)){
                     
-                    
                     $this->salvaOdds($idevent, 79, $json->results[0]->main->sp->full_time_result[0]);
 
                     $this->salvaOdds($idevent,79, $json->results[0]->main->sp->full_time_result[1]);
@@ -453,7 +452,7 @@ class ApiController extends Controller {
         
         
                 do{
-                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?&LNG_ID=22&sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&&cc='. $pais.'&page='.$i);
+                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&&cc='. $pais.'&page='.$i);
                     
         
                     if($response->successful()){
