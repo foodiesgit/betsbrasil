@@ -647,30 +647,24 @@ $(document).ready(function(e){
     });
 
 
-    // $('.ca-input').maskMoney({
+    $('.ca-input').maskMoney({
 
-    //         prefix: 'R$ ',
+    prefix: 'R$ ', thousands: '.', decimal: ',', allowZero: true, allowEmpty: true,
 
-    //         thousands: '.',
+});
 
-    //         decimal: ',',
-    //         overwrite: true,
-    //         autofix: true,
-
+    // var currencyMask = IMask(
+    // $('.ca-input'),
+    // {
+    //     mask: '$num',
+    //     blocks: {
+    //     num: {
+    //         // nested masks are available!
+    //         mask: Number,
+    //         thousandsSeparator: ' '
+    //     }
+    //     }
     // });
-
-    var currencyMask = IMask(
-    $('.ca-input'),
-    {
-        mask: '$num',
-        blocks: {
-        num: {
-            // nested masks are available!
-            mask: Number,
-            thousandsSeparator: ' '
-        }
-        }
-    });
 
     $('#divvalor').hide();
 
