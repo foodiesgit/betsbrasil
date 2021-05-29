@@ -270,7 +270,7 @@ class AjaxController extends Controller{
                 }
                 array_push($search,['value' => $jogo->data.' '.$jogo->hora.' '.$jogo->homeNome.' x '.  $jogo->awayNome, 'data'=> $jogo->betid]);
             }
-            return Response()->json(['suggestions' => $search, 'jogos' => $jogos, 'query' => $q['query']]);
+            return Response()->json(['suggestions' => [$search, 'jogos' => $jogos, 'query' => $q['query']]]);
         }
     }
 
