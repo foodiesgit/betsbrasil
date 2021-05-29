@@ -594,7 +594,7 @@ $(document).ready(function(e){
         console.log(suggestion)
         // $('.item').parent().remove();
         // $('.liga').parent().remove();
-        if(suggestion == ""){
+        if(suggestion.query == ""){
             $('#ns').css('display', "block");
             $('#tab1').css('display', "none");
         }else{
