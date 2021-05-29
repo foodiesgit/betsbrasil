@@ -17,7 +17,7 @@
 
     <meta charset="utf-8">
 
-    <link rel="icon" href="/favicon.icon" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <!-- Stylesheets-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Kanit:300,400,500,500i,600%7CRoboto:400,900">
     <link rel="stylesheet" href="/css/bootstrap.css">
