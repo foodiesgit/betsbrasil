@@ -653,7 +653,9 @@ $(document).ready(function(e){
 
             thousands: '.',
 
-            decimal: ','
+            decimal: ',',
+            overwrite: true,
+            autofix: true,
 
     });
 
