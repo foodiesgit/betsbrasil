@@ -605,21 +605,21 @@ $(document).ready(function(e){
     },
     onSearchComplete: function (suggestion, search) {
         console.log(suggestion, search);
-        search['jogos'].map((item => {
+        search.map((item => {
             $('#tab1').append(
                 '<div class="sport-table">'+
                     '<div class="sport-table-tr">'+
                         '<div class="row sport-row align-items-center row-15">'+
                             '<div class="col-sm-1 col-md-1 col-lg-1">'+
                                 '<div class="sport-table-icon">'+
-                                item.data+' '+item.hora+
+                                item.jogo.data+' '+item.jogo.hora+
                                 '</div>'+
                         '</div>'+
                             '<div class="col-sm-9 col-md-4 col-lg-3">'+
                                 '<div class="sport-table-title">'+
                                     '<div class="sport-table-title-item sport-table-title-item-left">'+
-                                        '<span class="sport-table-title-team">'+item.homeNome+' X</span>'+
-                                        '<span class="sport-table-title-team">'+item.awayNome+'</span>'+
+                                        '<span class="sport-table-title-team">'+item.jogo.homeNome+' X</span>'+
+                                        '<span class="sport-table-title-team">'+item.jogo.awayNome+'</span>'+
                                     '</div>'+
                                     '<div class="sport-table-title-item sport-table-title-item-right">'+
                                     '</div>'+
@@ -627,25 +627,25 @@ $(document).ready(function(e){
                             '</div>'+
                             '<div class="col-sm-10 col-md-6 col-lg-7">'+
                                 '<div class="sport-table-wager-home">'+
-                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddhome_id+'">'+
+                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.jogo.oddhome_id+'">'+
                                     '<span>1</span>'+
-                                    '<span class="sport-table-wager-button-count">'+item.oddhome_value+'</span>'+
+                                    '<span class="sport-table-wager-button-count">'+item.jogo.oddhome_value+'</span>'+
                                     '</a>'+
 
-                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.odddraw_id+'">'+
+                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.jogo.odddraw_id+'">'+
                                     '<span>X</span>'+
-                                    '<span class="sport-table-wager-button-count">'+item.odddraw_value+'</span>'+
+                                    '<span class="sport-table-wager-button-count">'+item.jogo.odddraw_value+'</span>'+
                                     '</a>'+
 
-                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddaway_id+'">'+
+                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.jogo.oddaway_id+'">'+
                                     '<span>2</span>'+
-                                    '<span class="sport-table-wager-button-count">'+item.oddaway_value+'</span>'+
+                                    '<span class="sport-table-wager-button-count">'+item.jogo.oddaway_value+'</span>'+
                                     '</a>'+
                     
                                 '</div>'+
                             '</div>'+
                             '<div class="col-sm-2 col-md-1 col-lg-1">'+
-                                '<div class="sport-table-bonus moreOdds" data-id="'+item.id+'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'+item.total_odds+'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
+                                '<div class="sport-table-bonus moreOdds" data-id="'+item.jogo.id+'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'+item.jogo.total_odds+'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
                             '</div>'+
                         '</div>'+
                 '</div>'+
