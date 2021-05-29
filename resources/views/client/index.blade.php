@@ -560,7 +560,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <script type="text/javascript">
-
+    <script src="https://unpkg.com/imask"></script>
 $(document).ready(function(e){
 
     $('#search').autocomplete({
@@ -644,108 +644,15 @@ $(document).ready(function(e){
     }
 
     });
-    var odd =  '';
-    // $('#search').on('keyup keydown',function(e){ 
-    //     serviceUrl: '/autocomplete/countries',
-    // onSelect: function (suggestion) {
-    //     alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-    // }
-    // var query = $('#search').val();
 
-    // if (xhr !== undefined)
-
-    // if (xhr.readyState > 0 && xhr.readyState < 4){
-    //     xhr.abort();
-    // }
-
-    // if(query == ''){
-    //     $('#tab1').css('display', "none");
-    //     $('#ns').css('display', "block");
-    // }else{
-
-    //     if(odd != query){
-    //         odd = query;
-    //         $('#tab1').html('');
-    //         var xhr =  $.ajax({
-
-    //             url: '/ajax/search',
-
-    //             method: 'GET',
-    //             data: {
-
-    //                 query: query
-
-    //             },
-
-    //             success: function(res){
-    //                 $('.item').parent().remove();
-    //                 $('.liga').parent().remove();
-    //                 $('#tab1').css('display', "block");
-    //                 $('#ns').css('display', "none");
-    //                 $('#messageSearch').css('display', "block");
-    //                 res.map((item => {
-    //                     $('#tab1').append(
-    //                         '<div class="sport-table">'+
-    //                             '<div class="sport-table-tr">'+
-    //                                 '<div class="row sport-row align-items-center row-15">'+
-    //                                     '<div class="col-sm-1 col-md-1 col-lg-1">'+
-    //                                         '<div class="sport-table-icon">'+
-    //                                         item.data+' '+item.hora+
-    //                                         '</div>'+
-    //                                 '</div>'+
-    //                                     '<div class="col-sm-9 col-md-4 col-lg-3">'+
-    //                                         '<div class="sport-table-title">'+
-    //                                             '<div class="sport-table-title-item sport-table-title-item-left">'+
-    //                                                 '<span class="sport-table-title-team">'+item.homeNome+' X</span>'+
-    //                                                 '<span class="sport-table-title-team">'+item.awayNome+'</span>'+
-    //                                             '</div>'+
-    //                                             '<div class="sport-table-title-item sport-table-title-item-right">'+
-    //                                             '</div>'+
-    //                                         '</div>'+
-    //                                     '</div>'+
-    //                                     '<div class="col-sm-10 col-md-6 col-lg-7">'+
-    //                                         '<div class="sport-table-wager-home">'+
-    //                                             '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddhome_id+'">'+
-    //                                             '<span>1</span>'+
-    //                                             '<span class="sport-table-wager-button-count">'+item.oddhome_value+'</span>'+
-    //                                             '</a>'+
-
-    //                                             '<a class="sport-table-wager-button cota-aposta" data-id="'+item.odddraw_id+'">'+
-    //                                             '<span>X</span>'+
-    //                                             '<span class="sport-table-wager-button-count">'+item.odddraw_value+'</span>'+
-    //                                             '</a>'+
-
-    //                                             '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddaway_id+'">'+
-    //                                             '<span>2</span>'+
-    //                                             '<span class="sport-table-wager-button-count">'+item.oddaway_value+'</span>'+
-    //                                             '</a>'+
-                                
-    //                                         '</div>'+
-    //                                     '</div>'+
-    //                                     '<div class="col-sm-2 col-md-1 col-lg-1">'+
-    //                                         '<div class="sport-table-bonus moreOdds" data-id="'+item.id+'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'+item.total_odds+'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
-    //                                     '</div>'+
-    //                                 '</div>'+
-    //                         '</div>'+
-    //                         '</div>')
-    //                 }));
-    //             },error: function(err){
-    //             },complete: function(){
-    //                 $('#messageSearch').css('display', "none");
-
-    //             }
-
-    //             });  
-    //     }
-
-
-    // }
-    
-    // });
 
     $('.ca-input').maskMoney({
 
-        prefix: 'R$ ', thousands: '.', decimal: ',', allowZero: true, allowEmpty: true
+            prefix: 'R$ ',
+
+            thousands: '.',
+
+            decimal: ','
 
     });
 
