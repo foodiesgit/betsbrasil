@@ -605,7 +605,7 @@ $(document).ready(function(e){
     },
     onSelect: function (suggestion) {
 
-        $('#tab1').each(function(e){
+        $('.sport-table').each(function(e){
             var jogoid = $(this).attr('data-idJogo');
             if( jogoid == suggestion.data ){
                 $(this).show();
