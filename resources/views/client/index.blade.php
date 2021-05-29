@@ -591,19 +591,11 @@ $(document).ready(function(e){
     showNoSuggestionNotice: true,
     noSuggestionNotice: "Nenhum jogo foi encontrado",
     onSearchStart: function (suggestion) {
-        console.log(suggestion.query)
+        $('#messageSearch').css('display', "block");
+
         // $('.item').parent().remove();
         // $('.liga').parent().remove();
-        if(suggestion.query == ""){
-            $('#ns').css('display', "block");
-            $('#tab1').css('display', "none");
-        }else{
-            $('#tab1').html('');
-
-            $('#tab1').css('display', "block");
-            $('#messageSearch').css('display', "block");
-
-        }
+       
        
         // if(suggestion != ""){
         //     $('#tab1').html('');
@@ -625,10 +617,13 @@ $(document).ready(function(e){
         })
     },
     onSearchComplete: function (suggestion, search) {
-        console.log(suggestion, search);
-        $('#messageSearch').css('display', "none");
-
-        search.map((item => {
+        if(suggestion.query == ""){
+            $('#ns').css('display', "block");
+            $('#tab1').css('display', "none");
+        }else{
+            $('#tab1').html('');
+            $('#tab1').css('display', "block");
+            search.map((item => {
             $('#tab1').append(
                 '<div class="sport-table" data-idJogo='+item.jogo.betid+'>'+
                     '<div class="sport-table-tr">'+
@@ -673,8 +668,12 @@ $(document).ready(function(e){
                         '</div>'+
                 '</div>'+
                 '</div>')
+            $('#messageSearch').css('display', "none");
+
         }));
-        $('#messageSearch').css('display', "none");
+        }
+
+    
 
     }
 
