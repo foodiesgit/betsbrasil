@@ -603,9 +603,9 @@ $(document).ready(function(e){
 
         // }
     },
-    onSearchComplete: function (suggestion, search, jogos) {
-        console.log(suggestion, search, jogos );
-            jogos['data'].map((item => {
+    onSearchComplete: function (suggestion, search) {
+        console.log(suggestion, search);
+        search['jogos'].map((item => {
             $('#tab1').append(
                 '<div class="sport-table">'+
                     '<div class="sport-table-tr">'+
