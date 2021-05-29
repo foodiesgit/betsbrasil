@@ -108,17 +108,7 @@
           <div class="row isotope-wrap row-30">
             <!-- Isotope Filters-->
             <div class="col-lg-12">
-                <div class="rd-navbar-search" style="min-width:100%">
-                    <button class="rd-navbar-search-toggle" data-rd-navbar-toggle=".rd-navbar-search"><span></span></button>
-                    <form class="rd-search" action="#" data-search-live="rd-search-results-live" method="GET" style="min-width:100%">
-                      <div class="form-wrap" style="min-width:100%">
-                        <label class="form-label" for="rd-navbar-search-form-input"></label>
-                        <input class="rd-navbar-search-form-input form-input" id="search" style="width:100%;"  placeholder="Pesquise seu jogo" type="text" name="s" autocomplete="off">
-                        <div class="rd-search-results-live" id="rd-search-results-live"></div>
-                      </div>
-                      <button class="rd-search-form-submit fl-budicons-launch-search81" type="submit"></button>
-                    </form>
-                  </div>
+               
               <!-- <div class="isotope-filters isotope-filters-horizontal">
                 <button class="isotope-filters-toggle button" data-custom-toggle="#isotope-filters" data-custom-toggle-hide-on-blur="true" data-custom-toggle-disable-on-blur="true">Select<span class="caret"></span></button>
                 <ul class="isotope-filters-list" id="isotope-filters">

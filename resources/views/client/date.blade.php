@@ -1,27 +1,4 @@
 @include('client.include_sbet')
-
-
-<link href="/assets3/css/icons.css" rel="stylesheet" />
-
-<link href="/assets3/plugins/sidebar/sidebar.css" rel="stylesheet" />
-
-<link href="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
-
-<link href="/assets3/css/style.css" rel="stylesheet" />
-
-<link href="/assets3/css/style-dark.css" rel="stylesheet" />
-
-<link rel="stylesheet" href="/assets3/css/lite.css">
-
-
-<link href="/assets3/switcher/css/switcher.css" rel="stylesheet" />
-
-<link href="/assets3/switcher/demo.css" rel="stylesheet" />
-
-<link href="/assets3/css/animate.css" rel="stylesheet" />
-<link href="/assets3/css/floo.css" rel="stylesheet" />
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <style>
   a {
     text-decoration: none;
@@ -56,6 +33,12 @@
     margin-top:11px;
 
   }
+  .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 </style>
 @yield('main-header')
 <?php $config =\DB::table('campos_fixos')->first(); ?>
@@ -161,7 +144,10 @@
                     <div class="rd-search"  style="min-width:100%">
                       <div class="form-wrap" style="min-width:100%">
                         <label class="form-label" for="rd-navbar-search-form-input"></label>
-                        <input class="rd-navbar-search-form-input form-input" id="search" style="width:100%;"  placeholder="Pesquise seu jogo" type="text" name="s" autocomplete="off">
+                        <input class="rd-navbar-search-form-input form-input" id="search" style="width:100%;"  placeholder="Pesquise seu jogo" type="text" name="s" >
+                        <!-- <div class="autocomplete-suggestions">
+                            <div class="autocomplete-suggestion"></div>
+                        </div> -->
                         <div class="rd-search-results-live" id="rd-search-results-live"></div>
                       </div>
                       <button class="rd-search-form-submit fl-budicons-launch-search81" type="submit"></button>
@@ -555,8 +541,8 @@
     <div class="snackbars" id="form-output-global"></div>
     <!-- Javascript-->
     
-    <script src="/js/core.min.js"></script>
-    <script src="/js/script.js"></script>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
 
     <script src="/assets3/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -582,6 +568,7 @@ $(document).ready(function(e){
     onSearchStart: function (suggestion) {
         // $('.item').parent().remove();
         // $('.liga').parent().remove();
+            
         $('#tab1').css('display', "block");
         $('#tab1').html('');
         $('#ns').css('display', "none");
@@ -594,23 +581,33 @@ $(document).ready(function(e){
 
         // }
     },
-    onSearchComplete: function (suggestion, jogos) {
-        console.log(jogos);
-            jogos['data'].map((item => {
+    onSelect: function (suggestion) {
+
+        $('.sport-table').each(function(e){
+            var jogoid = $(this).attr('data-idJogo');
+            if( jogoid == suggestion.data ){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+        })
+    },
+    onSearchComplete: function (suggestion, search) {
+        search.map((item => {
             $('#tab1').append(
-                '<div class="sport-table">'+
+                '<div class="sport-table" data-idJogo='+item.jogo.betid+'>'+
                     '<div class="sport-table-tr">'+
                         '<div class="row sport-row align-items-center row-15">'+
                             '<div class="col-sm-1 col-md-1 col-lg-1">'+
                                 '<div class="sport-table-icon">'+
-                                item.data+' '+item.hora+
+                                item.jogo.data+' '+item.jogo.hora+
                                 '</div>'+
                         '</div>'+
                             '<div class="col-sm-9 col-md-4 col-lg-3">'+
                                 '<div class="sport-table-title">'+
                                     '<div class="sport-table-title-item sport-table-title-item-left">'+
-                                        '<span class="sport-table-title-team">'+item.homeNome+' X</span>'+
-                                        '<span class="sport-table-title-team">'+item.awayNome+'</span>'+
+                                        '<span class="sport-table-title-team">'+item.jogo.homeNome+' X</span>'+
+                                        '<span class="sport-table-title-team">'+item.jogo.awayNome+'</span>'+
                                     '</div>'+
                                     '<div class="sport-table-title-item sport-table-title-item-right">'+
                                     '</div>'+
@@ -618,25 +615,25 @@ $(document).ready(function(e){
                             '</div>'+
                             '<div class="col-sm-10 col-md-6 col-lg-7">'+
                                 '<div class="sport-table-wager-home">'+
-                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddhome_id+'">'+
+                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.jogo.oddhome_id+'">'+
                                     '<span>1</span>'+
-                                    '<span class="sport-table-wager-button-count">'+item.oddhome_value+'</span>'+
+                                    '<span class="sport-table-wager-button-count">'+item.jogo.oddhome_value+'</span>'+
                                     '</a>'+
 
-                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.odddraw_id+'">'+
+                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.jogo.odddraw_id+'">'+
                                     '<span>X</span>'+
-                                    '<span class="sport-table-wager-button-count">'+item.odddraw_value+'</span>'+
+                                    '<span class="sport-table-wager-button-count">'+item.jogo.odddraw_value+'</span>'+
                                     '</a>'+
 
-                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.oddaway_id+'">'+
+                                    '<a class="sport-table-wager-button cota-aposta" data-id="'+item.jogo.oddaway_id+'">'+
                                     '<span>2</span>'+
-                                    '<span class="sport-table-wager-button-count">'+item.oddaway_value+'</span>'+
+                                    '<span class="sport-table-wager-button-count">'+item.jogo.oddaway_value+'</span>'+
                                     '</a>'+
                     
                                 '</div>'+
                             '</div>'+
                             '<div class="col-sm-2 col-md-1 col-lg-1">'+
-                                '<div class="sport-table-bonus moreOdds" data-id="'+item.id+'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'+item.total_odds+'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
+                                '<div class="sport-table-bonus moreOdds" data-id="'+item.jogo.id+'" data-toggle="modal" data-target="#sportModal"><span class="sport-table-bonus-count">+'+item.jogo.total_odds+'</span><span class="sport-table-bonus-icon material-icons-chevron_right"></span></div>'+
                             '</div>'+
                         '</div>'+
                 '</div>'+
