@@ -647,19 +647,30 @@ $(document).ready(function(e){
     });
 
 
-    $('.ca-input').maskMoney({
+    // $('.ca-input').maskMoney({
 
-            prefix: 'R$ ',
+    //         prefix: 'R$ ',
 
-            thousands: '.',
+    //         thousands: '.',
 
-            decimal: ',',
-            overwrite: true,
-            autofix: true,
+    //         decimal: ',',
+    //         overwrite: true,
+    //         autofix: true,
 
+    // });
+
+    var currencyMask = IMask(
+    $('.ca-input'),
+    {
+        mask: '$num',
+        blocks: {
+        num: {
+            // nested masks are available!
+            mask: Number,
+            thousandsSeparator: ' '
+        }
+        }
     });
-
-
 
     $('#divvalor').hide();
 
