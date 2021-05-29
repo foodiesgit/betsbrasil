@@ -168,9 +168,9 @@
                       <div class="form-wrap" style="min-width:100%">
                         <label class="form-label" for="rd-navbar-search-form-input"></label>
                         <input class="rd-navbar-search-form-input form-input" id="search" style="width:100%;"  placeholder="Pesquise seu jogo" type="text" name="s" >
-                        <div class="autocomplete-suggestions">
+                        <!-- <div class="autocomplete-suggestions">
                             <div class="autocomplete-suggestion"></div>
-                        </div>
+                        </div> -->
                         <div class="rd-search-results-live" id="rd-search-results-live"></div>
                       </div>
                       <button class="rd-search-form-submit fl-budicons-launch-search81" type="submit"></button>
