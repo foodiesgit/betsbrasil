@@ -56,6 +56,12 @@
     margin-top:11px;
 
   }
+  .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 </style>
 @yield('main-header')
 <?php $config =\DB::table('campos_fixos')->first(); ?>
@@ -161,7 +167,10 @@
                     <div class="rd-search"  style="min-width:100%">
                       <div class="form-wrap" style="min-width:100%">
                         <label class="form-label" for="rd-navbar-search-form-input"></label>
-                        <input class="rd-navbar-search-form-input form-input" id="search" style="width:100%;"  placeholder="Pesquise seu jogo" type="text" name="s" autocomplete="off">
+                        <input class="rd-navbar-search-form-input form-input" id="search" style="width:100%;"  placeholder="Pesquise seu jogo" type="text" name="s" >
+                        <div class="autocomplete-suggestions">
+                            <div class="autocomplete-suggestion">...</div>
+                        </div>
                         <div class="rd-search-results-live" id="rd-search-results-live"></div>
                       </div>
                       <button class="rd-search-form-submit fl-budicons-launch-search81" type="submit"></button>

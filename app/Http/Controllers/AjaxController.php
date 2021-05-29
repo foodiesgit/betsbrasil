@@ -208,6 +208,8 @@ class AjaxController extends Controller{
 
     public function search(Request $request){
         $q = $request->all();
+
+        $search = [];
         if(isset($q['query'])){
             $jogos = Events::join('times as home', 'home.id', '=','events.idhome')
             ->join('times as away', 'away.id', '=','events.idaway')
@@ -266,9 +268,9 @@ class AjaxController extends Controller{
     
                     $jogo['oddaway_name'] = 'Fora';
                 }
-
+                array_push($search,['value' => $jogo->betid, 'data'=> $jogo->data.' '$jogo->hora.' '.$jogo->homeNome.' x '.  $jogo->awayNome]);
             }
-            return Response()->json(['suggestions' => ['value'=> '1', 'data' => $jogos]]);
+            return Response()->json(['suggestions' => $search, 'jogos' => $jogos]);
         }
     }
 
