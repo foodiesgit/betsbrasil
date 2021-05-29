@@ -593,12 +593,13 @@ $(document).ready(function(e){
     onSearchStart: function (suggestion) {
         // $('.item').parent().remove();
         // $('.liga').parent().remove();
+        $('#tab1').html('');
         if(suggestion == ""){
             $('#ns').css('display', "block");
             $('#tab1').css('display', "none");
         }else{
+
             $('#tab1').css('display', "block");
-            $('#tab1').html('');
             $('#messageSearch').css('display', "block");
 
         }
