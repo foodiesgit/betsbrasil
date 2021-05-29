@@ -603,11 +603,22 @@ $(document).ready(function(e){
 
         // }
     },
+    onSelect: function (suggestion) {
+
+        $('#tab1').each(function(e){
+            var jogoid = $(this).attr('data-idJogo');
+            if( jogoid == suggestion.data ){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+        })
+    },
     onSearchComplete: function (suggestion, search) {
         console.log(suggestion, search);
         search.map((item => {
             $('#tab1').append(
-                '<div class="sport-table">'+
+                '<div class="sport-table" data-idJogo='+item.jogo.betid+'>'+
                     '<div class="sport-table-tr">'+
                         '<div class="row sport-row align-items-center row-15">'+
                             '<div class="col-sm-1 col-md-1 col-lg-1">'+
