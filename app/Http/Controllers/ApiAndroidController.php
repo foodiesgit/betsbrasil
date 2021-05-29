@@ -758,12 +758,12 @@ class ApiAndroidController extends Controller{
     public function adicionarAposta(Request $request){
 
         $input = $request->all();
- 
-        $id = $input['id'];
+
+        $id = $request->id;
         $config =\DB::table('campos_fixos')->first(); 
 
 
-        $novoCarrinho = NovoCarrinho::where('session_id', session()->getId())->get();
+        $novoCarrinho = NovoCarrinho::where('session_id', auth()->user()->id)->get();
 
 
 
@@ -775,7 +775,7 @@ class ApiAndroidController extends Controller{
 
             $novoCarrinho = new NovoCarrinho;
 
-            $novoCarrinho->session_id = session()->getId();
+            $novoCarrinho->session_id = auth()->user()->id;
 
             $novoCarrinho->valor_total_cotas = 0;
 
@@ -801,13 +801,16 @@ class ApiAndroidController extends Controller{
 
             NovoCarrinhoItem::where('id', $item[0]->id)->delete();
 
+            $novoCarrinho = NovoCarrinho::where('session_id', auth()->user()->id)->get();
 
 
             return response()->json([
 
                 'status' => 'ok',
 
-                'acao' => 'unselect'
+                'acao' => 'unselect',
+                'carrinho' => $novoCarrinho,
+                
 
             ]);
 
@@ -868,7 +871,7 @@ class ApiAndroidController extends Controller{
 
         $itensCarrinho = NovoCarrinhoItem::leftJoin('novo_carrinho', 'novo_carrinho.id','=','novo_carrinho_item.idcarrinho')
 
-            ->select("novo_carrinho_item.*")->where('session_id', session()->getId())->get();
+            ->select("novo_carrinho_item.*")->where('session_id', auth()->user()->id)->get();
 
 
 
@@ -892,25 +895,130 @@ class ApiAndroidController extends Controller{
 
 
 
-        NovoCarrinho::where('session_id', session()->getId())->update([
+        NovoCarrinho::where('session_id', auth()->user()->id)->update([
 
             'valor_total_cotas' =>  $multiplicacao
 
         ]);
-
+        $novoCarrinho = NovoCarrinho::where('session_id', auth()->user()->id)->get();
         return response()->json([
 
             'status' => 'ok',
 
             'acao' => 'select',
 
-            'idevent' => $sqlodd[0]->idevent
+            'idevent' => $sqlodd[0]->idevent,
+            'carrinho' => $novoCarrinho,
 
         ]);
 
     }
 
+    public function recuperarCarrinho(){
+        $config =\DB::table('campos_fixos')->first(); 
 
+        $sql = NovoCarrinho::leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
+
+            ->leftJoin('events', 'events.id','=','novo_carrinho_item.idevent')
+
+            ->leftJoin('odds', 'odds.id','=','novo_carrinho_item.idodd')
+
+            ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
+
+            ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'novo_carrinho_item.cota_momento')
+
+            ->where('session_id', auth()->user()->id)->get();
+
+
+
+        if(count($sql) > 0){
+
+            $i = 0;
+
+            foreach($sql as $dados){
+
+
+
+                $sql_time_home = Times::find($dados->idhome);
+
+                $sql_time_away = Times::find($dados->idaway);
+
+
+
+                if($sql_time_home != null){ $sql[$i]->time_home = $sql_time_home->nome; }
+
+                if($sql_time_away != null){ $sql[$i]->time_away = $sql_time_away->nome; }
+
+
+
+
+
+                $i++;
+
+            }
+
+        }else{
+
+            return response()->json([
+
+                'status' => 'ok',
+
+                'response' => []
+
+            ]);
+
+        }
+
+
+
+        $sqlTotal = NovoCarrinho::where('session_id',auth()->user()->id)->get();
+
+
+
+        $valor_total_cotas = 0;
+
+        $valor_total_apostado = 0;
+
+
+
+        if(count($sqlTotal) > 0){
+
+            $valor_total_cotas = $sqlTotal[0]->valor_total_cotas;
+
+            $valor_total_apostado = $sqlTotal[0]->valor_total_apostado;
+
+        }
+
+
+
+        $possivel_retorno = $valor_total_apostado * $valor_total_cotas;
+
+        $possivel_retorno = ($possivel_retorno > $config->premio_maximo &&  $config->premio_maximo != 0 ? $config->premio_maximo: $possivel_retorno);
+
+
+        $valor_total_cotas =  ( $valor_total_cotas > $config->cotacao_maxima &&  $config->cotacao_maxima != 0 ? $config->cotacao_maxima:  $valor_total_cotas);
+
+
+
+        return response()->json([
+
+            'status' => 'ok',
+
+            'response' => $sql,
+
+            'valor_total_cotas' => $valor_total_cotas,
+
+            'valor_total_apostado' => $valor_total_apostado,
+
+            'possivel_retorno' => $possivel_retorno,
+
+            'possivel_retorno_format' => 'R$ '.number_format($possivel_retorno,2,',','.'),
+
+            'valor_total_apostado_format' => 'R$ '.number_format($valor_total_apostado,2,',','.')
+
+        ]);
+
+    }
 
 }
 
