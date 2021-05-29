@@ -616,7 +616,6 @@ $(document).ready(function(e){
         })
     },
     onSearchComplete: function (suggestion, search) {
-        console.log(suggestion, search);
         search.map((item => {
             $('#tab1').append(
                 '<div class="sport-table" data-idJogo='+item.jogo.betid+'>'+
