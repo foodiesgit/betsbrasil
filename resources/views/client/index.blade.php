@@ -169,7 +169,7 @@
                         <label class="form-label" for="rd-navbar-search-form-input"></label>
                         <input class="rd-navbar-search-form-input form-input" id="search" style="width:100%;"  placeholder="Pesquise seu jogo" type="text" name="s" >
                         <div class="autocomplete-suggestions">
-                            <div class="autocomplete-suggestion">...</div>
+                            <div class="autocomplete-suggestion"></div>
                         </div>
                         <div class="rd-search-results-live" id="rd-search-results-live"></div>
                       </div>
