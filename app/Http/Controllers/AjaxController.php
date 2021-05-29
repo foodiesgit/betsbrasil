@@ -213,6 +213,7 @@ class AjaxController extends Controller{
         if(isset($q['query'])){
             $jogos = Events::join('times as home', 'home.id', '=','events.idhome')
             ->join('times as away', 'away.id', '=','events.idaway')
+            ->join('ligas', 'ligas.id', '=','events.idliga')
             ->where(function($query) use($q) {
                 $query->where('data', '>', date('Y-m-d H:i:s'));
                 $query->where('home.nome','like', '%'.$q['query'].'%');
@@ -225,7 +226,7 @@ class AjaxController extends Controller{
             // })
             ->where('data', '>', date('Y-m-d H:i:s'))
             // ->where('idesporte', 1)
-            ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id as betid', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds', 'away.nome as awayNome','home.nome as homeNome')->take(100)
+            ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id as betid', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds', 'away.nome as awayNome','home.nome as homeNome', 'ligas.nome_traduzido')->take(10)
             ->get();
 
             foreach ($jogos as $jogo) {
@@ -268,7 +269,7 @@ class AjaxController extends Controller{
     
                     $jogo['oddaway_name'] = 'Fora';
                 }
-                array_push($search,['value' => $jogo->data.' '.$jogo->hora.' '.$jogo->homeNome.' x '.  $jogo->awayNome, 'data'=> $jogo->betid, 'jogo' => $jogo]);
+                array_push($search,['value' => $jogo->data.' '.$jogo->hora.' '.$jogo->homeNome.' x '.  $jogo->awayNome.' - '.  $jogo->nome_traduzido , 'data'=> $jogo->betid, 'jogo' => $jogo]);
             }
             return Response()->json(['suggestions' => $search, 'query' => $q['query']]);
         }
