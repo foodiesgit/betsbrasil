@@ -575,7 +575,7 @@
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                           </div>
-                          <input class="form-control" placeholder="R$ 0,00" id="recarrega-saldo" name="recarrega-saldo" type="text">
+                          <input class="form-control"   id="recarrega-saldo" name="recarrega-saldo" type="text">
                           <input class="form-control"  id="recarrega-saldo-hidden"name="recarrega-saldo-hidden" type="hidden">
                       </div>
                       <div class="text-center text-muted mb-4" style="padding:10px">
@@ -617,7 +617,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="R$ 0,00" id="saque-saldo" name="saque-saldo" type="text">
+                                <input class="form-control"   id="saque-saldo" name="saque-saldo" type="text">
                                 <input class="form-control"  id="saque-saldo-hidden"name="saque-saldo-hidden" type="hidden">
 
                             </div>
