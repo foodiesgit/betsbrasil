@@ -603,8 +603,8 @@ $(document).ready(function(e){
 
         // }
     },
-    onSearchComplete: function (suggestion, jogos) {
-        console.log(jogos);
+    onSearchComplete: function (suggestion, search, jogos) {
+        console.log(suggestion, search, jogos );
             jogos['data'].map((item => {
             $('#tab1').append(
                 '<div class="sport-table">'+
