@@ -290,11 +290,11 @@
                 ?>
                   
                   </div>
-
+                  <div class="col-md-12" style="display: none;" id="messageSearch">
+                        <p>Pesquisando jogos...</p>
+                  </div>
                   <div id="tab1" style="display: none;">
-                        <div class="col-md-12" style="display: none;" id="messageSearch">
-                            <p>Pesquisando jogos...</p>
-                        </div>
+                        
                   </div>
                   
 
@@ -588,13 +588,21 @@ $(document).ready(function(e){
 
     $('#search').autocomplete({
     serviceUrl: '/ajax/search',
+    showNoSuggestionNotice: true,
+    noSuggestionNotice: "Nenhum jogo foi encontrado",
     onSearchStart: function (suggestion) {
         // $('.item').parent().remove();
         // $('.liga').parent().remove();
-        $('#tab1').css('display', "block");
-        $('#tab1').html('');
-        $('#ns').css('display', "none");
-        $('#messageSearch').css('display', "block");
+        if(suggestion == ""){
+            $('#ns').css('display', "block");
+            $('#tab1').css('display', "none");
+        }else{
+            $('#tab1').css('display', "block");
+            $('#tab1').html('');
+            $('#messageSearch').css('display', "block");
+
+        }
+       
         // if(suggestion != ""){
         //     $('#tab1').html('');
         //     $('#tab1').css('display', "none");
@@ -616,6 +624,8 @@ $(document).ready(function(e){
     },
     onSearchComplete: function (suggestion, search) {
         console.log(suggestion, search);
+        $('#messageSearch').css('display', "none");
+
         search.map((item => {
             $('#tab1').append(
                 '<div class="sport-table" data-idJogo='+item.jogo.betid+'>'+
