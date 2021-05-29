@@ -591,13 +591,14 @@ $(document).ready(function(e){
     showNoSuggestionNotice: true,
     noSuggestionNotice: "Nenhum jogo foi encontrado",
     onSearchStart: function (suggestion) {
+        console.log(suggestion)
         // $('.item').parent().remove();
         // $('.liga').parent().remove();
-        $('#tab1').html('');
         if(suggestion == ""){
             $('#ns').css('display', "block");
             $('#tab1').css('display', "none");
         }else{
+            $('#tab1').html('');
 
             $('#tab1').css('display', "block");
             $('#messageSearch').css('display', "block");
