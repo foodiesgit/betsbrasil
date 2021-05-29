@@ -591,7 +591,7 @@ $(document).ready(function(e){
     showNoSuggestionNotice: true,
     noSuggestionNotice: "Nenhum jogo foi encontrado",
     onSearchStart: function (suggestion) {
-        console.log(suggestion)
+        console.log(suggestion.query)
         // $('.item').parent().remove();
         // $('.liga').parent().remove();
         if(suggestion.query == ""){
