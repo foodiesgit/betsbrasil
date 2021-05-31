@@ -1020,5 +1020,325 @@ class ApiAndroidController extends Controller{
 
     }
 
+    public function postFinalizarAposta(Request $request){
+
+        $input = $request->all();
+        $config =\DB::table('campos_fixos')->first();
+
+        $sql = NovoCarrinho::where('session_id',  auth()->user()->id)->get();
+
+        // dd($input);
+        if(count($sql) < 1){
+
+            return Response()->json(['error' => true, 'message' =>  'Cupom de aposta esta vazio']);
+
+        }
+        if(!isset($input['newstake_hidden']) ||  $input['newstake_hidden'] == 0 || is_null($input['newstake_hidden'])){
+            if( !isset($input['newstake_hidden_mobile']) || $input['newstake_hidden_mobile'] == 0 || is_null($input['newstake_hidden_mobile'])){
+                return Response()->json(['error' => true, 'message' =>  'Você não pode fazer uma aposta com valor vazio']);
+            }
+
+        }
+
+
+        $sqlItem = NovoCarrinhoItem::join('events', 'novo_carrinho_item.idevent', 'events.id')->where('novo_carrinho_item.idcarrinho', $sql[0]->id)->get();
+
+        foreach ($sqlItem as $jogo){
+
+            if($jogo->inplay){
+                $response = \Http::get('https://api.b365api.com/v1/event/view?token=&LNG_ID=22&event_id='.$jogo->bet365_id.'&token='.config('app.API_TOKEN'));
+                if( $response->successful() ){
+                    $response = json_decode($response->body());
+
+                    if($response->results[0]->timer){
+                        $time = $response->results[0]->timer->tm * 60 +  $response->results[0]->timer->ts;
+                        if($time > 30){
+                            return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
+                        }
+                    }
+                }else{
+                    return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
+                }
+            }else{
+                if($jogo->data < \Carbon\Carbon::now()){
+                    return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
+               }
+            }
+          
+        }
+
+
+        if(count($sqlItem) < 1){
+
+            return Response()->json(['error' => true, 'message' => 'Cupom de aposta esta vazio');
+
+        }
+
+        if(count($sqlItem) < $config->quantidade_minima_jogos && $config->quantidade_minima_jogos != 0 ){
+
+            return Response()->json(['error' => true, 'message' => 'A quantidade minima de jogos por bilhete é:'.$config->quantidade_minima_jogos]);
+
+        }
+
+        if($sql[0]->valor_total_cotas < $config->cotacao_minima && $config->cotacao_minima != 0 ){
+
+
+            return Response()->json(['error' => true, 'message' => 'A quantidade minima da cotação:'.number_format($config->cotacao_minima,2,'.',',')]);
+
+        }
+   
+        /*if( !Auth::check() ){
+
+            return redirect('/lite/login')->with('erro', 'Digite o seu email e senha para continuar');
+
+        }*/
+
+
+
+        #Verifica se o cliente esta logado
+
+        if( Auth::check() ){
+
+            if( auth()->user()->status != 1 ){
+
+                return Response()->json(['error' => true, 'message' => 'Usuario invalido']);
+
+
+            }
+
+
+
+            //verifica o total da aposta
+
+            $valor_total_cotas = $sql[0]->valor_total_cotas;
+            if(isset($input['newstake_hidden']) || $input['newstake_hidden'] != 0 ){
+                $valor_total_apostado = $input['newstake_hidden'];
+            }else{
+                $valor_total_apostado =$input['newstake_hidden_mobile'];
+
+            }
+
+            if($config->valor_minimo_aposta >  $valor_total_apostado && $config->valor_minimo_aposta != 0){
+                return redirect('/')->with('erro', 'O Valor minimo para aposta é: R$ '.number_format($config->valor_minimo_aposta,2,',','.'));
+            
+            }
+            if($config->valor_maximo_aposta <  $valor_total_apostado && $config->valor_maximo_aposta != 0){
+                return redirect('/')->with('erro', 'O Valor maximo para aposta é: R$ '.number_format($config->valor_maximo_aposta,2,',','.'));
+            
+            }
+            $creditos = Creditos::where('idusuario', auth()->user()->id)->select(DB::raw("sum(saldo_apostas + saldo_liberado) as soma"), 'saldo_apostas', 'saldo_liberado')->get();
+
+
+
+            if(count($creditos) > 0){
+
+                if(Auth::user()->tipo_usuario == 1 && $creditos[0]->soma < $valor_total_apostado ){
+
+                    return redirect('/')->with('erro', 'Créditos insuficientes para realizar a aposta');
+
+                }else{
+
+
+
+                    //return redirect('/lite/meu-cupom')->with('erro', 'Créditos insuficientes para realizar a aposta');
+
+
+
+                    $saldo_apostas = $creditos[0]->saldo_apostas;
+
+                    $saldo_liberado = $creditos[0]->saldo_liberado;
+
+                    $diferenca = 0;
+
+
+
+                    $total = $sql[0]->valor_total_apostado;
+
+
+
+                    if( $saldo_apostas < $total ){
+
+                        $diferenca = $total - $saldo_apostas;
+
+                    }
+
+
+
+                    try{
+
+                        DB::beginTransaction();
+
+
+
+                        if($diferenca > 0){
+
+                            Creditos::where('idusuario', auth()->user()->id)->update([
+
+                                'saldo_apostas' => '0',
+
+                                'saldo_liberado' => DB::raw("(saldo_liberado - ".$diferenca.")")
+
+                            ]);
+
+                        }
+
+
+                        //faz a aposta real
+
+                        $cupomAposta = new CupomAposta;
+
+                        $cupomAposta->idusuario = auth()->user()->id;
+
+                        $cupomAposta->status = 1;
+
+                        $cupomAposta->valor_apostado = $valor_total_apostado;
+
+                        $cupomAposta->possivel_retorno = 0;
+
+                        $cupomAposta->retorno_real = 0;
+
+                        $cupomAposta->codigo_unico = substr(uniqid(), 0, 8);
+
+                        $cupomAposta->save();
+
+
+
+                        $total_apostado = 0;
+
+                        $possivel_retorno = 0;
+
+
+
+                        foreach($sqlItem as $dados){
+
+
+
+                            $cupomApostaItem = new CupomApostaItem;
+
+                            $cupomApostaItem->idcupom = $cupomAposta->id;
+
+                            $cupomApostaItem->idevent = $dados->idevent;
+
+                            $cupomApostaItem->idodds = $dados->idodd;
+
+                            $cupomApostaItem->valor_momento = $dados->cota_momento;
+
+                            $cupomApostaItem->valor_apostado = 0;
+
+                            $cupomApostaItem->status_conferido = 0;
+
+                            $cupomApostaItem->status_resultado = 0;
+
+                            $cupomApostaItem->save();
+
+
+
+                            $temp = $dados->valor_momento * $dados->valor_apostado;
+
+                            $total_apostado = $total_apostado + $dados->valor_apostado;
+
+                            $possivel_retorno = $possivel_retorno + $temp;
+
+                        }
+
+
+
+                        $cupomAposta = CupomAposta::find($cupomAposta->id);
+
+                        $cupomAposta->valor_apostado = $valor_total_apostado;
+                        if($sql[0]->valor_total_cotas > $config->cotacao_maxima && $config->cotacao_maxima != 0 ){
+                
+                            $cupomAposta->possivel_retorno = $valor_total_apostado * $config->cotacao_maxima;
+
+                            $cupomAposta->total_cotas = $config->cotacao_maxima;
+                
+                
+                        }else{
+                            
+                            $cupomAposta->possivel_retorno = $valor_total_apostado * $sql[0]->valor_total_cotas;
+
+                            $cupomAposta->total_cotas = $sql[0]->valor_total_cotas;
+
+                        }
+
+                        if($config->premio_maximo < ($valor_total_apostado * $cupomAposta->total_cotas) && $config->premio_maximo != 0 ){
+                            $cupomAposta->possivel_retorno = $config->premio_maximo;
+                        }
+
+                        $cupomAposta->save();
+
+                        if(Auth::user()->tipo_usuario == 4){
+                            if($cupomAposta) {
+                                $cupomAposta->idcambista = Auth::user()->id;
+                                $cupomAposta->status = 1;
+                                $cupomAposta->save();
+            
+                                $jogos = CupomApostaItem::where('idcupom', $cupomAposta->id)->count();
+    
+                                if(Auth::user()->idgerente){
+                                    $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
+                                    $porcentagem = $comissaoGerente->comissao / 100;
+                                    $comissao = $cupomAposta->valor_apostado * $comissaoGerente->porcentagem;
+                                    $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
+                                    $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
+                                    $credito->save();
+                                }
+                                $comissoes = CambistasComissoes::where('idusuario', Auth::user()->id)->first();
+            
+                                if($comissoes){
+                                    if($jogos == 1){ $porcentagem = $comissoes->comissao1jogo / 100; }
+                                    if($jogos == 2){ $porcentagem = $comissoes->comissao2jogo / 100; }
+                                    if($jogos == 3){ $porcentagem = $comissoes->comissao3jogo / 100; }
+                                    if($jogos == 4){ $porcentagem = $comissoes->comissao4jogo / 100; }
+                                    if($jogos == 5){ $porcentagem = $comissoes->comissao5jogo / 100; }
+                                    if($jogos == 6){ $porcentagem = $comissoes->comissao6jogo / 100; }
+                                    if($jogos == 7){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                                    if($jogos >= 8){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                                    $comissao = $cupomAposta->valor_apostado * $porcentagem;
+                                    $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+                                    $credito->saldo_liberado = $credito->saldo_liberado + $comissao;
+                                    $credito->save();
+                                    
+                                }
+                                
+            
+                            }
+                        }
+                      
+
+
+                        NovoCarrinho::where('session_id',  auth()->user()->id)->delete();
+
+                        NovoCarrinhoItem::where('idcarrinho', $sql[0]->id)->delete();
+
+
+
+                        DB::commit();
+
+                        return Response()->json(['error' => false, "bilhete" => ['ticket' => $cupomAposta, 'jogos' => $jogos]]);
+
+
+                        return redirect('/minhas-apostas/visualizar-cupom/'.$cupomAposta->codigo_unico.'')->with('sucesso', 'Sua aposta foi efetuada com sucesso');
+
+                    }catch(Exception $e){
+
+                        DB::rollback();
+
+                    }
+
+                }
+
+            }
+
+        }else{
+
+            return Response()->json(['error' => true, 'message' => 'Você precisa está logado']);
+
+
+        }
+
+    }
+
+
 }
 
