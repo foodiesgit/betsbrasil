@@ -20,7 +20,7 @@ Route::prefix('v1')->group(function(){
     Route::middleware('auth:api')->group(function(){
         Route::get('recupera-cambista', 'ApiAndroidController@recuperaCambista');
         Route::get('recupera-carrinho', 'ApiAndroidController@recuperarCarrinho');
-        Route::get('remove-jogo,', 'ApiAndroidController@removeCarrinho');
+        Route::get('remove-jogo/bilhete,', 'ApiAndroidController@removeCarrinho');
         Route::post('finalizar-aposta', 'ApiAndroidController@postFinalizarAposta');
 
         /* Rotas para os jogos */
