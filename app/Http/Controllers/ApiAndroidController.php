@@ -1057,6 +1057,8 @@ class ApiAndroidController extends Controller{
                         }
                     }
                 }else{
+                    $sqlItem = NovoCarrinhoItem::destroy($jogo->id);
+
                     return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
                 }
             }else{
