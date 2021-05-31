@@ -1070,7 +1070,7 @@ class ApiAndroidController extends Controller{
 
         if(count($sqlItem) < 1){
 
-            return Response()->json(['error' => true, 'message' => 'Cupom de aposta esta vazio');
+            return Response()->json(['error' => true, 'message' => 'Cupom de aposta esta vazio']);
 
         }
 
@@ -1318,7 +1318,7 @@ class ApiAndroidController extends Controller{
                         return Response()->json(['error' => false, "bilhete" => ['ticket' => $cupomAposta, 'jogos' => $jogos]]);
 
 
-                        return redirect('/minhas-apostas/visualizar-cupom/'.$cupomAposta->codigo_unico.'')->with('sucesso', 'Sua aposta foi efetuada com sucesso');
+                        // return redirect('/minhas-apostas/visualizar-cupom/'.$cupomAposta->codigo_unico.'')->with('sucesso', 'Sua aposta foi efetuada com sucesso');
 
                     }catch(Exception $e){
 
