@@ -1023,6 +1023,7 @@ class ApiAndroidController extends Controller{
     public function postFinalizarAposta(Request $request){
 
         $input = $request->all();
+       
         $config =\DB::table('campos_fixos')->first();
 
         $sql = NovoCarrinho::where('session_id',  auth()->user()->id)->get();
@@ -1033,10 +1034,8 @@ class ApiAndroidController extends Controller{
             return Response()->json(['error' => true, 'message' =>  'Cupom de aposta esta vazio']);
 
         }
-        if(!isset($input['newstake_hidden']) ||  $input['newstake_hidden'] == 0 || is_null($input['newstake_hidden'])){
-            if( !isset($input['newstake_hidden_mobile']) || $input['newstake_hidden_mobile'] == 0 || is_null($input['newstake_hidden_mobile'])){
-                return Response()->json(['error' => true, 'message' =>  'Você não pode fazer uma aposta com valor vazio']);
-            }
+        if(!isset( $request->newstake_hidden) ||   $request->newstake_hidden == 0 || is_null( $request->newstake_hidden)){
+            return Response()->json(['error' => true, 'message' =>  'Você não pode fazer uma aposta com valor vazio']);
 
         }
 
@@ -1111,19 +1110,19 @@ class ApiAndroidController extends Controller{
             //verifica o total da aposta
 
             $valor_total_cotas = $sql[0]->valor_total_cotas;
-            if(isset($input['newstake_hidden']) || $input['newstake_hidden'] != 0 ){
-                $valor_total_apostado = $input['newstake_hidden'];
+            if(isset( $request->newstake_hidden) ||  $request->newstake_hidden != 0 ){
+                $valor_total_apostado =  $request->newstake_hidden;
             }else{
-                $valor_total_apostado =$input['newstake_hidden_mobile'];
+                $valor_total_apostado = $request->newstake_hidden;
 
             }
 
             if($config->valor_minimo_aposta >  $valor_total_apostado && $config->valor_minimo_aposta != 0){
-                return redirect('/')->with('erro', 'O Valor minimo para aposta é: R$ '.number_format($config->valor_minimo_aposta,2,',','.'));
+                return Response()->json(['error' => true, 'message' => 'O Valor minimo para aposta é: R$ '.number_format($config->valor_minimo_aposta,2,',','.')]);
             
             }
             if($config->valor_maximo_aposta <  $valor_total_apostado && $config->valor_maximo_aposta != 0){
-                return redirect('/')->with('erro', 'O Valor maximo para aposta é: R$ '.number_format($config->valor_maximo_aposta,2,',','.'));
+                return Response()->json(['error' => true, 'message' => 'O Valor maximo para aposta é: R$ '.number_format($config->valor_maximo_aposta,2,',','.')]);
             
             }
             $creditos = Creditos::where('idusuario', auth()->user()->id)->select(DB::raw("sum(saldo_apostas + saldo_liberado) as soma"), 'saldo_apostas', 'saldo_liberado')->get();
@@ -1134,7 +1133,7 @@ class ApiAndroidController extends Controller{
 
                 if(Auth::user()->tipo_usuario == 1 && $creditos[0]->soma < $valor_total_apostado ){
 
-                    return redirect('/')->with('erro', 'Créditos insuficientes para realizar a aposta');
+                    return Response()->json(['error' => true, 'message' => 'Créditos insuficientes para realizar a aposta']);
 
                 }else{
 
