@@ -1,4 +1,23 @@
 @include('client.include_sbet')
+
+<link href="/assets3/css/icons.css" rel="stylesheet" />
+
+<link href="/assets3/plugins/sidebar/sidebar.css" rel="stylesheet" />
+
+<link href="/assets3/plugins/mscrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+<link href="/assets3/css/style.css" rel="stylesheet" />
+
+<link href="/assets3/css/style-dark.css" rel="stylesheet" />
+
+
+
+<link href="/assets3/switcher/css/switcher.css" rel="stylesheet" />
+
+<link href="/assets3/switcher/demo.css" rel="stylesheet" />
+
+<link href="/assets3/css/animate.css" rel="stylesheet" />
+<link href="/assets3/css/floo.css" rel="stylesheet" />
 <style>
   a {
     text-decoration: none;
