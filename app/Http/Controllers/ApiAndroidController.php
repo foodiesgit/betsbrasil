@@ -65,6 +65,7 @@ use App\NovoCarrinhoItem;
 use App\NovoCarrinho;
 
 use App\CupomAposta;
+use App\CambistasComissoes;
 
 use App\CupomApostaItem;
 
