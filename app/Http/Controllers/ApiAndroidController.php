@@ -1052,6 +1052,7 @@ class ApiAndroidController extends Controller{
                     if($response->results[0]->timer){
                         $time = $response->results[0]->timer->tm * 60 +  $response->results[0]->timer->ts;
                         if($time > 30){
+                            $sqlItem = NovoCarrinhoItem::destroy($jogo->id);
                             return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
                         }
                     }
