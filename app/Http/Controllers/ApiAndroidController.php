@@ -1344,6 +1344,59 @@ class ApiAndroidController extends Controller{
 
     }
 
+    public function removeSelection(Request $request, $id){
+
+        $input = $request->all();
+
+        $sql = NovoCarrinhoItem::leftJoin('novo_carrinho', 'novo_carrinho.id','=','novo_carrinho_item.idcarrinho')->where('session_id', auth()->user()->id)->where('novo_carrinho_item.id', $request->id)->delete();
+
+
+        $itensCarrinho = NovoCarrinhoItem::leftJoin('novo_carrinho', 'novo_carrinho.id','=','novo_carrinho_item.idcarrinho')
+
+            ->select("novo_carrinho_item.*")->where('session_id', session()->getId())->get();
+
+
+
+        $multiplicacao = 1;
+
+        $soma = 0;
+
+
+        if(count($itensCarrinho) > 0){
+
+            foreach($itensCarrinho as $dados){
+
+                $multiplicacao = $multiplicacao * $dados->cota_momento;
+
+                $soma = $soma + $dados->cota_momento;
+
+            }
+
+        }
+
+
+
+        NovoCarrinho::where('session_id', session()->getId())->update([
+
+            'valor_total_cotas' => $multiplicacao
+
+        ]);
+
+
+
+        if($soma == 0){
+
+            NovoCarrinho::where('session_id', session()->getId())->delete();
+
+        }
+
+
+
+        return Response()->json('Removido com sucesso');
+
+    }
+
+
 
 }
 
