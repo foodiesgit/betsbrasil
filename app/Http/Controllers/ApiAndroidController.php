@@ -1061,6 +1061,8 @@ class ApiAndroidController extends Controller{
                 }
             }else{
                 if($jogo->data < \Carbon\Carbon::now()){
+                    $sqlItem = NovoCarrinhoItem::destroy($jogo->id);
+
                     return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
                }
             }
