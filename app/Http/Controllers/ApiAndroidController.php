@@ -928,7 +928,9 @@ class ApiAndroidController extends Controller{
 
             ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'novo_carrinho_item.cota_momento')
 
-            ->where('session_id', auth()->user()->id)->get();
+            ->where('session_id', auth()->user()->id)
+            ->where('id','!=', null)
+            ->get();
 
 
 
