@@ -20,7 +20,6 @@ Route::prefix('v1')->group(function(){
     Route::middleware('auth:api')->group(function(){
         Route::get('recupera-cambista', 'ApiAndroidController@recuperaCambista');
         Route::get('recupera-carrinho', 'ApiAndroidController@recuperarCarrinho');
-        Route::get('remove-selection/{id},', 'ApiAndroidController@removeSelection');
         Route::post('finalizar-aposta', 'ApiAndroidController@postFinalizarAposta');
 
         /* Rotas para os jogos */
@@ -33,13 +32,17 @@ Route::prefix('v1')->group(function(){
         Route::get('adiciona-aposta/{id}', 'ApiAndroidController@adicionarAposta');
        
         Route::get('recupera-jogos-principal', 'ApiAndroidController@recuperaJogosPrincipal');
+        Route::get('remover-jogos/{id}', 'ApiAndroidController@removeSelection');
         Route::get('recupera-bilhete/{codigo}', 'ApiAndroidController@recuperaBilhete');
     });
 });
 Route::prefix('v1')->group(function(){
+   
 
     Route::get('recupera-bilhete/{codigo}', 'ApiAndroidController@recuperaBilhete');
 });
+
+Route::get('remove-selection/{id},', 'ApiAndroidController@removeSelection');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

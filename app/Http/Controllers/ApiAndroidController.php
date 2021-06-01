@@ -1347,7 +1347,6 @@ class ApiAndroidController extends Controller{
     }
 
     public function removeSelection(Request $request){
-
         $input = $request->all();
 
         $sql = NovoCarrinhoItem::leftJoin('novo_carrinho', 'novo_carrinho.id','=','novo_carrinho_item.idcarrinho')->where('session_id', auth()->user()->id)->where('novo_carrinho_item.id', $request->id)->delete();
