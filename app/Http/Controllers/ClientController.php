@@ -399,7 +399,7 @@ class ClientController extends Controller{
 
         if(count($sql1) == 0){
                 
-            $sql1 = Events::whereDate('data', '==', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
+            $sql1 = Events::whereDate('data', '==',date('Y-m-d H:i:s'))->where('data','<=', date('Y-m-d').' 23:59:59')->orderBy('data', 'asc')
 
             ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
