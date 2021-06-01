@@ -23,6 +23,47 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 @yield('main-header')
+<style>
+  a {
+    text-decoration: none;
+  }
+  .float{
+
+      position:fixed;
+
+      width:60px;
+
+      height:60px;
+
+      bottom:40px;
+
+      right:40px;
+
+      background-color:#fff;
+
+      color:#FFF;
+
+      border-radius:50px;
+
+      text-align:center;
+
+      box-shadow: 2px 2px 3px #999;
+
+      }
+
+
+  .my-float{
+
+    margin-top:11px;
+
+  }
+  .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+</style>
 <div class="page animated" style="animation-duration: 500ms;">
 
 <section class="section section-sm bg-gray-100">
