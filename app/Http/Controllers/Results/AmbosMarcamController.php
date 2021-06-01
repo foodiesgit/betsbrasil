@@ -9,7 +9,7 @@ class AmbosMarcamController extends Controller
 {
     public function index($placar, $palpite, $tempo){
         $placar = explode("-",$placar);
-        if($palpite == "Sim"){
+        if(utf8_encode($palpite) == "Sim"){
             if($tempo == 3){
                 if($placar[0] > 0 && $placar[1] > 0){
                     $resultado = ['status' => "Ganhou", "ganhou"=> true];
@@ -20,7 +20,7 @@ class AmbosMarcamController extends Controller
                 $resultado = ['status' => "Aguardando", "ganhou"=> null];
             }
         }
-        elseif($palpite == "Não"){
+        elseif(utf8_encode($palpite) == "Nã£o"){
             if($tempo == 3){
                 if($placar[0] > 0 && $placar[1] == 0 || $placar[1] > 0 && $placar[0] == 0 || $placar[0] == 0 && $placar[1] == 0 ){
                     $resultado = ['status' => "Ganhou", "ganhou"=> true];
@@ -31,7 +31,7 @@ class AmbosMarcamController extends Controller
                 $resultado = ['status' => "Aguardando", "ganhou"=> null];
             }
         }else{
-            return null;
+            $resultado = ['status' => "Aguardando", "ganhou"=> null];
         }
 
         return $resultado;

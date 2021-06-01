@@ -29,7 +29,9 @@
 
         <style>
 
-
+a {
+    text-decoration: none;
+  }
 
 @media print{
 

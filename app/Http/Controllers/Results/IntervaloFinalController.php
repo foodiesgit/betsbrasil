@@ -9,8 +9,10 @@ class IntervaloFinalController extends Controller
 {
     public function index($placar, $palpite, $tempo){
         $npalpite =  explode("-",$palpite[0]);
-
-        if(trim($npalpite[0]) == $palpite[1]['home']->nome && trim($npalpite[0]) == $palpite[1]['home']->nome){
+        $resultado = ['status' => "Aguardando", "ganhou"=> null];
+        $primeiro = trim($npalpite[0]);
+        $segundo = trim($npalpite[1]);
+        if($primeiro == $palpite[1]['home']->nome && $segundo == $palpite[1]['home']->nome){
             if($tempo == 3){
                 if($placar->{1}->home >  $placar->{1}->away && ($placar->{1}->home + $placar->{2}->home) > ($placar->{1}->away + $placar->{2}->away)){
                     $resultado = ['status' => "Ganhou", "ganhou"=> true];
@@ -23,7 +25,7 @@ class IntervaloFinalController extends Controller
         }
 
         
-        if(trim($npalpite[0]) == $palpite[1]['home']->nome && trim($npalpite[0]) == 'Empate'){
+        if($primeiro == $palpite[1]['home']->nome && $segundo == 'Empate'){
             if($tempo == 3){
                 if($placar->{1}->home >  $placar->{1}->away &&  ($placar->{1}->home + $placar->{2}->home) == ($placar->{1}->away + $placar->{2}->away)){
                     $resultado = ['status' => "Ganhou", "ganhou"=> true];
@@ -35,7 +37,7 @@ class IntervaloFinalController extends Controller
             }
         }
 
-        if(trim($npalpite[0]) == $palpite[1]['home']->nome && trim($npalpite[0]) ==  $palpite[1]['away']->nome){
+        if($primeiro == $palpite[1]['home']->nome && $segundo ==  $palpite[1]['away']->nome){
             if($tempo == 3){
                 if($placar->{1}->home >  $placar->{1}->away &&  ($placar->{1}->home + $placar->{2}->home) < ($placar->{1}->away + $placar->{2}->away)){
                     $resultado = ['status' => "Ganhou", "ganhou"=> true];
@@ -47,7 +49,7 @@ class IntervaloFinalController extends Controller
             }
         }
 
-        if(trim($npalpite[0]) == 'Empate' && trim($npalpite[0]) ==  $palpite[1]['home']->nome){
+        if($primeiro == 'Empate' && $segundo ==  $palpite[1]['home']->nome){
             if($tempo == 3){
                 if($placar->{1}->home ==  $placar->{1}->away &&  ($placar->{1}->home + $placar->{2}->home) > ($placar->{1}->away + $placar->{2}->away)){
                     $resultado = ['status' => "Ganhou", "ganhou"=> true];
@@ -58,7 +60,7 @@ class IntervaloFinalController extends Controller
                 $resultado = ['status' => "Aguardando", "ganhou"=> null];
             }
         }
-        if(trim($npalpite[0]) == 'Empate' && trim($npalpite[0]) ==  'Empate'){
+        if($primeiro == 'Empate' && $segundo ==  'Empate'){
             if($tempo == 3){
                 if($placar->{1}->home == $placar->{1}->away &&  ($placar->{1}->home + $placar->{2}->home) == ($placar->{1}->away + $placar->{2}->away)){
 
@@ -70,7 +72,7 @@ class IntervaloFinalController extends Controller
                 $resultado = ['status' => "Aguardando", "ganhou"=> null];
             }
         }
-        if(trim($npalpite[0]) == 'Empate' && trim($npalpite[0]) ==  $palpite[1]['away']->nome){
+        if($primeiro == 'Empate' && $segundo ==  $palpite[1]['away']->nome){
             if($tempo == 3){
                 if($placar->{1}->home ==  $placar->{1}->away &&  ($placar->{1}->home + $placar->{2}->home) < ($placar->{1}->away + $placar->{2}->away)){
 
@@ -83,7 +85,7 @@ class IntervaloFinalController extends Controller
             }
         }
 
-        if(trim($npalpite[0]) == $palpite[1]['away']->nome && trim($npalpite[0]) == $palpite[1]['away']->nome){
+        if($primeiro == $palpite[1]['away']->nome && $segundo == $palpite[1]['away']->nome){
             if($tempo == 3){
                 if($placar->{1}->home <  $placar->{1}->away &&  ($placar->{1}->home + $placar->{2}->home) < ($placar->{1}->away + $placar->{2}->away)){
                     $resultado = ['status' => "Ganhou", "ganhou"=> true];
@@ -96,7 +98,7 @@ class IntervaloFinalController extends Controller
         }
 
         
-        if(trim($npalpite[0]) == $palpite[1]['away']->nome && trim($npalpite[0]) == 'Empate'){
+        if($primeiro == $palpite[1]['away']->nome && $segundo == 'Empate'){
             if($tempo == 3){
                 if($placar->{1}->home <  $placar->{1}->away &&  ($placar->{1}->home + $placar->{2}->home) == ($placar->{1}->away + $placar->{2}->away)){
 
@@ -109,7 +111,7 @@ class IntervaloFinalController extends Controller
             }
         }
 
-        if(trim($npalpite[0]) == $palpite[1]['away']->nome && trim($npalpite[0]) ==  $palpite[1]['home']->nome){
+        if($primeiro == $palpite[1]['away']->nome && $segundo ==  $palpite[1]['home']->nome){
             if($tempo == 3){
                 if($placar->{1}->home <  $placar->{1}->away &&  ($placar->{1}->home + $placar->{2}->home) > ($placar->{1}->away + $placar->{2}->away)){
 
@@ -121,7 +123,6 @@ class IntervaloFinalController extends Controller
                 $resultado = ['status' => "Aguardando", "ganhou"=> null];
             }
         }
-
         return $resultado;
  
     }
