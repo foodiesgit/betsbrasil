@@ -630,7 +630,7 @@ class ApiController extends Controller {
 
         for($i = 1; $i < 100; $i++){
 
-            $response = Http::get('https://api.betsapi.com/v1/league?token='.config('app.API_TOKEN').'&sport_id=1&page='.$i.'');
+            $response = Http::get('https://api.betsapi.com/v1/league?token='.config('app.API_TOKEN').'&LNG_ID=22&sport_id=1&page='.$i.'');
 
 
 
@@ -671,6 +671,7 @@ class ApiController extends Controller {
                             $ligas->id = $dados_json->id;
 
                             $ligas->nome_original = $dados_json->name;
+                            $ligas->nome_traduzido = $dados_json->name;
 
                             $ligas->idpais = $idpais;
 
