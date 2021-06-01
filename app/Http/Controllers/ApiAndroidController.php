@@ -1397,7 +1397,62 @@ class ApiAndroidController extends Controller{
 
     }
 
+    public function moreOdds(Request $request){
+        $data = $request->all();
+        $event = Events::where('events.id',  $data['id'])->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
+        ->select('events.*', 'ligas.nome_traduzido', DB::raw("date_format(events.data, '%d %M') as data_format"), DB::raw("date_format(events.data, '%H:%i') as hora_format"))->get();
+
+
+        $sql_odds_principal = Odds::where('idevent',  $data['id'])->where('idsubgrupo', 79)->get();
+
+
+
+        $odds_grupos = OddsGrupo::orderBy('id', 'desc')->get();
+
+
+
+        foreach($event as $dados){
+
+            $eng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+            $pot = ['Jan', 'Fev', 'Mar', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+
+
+            $data = str_replace($eng, $pot, $dados->data_format);
+
+            $event[0]->data_format = $data;
+
+        }
+        $sql_time_home = Times::find($event[0]->idhome);
+
+        $sql_time_away = Times::find($event[0]->idaway);
+
+        foreach($odds_grupos as $odd_grupo){
+            $consulta = DB::table('odds_subgrupo')->where('idgrupo', $odd_grupo->id)->where('status', 1)->get();
+
+            foreach($consulta as $sub_grupo){
+                $odds = DB::table('odds')->where('idsubgrupo', $sub_grupo->id)->where('status',1)->where('idevent', $event[0]['id'])->get();
+                $sub_grupo->odds = $odds->toArray();
+            }
+
+            $odd_grupo['sub_grupo'] =  $consulta->toArray();
+         }
+        $dados = [
+
+            'event' => $event,
+            'home' => $sql_time_home,
+            'away' => $sql_time_away,
+            'sql_odds_principal' => $sql_odds_principal,
+
+            'odds_grupo' => $odds_grupos
+
+        ];
+ 
+        return Response()->json($dados);
+
+    }
 
 }
 

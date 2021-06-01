@@ -28,7 +28,7 @@ Route::prefix('v1')->group(function(){
         Route::get('recupera-ligas-pais/{id}', 'ApiAndroidController@recuperaLigasPais');
 
         Route::get('recupera-ligas-destaque', 'ApiAndroidController@recuperaLigasDestaque');
-        Route::get('recupera-jogos-destaque', 'ApiAndroidController@recuperaJogosDestaque');
+        Route::get('recupera-more-odds', 'ApiAndroidController@moreOdds');
         Route::get('adiciona-aposta/{id}', 'ApiAndroidController@adicionarAposta');
        
         Route::get('recupera-jogos-principal', 'ApiAndroidController@recuperaJogosPrincipal');
