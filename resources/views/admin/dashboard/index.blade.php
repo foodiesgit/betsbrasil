@@ -434,7 +434,7 @@
                             }
                             elseif($dados->status == 2){
 
-                                $status = '<span class="badge badge-danger">Vencedor</span>';
+                                $status = '<span class="badge badge-info">Vencedor</span>';
 
                             }
                             elseif($dados->status == 5){

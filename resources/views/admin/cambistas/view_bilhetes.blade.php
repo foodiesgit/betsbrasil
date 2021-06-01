@@ -353,7 +353,7 @@ view_bilhetes
                             }
                             elseif($dados->status == 2){
 
-                                $status = '<span class="badge badge-danger">Vencedor</span>';
+                                $status = '<span class="badge badge-Info">Vencedor</span>';
 
                             }else{
                                 $status = '<span class="badge badge-danger">Perdeu</span>';
