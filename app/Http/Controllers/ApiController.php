@@ -675,7 +675,7 @@ class ApiController extends Controller {
 
                             $ligas->idpais = $idpais;
 
-                            $ligas->idesporte = 110;
+                            $ligas->idesporte = 1;
 
                             $ligas->has_league_table = $dados_json->has_leaguetable;
 
