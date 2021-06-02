@@ -457,8 +457,7 @@ class ApiAndroidController extends Controller{
 
             ->where('idesporte', 1)//->where('ligas.status', 1)
 
-            ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->get();
-
+            ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->paginate(15);
 
 
         $array_pais = [];
@@ -475,13 +474,11 @@ class ApiAndroidController extends Controller{
 
                     ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
 
-                    ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais', $dados1->idpais)
+                    ->where('idesporte', 1)
+                    ->where('ligas.status', 1)
+                    ->where('ligas.idpais', $dados1->idpais)
 
                     ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
-
-
-
-
 
                 $array_ligas = [];
 
@@ -568,17 +565,17 @@ class ApiAndroidController extends Controller{
                         }
 
 
+                        if($array_jogos != []){
+                            $array_ligas[] = [
 
-                        $array_ligas[] = [
-
-                            'id' => $dados->idliga,
-
-                            'liga' => $dados->nome_traduzido,
-
-                            'jogos' => $array_jogos
-
-                        ];
-
+                                'id' => $dados->idliga,
+    
+                                'liga' => $dados->nome_traduzido,
+    
+                                'jogos' => $array_jogos
+    
+                            ];
+                        }
                     }
 
                 }
@@ -926,7 +923,7 @@ class ApiAndroidController extends Controller{
 
             ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
 
-            ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'novo_carrinho_item.cota_momento')
+            ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo','events.id as jogoId', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'novo_carrinho_item.cota_momento')
 
             ->where('session_id', auth()->user()->id)
             ->where('novo_carrinho_item.id','!=', null)
