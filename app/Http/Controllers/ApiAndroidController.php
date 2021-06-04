@@ -1014,7 +1014,8 @@ class ApiAndroidController extends Controller{
 
             'possivel_retorno_format' => 'R$ '.number_format($possivel_retorno,2,',','.'),
 
-            'valor_total_apostado_format' => 'R$ '.number_format($valor_total_apostado,2,',','.')
+            'valor_total_apostado_format' => 'R$ '.number_format($valor_total_apostado,2,',','.'),
+            'config' => $config
 
         ]);
 
