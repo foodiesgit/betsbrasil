@@ -457,7 +457,7 @@ class ApiAndroidController extends Controller{
 
             ->where('idesporte', 1)//->where('ligas.status', 1)
 
-            ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->paginate(15);
+            ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->paginate(2);
 
 
         $array_pais = [];
