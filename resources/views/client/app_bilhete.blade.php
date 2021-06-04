@@ -114,7 +114,7 @@ hr{
 
 
 
-<h6 class="text-center destaque">{{$config->nome_banca}}</h6>
+<h6 class="text-center destaque"><img src="/logo_principal.png" width="50px"/></h6>
 
 <h5 class="text-center titulo">Detalhe da Aposta</h5>
 
