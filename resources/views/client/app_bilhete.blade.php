@@ -14,8 +14,7 @@
 <style type="text/css">
 
 @page { 
-size: 88mm 500mm; 
-margin: 5;
+size: 56mm 500mm; 
 }
 
 p{
