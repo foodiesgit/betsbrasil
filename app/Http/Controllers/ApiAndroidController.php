@@ -1451,6 +1451,95 @@ class ApiAndroidController extends Controller{
         return Response()->json($dados);
 
     }
+    public function postValidarBilhete(Request $request){
+    
+        if(Auth::user()->tipo_usuario != 1){
+            try {
+                $aposta = CupomAposta::where('codigo_unico', $request->bilhete)->where('status', 4)->first();
+                if($aposta) {
+
+
+                    $jogos = CupomApostaItem::join('events', 'cupom_aposta_item.idevent', 'events.id')->where('idcupom', $aposta->id)->get();
+
+                    foreach ($jogos as $jogo){
+
+                        if($jogo->inplay){
+                            $response = \Http::get('https://api.b365api.com/v1/event/view?token=&LNG_ID=22&event_id='.$jogo->bet365_id.'&token='.config('app.API_TOKEN'));
+                            if( $response->successful() ){
+                                $response = json_decode($response->body());
+
+                                if($response->results[0]->timer){
+                                    $time = $response->results[0]->timer->tm * 60 +  $response->results[0]->timer->ts;
+                                    if($time > 30){
+                                        return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
+                                    }
+                                }
+                            }else{
+                                return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
+                            }
+                        }else{
+                            if($jogo->data < \Carbon\Carbon::now()){
+                                return Response()->json(['error' => true, 'message' => 'Bilhete não pode ser validado pois os jogos já começaram']);
+                           }
+                        }
+                      
+                    }
+                    DB::beginTransaction();
+                    $aposta->idcambista = Auth::user()->id;
+                    $aposta->status = 1;
+                    $aposta->save();
+
+                    $jogos = CupomApostaItem::where('idcupom', $aposta->id)->count();
+
+                    if(Auth::user()->idgerente){
+                       $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
+                       $porcentagem = $comissaoGerente->comissao / 100;
+                       $comissao = $aposta->valor_apostado * $comissaoGerente->porcentagem;
+                       $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
+                       $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
+                       $credito->save();
+                    }
+                    $comissoes = CambistasComissoes::where('idusuario', Auth::user()->id)->first();
+
+                    if($comissoes){
+                        if($jogos == 1){ $porcentagem = $comissoes->comissao1jogo / 100; }
+                        if($jogos == 2){ $porcentagem = $comissoes->comissao2jogo / 100; }
+                        if($jogos == 3){ $porcentagem = $comissoes->comissao3jogo / 100; }
+                        if($jogos == 4){ $porcentagem = $comissoes->comissao4jogo / 100; }
+                        if($jogos == 5){ $porcentagem = $comissoes->comissao5jogo / 100; }
+                        if($jogos == 6){ $porcentagem = $comissoes->comissao6jogo / 100; }
+                        if($jogos == 7){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        if($jogos >= 8){ $porcentagem = $comissoes->comissao7jogo / 100; }
+                        $comissao = $aposta->valor_apostado * $porcentagem;
+                        $credito = Creditos::where('idusuario', Auth::user()->id)->first();
+                        $credito->saldo_liberado = $credito->saldo_liberado + $comissao;
+                        $credito->save();
+                        
+                    }
+                    
+                    DB::commit();
+                    return Response()->json(['error' => false, 'message' => 'Bilhete Validado com sucesso']);
+                    
+                }else{
+                    return Response()->json(['error' => true, 'message' => 'Bilhete não encontrado ou já validado']);
+
+                    
+                }
+            } catch (\Throwable $th) {
+                
+                DB::rollback();
+             
+            }
+           
+        }else{
+            return Response()->json(['error' => true, 'message' => 'Sem Permissão']);
+
+            
+
+        }
+        
+
+    }
 
 }
 
