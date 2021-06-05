@@ -1554,7 +1554,7 @@ class ApiAndroidController extends Controller{
             ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga')->groupBy('idliga')->take('20')->get();
 
 */
-        if( $request->date == date('Y-m-d')){
+        if( $request->date <= date('Y-m-d')){
             return Response()->json(['error' => true, 'message' => 'Data Invalida']);
         }
         $sql1 = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
@@ -1565,7 +1565,7 @@ class ApiAndroidController extends Controller{
 
         ->where('idesporte', 1)//->where('ligas.status', 1)
 
-        ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->get();
+        ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->paginate(4);
 
 
 
