@@ -873,7 +873,7 @@ class ClientController extends Controller{
 
                         $cupomAposta->retorno_real = 0;
 
-                        $cupomAposta->codigo_unico = substr(uniqid(), 0, 8);
+                        $cupomAposta->codigo_unico = substr(uniqid(time()), 0, 8);
 
                         $cupomAposta->save();
 
@@ -1040,7 +1040,7 @@ class ClientController extends Controller{
 
                 $cupomAposta->retorno_real = 0;
 
-                $cupomAposta->codigo_unico = substr(uniqid(), 0, 6);
+                $cupomAposta->codigo_unico = substr(uniqid(time()), 0, 8);
 
                 $cupomAposta->save();
 
