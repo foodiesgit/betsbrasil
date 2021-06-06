@@ -2093,7 +2093,6 @@ class ApiAndroidController extends Controller{
 
 
         }
-        $array_jogos_aba_futebol = asort($array_pais);
 
         $array_jogos_aba_futebol = $array_pais;
 
