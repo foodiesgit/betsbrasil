@@ -41,7 +41,6 @@ class AovivoController extends Controller
                 
                 if($response->successful()){
                     $json = json_decode($response->body(), false);
-                    dd($json);
                     if(count($json->results) > 0){
     
     
