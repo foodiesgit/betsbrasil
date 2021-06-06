@@ -603,16 +603,18 @@ class ApiAndroidController extends Controller{
                         }
     
     
+                        if(count($array_jogos) > 0){
+                            $array_ligas[] = [
     
-                        $array_ligas[] = [
-    
-                            'id' => $dados->idliga,
-    
-                            'liga' => $dados->nome_traduzido,
-    
-                            'jogos' => $array_jogos
-    
-                        ];
+                                'id' => $dados->idliga,
+        
+                                'liga' => $dados->nome_traduzido,
+        
+                                'jogos' => $array_jogos
+        
+                            ];
+                        }
+
     
                     }
     
@@ -621,18 +623,20 @@ class ApiAndroidController extends Controller{
                 //fim
     
     
+                if(count($array_pais) > 0){
+                    $array_pais[] = [
     
-                $array_pais[] = [
-    
-                    'id' => $dados1->idpais,
-    
-                    'pais' => $dados1->nome_traduzido,
-    
-                    'bandeira' => $dados1->bandeira,
-    
-                    'ligas' => $array_ligas
-    
-                ];
+                        'id' => $dados1->idpais,
+        
+                        'pais' => $dados1->nome_traduzido,
+        
+                        'bandeira' => $dados1->bandeira,
+        
+                        'ligas' => $array_ligas
+        
+                    ];
+                }
+              
     
             }
     
