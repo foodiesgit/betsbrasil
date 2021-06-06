@@ -2110,7 +2110,7 @@ class ApiAndroidController extends Controller{
         ];  
 
 
-       response()->json($data);
+       return response()->json($data);
 
     }
 }
