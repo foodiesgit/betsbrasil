@@ -623,7 +623,7 @@ class ApiAndroidController extends Controller{
                 //fim
     
     
-                if(count($array_pais) > 0){
+                if(count($array_ligas) > 0){
                     $array_pais[] = [
     
                         'id' => $dados1->idpais,
