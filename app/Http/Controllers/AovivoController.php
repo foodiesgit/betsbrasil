@@ -39,10 +39,9 @@ class AovivoController extends Controller
             do{
                 $response = \Http::get('https://api.b365api.com/v1/events/inplay?sport_id=1&token='.config('app.API_TOKEN'));
                 
-                dd($response);
                 if($response->successful()){
                     $json = json_decode($response->body(), false);
-    
+                    dd($json);
                     if(count($json->results) > 0){
     
     
