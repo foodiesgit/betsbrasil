@@ -654,8 +654,8 @@ class AovivoController extends Controller
                                 'home' => $sql_time_home->nome,
     
                                 'away' => $sql_time_away->nome,
-                                'placarHome' =>   $placar[0],
-                                'placarAway' =>  $placar[1],
+                                'placarHome' =>  (isset($placar[0]) ? $placar[0] : 0),
+                                'placarAway' =>  (isset($placar[1]) ? $placar[1] : 0),
                                 'total_odds' => $jogos->total_odds,
     
                                 'oddhome_id' => $sql_odds_principal[0]->id,
@@ -714,8 +714,8 @@ class AovivoController extends Controller
                                 'home' => $sql_time_home->nome,
     
                                 'away' => $sql_time_away->nome,
-                                'placarHome' =>   $placar[0],
-                                'placarAway' =>  $placar[1],
+                                'placarHome' =>  (isset($placar[0]) ? $placar[0] : 0),
+                                'placarAway' =>  (isset($placar[1]) ? $placar[1] : 0),
                                 'total_odds' => $jogos->total_odds,
     
                                 'oddhome_id' => $sql_odds_principal[0]->id,
