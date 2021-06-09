@@ -96,6 +96,7 @@ Route::prefix('minha-conta')->group(function(){
 Route::prefix('api')->group(function(){
     Route::get('recupera-ligas-por-esporte', 'ApiController@viewRecuperaLigasPorEsporte');
     Route::get('recupera-upcoming-events/{idesporte}/{pais}', 'ApiController@recuperaUpcomingEvents');
+    Route::get('recupera-times', 'ApiController@RecuperaTimesPorEsporte');
     Route::get('atualiza-odds/{idevent}', 'ApiController@atualizaOdds');
 
     Route::get('retorna-json', 'ApiController@retornaJson');

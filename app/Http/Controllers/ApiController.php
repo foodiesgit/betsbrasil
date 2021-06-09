@@ -703,6 +703,73 @@ class ApiController extends Controller {
 
     }
 
+    public function RecuperaTimesPorEsporte(){
+
+        for($i = 1; $i < 100; $i++){
+
+            $response = Http::get('https://api.b365api.com/v1/team?token='.config('app.API_TOKEN').'&sport_id=1&page='.$i.'');
+
+
+
+            if($response->successful()){
+
+                $json = json_decode($response->body(), false);
+
+
+
+                echo '<h1>Linha: '.$i.' - Total:'.count($json->results).'</h1>';
+
+
+
+                if(count($json->results) == 0){
+
+                    break;
+
+                    exit;
+
+                }
+
+                if(count($json->results) > 0){
+
+                    foreach($json->results as $dados_json){
+
+                        //verifica o pais
+
+                        $sqlPais = Paises::where('cc', $dados_json->cc)->get();
+
+                        if(count($sqlPais) > 0){ $idpais = $sqlPais[0]->id; }else{ $idpais = 0; }
+
+
+
+                        try{
+
+                            $ligas = new Times();
+
+                            $ligas->id = $dados_json->id;
+
+                            $ligas->nome = $dados_json->name;
+                            $ligas->image_id = $dados_json->image_id;
+
+                            $ligas->idpais = $idpais;
+                            $ligas->save();
+
+                        }catch(\Exception $e){
+
+
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+
+    }
 
 
 }
