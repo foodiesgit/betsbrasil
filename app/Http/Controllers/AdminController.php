@@ -1267,9 +1267,9 @@ class AdminController extends Controller {
 
 
 
-        if(count($sql) > 0){
+        if(count($sqlGerentes) > 0){
 
-            foreach($sql as $dados){
+            foreach($sqlGerentes as $dados){
 
                 $arrayUsuarios[$dados->id] = $dados->name;
 
