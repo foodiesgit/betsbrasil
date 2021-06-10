@@ -453,7 +453,7 @@
                                 <td>'.$dados->codigo_unico.'</td>
                                 <td>'.\Carbon\Carbon::parse($dados->created_at)->format('d/m/Y H:m:i').'</td>
 
-                                <td>'.($cliente ? $cliente->name : "Cliente não declarado").'</td>
+                                <td>'.($dados->name == '' || is_null($dados->name) ? ($cliente ? $cliente->name : "Cliente não informado") : $dados->name).'</td>
                                 <td>'.($cambista ? $cambista->name : "Cambista não declarado").'</td>
 
                                 <td><span class="badge badge-danger">

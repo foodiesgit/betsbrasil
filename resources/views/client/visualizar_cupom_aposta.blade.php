@@ -173,7 +173,7 @@ a {
 
                         </span>
 
-                        <span>Cliente: {{($cupomAposta[0]->name == '' || is_null($cupomAposta[0]->name) ? $cliente ? $cliente->name : "Cliente não informado" : $cupomAposta[0]->name)}}</span>
+                        <span>Cliente: {{($cupomAposta[0]->name == '' || is_null($cupomAposta[0]->name) ? ($cliente ? $cliente->name : "Cliente não informado") : $cupomAposta[0]->name)}}</span>
 
                     </div>
 
