@@ -161,10 +161,10 @@ a {
 
                                     if(count($sqlCambista) > 0){
 
-                                        echo $sqlCambista[0]->nome;
+                                        echo $sqlCambista[0]->name;
 
                                     }else{
-                                        echo "Bilhee sem cambista";
+                                        echo "Bilhete sem cambista";
                                     }
 
                                 }
