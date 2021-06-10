@@ -329,6 +329,8 @@
                                             <div class="bet-slip__item-footer bet-slip__item-footer--wide">
 
                                                 <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
+                                                    
+                                                    <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid" placeholder="Nome do cliente" formcontrolname="name" type="text" id="name" name="name">
 
                                                     <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake"  type="text" id="newstake" name="newstake">
                                                     <input id="newstake_hidden" type="hidden" name="newstake_hidden">
@@ -459,6 +461,8 @@
                         <div class="bet-slip__item-footer bet-slip__item-footer--wide">
 
                             <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
+
+                                <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid" placeholder="Nome do cliente" formcontrolname="name_mobile" type="text" id="name_mobile" name="name_mobile">
 
                                 <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake"   type="text" id="newstake_mobile" name="newstake">
                                 <input id="newstake_hidden_mobile" type="hidden" name="newstake_hidden_mobile">
@@ -1449,97 +1453,6 @@ if(odds[0].idsubgrupo == 84){
 
     recuperaCarrinho();
 
-
-
-
-
-    /*$.ajax({
-
-        url: '/ajax/carrinho/recupera-carrinho',
-
-        method: 'GET',
-
-        success: function(res){
-
-            $('.cota-aposta').removeClass('selecionado');
-
-
-
-            console.log('recuperaCarrinho');
-
-            console.log(res);
-
-            if(res.status == 'ok'){
-
-                $('#bet-slip-inner').html('');
-
-
-
-                $.each(res.response, function(i, item) {
-
-                    $('.cota-aposta[data-id='+item.idodds+']').addClass('selecionado');
-
-
-
-                    $('#bet-slip-inner').append('<app-betslip-item>'+
-
-                        '<div class="bet-slip__item">'+
-
-                            '<button class="bet-slip__item-close" type="button"></button>'+
-
-                            '<div class="bet-slip__item-inner">'+
-
-                                '<div class="bet-slip__teams">'+
-
-                                    '<div class="bet-slip__team">'+
-
-                                        '<p class="bet-slip__team-name">'+item.time_home+'</p>'+
-
-                                    '</div>'+
-
-                                    '<div class="bet-slip__team">'+
-
-                                        '<p class="bet-slip__team-name">'+item.time_away+'</p>'+
-
-                                    '</div>'+
-
-                                '</div>'+
-
-                                '<div class="bet-slip__info">'+
-
-                                    '<p class="bet-slip__outcome">Aposta: <span>'+item.subgrupo+'</span></p>'+
-
-                                '</div>'+
-
-                                '<div class="bet-slip__info">'+
-
-                                    '<p class="bet-slip__outcome">Sua aposta: <b>'+item.name+'</b></p>'+
-
-                                    '<p class="bet-slip__odds">'+item.cota_momento+'</p>'+
-
-                                '</div>'+
-
-                            '</div>'+
-
-                        '</div>'+
-
-                    '</app-betslip-item>');
-
-                });
-
-            }
-
-        },error: function(err){
-
-
-
-        },complete: function(){
-
-
-
-        }
-
-    });*/
 
 });
 

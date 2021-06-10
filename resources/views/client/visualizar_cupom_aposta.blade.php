@@ -144,7 +144,7 @@ a {
 
 
                     <div class="d-flex flex-column">
-
+                        <?php $cliente = \App\User::find($cupomAposta[0]->idusuario);?>
                         <span>Data: {{ $cupomAposta[0]->data_aposta }}</span>
 
                         <span>Código: {{ $cupomAposta[0]->codigo_unico }}</span>
@@ -155,7 +155,7 @@ a {
 
                                 if($cupomAposta[0]->idcambista != ''){
 
-                                    $sqlCambista = DB::table('usuarios')->where('id', $cupomAposta[0]->idcambista)->get();
+                                    $sqlCambista = DB::table('users')->where('id', $cupomAposta[0]->idcambista)->get();
 
 
 
@@ -163,6 +163,8 @@ a {
 
                                         echo $sqlCambista[0]->nome;
 
+                                    }else{
+                                        echo "Bilhee sem cambista";
                                     }
 
                                 }
@@ -171,7 +173,7 @@ a {
 
                         </span>
 
-                        <span>Cliente: {{ $cupomAposta[0]->nome }}</span>
+                        <span>Cliente: {{($cupomAposta[0]->name == '' || is_null($cupomAposta[0]->name) ? $cliente ? $cliente->name : "Cliente não informado" : $cupomAposta[0]->name)}}</span>
 
                     </div>
 

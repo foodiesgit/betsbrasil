@@ -112,7 +112,7 @@
                               <?php $cliente = \App\User::find($aposta->idusuario);?>
                               <?php $cambista = \App\User::find($aposta->idcambista);?>
                               <th>Cliente: </th>
-                              <th>{{($cliente ? $cliente->name : "Cliente não informado")}}</th>
+                              <th>{{($aposta->name == '' || is_null($aposta->name) ? $cliente ? $cliente->name : "Cliente não informado" : $aposta->name)}}</th>
                             </tr>
                             <tr>
                             <th>Cambista: </th>

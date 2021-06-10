@@ -454,8 +454,6 @@ class ClientController extends Controller{
 
                 foreach($jogos_aba_futebol as $dados){
 
-
-
                     $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->where('data','<=', date('Y-m-d').' 23:59:59')  ->orderBy('data', 'asc')
 
                         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
@@ -800,6 +798,12 @@ class ClientController extends Controller{
                 $valor_total_apostado =$input['newstake_hidden_mobile'];
 
             }
+            if(isset($input['name']) || $input['name'] != 0 ){
+                $name = $input['name'];
+            }else{
+                $name =$input['name_mobile'];
+
+            }
 
             if($config->valor_minimo_aposta >  $valor_total_apostado && $config->valor_minimo_aposta != 0){
                 return redirect('/')->with('erro', 'O Valor minimo para aposta é: R$ '.number_format($config->valor_minimo_aposta,2,',','.'));
@@ -873,7 +877,7 @@ class ClientController extends Controller{
                         $cupomAposta->idusuario = auth()->user()->id;
 
                         $cupomAposta->status = 1;
-
+                        $cupomAposta->name = $name;
                         $cupomAposta->valor_apostado = $valor_total_apostado;
 
                         $cupomAposta->possivel_retorno = 0;
@@ -1034,12 +1038,18 @@ class ClientController extends Controller{
                     return redirect('/')->with('erro', 'O Valor maximo para aposta é: R$ '.number_format($config->valor_maximo_aposta,2,',','.'));
                 
                 }
-
+                if(isset($input['name']) || $input['name'] != 0 ){
+                    $name = $input['name'];
+                }else{
+                    $name =$input['name_mobile'];
+    
+                }
                 //faz a aposta real
 
                 $cupomAposta = new CupomAposta;
 
                 $cupomAposta->status = 4;
+                $cupomAposta->name = $name;
 
                 $cupomAposta->valor_apostado = 0;
 
