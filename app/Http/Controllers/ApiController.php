@@ -80,9 +80,9 @@ class ApiController extends Controller {
 
             $name = $item->name;
 
-            $eng = ['Draw', 'Draw', 'or', 'Yes', 'No', '1st Half', '2nd Half', 'Over', 'Under', 'goals', 'Odd', 'Even', 'Exactly'];
+            $eng = ['Draw', 'Draw', ' or ', 'Yes', 'No', '1st Half', '2nd Half', 'Over', 'Under', 'goals', 'Odd', 'Even', 'Exactly'];
 
-            $pot = ['Empate', 'Empate', 'ou', 'Sim', 'Não', 'Primeiro Tempo', 'Segundo Tempo', 'Acima', 'Abaixo', 'gols', 'Impar', 'Par', 'Exatamente'];
+            $pot = ['Empate', 'Empate', ' ou ', 'Sim', 'Não', 'Primeiro Tempo', 'Segundo Tempo', 'Acima', 'Abaixo', 'gols', 'Impar', 'Par', 'Exatamente'];
 
 
 
@@ -122,9 +122,9 @@ class ApiController extends Controller {
 
 
 
-            $eng = ['Draw', 'Draw', 'or', 'Yes', 'No', '1st Half', '2nd Half', 'Over', 'Under', 'goals', 'Odd', 'Even', 'Exactly'];
+            $eng = ['Draw', 'Draw', ' or ', 'Yes', 'No', '1st Half', '2nd Half', 'Over', 'Under', 'goals', 'Odd', 'Even', 'Exactly'];
 
-            $pot = ['Empate', 'Empate', 'ou', 'Sim', 'Não', 'Primeiro Tempo', 'Segundo Tempo', 'Acima', 'Abaixo', 'gols', 'Impar', 'Par', 'Exatamente'];
+            $pot = ['Empate', 'Empate', ' ou ', 'Sim', 'Não', 'Primeiro Tempo', 'Segundo Tempo', 'Acima', 'Abaixo', 'gols', 'Impar', 'Par', 'Exatamente'];
 
 
 
