@@ -479,7 +479,6 @@ class ApiController extends Controller {
                     $json->results[0]->main->sp->result_both_teams_to_score[1]->name = "Fora";
                     $json->results[0]->main->sp->result_both_teams_to_score[2]->name = "Empate";
                     foreach($json->results[0]->main->sp->result_both_teams_to_score as $result){
-                        dd($result);
                         $this->salvaOdds($idevent,93, $result);
                     }
 
