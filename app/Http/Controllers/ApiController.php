@@ -477,6 +477,7 @@ class ApiController extends Controller {
                 if(isset($json->results[0]->main->sp->result_both_teams_to_score)){
 
                     foreach($json->results[0]->main->sp->result_both_teams_to_score as $result){
+                        dd($result);
                         if($result->name == 1){
                             $result->name = "Casa"; 
                         }
