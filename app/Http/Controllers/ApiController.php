@@ -217,7 +217,6 @@ class ApiController extends Controller {
                             if(count($json->results[0]->half->sp->$key) > 0){
 
                                 foreach($json->results[0]->half->sp->$key as $item){
-
                                     $this->salvaOdds($idevent, $idgrupo, $item);
 
                                 }
@@ -372,13 +371,58 @@ class ApiController extends Controller {
 
                 if(isset($json->results[0]->main->sp->half_time_full_time)){
 
-                    for($i = 0; $i < 10; $i++){
+                   
+                    if(isset($json->results[0]->main->sp->half_time_full_time[0])){
+                        $json->results[0]->main->sp->half_time_full_time[0]->name = "Casa - Casa";
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[0]);
 
-                        if(isset($json->results[0]->main->sp->half_time_full_time[$i])){
+                    }
+                    if(isset($json->results[0]->main->sp->half_time_full_time[1])){
+                        $json->results[0]->main->sp->half_time_full_time[1]->name = "Casa - Empate";
 
-                            $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[$i]);
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[1]);
 
-                        }
+                    }
+                    if(isset($json->results[0]->main->sp->half_time_full_time[2])){
+                        $json->results[0]->main->sp->half_time_full_time[2]->name = "Casa - Fora";
+
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[2]);
+
+                    }
+                    if(isset($json->results[0]->main->sp->half_time_full_time[3])){
+                        $json->results[0]->main->sp->half_time_full_time[3]->name = "Empate - Casa";
+
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[3]);
+
+                    }
+                    if(isset($json->results[0]->main->sp->half_time_full_time[4])){
+                        $json->results[0]->main->sp->half_time_full_time[4]->name = "Empate - Empate";
+
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[4]);
+
+                    }
+                    if(isset($json->results[0]->main->sp->half_time_full_time[5])){
+                        $json->results[0]->main->sp->half_time_full_time[5]->name = "Empate - Fora";
+
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[5]);
+
+                    }
+                    if(isset($json->results[0]->main->sp->half_time_full_time[6])){
+                        $json->results[0]->main->sp->half_time_full_time[6]->name = "Fora - Casa";
+
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[6]);
+
+                    }
+                    if(isset($json->results[0]->main->sp->half_time_full_time[7])){
+                        $json->results[0]->main->sp->half_time_full_time[7]->name = "Fora - Empate";
+
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[7]);
+
+                    }
+                    if(isset($json->results[0]->main->sp->half_time_full_time[8])){
+                        $json->results[0]->main->sp->half_time_full_time[8]->name = "Fora - Fora";
+
+                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[8]);
 
                     }
 
@@ -420,7 +464,8 @@ class ApiController extends Controller {
 
 
                 if(isset($json->results[0]->main->sp->draw_no_bet)){
-
+                    $json->results[0]->main->sp->draw_no_bet[0]->name = "Casa";
+                    $json->results[0]->main->sp->draw_no_bet[1]->name = "Fora";
                     $this->salvaOdds($idevent,92, $json->results[0]->main->sp->draw_no_bet[0]);
 
                     $this->salvaOdds($idevent,92, $json->results[0]->main->sp->draw_no_bet[1]);
@@ -432,6 +477,15 @@ class ApiController extends Controller {
                 if(isset($json->results[0]->main->sp->result_both_teams_to_score)){
 
                     foreach($json->results[0]->main->sp->result_both_teams_to_score as $result){
+                        if($result->name == 1){
+                            $result->name = "Casa"; 
+                        }
+                        if($result->name == "Draw"){
+                            $result->name = "Casa"; 
+                        }
+                        if($result->name == 2){
+                            $result->name = "Fora"; 
+                        }
                         $this->salvaOdds($idevent,93, $result);
 
                     }
