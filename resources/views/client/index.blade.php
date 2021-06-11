@@ -241,8 +241,8 @@
                                                 <div class="col-sm-9 col-md-4 col-lg-3">
                                                     <div class="sport-table-title">
                                                         <div class="sport-table-title-item sport-table-title-item-left">
-                                                            <span class="sport-table-title-team">'.$jogos['oddhome_name'].' X</span>
-                                                            <span class="sport-table-title-team">'.$jogos['oddaway_name'].'</span>
+                                                            <span class="sport-table-title-team">'.$jogos['home'].' X</span>
+                                                            <span class="sport-table-title-team">'.$jogos['away'].'</span>
                                                         </div>
                                                         <div class="sport-table-title-item sport-table-title-item-right">
                                                         </div>
