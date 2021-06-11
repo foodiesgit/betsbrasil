@@ -475,19 +475,12 @@ class ApiController extends Controller {
 
 
                 if(isset($json->results[0]->main->sp->result_both_teams_to_score)){
-                    dd($json->results[0]->main->sp->result_both_teams_to_score);
+                    $json->results[0]->main->sp->result_both_teams_to_score[0]->name = "Casa";
+                    $json->results[0]->main->sp->result_both_teams_to_score[1]->name = "Fora";
+                    $json->results[0]->main->sp->result_both_teams_to_score[2]->name = "Empate";
                     foreach($json->results[0]->main->sp->result_both_teams_to_score as $result){
-                        if($result->name == 1){
-                            $result->name = "Casa"; 
-                        }
-                        if($result->name == "Draw"){
-                            $result->name = "Casa"; 
-                        }
-                        if($result->name == 2){
-                            $result->name = "Fora"; 
-                        }
+                        dd($result);
                         $this->salvaOdds($idevent,93, $result);
-
                     }
 
                 }
