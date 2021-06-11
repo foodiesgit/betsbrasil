@@ -56,7 +56,7 @@ class ResultController extends Controller
                                     }
                                 }
                             }
-                            if($jogo->name == $home->nome){
+                            if($jogo->name == "Casa"){
                                 if($response->results[0]->time_status == 3){
                                     $result =  app(\App\Http\Controllers\Results\ResultMatchController::class)->index($response->results[0]->ss, 'CASA', $response->results[0]->time_status); 
                                     if($result['ganhou'] == true){
@@ -77,7 +77,7 @@ class ResultController extends Controller
                                 }
                             }
 
-                            if($jogo->name == $away->nome){
+                            if($jogo->name == "Fora"){
 
                                 if($response->results[0]->time_status == 3){
                                     $result =  app(\App\Http\Controllers\Results\ResultMatchController::class)->index($response->results[0]->ss, 'FORA', $response->results[0]->time_status); 
@@ -102,59 +102,23 @@ class ResultController extends Controller
                             }
                         }
                         if($jogo->idsubgrupo == 80 ){ //DOUBLE CHANCE
-                            if($jogo->name == "Empate"){
-                                $result =  app(\App\Http\Controllers\Results\DuplachanceController::class)->index($response->results[0]->ss, 'EMPATE', $response->results[0]->time_status); 
-                                if($result['ganhou'] == true){
-                                    $win++;
-                                    $odd = CupomApostaItem::where('id', $jogo->apostaID)->first();
-                                    $odd->status_resultado = 1;
-                                    $odd->status_conferido = 1;
-                                    $odd->save(); 
-                                }else if($result['ganhou'] == false){
-                                    $derrota++;
-                                    $odd = CupomApostaItem::where('id', $jogo->apostaID)->first();
-                                    $odd->status_resultado = 2;
-                                    $odd->status_conferido = 2;
-                                    $odd->save();
-                                }else{
+                            $result =  app(\App\Http\Controllers\Results\DuplachanceController::class)->index($response->results[0]->ss, $jogo->name, $response->results[0]->time_status); 
+                            if($result['ganhou'] == true){
+                                $win++;
+                                $odd = CupomApostaItem::where('id', $jogo->apostaID)->first();
+                                $odd->status_resultado = 1;
+                                $odd->status_conferido = 1;
+                                $odd->save(); 
+                            }else if($result['ganhou'] == false){
+                                $derrota++;
+                                $odd = CupomApostaItem::where('id', $jogo->apostaID)->first();
+                                $odd->status_resultado = 2;
+                                $odd->status_conferido = 2;
+                                $odd->save();
+                            }else{
 
-                                }
+                            }
                                
-                            }
-                            if($jogo->name == $home->nome){
-                                $result =  app(\App\Http\Controllers\Results\DuplachanceController::class)->index($response->results[0]->ss, 'CASA', $response->results[0]->time_status); 
-                                if($result['ganhou'] == true){
-                                    $win++;
-                                    $odd = CupomApostaItem::where('id', $jogo->apostaID)->first();
-                                    $odd->status_resultado = 1;
-                                    $odd->status_conferido = 1;
-                                    $odd->save(); 
-                                }else if($result['ganhou'] == false){
-                                    $derrota++;
-                                    $odd = CupomApostaItem::where('id', $jogo->apostaID)->first();
-                                    $odd->status_resultado = 2;
-                                    $odd->status_conferido = 2;
-                                    $odd->save();
-                                }else{
-
-                                }
-                            }
-                            if($jogo->name == $away->nome){
-                                $result =  app(\App\Http\Controllers\Results\DuplachanceController::class)->index($response->results[0]->ss, 'FORA', $response->results[0]->time_status); 
-                                if($result['ganhou'] == true){
-                                    $win++;
-                                    $odd = CupomApostaItem::where('id', $jogo->apostaID)->first();
-                                    $odd->status_resultado = 1;
-                                    $odd->status_conferido = 1;
-                                    $odd->save(); 
-                                }else if($result['ganhou'] == false){
-                                    $derrota++;
-                                    $odd = CupomApostaItem::where('id', $jogo->apostaID)->first();
-                                    $odd->status_resultado = 2;
-                                    $odd->status_conferido = 2;
-                                    $odd->save();
-                                }
-                            }
                         }
                         if($jogo->idsubgrupo == 81 ){ //CORRECT_SCORE
                             $result =  app(\App\Http\Controllers\Results\PlacarExatoController::class)->index($response->results[0]->ss, $jogo->name, $response->results[0]->time_status); 
