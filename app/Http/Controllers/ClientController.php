@@ -847,6 +847,8 @@ class ClientController extends Controller{
             $name =$input['name_mobile'];
 
         }
+
+        dd($input);
         $sql = NovoCarrinho::where('session_id', session()->getId())->get();
 
         // dd($input);
