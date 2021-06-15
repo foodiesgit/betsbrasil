@@ -526,7 +526,7 @@
                     {{ Form::close() }}
 
                     <button class="btn btn-primary active" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Efetuar Aposta</button>
-                    <button class="btn btn-secondary" type="button" id="btn_finalizar_aposta_mobile" data-dismiss="modal" >Fechar</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" >Fechar</button>
 
                     </div>
             </div>
@@ -1040,7 +1040,7 @@ if(odds[0].idsubgrupo == 84){
 
             if (result.isConfirmed) {
 
-                $('#btn_finalizar_aposta_mobile').submit();
+                $('#form_finalizar_aposta_mobile').submit();
 
             }else{
 
