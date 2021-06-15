@@ -1086,12 +1086,6 @@ if(odds[0].idsubgrupo == 84){
 
                 method: 'GET',
 
-                data: {
-
-                    id: id
-
-                },
-
                 success: function(res){
                     $('#newstake_hidden').val('')
                     $('#newstake').val('')
@@ -1144,13 +1138,6 @@ if(odds[0].idsubgrupo == 84){
                 url: '/ajax/limparCarrinho',
 
                 method: 'GET',
-
-                data: {
-
-                    id: id
-
-                },
-
                 success: function(res){
                     $('#newstake_hidden').val('')
                     $('#newstake').val('')
