@@ -252,6 +252,7 @@
                                             <div class="bet-slip__item-footer bet-slip__item-footer--wide">
 
                                                 <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
+                                                    <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid" placeholder="Nome do cliente" formcontrolname="name" type="text" id="name" name="name">
 
                                                     <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake"   type="text" id="newstake" name="newstake">
                                                     <input id="newstake_hidden" type="hidden" name="newstake_hidden">
@@ -373,6 +374,7 @@
             </div>
             <div class="modal-body" >
             <div class="bet-slip">
+            {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta_mobile']) }}
 
                     <div class="bet-slip__inner" id="bet-slip-inner-mobile">
 
@@ -382,6 +384,7 @@
                         <div class="bet-slip__item-footer bet-slip__item-footer--wide">
 
                             <div class="bet-slip__bet-cont bet-slip__bet-cont--wide">
+                            <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid" placeholder="Nome do cliente" formcontrolname="name" type="text" id="name" name="name">
 
                                 <input class="bet-slip__bet ng-untouched ng-pristine ng-invalid ca-input" formcontrolname="newstake"    type="text" id="newstake_mobile" name="newstake">
                                 <input id="newstake_hidden_mobile" type="hidden" name="newstake_hidden_mobile">
@@ -1168,80 +1171,132 @@ if(odds[0].idsubgrupo == 84){
 
     $('#btn_finalizar_aposta').click(function(e){
 
-        $(this).attr('disabled', 'disabled');
+$(this).attr('disabled', 'disabled');
 
 
-        Swal.fire({
+Swal.fire({
 
-            title: 'Confirma essa aposta?',
+    title: 'Confirma essa aposta?',
 
-            text: "Tem certeza que deseja colocar essa aposta? Se o valor de retorno for maior que o valor maximo permitido o sistema automaticamente atribui esse valor ao seu retorno.",
+    text: "Tem certeza que deseja colocar essa aposta? Se o valor de retorno for maior que o valor maximo permitido o sistema automaticamente atribui esse valor ao seu retorno.",
 
-            icon: 'warning',
+    icon: 'warning',
 
-            showCancelButton: true,
+    showCancelButton: true,
 
-            confirmButtonColor: '#3085d6',
+    confirmButtonColor: '#3085d6',
 
-            cancelButtonColor: '#d33',
+    cancelButtonColor: '#d33',
 
-            confirmButtonText: 'Confirmar'
+    confirmButtonText: 'Confirmar'
 
-        }).then((result) => {
+}).then((result) => {
 
-            if (result.isConfirmed) {
+    if (result.isConfirmed) {
 
-                $('#form_finalizar_aposta').submit();
+        $('#form_finalizar_aposta').submit();
 
-            }else{
+    }else{
 
-                $('#btn_finalizar_aposta').removeAttr('disabled');
+        $('#btn_finalizar_aposta').removeAttr('disabled');
 
-            }
+    }
 
-        });
+});
 
-    });
+});
 
 
 
-    $('#btn_finalizar_aposta_mobile').click(function(e){
+$('#btn_finalizar_aposta_mobile').click(function(e){
 
-        $(this).attr('disabled', 'disabled');
+$(this).attr('disabled', 'disabled');
 
-        Swal.fire({
+Swal.fire({
 
-            title: 'Confirma essa aposta?',
+    title: 'Confirma essa aposta?',
 
-            text: "Tem certeza que deseja colocar essa aposta?",
+    text: "Tem certeza que deseja colocar essa aposta?",
 
-            icon: 'warning',
+    icon: 'warning',
 
-            showCancelButton: true,
+    showCancelButton: true,
 
-            confirmButtonColor: '#3085d6',
+    confirmButtonColor: '#3085d6',
 
-            cancelButtonColor: '#d33',
+    cancelButtonColor: '#d33',
 
-            confirmButtonText: 'Confirmar'
+    confirmButtonText: 'Confirmar'
 
-        }).then((result) => {
+}).then((result) => {
 
-            if (result.isConfirmed) {
+    if (result.isConfirmed) {
 
-                $('#form_finalizar_aposta').submit();
+        $('#form_finalizar_aposta_mobile').submit();
 
-            }else{
+    }else{
 
-                $('#btn_finalizar_aposta_mobile').removeAttr('disabled');
+        $('#btn_finalizar_aposta_mobile').removeAttr('disabled');
 
-            }
+    }
 
-        });
+});
 
-    });
+});
 
-    $('body').on('keyup', '#newstake', function(e){
+$('body').on('keyup', '#newstake', function(e){
+
+e.preventDefault();
+
+
+
+var valor = $(this).val();
+
+valor = valor.replace("R$ ", "");
+
+valor = valor.replace(".", "");
+
+valor = valor.replace(",", ".");
+
+
+
+valor = parseFloat(valor);
+
+$('#newstake_hidden').val(valor)
+$('#newstake_hidden_mobile').val(valor)
+
+if( valor > 0.00 ){
+
+    var totalcotas = $('#slip_total_odds').html();
+
+    totalcotas = parseFloat(totalcotas);
+
+
+
+    var total = valor * totalcotas;
+
+  
+    if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
+        total =  <?php echo $config->premio_maximo;?> ;
+    }
+
+    $('#slip_total_aposta').html( $('#newstake').val() );
+
+    $('#slip_total_retorno').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
+
+
+
+    $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
+
+}else{
+
+    $('#btn_finalizar_aposta').attr('disabled');
+
+}
+
+});
+
+$('body').on('keyup', '#newstake_mobile', function(e){
 
     e.preventDefault();
 
@@ -1259,8 +1314,8 @@ if(odds[0].idsubgrupo == 84){
 
     valor = parseFloat(valor);
 
-    $('#newstake_hidden').val(valor)
     $('#newstake_hidden_mobile').val(valor)
+
 
     if( valor > 0.00 ){
 
@@ -1272,79 +1327,28 @@ if(odds[0].idsubgrupo == 84){
 
         var total = valor * totalcotas;
 
-    
+
+
+
         if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
-            total =  <?php echo $config->premio_maximo;?> ;
+          total =  <?php echo $config->premio_maximo;?> ;
         }
 
-        $('#slip_total_aposta').html( $('#newstake').val() );
+        $('#slip_total_aposta_mobile').html( $('#newstake_mobile').val() );
 
-        $('#slip_total_retorno').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
+        $('#slip_total_retorno_mobile').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
 
-
-
-        $('#btn_finalizar_aposta').removeAttr('disabled', 'disabled');
+        $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
 
     }else{
 
-        $('#btn_finalizar_aposta').attr('disabled');
+
+        $('#btn_finalizar_aposta_mobile').attr('disabled');
 
     }
 
-    });
-
-    $('body').on('keyup', '#newstake_mobile', function(e){
-
-        e.preventDefault();
-
-
-
-        var valor = $(this).val();
-
-        valor = valor.replace("R$ ", "");
-
-        valor = valor.replace(".", "");
-
-        valor = valor.replace(",", ".");
-
-
-
-        valor = parseFloat(valor);
-
-        $('#newstake_hidden').val(valor)
-
-
-        if( valor > 0.00 ){
-
-            var totalcotas = $('#slip_total_odds').html();
-
-            totalcotas = parseFloat(totalcotas);
-
-
-
-            var total = valor * totalcotas;
-
-
-
-
-            if(total > <?php echo $config->premio_maximo;?> &&  <?php echo $config->premio_maximo;?> != 0 ){
-            total =  <?php echo $config->premio_maximo;?> ;
-            }
-
-            $('#slip_total_aposta_mobile').html( $('#newstake_mobile').val() );
-
-            $('#slip_total_retorno_mobile').html( new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(total));
-
-            $('#btn_finalizar_aposta_mobile').removeAttr('disabled', 'disabled');
-
-        }else{
-
-
-            $('#btn_finalizar_aposta_mobile').attr('disabled');
-
-        }
-
 });
+
     $('body').on('click', '.cota-aposta', function(e){
 
         e.preventDefault();
