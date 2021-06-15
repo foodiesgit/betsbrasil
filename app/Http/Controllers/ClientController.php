@@ -706,7 +706,12 @@ class ClientController extends Controller{
 
         $input = $request->all();
         $config =\DB::table('campos_fixos')->first();
+        if(isset($input['name']) || $input['name'] != 0 ){
+            $name = $input['name'];
+        }else{
+            $name =$input['name_mobile'];
 
+        }
         $sql = NovoCarrinho::where('session_id', session()->getId())->get();
 
         // dd($input);
@@ -797,12 +802,7 @@ class ClientController extends Controller{
                 $valor_total_apostado =$input['newstake_hidden_mobile'];
 
             }
-            if(isset($input['name']) || $input['name'] != 0 ){
-                $name = $input['name'];
-            }else{
-                $name =$input['name_mobile'];
 
-            }
 
             if($config->valor_minimo_aposta >  $valor_total_apostado && $config->valor_minimo_aposta != 0){
                 return redirect('/')->with('erro', 'O Valor minimo para aposta é: R$ '.number_format($config->valor_minimo_aposta,2,',','.'));
@@ -1037,12 +1037,7 @@ class ClientController extends Controller{
                     return redirect('/')->with('erro', 'O Valor maximo para aposta é: R$ '.number_format($config->valor_maximo_aposta,2,',','.'));
                 
                 }
-                if(isset($input['name']) || $input['name'] != 0 ){
-                    $name = $input['name'];
-                }else{
-                    $name =$input['name_mobile'];
-    
-                }
+
                 //faz a aposta real
 
                 $cupomAposta = new CupomAposta;
