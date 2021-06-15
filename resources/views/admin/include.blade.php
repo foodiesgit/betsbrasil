@@ -240,11 +240,12 @@
             <li class="nav-item d-xl-none">
               <!-- Sidenav toggler -->
               <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
-                <div class="sidenav-toggler-inner">
+                <button type="button" class="btn btn-primary">Menu</button>
+                <!-- <div class="sidenav-toggler-inner">
                   <i class="sidenav-toggler-line"></i>
                   <i class="sidenav-toggler-line"></i>
                   <i class="sidenav-toggler-line"></i>
-                </div>
+                </div> -->
               </div>
             </li>
           </ul>
@@ -252,9 +253,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="media align-items-center">
-                  <!-- <span class="avatar avatar-sm rounded-circle">
-                   <img alt="Image placeholder" src="https://lh3.googleusercontent.com/proxy/bPJQH3mYRKMUavgYsREBMa_mJakqwusyy4wtcgttUFHUpczHG0f31QDZ77fk2cVSbBRSl55fkhgbuaHD4kIS1741kdj93yIZLjbLGAPqCWM3mvaOUmeAQiSAXKWVFBX_H8eJ239ClFdE7A">
-                  </span> -->
+                  <span class="avatar avatar-sm rounded-circle d-none d-sm-block d-md-none" >
+                   <!-- <img alt="Image placeholder" src="https://lh3.googleusercontent.com/proxy/bPJQH3mYRKMUavgYsREBMa_mJakqwusyy4wtcgttUFHUpczHG0f31QDZ77fk2cVSbBRSl55fkhgbuaHD4kIS1741kdj93yIZLjbLGAPqCWM3mvaOUmeAQiSAXKWVFBX_H8eJ239ClFdE7A"> -->
+                  </span>
                   <div class="media-body ml-2 d-none d-lg-block">
                     <span class="mb-0 text-sm  font-weight-bold">{{$user->name}}</span>
                   </div>
@@ -264,10 +265,7 @@
                 <div class="dropdown-header noti-title">
                   <h6 class="text-overflow m-0">Bem vindo de Volta!</h6>
                 </div>
-                <a href="/admin/meus-dados" class="dropdown-item">
-                  <i class="ni ni-single-02"></i>
-                  <span>Meus Dados</span>
-                </a>
+
                 <div class="dropdown-divider"></div>
                 <a href="/admin/logout" class="dropdown-item">
                   <i class="ni ni-user-run"></i>
