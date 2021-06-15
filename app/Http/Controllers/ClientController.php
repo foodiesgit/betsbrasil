@@ -114,7 +114,7 @@ class ClientController extends Controller{
 
                 ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
 
-                ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais', $dados1->idpais)
+                ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais',31)
 
                 ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
 
