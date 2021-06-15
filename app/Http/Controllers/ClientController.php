@@ -1210,7 +1210,7 @@ public function viewIndex(){
 
                         $cupomAposta->retorno_real = 0;
 
-                        $cupomAposta->codigo_unico = substr(uniqid(time()), 0, 8);
+                        $cupomAposta->codigo_unico = substr(uniqid(rand(), true), 0, 8);
 
                         $cupomAposta->save();
 
@@ -1378,7 +1378,7 @@ public function viewIndex(){
 
                 $cupomAposta->retorno_real = 0;
 
-                $cupomAposta->codigo_unico = substr(uniqid(time()), 0, 8);
+                $cupomAposta->codigo_unico = substr(uniqid(rand(), true), 0, 8);
 
                 $cupomAposta->save();
 
