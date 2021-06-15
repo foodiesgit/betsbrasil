@@ -535,9 +535,6 @@ class ClientController extends Controller{
 
 
 
-        $array_pais = [];
-
-
         if(count($sql1) == 0){
                 
             $sql1 = Events::whereDate('data', '>=',date('Y-m-d H:i:s'))->where('data','<=', date('Y-m-d').' 23:59:59')->orderBy('data', 'asc')
