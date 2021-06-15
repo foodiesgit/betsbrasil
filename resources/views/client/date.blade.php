@@ -388,7 +388,7 @@
                                         {{ Form::close() }}
 
                                         <button class="btn btn-primary active" type="button" id="btn_finalizar_aposta" disabled="disabled">Efetuar Aposta</button>
-
+                                        <button class="btn btn-secondary active" type="button" id="btn_limpar_aposta">Limpar</button>
 
 
 
@@ -526,6 +526,7 @@
                     {{ Form::close() }}
 
                     <button class="btn btn-primary active" type="button" id="btn_finalizar_aposta_mobile" disabled="disabled">Efetuar Aposta</button>
+                    <button class="btn btn-secondary active" type="button" id="btn_limpar_aposta_mobile">Limpar</button>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal" >Fechar</button>
 
                     </div>
@@ -841,6 +842,109 @@ success: function(res){
 },error: function(err){
 },complete: function(){
 }
+
+});
+
+});
+$('#btn_limpar_aposta_mobile').click(function(e){
+
+$(this).attr('disabled', 'disabled');
+
+Swal.fire({
+
+    title: 'Confirma essa aposta?',
+
+    text: "Tem certeza que deseja limpar suas apostas?",
+
+    icon: 'warning',
+
+    showCancelButton: true,
+
+    confirmButtonColor: '#3085d6',
+
+    cancelButtonColor: '#d33',
+
+    confirmButtonText: 'Confirmar'
+
+}).then((result) => {
+
+    if (result.isConfirmed) {
+
+        $('#renderMoreOdds').html('');
+
+        $.ajax({
+
+        url: '/ajax/limparCarrinho',
+
+        method: 'GET',
+
+        success: function(res){
+            $('#newstake_hidden').val('')
+            $('#newstake').val('')
+            $('#newstake_mobile').val('')
+            $('#name').val('')
+            $('#name_mobile').val('')
+            $('#newstake_hidden_mobile').val('')
+            recuperaCarrinho();
+            recuperaCarrinho();
+        }});
+
+    }else{
+
+        $('#btn_limpar_aposta_mobile').removeAttr('disabled');
+
+    }
+
+});
+
+});
+
+$('#btn_limpar_aposta').click(function(e){
+
+$(this).attr('disabled', 'disabled');
+
+Swal.fire({
+
+    title: 'Confirma essa aposta?',
+
+    text: "Tem certeza que deseja limpar suas apostas?",
+
+    icon: 'warning',
+
+    showCancelButton: true,
+
+    confirmButtonColor: '#3085d6',
+
+    cancelButtonColor: '#d33',
+
+    confirmButtonText: 'Confirmar'
+
+}).then((result) => {
+
+    if (result.isConfirmed) {
+
+        $('#renderMoreOdds').html('');
+
+        $.ajax({
+
+        url: '/ajax/limparCarrinho',
+
+        method: 'GET',
+        success: function(res){
+            $('#newstake_hidden').val('')
+            $('#newstake').val('')
+            $('#newstake_mobile').val('')
+            $('#name').val('')
+            $('#name_mobile').val('')
+            $('#newstake_hidden_mobile').val('')
+            recuperaCarrinho();
+        }});
+
+    }else{
+
+        $('#btn_limpar_aposta').removeAttr('disabled');
+
+    }
 
 });
 
