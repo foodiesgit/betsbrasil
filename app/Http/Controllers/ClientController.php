@@ -236,9 +236,9 @@ class ClientController extends Controller{
             }
 
 
-        }
+        
 
-        }
+        
 
 
         $array_jogos_aba_futebol = $array_pais;
@@ -529,9 +529,10 @@ class ClientController extends Controller{
 
                 }
 
-        
+            }
 
         }
+    
 
 
         $data = [
