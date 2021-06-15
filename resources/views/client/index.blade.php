@@ -1122,7 +1122,7 @@ if(odds[0].idsubgrupo == 84){
 
             valor = parseFloat(valor);
 
-            $('#newstake_hidden').val(valor)
+            $('#newstake_hidden_mobile').val(valor)
 
 
             if( valor > 0.00 ){
