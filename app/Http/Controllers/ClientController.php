@@ -86,7 +86,7 @@ class ClientController extends Controller{
         $nextD = $date->addDay(1)->toDateTime();
         $campeonatosDestaque = Ligas::where('status', 1)->where('destaque', 1)->get();
 
-        $paisesDestaque = Paises::where('status', 1)->where('destaque', 1)->get();
+        $paisesDestaque = Paises::find(31);
 
         $esportes = Esportes::where('status', 1)->get();
 
@@ -224,11 +224,11 @@ class ClientController extends Controller{
             if(count($array_ligas) > 0 ){
                 $array_pais[] = [
 
-                    'id' => $dados1->idpais,
+                    'id' => $paisesDestaque->idpais,
     
-                    'pais' => $dados1->nome_traduzido,
+                    'pais' => $paisesDestaque->nome_traduzido,
     
-                    'bandeira' => $dados1->bandeira,
+                    'bandeira' => $paisesDestaque->bandeira,
     
                     'ligas' => $array_ligas
     
