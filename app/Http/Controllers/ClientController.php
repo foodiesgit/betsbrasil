@@ -1027,7 +1027,12 @@ public function viewIndex(){
         return back()->with('sucesso', 'Alterado com sucesso');
 
     }
-
+    public function postLimparAposta(Request $request){
+        $sql = NovoCarrinho::where('session_id', session()->getId())->get();
+        foreach ($sql as $dados){
+            NovoCarrinho::destroy($dados->id);
+        }
+    }
     public function postFinalizarAposta(Request $request){
 
         $input = $request->all();

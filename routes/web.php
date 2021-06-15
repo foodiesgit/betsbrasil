@@ -65,6 +65,7 @@ Route::get('/verifica-bilhete/{bilhete}', 'ClientController@resultBilhete');
 Route::get('/ajax-verifica-bilhete/{bilhete}', 'ClientController@ajaxResultBilhete');
 Route::get('/ajax-atualiza-aovivo', 'AovivoController@index');
 Route::get('ajax/atualiza-aovivo', 'AovivoController@ajaxAoVivo');
+Route::get('/ajax/limparCarrinho', 'ClientController@postLimparAposta');
 
 Route::get('teste', 'ClientController@teste');
 
