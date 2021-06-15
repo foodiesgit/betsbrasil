@@ -706,7 +706,7 @@ class ClientController extends Controller{
 
         $input = $request->all();
         $config =\DB::table('campos_fixos')->first();
-        dd($input);
+
         if(isset($input['name']) || $input['name'] != 0 ){
             $name = $input['name'];
         }else{

@@ -452,6 +452,7 @@
             </div>
             <div class="modal-body" >
             <div class="bet-slip">
+                {{ Form::open(['url' => '/finalizar-aposta', 'id' => 'form_finalizar_aposta_mobile']) }}
 
                     <div class="bet-slip__inner" id="bet-slip-inner-mobile">
 
@@ -1039,7 +1040,7 @@ if(odds[0].idsubgrupo == 84){
 
             if (result.isConfirmed) {
 
-                $('#form_finalizar_aposta').submit();
+                $('#btn_finalizar_aposta_mobile').submit();
 
             }else{
 
