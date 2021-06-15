@@ -1046,10 +1046,7 @@ public function viewIndex(){
 
         }
         if(!isset($input['newstake_hidden']) ||  $input['newstake_hidden'] == 0 || is_null($input['newstake_hidden'])){
-            if( !isset($input['newstake_hidden_mobile']) || $input['newstake_hidden_mobile'] == 0 || is_null($input['newstake_hidden_mobile'])){
-                return redirect('/')->with('erro', 'Você não pode fazer uma aposta com valor vazio');
-            }
-
+            return redirect('/')->with('erro', 'Você não pode fazer uma aposta com valor vazio');
         }
 
 
