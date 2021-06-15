@@ -841,12 +841,9 @@ class ClientController extends Controller{
         $input = $request->all();
         $config =\DB::table('campos_fixos')->first();
 
-        if(isset($input['name']) || $input['name'] != 0 ){
-            $name = $input['name'];
-        }else{
-            $name =$input['name_mobile'];
 
-        }
+        $name = $input['name'];
+    
 
         dd($input);
         $sql = NovoCarrinho::where('session_id', session()->getId())->get();
