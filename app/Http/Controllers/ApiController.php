@@ -494,7 +494,7 @@ class ApiController extends Controller {
 
     }
 
-    public function recuperaUpcomingEvents($idesporte, $pais){
+    public function recuperaUpcomingEvents($idesporte){
         set_time_limit(-1);
         // $responsePaises = Http::get('https://betsapi.com/docs/samples/countries.json');
         // if( $responsePaises->successful() ){
@@ -507,7 +507,7 @@ class ApiController extends Controller {
         
         
                 do{
-                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&&cc='. $pais.'&page='.$i);
+                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&page='.$i);
                     
         
                     if($response->successful()){
