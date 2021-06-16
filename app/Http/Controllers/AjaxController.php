@@ -709,7 +709,7 @@ class AjaxController extends Controller{
                 'valor_total_cotas' =>  $multiplicacao
     
             ]);
-            
+
             return response()->json([
 
                 'status' => 'ok',
@@ -792,6 +792,9 @@ class AjaxController extends Controller{
                 $soma = $soma + $dados->cota_momento;
 
             }
+
+        }else{
+            $multiplicacao = 0;
 
         }
 
