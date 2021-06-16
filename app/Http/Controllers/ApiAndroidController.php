@@ -1223,7 +1223,7 @@ class ApiAndroidController extends Controller{
 
             ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
 
-            ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo','events.id as jogoId', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'novo_carrinho_item.cota_momento')
+            ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo','events.id as jogoId','events.data', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'novo_carrinho_item.cota_momento')
 
             ->where('session_id', auth()->user()->id)
             ->where('novo_carrinho_item.id','!=', null)
