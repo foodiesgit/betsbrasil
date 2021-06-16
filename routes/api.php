@@ -37,7 +37,6 @@ Route::prefix('v1')->group(function(){
         Route::get('recupera-jogos-principal', 'ApiAndroidController@recuperaJogosPrincipal');
         Route::get('remover-jogos/{id}', 'ApiAndroidController@removeSelection');
         Route::get('recupera-bilhete/{codigo}', 'ApiAndroidController@recuperaBilhete');
-        Route::get('recupera-web-view-bilhete/{codigo}', 'ApiAndroidController@recuperaWebViewBilhete');
         
         Route::get('date/{date}', 'ApiAndroidController@viewIndexData');
         Route::post('validar-bilhete', 'ApiAndroidController@postValidarBilhete');
@@ -46,7 +45,7 @@ Route::prefix('v1')->group(function(){
 });
 Route::prefix('v1')->group(function(){
    
-
+    Route::get('recupera-web-view-bilhete/{codigo}', 'ApiAndroidController@recuperaWebViewBilhete');
     Route::get('recupera-bilhete/{codigo}', 'ApiAndroidController@recuperaBilhete');
 });
 
