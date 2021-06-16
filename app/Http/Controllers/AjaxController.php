@@ -747,9 +747,7 @@ class AjaxController extends Controller{
 
         //faz a multiplicacao das cotas e atualiza o carrinho
 
-        $itensCarrinho = NovoCarrinhoItem::leftJoin('novo_carrinho', 'novo_carrinho.id','=','novo_carrinho_item.idcarrinho')
-
-            ->select("novo_carrinho_item.*")->where('session_id', session()->getId())->get();
+        $itensCarrinho = NovoCarrinhoItem::where('idcarrinho', $idcarrinho)->get();
 
 
 
