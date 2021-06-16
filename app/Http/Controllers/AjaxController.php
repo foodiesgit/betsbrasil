@@ -672,15 +672,15 @@ class AjaxController extends Controller{
 
 
 
-        $item = NovoCarrinhoItem::where('idcarrinho', $idcarrinho)->where('idodd', $id)->get();
+        $item = NovoCarrinhoItem::where('idcarrinho', $idcarrinho)->where('idodd', $id)->first();
 
 
 
-        if(count($item) > 0){
+        if($item){
 
             //ja tem essa selecão, então remove
 
-            NovoCarrinhoItem::where('id', $item[0]->id)->delete();
+            NovoCarrinhoItem::destroy($item->id);
 
 
 
