@@ -111,7 +111,7 @@ p {
 <div id="bilhete" style="background-color: #f5f5db; padding: 5px;" align="center">
 
 
-<img src="/logo_principal.png" align="center" width="106" height="41"/>
+<img src="http://bellagioesportes.com/logo_principal.png" align="center" width="106" height="41"/>
 
 <!-- <h6 class="text-center destaque">{{$config->nome_banca}}</h6> -->
 <div align="left">
