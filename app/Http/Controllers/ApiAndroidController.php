@@ -1096,7 +1096,7 @@ class ApiAndroidController extends Controller{
 
 
 
-            NovoCarrinho::where('session_id', session()->getId())->update([
+            NovoCarrinho::where('session_id', auth()->user()->id)->update([
 
                 'valor_total_cotas' =>  $multiplicacao
 
