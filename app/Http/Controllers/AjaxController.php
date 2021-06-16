@@ -682,8 +682,34 @@ class AjaxController extends Controller{
 
             NovoCarrinhoItem::destroy($item->id);
 
+            $itensCarrinho = NovoCarrinhoItem::where('idcarrinho', $idcarrinho)->get();
 
 
+
+            $multiplicacao = 1;
+    
+            $soma = 0;
+    
+    
+    
+            if(count($itensCarrinho) > 0){
+    
+                foreach($itensCarrinho as $dados){
+    
+                    $multiplicacao = $multiplicacao * $dados->cota_momento;
+    
+                    $soma = $soma + $dados->cota_momento;
+    
+                }
+    
+            }
+    
+            NovoCarrinho::where('session_id', session()->getId())->update([
+
+                'valor_total_cotas' =>  $multiplicacao
+    
+            ]);
+            
             return response()->json([
 
                 'status' => 'ok',
