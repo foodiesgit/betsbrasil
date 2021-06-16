@@ -843,7 +843,40 @@ class ApiAndroidController extends Controller{
             NovoCarrinhoItem::where('id', $item[0]->id)->delete();
 
             $novoCarrinho = NovoCarrinho::where('session_id', auth()->user()->id)->get();
+                    //faz a multiplicacao das cotas e atualiza o carrinho
 
+            $itensCarrinho = NovoCarrinhoItem::where('idcarrinho', $idcarrinho)->get();
+
+
+
+            $multiplicacao = 1;
+
+            $soma = 0;
+
+
+
+            if(count($itensCarrinho) > 0){
+
+                foreach($itensCarrinho as $dados){
+
+                    $multiplicacao = $multiplicacao * $dados->cota_momento;
+
+                    $soma = $soma + $dados->cota_momento;
+
+                }
+
+            }else{
+                $multiplicacao = 0;
+
+            }
+
+
+
+            NovoCarrinho::where('session_id', session()->getId())->update([
+
+                'valor_total_cotas' =>  $multiplicacao
+
+            ]);
 
             return response()->json([
 
