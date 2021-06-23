@@ -1290,6 +1290,7 @@ public function viewIndex(){
     
                                 if(Auth::user()->idgerente){
                                     $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
+                                    dd($comissaoGerente);
                                     $porcentagem = $comissaoGerente->comissao / 100;
                                     $comissao = $cupomAposta->valor_apostado * $comissaoGerente->porcentagem;
                                     $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
