@@ -470,7 +470,7 @@ class ApiController extends Controller {
                         $this->salvaOdds($idevent,92, $json->results[0]->main->sp->draw_no_bet[0]);
 
                     }
-                    if(isset($json->results[0]->main->sp->draw_no_bet[0])){
+                    if(isset($json->results[0]->main->sp->draw_no_bet[1])){
                         $json->results[0]->main->sp->draw_no_bet[1]->name = "Fora";
                         $this->salvaOdds($idevent,92, $json->results[0]->main->sp->draw_no_bet[1]);
 
