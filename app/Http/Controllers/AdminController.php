@@ -3310,7 +3310,7 @@ class AdminController extends Controller {
                     if(Auth::user()->idgerente){
                        $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
                        $porcentagem = $comissaoGerente->comissao / 100;
-                       $comissao = $aposta->valor_apostado * $comissaoGerente->porcentagem;
+                       $comissao = $aposta->valor_apostado * $porcentagem;
                        $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
                        $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
                        $credito->save();
