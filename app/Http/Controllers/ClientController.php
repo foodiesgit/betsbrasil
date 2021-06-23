@@ -1293,7 +1293,7 @@ public function viewIndex(){
            
                                     $porcentagem = $comissaoGerente->comissao / 100;
                                     $comissao = $cupomAposta->valor_apostado * $comissaoGerente->porcentagem;
-                                    dd($comissao);
+                                    dd( $cupomAposta->valor_apostado);
                                     $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
                                     $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
                                     $credito->save();
