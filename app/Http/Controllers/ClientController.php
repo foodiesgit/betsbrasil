@@ -1289,6 +1289,7 @@ public function viewIndex(){
                                 $jogos = CupomApostaItem::where('idcupom', $cupomAposta->id)->count();
     
                                 if(Auth::user()->idgerente){
+                                    dd(Auth::user()->idgerente);
                                     $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
                                     $porcentagem = $comissaoGerente->comissao / 100;
                                     $comissao = $cupomAposta->valor_apostado * $comissaoGerente->porcentagem;
