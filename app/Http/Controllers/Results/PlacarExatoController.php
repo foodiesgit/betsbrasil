@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 class PlacarExatoController extends Controller
 {
     public function index($placar, $palpite, $tempo){
-        dd($placar, $palpite, $tempo);
         $palpite = explode("-",$palpite);
         $placar = explode("-",$placar);
         $resultado = ['status' => "Aguardando", "ganhou"=> null];
