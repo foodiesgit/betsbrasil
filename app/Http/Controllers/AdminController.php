@@ -112,20 +112,20 @@ class AdminController extends Controller {
             $historico = Auth::user()->historics;
         }
         if( Auth::user()->tipo_usuario == 2){
-            $bilhetes = CupomAposta::all();
+            $bilhetes = CupomAposta::orderBy('id', 'desc')->all();
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', '!=', 1)->where('tipo_usuario', '!=', 2)->sum('creditos.saldo_liberado');
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.status' ,'!=',5)->sum('cupom_aposta.valor_apostado');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
             $comissao = $entrada - $comissoes;
 
         }else if(Auth::user()->tipo_usuario == 1){
-            $bilhetes = CupomAposta::where('idusuario', Auth::user()->id)->get();
+            $bilhetes = CupomAposta::where('idusuario', Auth::user()->id)->orderBy('id', 'desc')->get();
             $entrada = 0;
             $saida = 0;
             $comissao = 0;
             $comissoes =  0;
         }else if(Auth::user()->tipo_usuario == 4){
-            $bilhetes = CupomAposta::where('idcambista', Auth::user()->id)->get();
+            $bilhetes = CupomAposta::where('idcambista', Auth::user()->id)->orderBy('id', 'desc')->get();
             $entrada = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,'!=',4)->where('status' ,'!=',5)->sum('valor_apostado');
             $saida = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,2)->sum('possivel_retorno');
             $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
@@ -133,7 +133,7 @@ class AdminController extends Controller {
             $comissoes = 0;
 
         }else{
-            $bilhetes = CupomAposta::join('users','cupom_aposta.idcambista','users.id')->where('users.idgerente', Auth::user()->id)->get();
+            $bilhetes = CupomAposta::join('users','cupom_aposta.idcambista','users.id')->where('users.idgerente', Auth::user()->id)->orderBy('id', 'desc')->get();
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->sum('creditos.saldo_liberado');
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.status' ,'!=',5)->sum('cupom_aposta.valor_apostado');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
@@ -170,7 +170,7 @@ class AdminController extends Controller {
                 $historico = User::find($request->id)->historics;
             
         
-                $bilhetes = CupomAposta::where('idcambista', $request->id)->get();
+                $bilhetes = CupomAposta::where('idcambista', $request->id)->orderBy('id', 'desc')->get();
                 $entrada = CupomAposta::where('idcambista',  $request->id)->where('status' ,'!=',4)->sum('valor_apostado');
                 $saida = CupomAposta::where('idcambista',  $request->id)->where('status' ,2)->sum('possivel_retorno');
                 $credito = Creditos::where('idusuario',  $request->id)->first();
@@ -2212,7 +2212,7 @@ class AdminController extends Controller {
     
             } catch (\Throwable $th) {
                 DB::rollback();
-                dd($th);
+
                 return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
                
             }
@@ -2225,7 +2225,7 @@ class AdminController extends Controller {
                 DB::beginTransaction();
 
                 $credito = Creditos::where('idusuario',  $request->id)->first();
-                $bilhetes = CupomAposta::where('caixa',  0)->where('idcambista', $request->id)->get();
+                $bilhetes = CupomAposta::where('caixa',  0)->where('idcambista', $request->id)->orderBy('id', 'desc')->get();
                 foreach($bilhetes as $bilhete){
                     $bilhete->caixa = 1;
                     $bilhete->save();
@@ -2249,7 +2249,6 @@ class AdminController extends Controller {
     
             } catch (\Throwable $th) {
                 DB::rollback();
-                dd($th);
                 return Redirect()->back()->with('error', 'Tivemos um problema ao processar sua solicitação');
                
             }

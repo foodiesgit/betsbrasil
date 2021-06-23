@@ -62,6 +62,7 @@
                         <li><a class="link link-icon link-icon-left link-classic" href="/admin/dashboard">
                         <span class="icon fl-bigmug-line-login12"></span>
                         <span class="link-icon-text">Minha Conta</span></a></li>
+                        <li><a  class="badge badge-primary" href="/admin/logout"></a></li>
                     @else
                         <li><a class="badge badge-primary" href="/cadastro">Cadastra-se</a></li>
                         <li><a class="badge badge-primary" href="/admin/login">Login</a></li>
