@@ -1289,13 +1289,13 @@ public function viewIndex(){
                                 $jogos = CupomApostaItem::where('idcupom', $cupomAposta->id)->count();
     
                                 if(Auth::user()->idgerente){
-                                    dd(Auth::user()->idgerente);
                                     $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
                                     $porcentagem = $comissaoGerente->comissao / 100;
                                     $comissao = $cupomAposta->valor_apostado * $comissaoGerente->porcentagem;
                                     $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
                                     $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
                                     $credito->save();
+                                    dd($credito);
                                 }
                                 $comissoes = CambistasComissoes::where('idusuario', Auth::user()->id)->first();
             
