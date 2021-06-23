@@ -112,7 +112,7 @@ class AdminController extends Controller {
             $historico = Auth::user()->historics;
         }
         if( Auth::user()->tipo_usuario == 2){
-            $bilhetes = CupomAposta::orderBy('id', 'desc')->all();
+            $bilhetes = CupomAposta::orderBy('id', 'desc')->get();
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', '!=', 1)->where('tipo_usuario', '!=', 2)->sum('creditos.saldo_liberado');
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.status' ,'!=',5)->sum('cupom_aposta.valor_apostado');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
