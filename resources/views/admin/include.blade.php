@@ -223,6 +223,12 @@
               </a>
             </li>
             @endif
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/logout">
+                <i class="text-default"></i>
+                <span class="nav-link-text">Sair</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
