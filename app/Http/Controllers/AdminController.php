@@ -3349,7 +3349,7 @@ class AdminController extends Controller {
                     }
                     
                     DB::commit();
-                    return Redirect()->back()->with('sucesso', 'Bilhete Validado com sucesso');
+                    return Redirect('/minhas-apostas/visualizar-cupom/'.$request->bilhete)->with('sucesso', 'Bilhete Validado com sucesso');
                     
                 }else{
                     return Redirect()->back()->with('erro', 'Bilhete não encontrado ou já validado');
