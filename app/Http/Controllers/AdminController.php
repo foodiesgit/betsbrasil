@@ -63,6 +63,7 @@ use App\CuponsIguais;
 use App\CuponsIguaisItens;
 
 use App\CambistasComissoes;
+use App\Odds;
 use Illuminate\Support\Facades\Redirect;
 use DataTables;
 
@@ -3070,6 +3071,21 @@ class AdminController extends Controller {
 
         $input = $request->all();
 
+
+        if(floatval($input['nao-exibir-cotacao-menor']) != 0){
+            $odds = Odds::where('odds', '<', $input['nao-exibir-cotacao-menor'])->where('odds', '!=', 0.00)->get();
+            foreach($odds as $odd){
+                $odd->odds = floatval($input['nao-exibir-cotacao-menor']);
+                $odd->save();
+            }
+        }
+        if(floatval($input['nao-exibir-cotacao-maior']) != 0){
+            $odds = Odds::where('odds', '>',floatval($input['nao-exibir-cotacao-maior']))->get();
+            foreach($odds as $odd){
+                $odd->odds = floatval($input['nao-exibir-cotacao-maior']);
+                $odd->save();
+            }
+        }
         DB::table('campos_fixos')->where('id', 1)->update([
 
             
