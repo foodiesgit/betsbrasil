@@ -225,10 +225,6 @@
 
                 focus: !1
 
-            }), $(".inline-editor").summernote({
-
-                airMode: !0
-
             });
 
             // $('input[name=valor-minimo-aposta]').maskMoney({
