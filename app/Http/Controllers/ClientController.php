@@ -805,8 +805,6 @@ public function viewIndex(){
 
                         foreach($jogos as $dados2){
 
-
-
                             $sql_time_home = Times::find($dados2->idhome);
 
                             $sql_time_away = Times::find($dados2->idaway);
@@ -1288,15 +1286,6 @@ public function viewIndex(){
             
                                 $jogos = CupomApostaItem::where('idcupom', $cupomAposta->id)->count();
     
-                                if(Auth::user()->idgerente){
-                                    $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
-           
-                                    $porcentagem = $comissaoGerente->comissao / 100;
-                                    $comissao = $cupomAposta->valor_apostado * $porcentagem;
-                                    $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
-                                    $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
-                                    $credito->save();
-                                }
                                 $comissoes = CambistasComissoes::where('idusuario', Auth::user()->id)->first();
             
                                 if($comissoes){

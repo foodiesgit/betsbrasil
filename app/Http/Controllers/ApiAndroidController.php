@@ -1580,14 +1580,6 @@ class ApiAndroidController extends Controller{
             
                                 $jogos = CupomApostaItem::where('idcupom', $cupomAposta->id)->count();
     
-                                if(Auth::user()->idgerente){
-                                    $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
-                                    $porcentagem = $comissaoGerente->comissao / 100;
-                                    $comissao = $cupomAposta->valor_apostado * $porcentagem;
-                                    $credito = Creditos::where('idusuario', Auth::user()->idgerente)->first();
-                                    $credito->saldo_liberado =  $credito->saldo_liberado + $comissao;
-                                    $credito->save();
-                                }
                                 $comissoes = CambistasComissoes::where('idusuario', Auth::user()->id)->first();
             
                                 if($comissoes){
