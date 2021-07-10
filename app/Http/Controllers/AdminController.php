@@ -2822,7 +2822,7 @@ class AdminController extends Controller {
 
         $data = [
 
-            'sql' => $nova_query,
+            'sql' => $sql,
 
             'datas' => [
 
