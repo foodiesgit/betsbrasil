@@ -2822,7 +2822,7 @@ class AdminController extends Controller {
 
         $data = [
 
-            'sql' => $sql,
+            'sql' => $p,
 
             'datas' => [
 
