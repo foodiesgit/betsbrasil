@@ -2813,13 +2813,13 @@ class AdminController extends Controller {
     
                 });
             }
-        
+    
 
 
         $nova_query = $sql->select("events.*", DB::raw("date_format(events.data, '%d/%m/%Y as %H:%i') as data_evento"), "ligas.nome_traduzido as nome_liga", "esportes.nome_traduzido as nome_esporte", "paises.nome as nome_pais", "paises.nome_traduzido as nome_pais_traduzido", DB::raw("sum(valor_apostado) as soma"))
 
         ->orderBy('events.data', 'desc')->take('40')->get();
-
+        dd($sql, $nova_query);
         $data = [
 
             'sql' => $sql,
