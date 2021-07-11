@@ -3172,7 +3172,7 @@ class AdminController extends Controller {
             }
            
         }
-
+        dd($tipos);
         $data = [
 
             'sql' => $sql,
