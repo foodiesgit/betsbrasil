@@ -3193,87 +3193,78 @@ class AdminController extends Controller {
 
     public function viewGerenciamentoRisco(){
 
-        $sql = CupomAposta::where('cupom_aposta.status',1)
+        // $sql = CupomAposta::where('cupom_aposta.status',1)
 
-            ->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')
+        //     ->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')
 
-            ->select('cupom_aposta_item.*', 'cupom_aposta.valor_apostado as valor_apostado', 'cupom_aposta.possivel_retorno as possivel_retorno1')
+        //     ->select('cupom_aposta_item.*', 'cupom_aposta.valor_apostado as valor_apostado1', 'cupom_aposta.possivel_retorno as possivel_retorno1')
 
-            ->get();
-
-
-
-        if(count($sql) > 0){
-
-            foreach($sql as $dados){
-
-               
-
-            }
-
-        }
+        //     ->get();
 
 
 
-        $sql = CupomAposta::where('cupom_aposta.status', 1)->get();
 
-        if(count($sql) > 0){
+        // $sql = CupomAposta::where('cupom_aposta.status', 1)->get();
 
-            foreach($sql as $dados){
+        // if(count($sql) > 0){
 
-                $sql2 = CupomApostaItem::where('idcupom', $dados->id)->get();
+        //     foreach($sql as $dados){
 
-
-
-                $array = [];
-
-                if(count($sql2) > 0){
-
-                    foreach($sql2 as $dados2){
-
-                        $array[] = $dados2->idevent;
-
-                    }
-
-                }
+        //         $sql2 = CupomApostaItem::where('idcupom', $dados->id)->get();
 
 
 
-                $sql3 = CupomAposta::where('cupom_aposta.status',1)->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')->get();
+        //         $array = [];
 
-                if(count($sql3) > 0){
+        //         if(count($sql2) > 0){
 
-                    $erro = 0;
+        //             foreach($sql2 as $dados2){
 
-                    foreach($sql3 as $dados3){
+        //                 $array[] = $dados2->idevent;
 
-                        if(!in_array($dados3->idevent, $array)){
+        //             }
 
-                            $erro = 1;
-
-                        }
-
-                    }
+        //         }
 
 
 
-                    // if($erro == 0){
+        //         $sql3 = CupomAposta::where('cupom_aposta.status',1)->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')->get();
 
-                    //     $c = new CuponsIguais;
+        //         if(count($sql3) > 0){
 
-                    //     $c->
+        //             $erro = 0;
 
-                    // }
+        //             foreach($sql3 as $dados3){
 
-                }
+        //                 if(!in_array($dados3->idevent, $array)){
 
-            }
+        //                     $erro = 1;
 
-        }
+        //                 }
+
+        //             }
 
 
 
-        $sql = CupomAposta::where('cupom_aposta.status',1)->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')->get();
+        //             // if($erro == 0){
+
+        //             //     $c = new CuponsIguais;
+
+        //             //     $c->
+
+        //             // }
+
+        //         }
+
+        //     }
+
+        // }
+
+
+
+        $sql = CupomAposta::where('cupom_aposta.status',1)->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')
+        ->select('cupom_aposta_item.*', 'cupom_aposta.valor_apostado as valor_apostado', 'cupom_aposta.possivel_retorno as possivel_retorno')
+        ->get();
 
 
 
