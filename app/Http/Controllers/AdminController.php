@@ -3162,8 +3162,13 @@ class AdminController extends Controller {
             ->where('events.id', $id)
 
             ->groupBy('odds.id')->get();
-
-
+        dd($tipos);
+        foreach($tipos as $tipo){
+            $aposta = CupomApostaItem::where('idevent', $id)->get();
+            $bilhete = CupomAposta::find($ap->idcupom);
+            $t += $bilhete->valor_apostado;
+            $q++;
+        }
 
         $data = [
 
