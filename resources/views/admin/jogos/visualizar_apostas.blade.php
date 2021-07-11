@@ -179,7 +179,7 @@
 
                                                             <td>'.$dados->name.'</td>
 
-                                                            <td>'.$dados->soma.'</td>
+                                                            <td>'.$dados->total.'</td>
 
                                                             <td>R$ '.number_format($dados->soma,2,',','.').'</td>
 
