@@ -139,7 +139,7 @@
 
                                                 <td>
 
-                                                    <a class="btn btn-sm btn-primary" href="/admin/jogos/visualizar-bilhete/'.$dados->codigo_unico.'">Visualizar</a>
+                                                    <a class="btn btn-sm btn-primary" target="_blank" href="/admin/verifica-bilhete/'.$dados->codigo_unico.'">Visualizar</a>
 
                                                 </td>
 
