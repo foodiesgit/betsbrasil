@@ -3140,7 +3140,7 @@ class AdminController extends Controller {
             ->select(DB::raw("count(*) as total"), DB::raw("sum(cupom_aposta_item.valor_apostado) as soma"), DB::raw("DATE_FORMAT(events.data, '%d/%m/%Y as %H:%i:%s') AS data_evento"))
 
             ->where('status_conferido', 0)->where('idevent', $id)->get();
-
+        dd($apostas);
         $aposta = CupomApostaItem::where('idevent', $id)->get();
         $t = 0;
         $q = 0;
