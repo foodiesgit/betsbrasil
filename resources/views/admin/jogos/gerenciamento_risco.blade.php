@@ -60,6 +60,8 @@
                                     if(count($sql) > 0){
 
                                         foreach($sql as $dados){
+                                            dd($dados);
+                                    
 
                                             $status = '';
 
