@@ -81,7 +81,7 @@
 
                 										<p class="mb-1">Total Apostado</p>
 
-                										<h3 class="text-white">R$ {{ number_format($apostas[0]->soma,2,',','.') }}</h3>
+                										<h3 class="text-white">R$ {{ number_format($total_apostado,2,',','.') }}</h3>
 
                 									</div>
 
