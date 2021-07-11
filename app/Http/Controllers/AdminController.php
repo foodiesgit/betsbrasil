@@ -3167,12 +3167,12 @@ class AdminController extends Controller {
             $tipo->soma = 0;
             $apostas = CupomApostaItem::where('idodds', $tipo->idodds)->get();
             foreach ($apostas as $aposta ) {
-                $bilhete = CupomAposta::find($ap->idcupom);
+                $bilhete = CupomAposta::find($aposta->idcupom);
                 $tipo->soma += $bilhete->valor_apostado;
             }
            
         }
-        dd($tipos);
+
         $data = [
 
             'sql' => $sql,
