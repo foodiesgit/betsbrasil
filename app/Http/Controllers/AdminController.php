@@ -3263,7 +3263,7 @@ class AdminController extends Controller {
 
 
         $sql = CupomAposta::where('cupom_aposta.status',1)->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')
-        ->select('cupom_aposta_item.*', 'cupom_aposta.valor_apostado as valor_apostado', 'cupom_aposta.possivel_retorno as possivel_retorno')
+        ->select('cupom_aposta_item.*','cupom_aposta.*', 'cupom_aposta.valor_apostado as valor_apostado', 'cupom_aposta.possivel_retorno as possivel_retorno')
         ->get();
 
 
