@@ -3143,9 +3143,11 @@ class AdminController extends Controller {
 
         $aposta = CupomApostaItem::where('idevent', $id)->get();
         $t = 0;
+        $q = 0;
         foreach($aposta as $ap){
            $bilhete = CupomAposta::find($ap->idcupom);
            $t += $bilhete->valor_apostado;
+           $q++;
         }
 
 
@@ -3167,6 +3169,7 @@ class AdminController extends Controller {
 
             'sql' => $sql,
             'total_apostado' => $t,
+            'totalbilhete' => $q,
 
             'apostas' => $apostas,
 
