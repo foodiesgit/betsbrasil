@@ -3157,7 +3157,7 @@ class AdminController extends Controller {
 
             ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
 
-            ->select(DB::raw("count(*) as total"), DB::raw("sum(cupom_aposta_item.valor_apostado) as soma"), 'odds.name','odds_subgrupo.titulo_traduzido','odds.idodds')
+            ->select(DB::raw("count(*) as total"), DB::raw("sum(cupom_aposta_item.valor_apostado) as soma"), 'odds.name','odds_subgrupo.titulo_traduzido','cupom_aposta_item.idodds')
 
             ->where('events.id', $id)
 
