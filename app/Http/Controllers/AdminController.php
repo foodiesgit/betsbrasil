@@ -3157,17 +3157,20 @@ class AdminController extends Controller {
 
             ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
 
-            ->select(DB::raw("count(*) as total"), DB::raw("sum(cupom_aposta_item.valor_apostado) as soma"), 'odds.name','odds_subgrupo.titulo_traduzido')
+            ->select(DB::raw("count(*) as total"), DB::raw("sum(cupom_aposta_item.valor_apostado) as soma"), 'odds.name','odds_subgrupo.titulo_traduzido','odds.idodds')
 
             ->where('events.id', $id)
 
             ->groupBy('odds.id')->get();
-        dd($tipos);
+
         foreach($tipos as $tipo){
-            $aposta = CupomApostaItem::where('idevent', $id)->get();
-            $bilhete = CupomAposta::find($ap->idcupom);
-            $t += $bilhete->valor_apostado;
-            $q++;
+            $tipo->soma = 0;
+            $apostas = CupomApostaItem::where('idodds', $tipo->idodds)->get();
+            foreach ($apostas as $aposta ) {
+                $bilhete = CupomAposta::find($ap->idcupom);
+                $tipo->soma += $bilhete->valor_apostado;
+            }
+           
         }
 
         $data = [
