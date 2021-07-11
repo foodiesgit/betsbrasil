@@ -3197,7 +3197,7 @@ class AdminController extends Controller {
 
             ->leftJoin('cupom_aposta_item', 'cupom_aposta_item.idcupom','=','cupom_aposta.id')
 
-            ->select('cupom_aposta_item.*', 'cupom_aposta.valor_apostado as valor_apostado1', 'cupom_aposta.possivel_retorno as possivel_retorno1')
+            ->select('cupom_aposta_item.*', 'cupom_aposta.valor_apostado as valor_apostado', 'cupom_aposta.possivel_retorno as possivel_retorno1')
 
             ->get();
 
