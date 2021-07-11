@@ -3140,7 +3140,13 @@ class AdminController extends Controller {
             ->select(DB::raw("count(*) as total"), DB::raw("sum(cupom_aposta_item.valor_apostado) as soma"), DB::raw("DATE_FORMAT(events.data, '%d/%m/%Y as %H:%i:%s') AS data_evento"))
 
             ->where('status_conferido', 0)->where('idevent', $id)->get();
-        dd($apostas);
+
+        $aposta = CupomApostaItem::where('idevent', $id)->get();
+        $t = 0;
+        foreach($aposta as $ap){
+           $bilhete = CupomAposta::find($ap->idcupom);
+           $t += $bilhete->valor_apostado;
+        }
 
 
         $tipos = Events::leftJoin('cupom_aposta_item', 'cupom_aposta_item.idevent', '=', 'events.id')
@@ -3160,6 +3166,7 @@ class AdminController extends Controller {
         $data = [
 
             'sql' => $sql,
+            'total_apostado' => $t,
 
             'apostas' => $apostas,
 
