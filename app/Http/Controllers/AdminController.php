@@ -3137,7 +3137,7 @@ class AdminController extends Controller {
 
         $apostas = Events::leftJoin('cupom_aposta_item', 'cupom_aposta_item.idevent', '=', 'events.id')
 
-            ->select(DB::raw("DATE_FORMAT(events.data, '%d/%m/%Y as %H:%i:%s') AS data_evento"))
+            ->select(DB::raw("count(*) as total"), DB::raw("sum(cupom_aposta_item.valor_apostado) as soma"), DB::raw("DATE_FORMAT(events.data, '%d/%m/%Y as %H:%i:%s') AS data_evento"))
 
             ->where('status_conferido', 0)->where('idevent', $id)->get();
 
