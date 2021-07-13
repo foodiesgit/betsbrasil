@@ -2135,19 +2135,19 @@ class AdminController extends Controller {
             return Datatables::of( $model)
                     ->addIndexColumn()
                     ->addColumn('entrada', function($row){
-                        $entrada = CupomAposta::where('idcambista', $row->idusuario)->where('status' ,'!=',4)->where('caixa' , 0)->sum('valor_apostado');
+                        $entrada = CupomAposta::join('users', 'users.id', '=', 'cupom_aposta.idusuario')->where('idgerente', $row->idusuario)->where('status' ,'!=',4)->where('caixa' , 0)->sum('valor_apostado');
                         return  "<span class='badge badge-success'>
                         R$ ".number_format($entrada,2,',','.')." </span>";
                     })
                     ->addColumn('saida', function($row){
-                        $saida = CupomAposta::where('idcambista', $row->idusuario)->where('status',2)->where('caixa' , 0)->sum('possivel_retorno');
+                        $saida = CupomAposta::join('users', 'users.id', '=', 'cupom_aposta.idusuario')->where('idgerente', $row->idusuario)->where('status',2)->where('caixa' , 0)->sum('possivel_retorno');
                         return  "<span class='badge badge-danger'>
                         R$ ".number_format($saida,2,',','.')." </span>";
                     })
                     ->addColumn('comissao', function($row){
                         $entradaSite = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.status' ,'!=',5)->sum('cupom_aposta.valor_apostado');
                         $saidaSite = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
-                        $comissaoGerente = GerentesCampos::where('idusuario',$row->id)->first();
+                        $comissaoGerente = GerentesCampos::where('idusuario',$row->idusuario)->first();
                         $porcentagem = $comissaoGerente->comissao / 100;
                         $comissao = ($entradaSite + $saidaSite) * $porcentagem;
                         return  "<span class='badge badge-warning'>
