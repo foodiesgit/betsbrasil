@@ -2364,16 +2364,26 @@ class AdminController extends Controller {
 
             $creditos = Creditos::where('idusuario', $usuario[0]->id)->get();
 
+            $creditoAnterior = Creditos::where('idusuario', $usuario[0]->id)->first();
 
 
             if($input['idtipo_lancamento'] == 5){
 
                 //liberado
-
                 Creditos::where('idusuario', $usuario[0]->id)->update([
 
                     'saldo_liberado' => DB::raw("(saldo_liberado + ".$input['valor'].")")
 
+                ]);
+
+                $historic = $usuario->historics()->create([
+                    'type' => 'D',
+                    'user_id_transaction' => $id,
+                    'amount' => $request['recarrega-saldo-hidden'],
+                    'total_before' => $creditoAnterior->saldo_liberado,
+                    'total_after' => $creditoAnterior->saldo_liberado + $input['valor'],
+                    'date' => date('Ymdhis'),
+                    'status' => 1
                 ]);
 
             }elseif($input['idtipo_lancamento'] == 6){
@@ -2382,8 +2392,17 @@ class AdminController extends Controller {
 
                 Creditos::where('idusuario', $usuario[0]->id)->update([
 
-                    'saldo_bloqueado' => DB::raw("(saldo_bloqueado + ".$input['valor'].")")
+                    'saldo_aposta' => DB::raw("(saldo_aposta + ".$input['valor'].")")
 
+                ]);
+                $historic = $usuario->historics()->create([
+                    'type' => 'D',
+                    'user_id_transaction' => $id,
+                    'amount' => $request['recarrega-saldo-hidden'],
+                    'total_before' => $creditoAnterior->saldo_aposta,
+                    'total_after' => $creditoAnterior->saldo_aposta  + $input['valor'],
+                    'date' => date('Ymdhis'),
+                    'status' => 1
                 ]);
 
             }elseif($input['idtipo_lancamento'] == 7){
@@ -2392,23 +2411,33 @@ class AdminController extends Controller {
 
                 Creditos::where('idusuario', $usuario[0]->id)->update([
 
-                    'saldo_apostas' => DB::raw("(saldo_apostas + ".$input['valor'].")")
+                    'lancamento' => DB::raw("(lancamento + ".$input['valor'].")")
 
+                ]);
+
+                $historic = $usuario->historics()->create([
+                    'type' => 'L',
+                    'user_id_transaction' => $id,
+                    'amount' => $request['recarrega-saldo-hidden'],
+                    'total_before' => $creditoAnterior->lancamento,
+                    'total_after' => $creditoAnterior->lancamento  + $input['valor'],
+                    'date' => date('Ymdhis'),
+                    'status' => 1
                 ]);
 
             }
 
+          
 
+            // $lancamentos = new LancamentosCaixa;
 
-            $lancamentos = new LancamentosCaixa;
+            // $lancamentos->idtipo_lancamento = $input['idtipo_lancamento'];
 
-            $lancamentos->idtipo_lancamento = $input['idtipo_lancamento'];
+            // $lancamentos->idusuario = $usuario[0]->id;
 
-            $lancamentos->idusuario = $usuario[0]->id;
+            // $lancamentos->valor = $input['valor'];
 
-            $lancamentos->valor = $input['valor'];
-
-            $lancamentos->save();
+            // $lancamentos->save();
 
 
 

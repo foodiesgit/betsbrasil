@@ -44,9 +44,9 @@
 
                             {{ Form::select('idtipo_lancamento', [
 
-                                '5' => 'Lançamento Saldo Liberado',
+                                '5' => 'Lançamento de Saldo Avulso',
 
-                                '6' => 'Lançamento Saldo Bloqueado',
+                                '6' => 'Lançamento para Caixa',
 
                                 '7' => 'Lançamento Saldo Aposta'
 
