@@ -1912,9 +1912,7 @@ class AdminController extends Controller {
                     ->addColumn('lancamento', function($row){
                         return  "<span class='badge badge-warning'>
                         R$ ".number_format($row->lancamento,2,',','.')." </span>";
-                    })
-                 
-                    ->addColumn('status', function($row){
+                    })->addColumn('status', function($row){
                         $status = '';
     
     
