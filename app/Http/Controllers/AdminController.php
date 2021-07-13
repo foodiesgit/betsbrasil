@@ -2386,7 +2386,7 @@ class AdminController extends Controller {
                     'status' => 1
                 ]);
 
-            }elseif($input['idtipo_lancamento'] == 6){
+            }elseif($input['idtipo_lancamento'] == 7){
 
                 //bloqueado
 
@@ -2405,7 +2405,7 @@ class AdminController extends Controller {
                     'status' => 1
                 ]);
 
-            }elseif($input['idtipo_lancamento'] == 7){
+            }elseif($input['idtipo_lancamento'] == 6){
 
                 //apostas
 
