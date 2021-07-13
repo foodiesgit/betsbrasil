@@ -157,6 +157,7 @@ class AdminController extends Controller {
             'entrada' => $entrada,
             'saida' => $saida,
             'comissao' => $comissao,
+            'comissoes' => $comissoes,
             'lancamento' => $lancamento,
 
         ];
