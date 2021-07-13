@@ -83,7 +83,7 @@
           </div>
         </div>
       @else
-      <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-2')}} col-md-6">
+      <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-4')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
