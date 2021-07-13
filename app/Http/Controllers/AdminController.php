@@ -106,7 +106,7 @@ class AdminController extends Controller {
     
             ->first();
 
-
+        $lancamento = 0;
         if(Auth::user()->tipo_usuario == 2){
             $historico = Historic::all();
         }else{
@@ -117,6 +117,7 @@ class AdminController extends Controller {
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', '!=', 1)->where('tipo_usuario', '!=', 2)->sum('creditos.saldo_liberado');
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.status' ,'!=',5)->sum('cupom_aposta.valor_apostado');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
+            $lancamento = Creditos::sum('lancamento');
             $comissao = $entrada - $comissoes;
 
         }else if(Auth::user()->tipo_usuario == 1){
@@ -131,6 +132,7 @@ class AdminController extends Controller {
             $saida = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,2)->sum('possivel_retorno');
             $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
             $comissao = $credito->saldo_liberado;
+            $lancamento = $credito->lancamento;
             $comissoes = 0;
 
         }else{
@@ -180,6 +182,7 @@ class AdminController extends Controller {
                 $saida = CupomAposta::where('idcambista',  $request->id)->where('status' ,2)->sum('possivel_retorno');
                 $credito = Creditos::where('idusuario',  $request->id)->first();
                 $comissao = $credito->saldo_liberado;
+                $lancamento = $credito->lancamento;
         
             $data = [
         
@@ -189,6 +192,7 @@ class AdminController extends Controller {
                 'entrada' => $entrada,
                 'saida' => $saida,
                 'comissao' => $comissao,
+                'comissao' => $lancamento,
         
             ];
         
@@ -1815,6 +1819,7 @@ class AdminController extends Controller {
             ->get();
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->sum('creditos.saldo_liberado');
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.valor_apostado');
+            $lancamentos = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.lancamento');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.possivel_retorno');
             $comissao = $entrada - $comissoes;
 
@@ -1827,6 +1832,7 @@ class AdminController extends Controller {
              $entradaSite = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.status' ,'!=',5)->sum('cupom_aposta.valor_apostado');
              $saidaSite = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
              $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->sum('creditos.saldo_liberado');
+             $lancamentos = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->where('idgerente', Auth::user()->id)->sum('creditos.lancamento');
              $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.valor_apostado');
              $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente',  Auth::user()->id)->where('cupom_aposta.status' ,2)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.possivel_retorno');
              $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
@@ -1845,8 +1851,10 @@ class AdminController extends Controller {
 
             $entrada = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,'!=',4)->where('caixa' , 0)->sum('valor_apostado');
             $saida = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,2)->where('caixa' , 0)->sum('possivel_retorno');
+            $saida = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,2)->where('caixa' , 0)->sum('possivel_retorno');
             $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
             $comissao = $credito->saldo_liberado;
+            $lancamentos = $credito->lancamento;
         }
         else{
             return Redirect()->back();
@@ -1865,6 +1873,7 @@ class AdminController extends Controller {
             'entrada' => $entrada,
             'saida' => $saida,
             'comissao' => $comissao,
+            'lancamento' => $lancamentos,
 
         ];
 
@@ -1898,6 +1907,10 @@ class AdminController extends Controller {
                     ->addColumn('comissao', function($row){
                         return  "<span class='badge badge-warning'>
                         R$ ".number_format($row->saldo_liberado,2,',','.')." </span>";
+                    })
+                    ->addColumn('lancamento', function($row){
+                        return  "<span class='badge badge-warning'>
+                        R$ ".number_format($row->lancamento,2,',','.')." </span>";
                     })
                  
                     ->addColumn('status', function($row){

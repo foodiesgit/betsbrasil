@@ -130,9 +130,7 @@
                                         <div class="dropdown-menu">
 
                                             <a class="dropdown-item" href="/admin/cambistas/editar/'.$dados->id.'">Editar</a>
-
-
-
+                                            <a class="dropdown-item" href="/admin/cambistas/caixa/lancamentos/'.$dados->id.'">Fazer Lançamento</a>
                                         </div>
 
                                     </div>
