@@ -154,6 +154,7 @@
                     <td>Entrada</td>
 
                     <td>Saida</td>
+                    
                     <td>Lançamentos</td>
 
                     <td>Comissão</td>
