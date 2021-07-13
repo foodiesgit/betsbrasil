@@ -154,9 +154,9 @@
                     <td>Entrada</td>
 
                     <td>Saida</td>
+                    <td>Lançamentos</td>
 
                     <td>Comissão</td>
-                    <td>Lançamentos</td>
 
                     <td>Status</td>
 
@@ -281,17 +281,18 @@
                     searchable: true
                 },
                 {
-                    data: 'comissao',
-                    name: 'comissao',
-                    orderable: true,
-                    searchable: true
-                },
-                {
                     data: 'lancamento',
                     name: 'lancamento',
                     orderable: true,
                     searchable: true
                 },
+                {
+                    data: 'comissao',
+                    name: 'comissao',
+                    orderable: true,
+                    searchable: true
+                },
+
                 {
                     data: 'status',
                     name: 'status',
