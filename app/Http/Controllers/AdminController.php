@@ -1945,8 +1945,9 @@ class AdminController extends Controller {
                                 $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('valor_apostado');
                                 $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('users.idgerente', $row->idusuario)->where('cupom_aposta.status',2)->where('cupom_aposta.caixa' , 0)->sum('possivel_retorno');
                                 $comissao = number_format($row->saldo_liberado,2,',','.');
+                                $lancamento = number_format($row->lancamento,2,',','.');
 
-                                $action .= '<a class="dropdown-item caixa" href="#" data-toggle="modal" data-target="#caixa" data-id="'.$row->id.'" data-nome="'.$row->name.'" data-entrada="'.number_format($entrada,2,',','.').'" data-saida="'.number_format($saida,2,',','.').'" data-saida="'.$comissao.'" >Ver Caixa</a>';
+                                $action .= '<a class="dropdown-item caixa" href="#" data-toggle="modal" data-target="#caixa" data-id="'.$row->id.'" data-nome="'.$row->name.'" data-entrada="'.number_format($entrada,2,',','.').'" data-saida="'.number_format($saida,2,',','.').'" data-saida="'.$comissao.'" data-lancamento="'.$lancamento.'">Ver Caixa</a>';
                                 $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/cambista/'.$row->idusuario.'">Fechar Caixa</a>';
                                 // $action .= '<a class="dropdown-item" href="/admin/cambista/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
                             }
