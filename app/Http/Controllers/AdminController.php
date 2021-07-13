@@ -2242,6 +2242,11 @@ class AdminController extends Controller {
                 DB::beginTransaction();
 
                 $credito = Creditos::where('idusuario',  $request->id)->first();
+                $bilhetesAtivos = CupomAposta::where('caixa',  0)->where('caixa',  1)->where('idcambista', $request->id)->orderBy('id', 'desc')->exists();
+                if($bilhetesAtivos){
+                    return Redirect()->back()->with('error', 'Não foi possivel fechar o caixa, pois o cambista contém bilhetes em aberto!');
+
+                }
                 $bilhetes = CupomAposta::where('caixa',  0)->where('idcambista', $request->id)->orderBy('id', 'desc')->get();
                 foreach($bilhetes as $bilhete){
                     $bilhete->caixa = 1;
@@ -2251,7 +2256,7 @@ class AdminController extends Controller {
                 $historic = User::find($request->id)->historics()->create([
                     'type' => 'P',
                     'user_id_transaction' => Auth::user()->id,
-                    'amount' => - $credito->saldo_liberado,
+                    'amount' => $credito->saldo_liberado,
                     'total_before' => $credito->saldo_liberado,
                     'total_after' => 0,
                     'date' => date('Ymdhis'),
@@ -2260,7 +2265,7 @@ class AdminController extends Controller {
                 $historic = User::find($request->id)->historics()->create([
                     'type' => 'L',
                     'user_id_transaction' => Auth::user()->id,
-                    'amount' => - $credito->lancamento,
+                    'amount' => $credito->lancamento,
                     'total_before' => $credito->lancamento,
                     'total_after' => 0,
                     'date' => date('Ymdhis'),
