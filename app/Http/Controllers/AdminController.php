@@ -2376,10 +2376,10 @@ class AdminController extends Controller {
 
                 ]);
 
-                $historic = User::where('id', $id)->where('tipo_usuario', 4)->historics()->create([
+                $historic = User::find($id)->historics()->create([
                     'type' => 'D',
-                    'user_id_transaction' => $id,
-                    'amount' => $request['recarrega-saldo-hidden'],
+                    'user_id_transaction' => auth()->user()->id,
+                    'amount' => $input['valor'],
                     'total_before' => $creditoAnterior->saldo_liberado,
                     'total_after' => $creditoAnterior->saldo_liberado + $input['valor'],
                     'date' => date('Ymdhis'),
@@ -2395,10 +2395,10 @@ class AdminController extends Controller {
                     'saldo_aposta' => DB::raw("(saldo_aposta + ".$input['valor'].")")
 
                 ]);
-                $historic = User::where('id', $id)->where('tipo_usuario', 4)->historics()->create([
+                $historic = User::find($id)->historics()->create([
                     'type' => 'D',
-                    'user_id_transaction' => $id,
-                    'amount' => $request['recarrega-saldo-hidden'],
+                    'user_id_transaction' => auth()->user()->id,
+                    'amount' => $input['valor'],
                     'total_before' => $creditoAnterior->saldo_aposta,
                     'total_after' => $creditoAnterior->saldo_aposta  + $input['valor'],
                     'date' => date('Ymdhis'),
@@ -2415,10 +2415,10 @@ class AdminController extends Controller {
 
                 ]);
 
-                $historic = User::where('id', $id)->where('tipo_usuario', 4)->historics()->create([
+                $historic = User::find($id)->historics()->create([
                     'type' => 'L',
-                    'user_id_transaction' => $id,
-                    'amount' => $request['recarrega-saldo-hidden'],
+                    'user_id_transaction' => auth()->user()->id,
+                    'amount' => $input['valor'],
                     'total_before' => $creditoAnterior->lancamento,
                     'total_after' => $creditoAnterior->lancamento  + $input['valor'],
                     'date' => date('Ymdhis'),
