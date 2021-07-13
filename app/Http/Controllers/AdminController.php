@@ -2183,7 +2183,7 @@ class AdminController extends Controller {
                         <div class="dropdown-menu">';
                             if(Auth::user()->tipo_usuario == 2 ){
                                 $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/gerente/'.$row->idusuario.'">Fechar Caixa</a>';
-                                $action .= '<a class="dropdown-item" href="/admin/gerente/historico/'.$row->idusuario.'">Ver Historico de Pagamento</a>';
+                                // $action .= '<a class="dropdown-item" href="/admin/gerente/historico/'.$row->idusuario.'">Ver Historico de Pagamento</a>';
                             }
                             $action .= '<a class="dropdown-item" href="/admin/ver/gerente/'.$row->idusuario.'">Ver Gerente</a>
                         </div>
