@@ -1910,11 +1910,9 @@ class AdminController extends Controller {
                         R$ ".number_format($row->saldo_liberado,2,',','.')." </span>";
                     })
                     ->addColumn('lancamento', function($row){
-                        return  "<span class='badge badge-warning'>
-                        R$ ".number_format($row->lancamento,2,',','.')." </span>";
+                        return  "<span class='badge badge-info'>R$ ".number_format($row->lancamento,2,',','.')."</span>";
                     })->addColumn('status', function($row){
                         $status = '';
-    
     
     
                         if($row->status == 1){
