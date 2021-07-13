@@ -2147,7 +2147,7 @@ class AdminController extends Controller {
                     ->addColumn('comissao', function($row){
                         $entradaSite = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.status' ,'!=',5)->sum('cupom_aposta.valor_apostado');
                         $saidaSite = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
-                        $comissaoGerente = GerentesCampos::where('idusuario',Auth::user()->idgerente)->first();
+                        $comissaoGerente = GerentesCampos::where('idusuario',$row->id)->first();
                         $porcentagem = $comissaoGerente->comissao / 100;
                         $comissao = ($entradaSite + $saidaSite) * $porcentagem;
                         return  "<span class='badge badge-warning'>
@@ -3447,7 +3447,8 @@ class AdminController extends Controller {
         try {
             DB::beginTransaction();
 
-            $id = hexdec(uniqid());
+            $id = hexdec(uniqid())+rand(0,1000000000000000000);
+
             $credito = Creditos::where('idusuario', Auth::user()->id)->first();
             $historic = Auth::user()->historics()->create([
                 'type' => 'D',
@@ -3494,7 +3495,7 @@ class AdminController extends Controller {
         try {
             DB::beginTransaction();
 
-            $id = hexdec(uniqid());
+            $id = hexdec(uniqid())+rand(0,1000000000000000000);
             $historic = Auth::user()->historics()->create([
                 'type' => 'S',
                 'user_id_transaction' => $id,
