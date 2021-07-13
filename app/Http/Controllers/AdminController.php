@@ -1905,13 +1905,14 @@ class AdminController extends Controller {
                         return  "<span class='badge badge-danger'>
                         R$ ".number_format($saida,2,',','.')." </span>";
                     })
+                    ->addColumn('lancamento', function($row){
+                        return  "<span class='badge badge-info'>R$ ".number_format($row->lancamento,2,',','.')."</span>";
+                    })
                     ->addColumn('comissao', function($row){
                         return  "<span class='badge badge-warning'>
                         R$ ".number_format($row->saldo_liberado,2,',','.')." </span>";
                     })
-                    ->addColumn('lancamento', function($row){
-                        return  "<span class='badge badge-info'>R$ ".number_format($row->lancamento,2,',','.')."</span>";
-                    })->addColumn('status', function($row){
+                    ->addColumn('status', function($row){
                         $status = '';
     
     
