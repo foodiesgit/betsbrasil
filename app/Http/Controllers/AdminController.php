@@ -1820,7 +1820,7 @@ class AdminController extends Controller {
             ->get();
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', 4)->sum('creditos.saldo_liberado');
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.valor_apostado');
-            $lancamentos = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.lancamento');
+            $lancamentos = Creditos::sum('lancamento');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.possivel_retorno');
             $comissao = $entrada - $comissoes;
 
