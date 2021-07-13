@@ -23,7 +23,7 @@
       </div>
       <!-- Card stats -->
       <div class="row">
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
@@ -60,7 +60,7 @@
           </div>
         </div>
         @if(Auth::user()->tipo_usuario == 2 ||Auth::user()->tipo_usuario == 3)
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
@@ -80,7 +80,26 @@
           </div>
         </div>
         @endif
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Lançamentos</h5>
+                  <span class="h2 font-weight-bold mb-0"id="saldo3">R$ {{number_format($lancamentos,2,',','.')}}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
@@ -137,6 +156,7 @@
                     <td>Saida</td>
 
                     <td>Comissão</td>
+                    <td>Lançamentos</td>
 
                     <td>Status</td>
 
@@ -187,6 +207,10 @@
           <td>Comissão</td>
 
             <td id="comissao"></td>
+          </tr>
+          <td>Lançamentos</td>
+
+            <td id="lancamento"></td>
           </tr>
 
         </tbody>
@@ -263,8 +287,14 @@
                     searchable: true
                 },
                 {
+                    data: 'lancamento',
+                    name: 'lancamento',
+                    orderable: true,
+                    searchable: true
+                },
+                {
                     data: 'status',
-                    name: 'comissao',
+                    name: 'status',
                     orderable: true,
                     searchable: true
                 },
@@ -281,6 +311,7 @@
         var id = button.data('id') // Extract info from data-* attributes
         var entrada = button.data('entrada') // Extract info from data-* attributes
         var comissao = button.data('comissao') // Extract info from data-* attributes
+        var lancamento = button.data('lancamento') // Extract info from data-* attributes
         var saida = button.data('saida') // Extract info from data-* attributes
 
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -290,6 +321,7 @@
         modal.find('#comissao').html('<span class="badge badge-info">'+entrada+'</span>'); 
         modal.find('#entrada').html('<span class="badge badge-success">'+entrada+'</span>'); 
         modal.find('#saida').html('<span class="badge badge-danger">'+saida+'</span>'); 
+        modal.find('#lancamento').html('<span class="badge badge-danger">'+lancamento+'</span>'); 
         modal.find('#fecharCaixa').attr('href','/admin/cambistas/caixa/historico/'+id); 
 
         // modal.find('.modal-body input').val(recipient)
