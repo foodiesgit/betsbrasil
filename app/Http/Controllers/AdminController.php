@@ -2251,13 +2251,23 @@ class AdminController extends Controller {
                 $historic = User::find($request->id)->historics()->create([
                     'type' => 'P',
                     'user_id_transaction' => Auth::user()->id,
-                    'amount' => $credito->saldo_liberado,
+                    'amount' => - $credito->saldo_liberado,
                     'total_before' => $credito->saldo_liberado,
                     'total_after' => 0,
                     'date' => date('Ymdhis'),
                     'status' => 1
                 ]);
+                $historic = User::find($request->id)->historics()->create([
+                    'type' => 'L',
+                    'user_id_transaction' => Auth::user()->id,
+                    'amount' => - $credito->lancamento,
+                    'total_before' => $credito->lancamento,
+                    'total_after' => 0,
+                    'date' => date('Ymdhis'),
+                    'status' => 1
+                ]);
                 $credito->saldo_liberado =  0 ;
+                $credito->lancamento =  0;
                 $credito->save();
                 DB::commit();
     
