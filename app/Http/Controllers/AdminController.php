@@ -2376,7 +2376,7 @@ class AdminController extends Controller {
 
                 ]);
 
-                $historic = $usuario->historics()->create([
+                $historic = User::where('id', $id)->where('tipo_usuario', 4)->historics()->create([
                     'type' => 'D',
                     'user_id_transaction' => $id,
                     'amount' => $request['recarrega-saldo-hidden'],
@@ -2395,7 +2395,7 @@ class AdminController extends Controller {
                     'saldo_aposta' => DB::raw("(saldo_aposta + ".$input['valor'].")")
 
                 ]);
-                $historic = $usuario->historics()->create([
+                $historic = User::where('id', $id)->where('tipo_usuario', 4)->historics()->create([
                     'type' => 'D',
                     'user_id_transaction' => $id,
                     'amount' => $request['recarrega-saldo-hidden'],
@@ -2415,7 +2415,7 @@ class AdminController extends Controller {
 
                 ]);
 
-                $historic = $usuario->historics()->create([
+                $historic = User::where('id', $id)->where('tipo_usuario', 4)->historics()->create([
                     'type' => 'L',
                     'user_id_transaction' => $id,
                     'amount' => $request['recarrega-saldo-hidden'],
