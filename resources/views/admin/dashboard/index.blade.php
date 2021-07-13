@@ -147,7 +147,7 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Lançamentos</h5>
-                  <span class="h2 font-weight-bold mb-0" ">R$ {{number_format($Lançamento,2,',','.')}}</span>
+                  <span class="h2 font-weight-bold mb-0" ">R$ {{number_format($lançamento,2,',','.')}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
