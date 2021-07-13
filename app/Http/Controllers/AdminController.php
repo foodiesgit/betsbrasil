@@ -1906,7 +1906,7 @@ class AdminController extends Controller {
                         R$ ".number_format($saida,2,',','.')." </span>";
                     })
                     ->addColumn('lancamento', function($row){
-                        $lancamento = 'R$ '.number_format($row->lancamento,2,",",",",".");
+                        $lancamento =  "R$ ".number_format($row->lancamento,2,',','.');
                         return $lancamento;
                     })
                     ->addColumn('comissao', function($row){
