@@ -229,7 +229,10 @@
           </tr>
           <td>Lançamentos</td>
 
-            <td id="lancamento"></td>
+          <td id="lancamento"></td>
+          <td>Total</td>
+
+          <td id="total"></td>
           </tr>
 
         </tbody>
@@ -333,6 +336,7 @@
         var comissao = button.data('comissao') // Extract info from data-* attributes
         var lancamento = button.data('lancamento') // Extract info from data-* attributes
         var saida = button.data('saida') // Extract info from data-* attributes
+        var total = button.data('total') // Extract info from data-* attributes
 
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -342,6 +346,7 @@
         modal.find('#entrada').html('<span class="badge badge-success">'+entrada+'</span>'); 
         modal.find('#saida').html('<span class="badge badge-danger">'+saida+'</span>'); 
         modal.find('#lancamento').html('<span class="badge badge-danger">'+lancamento+'</span>'); 
+        modal.find('#total').html('<span class="badge badge-danger">'+total+'</span>'); 
         modal.find('#fecharCaixa').attr('href','/admin/cambistas/caixa/historico/'+id); 
 
         // modal.find('.modal-body input').val(recipient)
