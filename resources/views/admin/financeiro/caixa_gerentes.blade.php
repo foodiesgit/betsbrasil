@@ -23,7 +23,7 @@
           </div>
           <!-- Card stats -->
           <div class="row">
-          <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
+          <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
@@ -41,7 +41,25 @@
             </div>
           </div>
         </div>
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Entradas Pendentes</h5>
+                  <span class="h2 font-weight-bold mb-0" id="saldo1">R$ {{number_format($entradaPendente,2,',','.')}} </span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
@@ -60,7 +78,7 @@
           </div>
         </div>
         @if(Auth::user()->tipo_usuario == 2 ||Auth::user()->tipo_usuario == 3)
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
@@ -80,14 +98,33 @@
           </div>
         </div>
         @endif
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-4' : 'col-xl-3')}} col-md-6">
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Comissão</h5>
+                  <span class="h2 font-weight-bold mb-0"id="saldo3">R$ {{number_format($comissao,2,',','.')}}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
           <div class="card card-stats">
             <!-- Card body -->
             <div class="card-body">
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Total</h5>
-                  <span class="h2 font-weight-bold mb-0"id="saldo3">R$ {{number_format($comissao,2,',','.')}}</span>
+                  <span class="h2 font-weight-bold mb-0"id="saldo3">R$ {{number_format($total,2,',','.')}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
