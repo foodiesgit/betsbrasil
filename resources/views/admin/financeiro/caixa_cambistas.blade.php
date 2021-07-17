@@ -342,7 +342,7 @@
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
         modal.find('.modal-title').text('Caixa Cambista ' + nome)
-        modal.find('#comissao').html('<span class="badge badge-info">'+entrada+'</span>'); 
+        modal.find('#comissao').html('<span class="badge badge-info">'+comissao+'</span>'); 
         modal.find('#entrada').html('<span class="badge badge-success">'+entrada+'</span>'); 
         modal.find('#saida').html('<span class="badge badge-danger">'+saida+'</span>'); 
         modal.find('#lancamento').html('<span class="badge badge-danger">'+lancamento+'</span>'); 
