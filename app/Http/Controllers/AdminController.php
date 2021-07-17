@@ -1476,6 +1476,7 @@ class AdminController extends Controller {
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.valor_apostado');
             $entradaPendente = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,1)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.valor_apostado');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->where('cupom_aposta.caixa' , 0)->sum('cupom_aposta.possivel_retorno');
+            $comissao= 0;
             $total = $entrada - $saida - $comissoes;
 
         }else if(Auth::user()->tipo_usuario == 3){
