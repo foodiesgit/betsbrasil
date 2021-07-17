@@ -1952,7 +1952,7 @@ class AdminController extends Controller {
                                 $comissao = number_format($row->saldo_liberado,2,',','.');
                                 $lancamento = number_format($row->lancamento,2,',','.');
                                 $total = $entrada - $saida - $row->saldo_liberado + $row->lancamento;
-                                $action .= '<a class="dropdown-item caixa" href="#" data-toggle="modal" data-target="#caixa" data-id="'.$row->id.'" data-nome="'.$row->name.'" data-entrada="'.number_format($entrada,2,',','.').'" data-saida="'.number_format($saida,2,',','.').'" data-saida="'.$comissao.'" data-lancamento="'.$lancamento.'" data-total="'.$total.'">Ver Caixa</a>';
+                                $action .= '<a class="dropdown-item caixa" href="#" data-toggle="modal" data-target="#caixa" data-id="'.$row->id.'" data-nome="'.$row->name.'" data-entrada="'.number_format($entrada,2,',','.').'" data-saida="'.number_format($saida,2,',','.').'" data-comissao="'.$comissao.'" data-lancamento="'.$lancamento.'" data-total="'.$total.'">Ver Caixa</a>';
                                 $action .= '<a class="dropdown-item" href="/admin/fechar/caixa/cambista/'.$row->idusuario.'">Fechar Caixa</a>';
                                 // $action .= '<a class="dropdown-item" href="/admin/cambista/historico/'.$row->idusuario.'">Ver Lançamentos</a>';
                             }
