@@ -116,9 +116,11 @@ class AdminController extends Controller {
             $bilhetes = CupomAposta::orderBy('id', 'desc')->get();
             $comissoes = User::leftJoin('creditos', 'creditos.idusuario','=','users.id')->where('tipo_usuario', '!=', 1)->where('tipo_usuario', '!=', 2)->sum('creditos.saldo_liberado');
             $entrada = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,'!=',4)->where('cupom_aposta.status' ,'!=',5)->sum('cupom_aposta.valor_apostado');
+            $entradaPendente = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,1)->where('cupom_aposta.caixa', 0)->sum('cupom_aposta.valor_apostado');
             $saida = CupomAposta::join('users', 'cupom_aposta.idusuario','=','users.id')->where('cupom_aposta.status' ,2)->sum('cupom_aposta.possivel_retorno');
             $lancamento = Creditos::sum('lancamento');
-            $comissao = $entrada - $comissoes;
+            // $comissao = $entrada - $comissoes;
+            $comissao = $entrada - $saida - $comissoes + $lancamento;
 
         }else if(Auth::user()->tipo_usuario == 1){
             $bilhetes = CupomAposta::where('idusuario', Auth::user()->id)->orderBy('id', 'desc')->get();
@@ -126,9 +128,11 @@ class AdminController extends Controller {
             $saida = 0;
             $comissao = 0;
             $comissoes =  0;
+            $entradaPendente =  0;
         }else if(Auth::user()->tipo_usuario == 4){
             $bilhetes = CupomAposta::where('idcambista', Auth::user()->id)->orderBy('id', 'desc')->get();
             $entrada = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,'!=',4)->where('status' ,'!=',5)->sum('valor_apostado');
+            $entradaPendente = CupomAposta::where('idcambista',  Auth::user()->id)->where('status',1)->where('caixa', 0)->sum('valor_apostado');
             $saida = CupomAposta::where('idcambista',  Auth::user()->id)->where('status' ,2)->sum('possivel_retorno');
             $credito = Creditos::where('idusuario',  Auth::user()->id)->first();
             $comissao = $credito->saldo_liberado;
@@ -147,6 +151,7 @@ class AdminController extends Controller {
             $comissao = ($entradaSite + $saidaSite) * $porcentagem;
 
             $comissoes = 0;
+            $entradaPendente = 0;
 
         }
         $data = [
@@ -159,6 +164,7 @@ class AdminController extends Controller {
             'comissao' => $comissao,
             'comissoes' => $comissoes,
             'lancamento' => $lancamento,
+            'entradaPendente' => $entradaPendente,
 
         ];
 
