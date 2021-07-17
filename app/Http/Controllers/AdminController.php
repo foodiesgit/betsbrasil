@@ -186,6 +186,7 @@ class AdminController extends Controller {
         
                 $bilhetes = CupomAposta::where('idcambista', $request->id)->orderBy('id', 'desc')->get();
                 $entrada = CupomAposta::where('idcambista',  $request->id)->where('status' ,'!=',4)->sum('valor_apostado');
+                $entradaPendente = CupomAposta::where('idcambista',  $request->id)->where('status',1)->sum('valor_apostado');
                 $saida = CupomAposta::where('idcambista',  $request->id)->where('status' ,2)->sum('possivel_retorno');
                 $credito = Creditos::where('idusuario',  $request->id)->first();
                 $comissao = $credito->saldo_liberado;
@@ -199,7 +200,8 @@ class AdminController extends Controller {
                 'entrada' => $entrada,
                 'saida' => $saida,
                 'comissao' => $comissao,
-                'comissao' => $lancamento,
+                'lancamento' => $lancamento,
+                'entradaPendente' => $entradaPendente,
         
             ];
         
