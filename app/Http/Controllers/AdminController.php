@@ -191,6 +191,8 @@ class AdminController extends Controller {
                 $credito = Creditos::where('idusuario',  $request->id)->first();
                 $comissao = $credito->saldo_liberado;
                 $lancamento = $credito->lancamento;
+
+                $total = $entrada - $saida + $lancamento;
         
             $data = [
         
@@ -202,6 +204,7 @@ class AdminController extends Controller {
                 'comissao' => $comissao,
                 'lancamento' => $lancamento,
                 'entradaPendente' => $entradaPendente,
+                'total' => $total,
         
             ];
         
