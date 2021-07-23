@@ -90,16 +90,6 @@ class ClientController extends Controller{
 
         $esportes = Esportes::where('status', 1)->get();
 
-
-        /*$jogos_aba_futebol = Events::where('data', '>', date('Y-m-d H:i:s'))->orderBy('data', 'asc')
-
-            ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
-
-            ->where('idesporte', 1)
-
-            ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga')->groupBy('idliga')->take('20')->get();
-
-*/
         if( $request->date == date('Y-m-d')){
             return Redirect()->back();
         }
@@ -108,132 +98,132 @@ class ClientController extends Controller{
 
 
 
-            $jogos_aba_futebol = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
+        //     $jogos_aba_futebol = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
 
-                ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
+        //         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
-                ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
+        //         ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
 
-                ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais',31)
+        //         ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais',31)
 
-                ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
+        //         ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
 
 
         
                 
 
 
-            $array_ligas = [];
+        //     $array_ligas = [];
 
 
 
-            if(count($jogos_aba_futebol) > 0){
+        //     if(count($jogos_aba_futebol) > 0){
 
-                foreach($jogos_aba_futebol as $dados){
-
-
-
-                    $jogos = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
-
-                        ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
-
-                        ->where('idesporte', 1)->where('idliga', $dados->idliga)
-
-                        ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->take('20')->get();
-
-
-                    $array_jogos = [];
-
-                    if(count($jogos) > 0){
-
-                        foreach($jogos as $dados2){
+        //         foreach($jogos_aba_futebol as $dados){
 
 
 
-                            $sql_time_home = Times::find($dados2->idhome);
+        //             $jogos = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
 
-                            $sql_time_away = Times::find($dados2->idaway);
+        //                 ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
-                            $sql_odds_principal = Odds::where('idevent', $dados2->id)->where('idsubgrupo', 79)->get();
+        //                 ->where('idesporte', 1)->where('idliga', $dados->idliga)
 
-                            if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
+        //                 ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->take('20')->get();
 
-                                $array_jogos[] = [
 
-                                    'id' => $dados2->id,
+        //             $array_jogos = [];
 
-                                    'data' => $dados2->data,
+        //             if(count($jogos) > 0){
 
-                                    'hora' => $dados2->hora,
-
-                                    'home' => $sql_time_home->nome,
-
-                                    'away' => $sql_time_away->nome,
-
-                                    'total_odds' => $dados2->total_odds,
-
-                                    'oddhome_id' => $sql_odds_principal[0]->id,
-
-                                    'oddhome_value' => $sql_odds_principal[0]->odds,
-
-                                    'oddhome_name' => $sql_odds_principal[0]->name,
-
-                                    'odddraw_id' => $sql_odds_principal[1]->id,
-
-                                    'odddraw_value' => $sql_odds_principal[1]->odds,
-
-                                    'odddraw_name' => $sql_odds_principal[1]->name,
-
-                                    'oddaway_id' => $sql_odds_principal[2]->id,
-
-                                    'oddaway_value' => $sql_odds_principal[2]->odds,
-
-                                    'oddaway_name' => $sql_odds_principal[2]->name,
-
-                                ];
+        //                 foreach($jogos as $dados2){
 
 
 
-                            }
+        //                     $sql_time_home = Times::find($dados2->idhome);
 
-                        }
+        //                     $sql_time_away = Times::find($dados2->idaway);
 
-                    }
+        //                     $sql_odds_principal = Odds::where('idevent', $dados2->id)->where('idsubgrupo', 79)->get();
+
+        //                     if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
+
+        //                         $array_jogos[] = [
+
+        //                             'id' => $dados2->id,
+
+        //                             'data' => $dados2->data,
+
+        //                             'hora' => $dados2->hora,
+
+        //                             'home' => $sql_time_home->nome,
+
+        //                             'away' => $sql_time_away->nome,
+
+        //                             'total_odds' => $dados2->total_odds,
+
+        //                             'oddhome_id' => $sql_odds_principal[0]->id,
+
+        //                             'oddhome_value' => $sql_odds_principal[0]->odds,
+
+        //                             'oddhome_name' => $sql_odds_principal[0]->name,
+
+        //                             'odddraw_id' => $sql_odds_principal[1]->id,
+
+        //                             'odddraw_value' => $sql_odds_principal[1]->odds,
+
+        //                             'odddraw_name' => $sql_odds_principal[1]->name,
+
+        //                             'oddaway_id' => $sql_odds_principal[2]->id,
+
+        //                             'oddaway_value' => $sql_odds_principal[2]->odds,
+
+        //                             'oddaway_name' => $sql_odds_principal[2]->name,
+
+        //                         ];
 
 
-                    if( count($array_jogos) > 0){
-                        $array_ligas[] = [
 
-                            'id' => $dados->idliga,
+        //                     }
+
+        //                 }
+
+        //             }
+
+
+        //             if( count($array_jogos) > 0){
+        //                 $array_ligas[] = [
+
+        //                     'id' => $dados->idliga,
     
-                            'liga' => $dados->nome_traduzido,
+        //                     'liga' => $dados->nome_traduzido,
     
-                            'jogos' => $array_jogos
+        //                     'jogos' => $array_jogos
     
-                        ];
-                    }
+        //                 ];
+        //             }
 
 
-                }
+        //         }
 
-            }
+        //     }
 
-            //fim
+        //     //fim
 
 
-            if(count($array_ligas) > 0 ){
-                $array_pais[] = [
+        //     if(count($array_ligas) > 0 ){
+        //         $array_pais[] = [
 
-                    'id' => $paisesDestaque->idpais,
+        //             'id' => $paisesDestaque->idpais,
     
-                    'pais' => $paisesDestaque->nome_traduzido,
+        //             'pais' => $paisesDestaque->nome_traduzido,
     
-                    'bandeira' => $paisesDestaque->bandeira,
+        //             'bandeira' => $paisesDestaque->bandeira,
     
-                    'ligas' => $array_ligas
+        //             'ligas' => $array_ligas
     
-                ];
-            }
+        //         ];
+        //     }
 
 
         
@@ -241,299 +231,301 @@ class ClientController extends Controller{
         
 
 
-        $array_jogos_aba_futebol = $array_pais;
+        // $array_jogos_aba_futebol = $array_pais;
       
 
 
 
-        $sqlNovoCarrinho = NovoCarrinho::leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
+        // $sqlNovoCarrinho = NovoCarrinho::leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
 
-            ->leftJoin('events', 'events.id','=','novo_carrinho_item.idevent')
+        //     ->leftJoin('events', 'events.id','=','novo_carrinho_item.idevent')
 
-            ->leftJoin('odds', 'odds.id','=','novo_carrinho_item.idodd')
+        //     ->leftJoin('odds', 'odds.id','=','novo_carrinho_item.idodd')
 
-            ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
+        //     ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
 
-            ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'cota_momento')->where('session_id', session()->getId())->get();
-
-
-
-        $total_carrinho = NovoCarrinho::where('session_id', session()->getId())->get();
+        //     ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'cota_momento')->where('session_id', session()->getId())->get();
 
 
 
-        if(count($sqlNovoCarrinho) > 0){
-
-            $i = 0;
-
-            foreach($sqlNovoCarrinho as $dados){
+        // $total_carrinho = NovoCarrinho::where('session_id', session()->getId())->get();
 
 
 
-                if($dados->idhome != ''){
+        // if(count($sqlNovoCarrinho) > 0){
 
-                    $sql_time_home = Times::find($dados->idhome);
+        //     $i = 0;
 
-                    $sql_time_away = Times::find($dados->idaway);
-
-
-
-                    $sqlNovoCarrinho[$i]->time_home = $sql_time_home->nome;
-
-                    $sqlNovoCarrinho[$i]->time_away = $sql_time_away->nome;
+        //     foreach($sqlNovoCarrinho as $dados){
 
 
 
-                    $i++;
+        //         if($dados->idhome != ''){
 
-                }
+        //             $sql_time_home = Times::find($dados->idhome);
 
-            }
-
-        }
-
-        ///////////////////////////////
-
-        $sql1 = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
-
-        ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
-
-        ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
-
-        ->where('idesporte', 1)//->where('ligas.status', 1)
-
-        ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->get();
+        //             $sql_time_away = Times::find($dados->idaway);
 
 
+
+        //             $sqlNovoCarrinho[$i]->time_home = $sql_time_home->nome;
+
+        //             $sqlNovoCarrinho[$i]->time_away = $sql_time_away->nome;
+
+
+
+        //             $i++;
+
+        //         }
+
+        //     }
+
+        // }
+
+        // ///////////////////////////////
+
+        // $sql1 = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
+
+        // ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
+
+        // ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
+
+        // ->where('idesporte', 1)//->where('ligas.status', 1)
+
+        // ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->get();
 
 
 
 
-        if(count($sql1) == 0){
+
+
+        // if(count($sql1) == 0){
                 
-            $sql1 = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
+        //     $sql1 = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
 
-            ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
+        //     ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
-            ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
+        //     ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
 
-            ->where('idesporte', 1)//->where('ligas.status', 1)
+        //     ->where('idesporte', 1)//->where('ligas.status', 1)
 
-            ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->get();
+        //     ->select('events.idliga', 'paises.nome_traduzido', 'paises.id as idpais', 'paises.bandeira')->groupBy('idpais')->get();
 
 
-        }
-        if(count($sql1) > 0){
+        // }
+        // if(count($sql1) > 0){
 
-        foreach($sql1 as $dados1){
+        // foreach($sql1 as $dados1){
 
-            $jogos_aba_futebol = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
+        //     $jogos_aba_futebol = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
 
-                ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
+        //         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
-                ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
+        //         ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
 
-                ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais', $dados1->idpais)
+        //         ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais', $dados1->idpais)
 
-                ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
+        //         ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
 
 
             
-            if(count($jogos_aba_futebol) == 0){
-                $jogos_aba_futebol = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
+        //     if(count($jogos_aba_futebol) == 0){
+        //         $jogos_aba_futebol = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
 
-                ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
+        //         ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
-                ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
+        //         ->leftJoin('paises', 'paises.id', '=', 'ligas.idpais')
 
-                ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais', $dados1->idpais)
+        //         ->where('idesporte', 1)->where('ligas.status', 1)->where('ligas.idpais', $dados1->idpais)
 
-                ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
+        //         ->select('events.idliga', 'ligas.nome_traduzido')->groupBy('idliga')->get();
 
-            }
+        //     }
                 
 
 
-            $array_ligas = [];
+        //     $array_ligas = [];
 
 
 
-            if(count($jogos_aba_futebol) > 0){
+        //     if(count($jogos_aba_futebol) > 0){
 
-                foreach($jogos_aba_futebol as $dados){
-
-
-
-                    $jogos = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
-
-                        ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
-
-                        ->where('idesporte', 1)->where('idliga', $dados->idliga)
-
-                        ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->take('20')->get();
-
-                    if(count($jogos) == 0){
-                        $jogos = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
-
-                        ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
-
-                        ->where('idesporte', 1)->where('idliga', $dados->idliga)
-
-                        ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->take('20')->get();
-
-
-                    }
-                    $array_jogos = [];
-
-                    if(count($jogos) > 0){
-
-                        foreach($jogos as $dados2){
+        //         foreach($jogos_aba_futebol as $dados){
 
 
 
-                            $sql_time_home = Times::find($dados2->idhome);
+        //             $jogos = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
 
-                            $sql_time_away = Times::find($dados2->idaway);
+        //                 ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
-                            $sql_odds_principal = Odds::where('idevent', $dados2->id)->where('idsubgrupo', 79)->get();
+        //                 ->where('idesporte', 1)->where('idliga', $dados->idliga)
 
-                            if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
+        //                 ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->take('20')->get();
 
-                                $array_jogos[] = [
+        //             if(count($jogos) == 0){
+        //                 $jogos = Events::whereDate('data', '>=', $request->date)->where('data','<=', $request->date.' 23:59:59')->orderBy('data', 'asc')
 
-                                    'id' => $dados2->id,
+        //                 ->leftJoin('ligas', 'ligas.id','=', 'events.idliga')
 
-                                    'data' => $dados2->data,
+        //                 ->where('idesporte', 1)->where('idliga', $dados->idliga)
 
-                                    'hora' => $dados2->hora,
+        //                 ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->take('20')->get();
 
-                                    'home' => $sql_time_home->nome,
 
-                                    'away' => $sql_time_away->nome,
+        //             }
+        //             $array_jogos = [];
 
-                                    'total_odds' => $dados2->total_odds,
+        //             if(count($jogos) > 0){
 
-                                    'oddhome_id' => $sql_odds_principal[0]->id,
-
-                                    'oddhome_value' => $sql_odds_principal[0]->odds,
-
-                                    'oddhome_name' => $sql_odds_principal[0]->name,
-
-                                    'odddraw_id' => $sql_odds_principal[1]->id,
-
-                                    'odddraw_value' => $sql_odds_principal[1]->odds,
-
-                                    'odddraw_name' => $sql_odds_principal[1]->name,
-
-                                    'oddaway_id' => $sql_odds_principal[2]->id,
-
-                                    'oddaway_value' => $sql_odds_principal[2]->odds,
-
-                                    'oddaway_name' => $sql_odds_principal[2]->name,
-
-                                ];
+        //                 foreach($jogos as $dados2){
 
 
 
-                            }
+        //                     $sql_time_home = Times::find($dados2->idhome);
 
-                        }
+        //                     $sql_time_away = Times::find($dados2->idaway);
 
-                    }
+        //                     $sql_odds_principal = Odds::where('idevent', $dados2->id)->where('idsubgrupo', 79)->get();
+
+        //                     if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
+
+        //                         $array_jogos[] = [
+
+        //                             'id' => $dados2->id,
+
+        //                             'data' => $dados2->data,
+
+        //                             'hora' => $dados2->hora,
+
+        //                             'home' => $sql_time_home->nome,
+
+        //                             'away' => $sql_time_away->nome,
+
+        //                             'total_odds' => $dados2->total_odds,
+
+        //                             'oddhome_id' => $sql_odds_principal[0]->id,
+
+        //                             'oddhome_value' => $sql_odds_principal[0]->odds,
+
+        //                             'oddhome_name' => $sql_odds_principal[0]->name,
+
+        //                             'odddraw_id' => $sql_odds_principal[1]->id,
+
+        //                             'odddraw_value' => $sql_odds_principal[1]->odds,
+
+        //                             'odddraw_name' => $sql_odds_principal[1]->name,
+
+        //                             'oddaway_id' => $sql_odds_principal[2]->id,
+
+        //                             'oddaway_value' => $sql_odds_principal[2]->odds,
+
+        //                             'oddaway_name' => $sql_odds_principal[2]->name,
+
+        //                         ];
 
 
-                    if( count($array_jogos) > 0){
-                        $array_ligas[] = [
 
-                            'id' => $dados->idliga,
+        //                     }
+
+        //                 }
+
+        //             }
+
+
+        //             if( count($array_jogos) > 0){
+        //                 $array_ligas[] = [
+
+        //                     'id' => $dados->idliga,
     
-                            'liga' => $dados->nome_traduzido,
+        //                     'liga' => $dados->nome_traduzido,
     
-                            'jogos' => $array_jogos
+        //                     'jogos' => $array_jogos
     
-                        ];
-                    }
+        //                 ];
+        //             }
 
 
-                }
+        //         }
 
-            }
+        //     }
 
-            //fim
+        //     //fim
 
 
-            if(count($array_ligas) > 0 ){
-                $array_pais[] = [
+        //     if(count($array_ligas) > 0 ){
+        //         $array_pais[] = [
 
-                    'id' => $dados1->idpais,
+        //             'id' => $dados1->idpais,
     
-                    'pais' => $dados1->nome_traduzido,
+        //             'pais' => $dados1->nome_traduzido,
     
-                    'bandeira' => $dados1->bandeira,
+        //             'bandeira' => $dados1->bandeira,
     
-                    'ligas' => $array_ligas
+        //             'ligas' => $array_ligas
     
-                ];
-            }
+        //         ];
+        //     }
 
 
-        }
+        // }
 
-        }
+        // }
 
 
-        $array_jogos_aba_futebol = $array_pais;
+        // $array_jogos_aba_futebol = $array_pais;
       
 
 
 
-        $sqlNovoCarrinho = NovoCarrinho::leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
+        // $sqlNovoCarrinho = NovoCarrinho::leftJoin('novo_carrinho_item', 'novo_carrinho_item.idcarrinho','=','novo_carrinho.id')
 
-            ->leftJoin('events', 'events.id','=','novo_carrinho_item.idevent')
+        //     ->leftJoin('events', 'events.id','=','novo_carrinho_item.idevent')
 
-            ->leftJoin('odds', 'odds.id','=','novo_carrinho_item.idodd')
+        //     ->leftJoin('odds', 'odds.id','=','novo_carrinho_item.idodd')
 
-            ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
+        //     ->leftJoin('odds_subgrupo', 'odds_subgrupo.id','=','odds.idsubgrupo')
 
-            ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'cota_momento')->where('session_id', session()->getId())->get();
-
-
-
-        $total_carrinho = NovoCarrinho::where('session_id', session()->getId())->get();
+        //     ->select('novo_carrinho_item.id', 'odds.name', 'odds_subgrupo.titulo_traduzido as subgrupo', 'events.idhome', 'events.idaway', 'valor_total_cotas', 'valor_total_apostado', 'odds.id as idodds', 'cota_momento')->where('session_id', session()->getId())->get();
 
 
 
-        if(count($sqlNovoCarrinho) > 0){
-
-            $i = 0;
-
-            foreach($sqlNovoCarrinho as $dados){
+        // $total_carrinho = NovoCarrinho::where('session_id', session()->getId())->get();
 
 
 
-                if($dados->idhome != ''){
+        // if(count($sqlNovoCarrinho) > 0){
 
-                    $sql_time_home = Times::find($dados->idhome);
+        //     $i = 0;
 
-                    $sql_time_away = Times::find($dados->idaway);
-
-
-
-                    $sqlNovoCarrinho[$i]->time_home = $sql_time_home->nome;
-
-                    $sqlNovoCarrinho[$i]->time_away = $sql_time_away->nome;
+        //     foreach($sqlNovoCarrinho as $dados){
 
 
 
-                    $i++;
+        //         if($dados->idhome != ''){
 
-                }
+        //             $sql_time_home = Times::find($dados->idhome);
 
-            }
+        //             $sql_time_away = Times::find($dados->idaway);
 
-        }
+
+
+        //             $sqlNovoCarrinho[$i]->time_home = $sql_time_home->nome;
+
+        //             $sqlNovoCarrinho[$i]->time_away = $sql_time_away->nome;
+
+
+
+        //             $i++;
+
+        //         }
+
+        //     }
+
+        // }
     
-
+        $array_jogos_aba_futebol = [];
+        $sqlNovoCarrinho = [];
+        $total_carrinho = 0;
 
         $data = [
 
