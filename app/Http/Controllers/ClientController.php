@@ -939,21 +939,21 @@ public function viewIndex(){
 //         }
 
 
-        $data = [
+        // $data = [
 
-            'campeonatosDestaque' => $campeonatosDestaque,
+        //     'campeonatosDestaque' => $campeonatosDestaque,
 
-            'paisesDestaque' => $paisesDestaque,
+        //     'paisesDestaque' => $paisesDestaque,
 
-            'esportes' => $esportes,
+        //     'esportes' => $esportes,
 
-            'array_jogos_aba_futebol' => $array_jogos_aba_futebol,
+        //     'array_jogos_aba_futebol' => $array_jogos_aba_futebol,
 
-            'sqlNovoCarrinho' => $sqlNovoCarrinho,
+        //     'sqlNovoCarrinho' => $sqlNovoCarrinho,
 
-            'total_carrinho' => $total_carrinho
+        //     'total_carrinho' => $total_carrinho
 
-        ];  
+        // ];  
         $data = [
 
             'campeonatosDestaque' => [],
