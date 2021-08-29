@@ -14,15 +14,6 @@
 <div class="header bg-dark pb-6">
   <div class="container-fluid">
     <div class="header-body">
-    <style>
-     .tabela {
-        margin: 50px auto;
-        width:75%
-     }
-     body {
-    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-    </style>  
       <!-- <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
@@ -36,16 +27,18 @@
       <!-- Card stats -->
       <div class="row">
      @if(Auth::user()->tipo_usuario == 1)
+
         <div class="col-xl-4 col-md-6">
           <div class="card card-stats">
+            <!-- Card body -->
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Saldo Disponível</h5>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Saldo Disponível para Apostas</h5>
                   <span class="h2 font-weight-bold mb-0" id="saldo1">R$ 0,00</span>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
                     <i class="ni ni-money-coins"></i>
                   </div>
                 </div>
@@ -55,6 +48,7 @@
         </div>
         <div class="col-xl-4 col-md-6">
           <div class="card card-stats">
+            <!-- Card body -->
             <div class="card-body">
               <div class="row">
                 <div class="col">
@@ -72,6 +66,7 @@
         </div>
         <div class="col-xl-4 col-md-6">
           <div class="card card-stats">
+            <!-- Card body -->
             <div class="card-body">
               <div class="row">
                 <div class="col">
@@ -79,7 +74,7 @@
                   <span class="h2 font-weight-bold mb-0"id="saldo3">R$ 0,00</span>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
                     <i class="ni ni-money-coins"></i>
                   </div>
                 </div>
@@ -88,6 +83,117 @@
           </div>
         </div>
       @else
+      <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <!-- <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Entradas</h5>
+                  <span class="h2 font-weight-bold mb-0" >R$ {{number_format($entrada,2,',','.')}} </span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>-->
+        </div>
+        <!-- <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Pendentes</h5>
+                  <span class="h2 font-weight-bold mb-0" >R$ {{number_format($entradaPendente,2,',','.')}} </span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <!-- <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Saidas</h5>
+                  <span class="h2 font-weight-bold mb-0" >R$ {{number_format($saida,2,',','.')}}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        @if(Auth::user()->tipo_usuario == 2 || Auth::user()->tipo_usuario == 3)
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Comissões</h5>
+                  <span class="h2 font-weight-bold mb-0">R$ {{number_format($comissoes,2,',','.')}}</span>
+                </div>
+                <div class="col-auto">
+                  <!-- <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        @endif
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Lançamentos</h5>
+                  <span class="h2 font-weight-bold mb-0" >R$ {{number_format($lancamento,2,',','.')}}</span>
+                </div>
+                <div class="col-auto">
+                  <!-- <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
+          <div class="card card-stats">
+            <!-- Card body -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Total</h5>
+                  <span class="h2 font-weight-bold mb-0">R$ {{number_format($comissao,2,',','.')}}</span>
+                </div>
+                <div class="col-auto">
+                  <!-- <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                    <i class="ni ni-money-coins"></i>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
       @endif
       </div>
     </div>
@@ -122,26 +228,27 @@
 <div>
 <!-- <div class="card-body"> -->
     <div class="table-responsive">
-    <table id="example" class="table table-striped table-bordered table-sm tabela">
+
+        <table id="example" class="table align-items-center table-flush">
 		<!-- <table id="example" class="datatable table align-items-center table-flush"> -->
             <thead>
 
                 <tr>
 
-                    <td><center>ID</td>
-                    <td><center>Data</td>
+                    <td>ID</td>
+                    <td>Data</td>
 
-                    <td><center>Tipo da Solicitação</td>
+                    <td>Tipo da Solicitação</td>
 
-                    <td><center>Saldo Anterior</td>
+                    <td>Saldo Anterior</td>
 
-                    <td><center>Saldo</td>
+                    <td>Saldo</td>
 
-                    <td><center>Novo Saldo</td>
+                    <td>Novo Saldo</td>
 
-                    <td><center>Status</td>
+                    <td>Status</td>
 
-                    <td><center>Ações</td>
+                    <td>Ações</td>
 
                 </tr>
 
@@ -206,21 +313,21 @@
 
                                 <td>'.$dados->type.'</td>
 
-                                <td><b><span>
+                                <td><span class="badge badge-danger">
 
                                     R$ '.number_format($dados->total_before,2,',','.').'
 
                                 </span></td>
 
-                                <td><b><span>
+                                <td><span class="badge badge-success">
 
                                     R$ '.number_format($dados->amount,2,',','.').'
 
                                 </span></td>
 
-                                <td><b><span>
+                                <td><span class="badge badge-info">
 
-                                    <center>R$ '.number_format($dados->total_after,2,',','.').'
+                                    R$ '.number_format($dados->total_after,2,',','.').'
 
                                 </span></td>
 
@@ -260,9 +367,9 @@
                                 </button>
 
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/admin/aprovar-solicitacao/'.$dados->user_id.'">Aprovar Solicitação</a>
+                                    <a class="dropdown-item" href="/admin/aprovar-solicitaca/'.$dados->user_id.'">Aprovar Solicitação</a>
 
-                                    <a class="dropdown-item" href="/admin/rejeitar-solicitacao/'.$dados->user_id.'">Cancelar Solicitação</a>
+                                    <a class="dropdown-item" href="/admin/rejeitar-solicitaca/'.$dados->user_id.'">Cancelar Solicitação</a>
 
                                 </div>
 
@@ -290,12 +397,192 @@
     </div>
 
 </div>
-<br>
+
 </div>
 
 
 <div class="card">
 
+<div class="card-header d-block">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3 class="mb-0">Todos os Bilhetes</h3>
+        </div>
+        <div class="col text-right">
+           
+        </div>
+    </div>
+<!-- 
+    <h4 class="card-title"></h4>
+
+    <p class="mb-0 subtitle">Resumo dos Cambistas Cadastrados</p> -->
+
+</div>
+
+<div>
+
+    <div class="table-responsive">
+
+        <table id="example" class="table align-items-center table-flush">
+
+            <thead>
+
+                <tr>
+
+                    <td>ID</td>
+                    <td>Data</td>
+
+                    <td>Cliente</td>
+                    <td>Cambista</td>
+
+                    <td>Valor Apostado</td>
+
+                    <td>Valor de Retorno</td>
+
+                    <td>Cotação</td>
+
+                    <td>Status</td>
+
+                    <td>Ações</td>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <?php
+                    if(count($bilhetes) > 0){
+                        foreach($bilhetes as $dados){
+                            $cambista = \App\User::find($dados->idcambista); 
+                            $cliente = \App\User::find($dados->idusuario); 
+                            $status = '';
+                            if($dados->status == 1){
+
+                                $status = '<span class="badge badge-success">Aguardando Resultado</div>';
+
+                            }elseif($dados->status == 4){
+
+                                $status = '<span class="badge badge-danger">Pré-bilhete</span>';
+
+                            }
+                            elseif($dados->status == 2){
+
+                                $status = '<span class="badge badge-info">Vencedor</span>';
+
+                            }
+                            elseif($dados->status == 5){
+
+                              $status = '<span class="badge badge-danger">Cancelado</span>';
+
+                          }else{
+                                $status = '<span class="badge badge-danger">Perdeu</span>';
+
+                            }
+
+                            echo '
+
+                            <tr>
+
+                                <td>'.$dados->codigo_unico.'</td>
+                                <td>'.\Carbon\Carbon::parse($dados->created_at)->format('d/m/Y H:m:i').'</td>
+
+                                <td>'.($dados->name == '' || is_null($dados->name) ? ($cliente ? $cliente->name : "Cliente não informado") : $dados->name).'</td>
+                                <td>'.($cambista ? $cambista->name : "Cambista não declarado").'</td>
+
+                                <td><span class="badge badge-danger">
+
+                                    R$ '.number_format($dados->valor_apostado,2,',','.').'
+
+                                </span></td>
+
+                                <td><span class="badge badge-success">
+
+                                    R$ '.number_format($dados->possivel_retorno,2,',','.').'
+
+                                </span></td>
+
+                                <td><span class="badge badge-info">
+
+                                    '.$dados->total_cotas.'
+
+                                </span></td>
+
+                                <td>'.$status.'</td>
+
+                               
+                            ';
+                            if(Auth::user()->tipo_usuario != 2){
+                                echo '<td>
+
+                                <div class="dropdown">
+
+                                    <button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+
+                                    </button>
+
+                                    <div class="dropdown-menu">
+
+                                        <a class="dropdown-item" target="_blank" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>
+                                        <a class="dropdown-item" target="_blank" href="/minhas-apostas/visualizar-cupom/'.$dados->codigo_unico.'">Ver Cupom</a>';
+                                        if($dados->created_at->addMinutes(20) > \Carbon\Carbon::now() && $dados->status != 5){
+                                          echo '<a class="dropdown-item"  href="/admin/cancelar-bilhete/'.$dados->id.'">Cancelar Bilhete</a>';
+    
+                                        }
+
+                                    echo '</div>
+
+                                </div>
+                                </td>';
+
+                            }else{
+                               
+                              echo '<td>
+                              <div class="dropdown">
+
+                                <button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+
+                                </button>
+
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/verifica-bilhete/'.$dados->codigo_unico.'">Ver bilhete</a>
+                                    <a class="dropdown-item" target="_blank" href="/minhas-apostas/visualizar-cupom/'.$dados->codigo_unico.'">Ver Cupom</a>';
+                                    if( $dados->status != 5){
+                                      echo '<a class="dropdown-item"  href="/admin/cancelar-bilhete/'.$dados->id.'">Cancelar Bilhete</a>';
+
+                                    }
+
+                                  
+                                echo '</div>
+
+                            </div>
+                            </td>';
+                            }
+                            echo '</tr>';
+
+                        }
+
+                    }
+
+                ?>
+
+
+
+                
+
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 </div>
 </div>

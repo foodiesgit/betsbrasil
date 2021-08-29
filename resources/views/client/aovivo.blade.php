@@ -16,8 +16,6 @@
 <link href="/assets3/switcher/css/switcher.css" rel="stylesheet" />
 
 <link href="/assets3/switcher/demo.css" rel="stylesheet" />
-
-<link href="/assets3/css/animate.css" rel="stylesheet" />
 <link href="/assets3/css/floo.css" rel="stylesheet" />
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
@@ -65,51 +63,6 @@
       <section class="section section-sm bg-gray-100">
         <div class="container">
             @yield('alert')
-            <div class="row row-50 d-none d-lg-block d-xl-block">
-
-                <div class="col-lg-12 ">
-                <div class="row row-30">
-                <div class="col-md-6 col-lg-4">
-                <article class="post-badly">
-                    <div class="post-badly-body">
-                    <div class="post-badly-body-top">
-                        <a href="/data/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">
-                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</div>
-                        </a>
-                    </div>
-                    </div>
-                </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                <article class="post-badly">
-                    <div class="post-badly-body">
-                    <div class="post-badly-body-top">
-                        <a href="/data/{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('Y-m-d')}}">
-
-                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</div>
-                        </a>
-                    </div>
-                    </div>
-                </article>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                <article class="post-badly">
-                    <div class="post-badly-body">
-                    <div class="post-badly-body-top">
-                        <a href="/data/{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('Y-m-d')}}">
-
-                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('d/m/Y')}}</div>
-                        </a>
-                    </div>
-                    </div>
-                </article>
-                </div>
-            </div>
-                </div>
-                </div>
 
           <div class="row isotope-wrap row-30">
             <!-- Isotope Filters-->
@@ -389,7 +342,7 @@
           <div class="container">
             <div class="layout-justify">
               <!-- Rights-->
-              <p class="rights"><span>S-Bet</span><span>&nbsp;©&nbsp;</span><span class="copyright-year">2021</span><span>.&nbsp;</span><a class="link-underline" href="https://livedemo00.template-help.com/wt_prod-19186/privacy-policy.html">Privacy Policy</a></p>
+              <p class="rights"><span>Bellagio Esportes</span>&nbsp;-&nbsp;<span class="copyright-year">2021</span><span>.&nbsp;</span></p>
               <nav class="nav-minimal">
                
               </nav>

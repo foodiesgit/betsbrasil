@@ -5,13 +5,12 @@
 <head>
   <meta charset="utf-8">
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
-  <meta name="author" content="NovoBets">
+  <meta name="description" content="Painel de Controle">
   <?php $config =\DB::table('campos_fixos')->first(); ?>
     <!-- Site Title-->
-    <title>{{$config->nome_banca}} - Admin</title>
+    <title>{{$config->nome_banca}} - Painel de Controle</title>
   <!-- Favicon -->
-  <link rel="icon" href="/assets4/img/brand/favicon.png" type="image/png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../favicon.ico">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -49,13 +48,8 @@
           <img src="/logo_principal.png" class="navbar-brand-img" alt="..."> 
         </a>
         <div class="ml-auto">
-          <!-- Sidenav toggler -->
-          <div class="sidenav-toggler d-none d-xl-block" data-action="sidenav-unpin" data-target="#sidenav-main">
-            <div class="sidenav-toggler-inner">
-              <i class="sidenav-toggler-line"></i>
-              <i class="sidenav-toggler-line"></i>
-              <i class="sidenav-toggler-line"></i>
-            </div>
+          <div>
+
           </div>
         </div>
       </div>
@@ -88,6 +82,46 @@
                   <li class="nav-item">
                     <a href="/admin/usuarios/listar" class="nav-link">Listar</a>
                   </li>
+                </ul>
+              </div>
+            </li>
+            @endif
+			@if($user->tipo_usuario == 2)
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/caixa">
+                <i class="ni ni-box-2 text-default"></i>
+                <span class="nav-link-text">Caixa</span>
+              </a>
+            </li>
+            @endif
+			@if($user->tipo_usuario == 2)
+            <li class="nav-item">
+              <a class="nav-link" href="#navbar-boxg" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxg">
+                <i class="ni ni-box-2 text-default"></i>
+                <span class="nav-link-text">Caixa Gerentes</span>
+              </a>
+              <div class="collapse" id="navbar-boxg">
+                <ul class="nav nav-sm flex-column">
+                <li class="nav-item"><a href="/admin/gerentes/caixa" class="nav-link">Dashboard</a></li>
+
+                <li class="nav-item"><a href="/admin/gerentes/caixa/historico" class="nav-link">Movimentações</a></li>
+                </ul>
+              </div>
+            </li>
+            @endif
+			@if($user->tipo_usuario == 2|| $user->tipo_usuario == 3)
+            <li class="nav-item">
+              <a class="nav-link" href="#navbar-boxc" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxc">
+                <i class="ni ni-box-2  text-default"></i>
+                <span class="nav-link-text">Caixa Cambistas</span>
+              </a>
+              <div class="collapse" id="navbar-boxc">
+                <ul class="nav nav-sm flex-column">
+
+                <li class="nav-item"><a href="/admin/cambistas/caixa" class="nav-link">Dashboard</a></li>
+                @if($user->tipo_usuario == 2)
+                  <li class="nav-item"><a href="/admin/cambistas/caixa/historico" class="nav-link">Movimentações</a></li>
+                @endif
                 </ul>
               </div>
             </li>
@@ -150,38 +184,6 @@
             @endif
             @if($user->tipo_usuario == 2)
             <li class="nav-item">
-              <a class="nav-link" href="#navbar-boxg" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxg">
-                <i class="ni ni-box-2 text-default"></i>
-                <span class="nav-link-text">Caixa Gerentes</span>
-              </a>
-              <div class="collapse" id="navbar-boxg">
-                <ul class="nav nav-sm flex-column">
-                <li class="nav-item"><a href="/admin/gerentes/caixa" class="nav-link">Dashboard</a></li>
-
-                <li class="nav-item"><a href="/admin/gerentes/caixa/historico" class="nav-link">Movimentações</a></li>
-                </ul>
-              </div>
-            </li>
-            @endif
-            @if($user->tipo_usuario == 2|| $user->tipo_usuario == 3)
-            <li class="nav-item">
-              <a class="nav-link" href="#navbar-boxc" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-boxc">
-                <i class="ni ni-box-2  text-default"></i>
-                <span class="nav-link-text">Caixa Cambistas</span>
-              </a>
-              <div class="collapse" id="navbar-boxc">
-                <ul class="nav nav-sm flex-column">
-
-                <li class="nav-item"><a href="/admin/cambistas/caixa" class="nav-link">Dashboard</a></li>
-                @if($user->tipo_usuario == 2)
-                  <li class="nav-item"><a href="/admin/cambistas/caixa/historico" class="nav-link">Movimentações</a></li>
-                @endif
-                </ul>
-              </div>
-            </li>
-            @endif
-            @if($user->tipo_usuario == 2)
-            <li class="nav-item">
               <a class="nav-link" href="#navbar-jogos" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-jogos">
                 <i class="ni ni-user-run text-default"></i>
                 <span class="nav-link-text">Jogos</span>
@@ -199,14 +201,12 @@
               </div>
             </li>
             @endif
-            @if($user->tipo_usuario == 2)
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/admin/fixos">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/fixos/bilhetes">
                 <i class="ni ni-single-copy-04 text-default"></i>
                 <span class="nav-link-text">Bilhetes</span>
               </a>
-            </li> -->
-            @endif
+            </li>
             @if($user->tipo_usuario == 4)
             <li class="nav-item">
               <a class="nav-link" href="/admin/validar-bilhete">

@@ -3098,16 +3098,16 @@ fieldset:disabled a.btn
 
 .btn-primary
 {
-    color: #fff;
-    border-color: #5e72e4;
-    background-color: #5e72e4;
-    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    color: #000000;
+    border-color: #2dce89;
+    background-color: #2dce89;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0), 0 1px rgba(0, 0, 0, 0).08);
 }
 .btn-primary:hover
 {
-    color: #fff;
-    border-color: #5e72e4; 
-    background-color: #5e72e4;
+    color: rgb(0, 0, 0);
+    border-color: #38a878; 
+    background-color: #38a878;
 }
 .btn-primary:focus,
 .btn-primary.focus
@@ -3118,16 +3118,16 @@ fieldset:disabled a.btn
 .btn-primary:disabled
 {
     color: #fff;
-    border-color: #5e72e4; 
-    background-color: #5e72e4;
+    border-color: #38a878; 
+    background-color: #38a878;
 }
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle
 {
     color: #fff;
-    border-color: #5e72e4; 
-    background-color: #324cdd;
+    border-color: #38a878; 
+    background-color: #38a878;
 }
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -6397,10 +6397,10 @@ input[type='button'].btn-block
 
 .badge
 {
-    font-size: 66%;
-    font-weight: 600;
-    line-height: 1;
-
+    /* font-size: 66%;
+    font-weight: 600; */
+    line-height: 3;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif
     display: inline-block;
 
     padding: .35rem .375rem;
@@ -6409,8 +6409,6 @@ input[type='button'].btn-block
     text-align: center;
     vertical-align: baseline;
     white-space: nowrap;
-
-    border-radius: .375rem;
 }
 @media (prefers-reduced-motion: reduce)
 {
@@ -23989,8 +23987,6 @@ textarea[resize='horizontal']
 .table th
 {
     font-size: .8125rem;
-
-    white-space: nowrap;
 }
 
 .table.align-items-center td,

@@ -107,7 +107,7 @@ return [
     */
 
     'faker_locale' => 'en_US',
-    'API_TOKEN' => '89997-dcZ1kBXnfUQHTi',
+    'API_TOKEN' => '95134-6Fo9OitdepTViL',
 
     /*
     |--------------------------------------------------------------------------

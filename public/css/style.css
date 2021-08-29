@@ -3852,7 +3852,7 @@ html .context-light .button-gray-outline.button-ujarak::before {
 
 .btn-primary:hover {
 	color: #fff;
-	background: #000;
+	background: #000000;
 	border-color: #000;
 }
 
@@ -16331,7 +16331,7 @@ html:not(.lt-ie10) .not-animated {
 	justify-content: center;
 	padding: 20px;
 	background: #fff;
-	transition: .3s all ease;
+	transition: .2s all ease;
 }
 
 .preloader.loaded {
@@ -16364,7 +16364,7 @@ html:not(.lt-ie10) .not-animated {
 	border-radius: 50%;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
-	animation-duration: .8s;
+	animation-duration: .3s;
 	animation-name: preloader-loading;
 }
 

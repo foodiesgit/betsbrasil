@@ -13,6 +13,12 @@
 
 <div class="container-fluid">
 
+<style>
+     .tabela {
+        margin: 50px auto;
+        width:70%
+     }
+</style>  
 
     <!-- row -->
 
@@ -41,7 +47,7 @@
 
                         <div class="form-group col-md-6 col-sm-12">
 
-                            <label class="mb-1"><strong>Data Inicial</strong></label>
+                            <label class="mb-1 tabela"><strong>Data Inicial</strong></label>
 
                             {{ Form::text('dataInicio', null, ['class' => 'form-control']) }}
 
@@ -49,7 +55,7 @@
 
                         <div class="form-group col-md-6 col-sm-12">
 
-                            <label class="mb-1"><strong>Data Final</strong></label>
+                            <label class="mb-1 tabela"><strong>Data Final</strong></label>
 
                             {{ Form::text('dataFinal', null, ['class' => 'form-control']) }}
 
@@ -79,7 +85,7 @@
 
             </div>
 
-            <div class="card" style="height: auto;">
+            <div class="card">
 
                 <div class="card-header d-block">
 
@@ -93,19 +99,19 @@
 
                     <div class="table-responsive">
 
-                        <table id="example" class="display">
+                    <table class="table table-striped table-bordered table-sm tabela">
 
-                            <thead>
+                            <thead class="thead-light">
 
                                 <tr>
 
-                                    <td>Data</td>
+                                <td scope="col" class="sort"><center>Data</td>
 
-                                    <td>Tipo de Lançamento</td>
+                                <td scope="col" class="sort"><center>Tipo de Lançamento</td>
 
-                                    <td>Cambistas</td>
+                                <td scope="col" class="sort"><center>Cambistas</td>
 
-                                    <td>Valor</td>
+                                <td scope="col" class="sort"><center>Valor</td>
 
                                 </tr>
 
@@ -195,13 +201,14 @@
 
                                             <tr>
 
-                                                <td><span class="badge badge-primary">'.$dados->data_lancamento.'</span></td>
+                                                <td><center>'.$dados->data_lancamento.'</td>
 
-                                                <td>'.$dados->tipo_lancamento.'</td>
+                                                <td><center>'.$dados->tipo_lancamento.'</td>
 
-                                                <td>'.$dados->nome.'<br>'.$dados->email.'</td>
+                                                <td><center>'.$dados->nome.'</td>
 
-                                                <td>R$ '.number_format($dados->valor,2,',','.').'</td>
+
+                                                <td><center>R$ '.number_format($dados->valor,2,',','.').'</td>
 
                                             </tr>
 

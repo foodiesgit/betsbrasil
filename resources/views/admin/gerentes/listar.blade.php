@@ -11,14 +11,6 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
             <div class="col-lg-6 col-7">
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                  <li class="breadcrumb-item"><a href="#">Listar</a></li>
-
-                </ol>
-              </nav>
             </div>
           </div>
           <!-- Card stats -->
@@ -28,7 +20,12 @@
       </div>
     </div>
     <div class="container-fluid mt--6">
-    
+    <style>
+     .tabela {
+        margin: 50px auto;
+        width:70%
+     }
+    </style>  
         <div class="card">
 
             <div class="card-header d-block">
@@ -44,19 +41,19 @@
 
                 <div class="table-responsive">
 
-                    <table id="example" class="datatable table align-items-center table-flush">
+                <table id="example" class="table table-striped table-bordered table-sm tabela">
 
                         <thead class="thead-light">
 
                             <tr>
 
-                                <td scope="col" class="sort">Nome</td>
+                                <td scope="col" class="sort"><center>Nome</td>
 
-                                <td scope="col" class="sort">Email</td>
+                                <td scope="col" class="sort"><center>Email</td>
 
-                                <td scope="col" class="sort">Status</td>
+                                <td scope="col" class="sort"><center>Status</td>
 
-                                <td scope="col" class="sort">Ações</td>
+                                <td scope="col" class="sort"><center>Ações</td>
 
                             </tr>
 

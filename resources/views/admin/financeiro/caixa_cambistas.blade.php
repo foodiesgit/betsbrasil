@@ -4,7 +4,12 @@
 
 @yield('header')
 <div class="main-content" id="panel">
-
+<style>
+     .tabela {
+        margin: 50px auto;
+        width:70%
+     }
+ </style>    
 
     @yield('nav')
 
@@ -13,130 +18,9 @@
     <div class="header-body">
       <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
-          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-              <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-            </ol>
-          </nav>
         </div>
       </div>
-      <!-- Card stats -->
-      <div class="row">
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Entradas</h5>
-                  <span class="h2 font-weight-bold mb-0" id="saldo1">R$ {{number_format($entrada,2,',','.')}} </span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Entradas Pendentes</h5>
-                  <span class="h2 font-weight-bold mb-0" id="saldo1">R$ {{number_format($entradaPendente,2,',','.')}} </span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Saidas</h5>
-                  <span class="h2 font-weight-bold mb-0"id="saldo2">R$ {{number_format($saida,2,',','.')}}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        @if(Auth::user()->tipo_usuario == 2 ||Auth::user()->tipo_usuario == 3)
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Comissões</h5>
-                  <span class="h2 font-weight-bold mb-0"id="saldo3">R$ {{number_format($comissoes,2,',','.')}}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        @endif
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Lançamentos</h5>
-                  <span class="h2 font-weight-bold mb-0"id="saldo3">R$ {{number_format($lancamento,2,',','.')}}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <div class="{{(Auth::user()->tipo_usuario == 4 ? 'col-xl-2' : 'col-xl-2')}} col-md-6">
-          <div class="card card-stats">
-            <!-- Card body -->
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Total</h5>
-                  <span class="h2 font-weight-bold mb-0"id="saldo3">R$ {{number_format($total,2,',','.')}}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                    <i class="ni ni-money-coins"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>
@@ -158,38 +42,25 @@
 
     <div class="table-responsive">
 
-        <table id="cambista" class="table align-items-center table-flush">
+        <table id="cambista" class="table table-striped table-bordered table-sm tabela" width="70%">
 
             <thead>
 
                 <tr>
 
-                    <td>ID</td>
-                    <td>Nome</td>
-
-                    <td>Email</td>
-
-                    <td>Entrada</td>
-
-                    <td>Saida</td>
-                    
-                    <td>Lançamentos</td>
-
-                    <td>Comissão</td>
-
-                    <td>Status</td>
-
-                    <td>Ações</td>
+                    <td><center>ID</td>
+                    <td><center>Nome</td>
+                    <td><center>Email</td>
+                    <td><center>Entrada</td>
+                    <td><center>Saida</td>                  
+                    <td><center>Lançamentos</td>
+                    <td><center>Comissão</td>
+                    <td><center>Status</td>
+                    <td><center>Ações</td>
 
                 </tr>
 
             </thead>
-
-            <tbody>
-
-
-
-            </tbody>
 
         </table>
 
@@ -271,54 +142,59 @@
         var table = $('#cambista').DataTable({
             processing: true,
             serverSide: true,
+            searching: false,
+            paging: false,
+            ordering: false,
+            info: false,
+
             ajax: "/admin/ajaxviewcambista",
             columns: [{
                     data: 'id',
                     name: 'id',
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
                 {
                     data: 'name',
                     name: 'name',
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
                 {
                     data: 'email',
                     name: 'email',
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
                 {
                     data: 'entrada',
                     name: 'entrada',
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
                 {
                     data: 'saida',
                     name: 'saida',
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
                 {
                     data: 'lancamento',
                     name: 'lancamento',
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
                 {
                     data: 'comissao',
                     name: 'comissao',
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
 
                 {
                     data: 'status',
                     name: 'status',
-                    orderable: true,
+                    orderable: false,
                     searchable: true
                 },
                 {
@@ -342,8 +218,8 @@
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
         modal.find('.modal-title').text('Caixa Cambista ' + nome)
-        modal.find('#comissao').html('<span class="badge badge-info">'+comissao+'</span>'); 
-        modal.find('#entrada').html('<span class="badge badge-success">'+entrada+'</span>'); 
+        modal.find('#comissao').html('<span>'+comissao+'</span>'); 
+        modal.find('#entrada').html('<span>'+entrada+'</span>'); 
         modal.find('#saida').html('<span class="badge badge-danger">'+saida+'</span>'); 
         modal.find('#lancamento').html('<span class="badge badge-danger">'+lancamento+'</span>'); 
         modal.find('#total').html('<span class="badge badge-danger">'+total+'</span>'); 

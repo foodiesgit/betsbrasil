@@ -93,7 +93,7 @@
 
                     <div class="table-responsive">
 
-                        <table id="example" class="datatable table align-items-center table-flush">
+                    <table class="table table-striped table-bordered table-sm tabela">
 
                             <thead>
 

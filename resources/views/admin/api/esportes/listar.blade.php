@@ -7,7 +7,15 @@
 
         <div class="main-content" id="panel">
         @yield('nav')
-             
+     <style>
+     .tabela {
+        margin: 50px auto;
+        width:70%
+     }
+     body {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    </style>     
         <div class="card">
 
 <div class="card-header d-block">
@@ -23,7 +31,7 @@
 
     <div class="table-responsive">
 
-        <table id="example" class="datatable table align-items-center table-flush">
+    <table id="example" class="table table-striped table-bordered table-sm tabela">
 
             <thead>
 
@@ -73,11 +81,11 @@
 
                             if($dados->destaque_menu == 1){
 
-                                $destaque_menu = '<span class="badge badge-success">Destacado</div>';
+                                $destaque_menu = '<span>Destacado</div>';
 
                             }else{
 
-                                $destaque_menu = '<span class="badge badge-warning">Sem Destaque</div>';
+                                $destaque_menu = '<span>Sem Destaque</div>';
 
                             }
 

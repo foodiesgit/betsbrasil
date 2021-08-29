@@ -10,11 +10,11 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>Apostas</title>
+    <title>:: Cadastro ::</title>
 
     <!-- Favicon icon -->
 
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" sizes="16x16" href="favicon.ico">
 
     <!-- Custom Stylesheet -->
 
@@ -215,7 +215,7 @@
 
                                     <div class="new-account mt-5">
 
-                                        <p>Já tem uma conta? <a class="text-primary" href="/admin/login">Entrar</a></p>
+                                        <p>Já tem uma conta? <a class="form-group" href="/admin/login">Entrar</a></p>
 
                                     </div>
 

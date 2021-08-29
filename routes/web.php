@@ -107,6 +107,7 @@ Route::prefix('admin')->group(function(){
     Route::get('login', 'AdminController@viewLogin');
     Route::post('login', 'AdminController@postLogin');
 
+
     Route::group(['middleware' => 'authAdmin'], function(){
         Route::get('dashboard', 'AdminController@viewDashboard');
         Route::get('usuarios/listar', 'AdminController@viewListarUsuarios');
@@ -121,6 +122,8 @@ Route::prefix('admin')->group(function(){
         Route::get('fechar/caixa/cambista/{id}', 'AdminController@fecharCaixaCambista');
         Route::get('ver/cambista/{id}', 'AdminController@viewCambista');
         Route::get('ver/gerente/{id}', 'AdminController@viewGerente');
+        
+
         /*Gerênciar API */
         Route::get('api/esportes/listar', 'AdminController@viewListarEsportes');
         Route::get('api/esportes/editar/{id}', 'AdminController@viewEditarEsportes');
@@ -171,6 +174,8 @@ Route::prefix('admin')->group(function(){
         Route::get('aprovar-solicitacao/{id}', 'AdminController@aprovarSolicitacao');
         Route::get('validar-bilhete', 'AdminController@viewValidarBilhete');
         Route::post('validar-bilhete', 'AdminController@postValidarBilhete');
+		Route::get('caixa', 'AdminController@caixageral');
+        Route::get('fixos/bilhetes', 'AdminController@bilhetes');
 
         Route::get('jogos/visualizar-apostas/{id}', 'AdminController@visualizarAposta');
 

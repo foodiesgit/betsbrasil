@@ -22,7 +22,7 @@
 
         <div class="table-responsive">
 
-            <table id="example" class="datatable table align-items-center table-flush">
+        <table id="example" class="table table-striped table-bordered table-sm tabela">
                 <thead>
 
                     <tr>
@@ -33,11 +33,7 @@
 
                         <td>Pais</td>
 
-                        <td>Esporte</td>
-
                         <td>Status</td>
-
-                        <td>Destaque Menu</td>
 
                         <td>Ações</td>
 
@@ -69,7 +65,7 @@
 
 
 
-                                $destaque_menu = '';
+                                $destaque_menu2 = '';
 
 
 
@@ -95,11 +91,8 @@
 
                                     <td><img src="/assets/bandeiras/'.$dados->bandeira.'" width="32"> '.$dados->nome_pais.'</td>
 
-                                    <td><span class="badge badge-primary">'.$dados->nome_esporte.'</span></td>
 
                                     <td>'.$status.'</td>
-
-                                    <td>'.$destaque_menu.'</td>
 
                                     <td>
 
@@ -144,5 +137,6 @@
 
 </div>
 </div>
-@yield('footer') 
-
+@yield('footer')
+<!-- <td>'.$destaque_menu.'</td>
+<td><span>'.$dados->nome_esporte.'</span></td>

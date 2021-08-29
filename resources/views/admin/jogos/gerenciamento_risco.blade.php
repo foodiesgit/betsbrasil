@@ -9,7 +9,12 @@
 <div class="container-fluid">
 
     <!-- row -->
-
+    <style>
+     .tabela {
+        margin: 50px auto;
+        width:70%
+     }
+    </style>  
     <div class="row">
 
         <div class="col-lg-12">
@@ -29,27 +34,22 @@
 
                     <div class="table-responsive">
 
-                        <table id="example" class="display">
+                    <table class="table table-striped table-bordered table-sm tabela">
+                    <thead>
 
-                            <thead>
+<tr>
 
-                                <tr>
+    <td><center>Código do Bilhete</td>
+    <td><center>Valor Apostado</td>
 
-                                    <td>Código do Bilhete</td>
+    <td><center>Possível Retorno</td>
+    <td><center>Apostas em Aberto</td>
 
-                                    <td>Valor Apostado</td>
+    <td><center>Verificar Bilhete</td>
 
-                                    <td>Possível Retorno</td>
+</tr>
 
-                                    <td>Apostas em Aberto</td>
-
-
-
-                                    <td>Verificar Bilhete</td>
-
-                                </tr>
-
-                            </thead>
+</thead>
 
                             <tbody>
 
@@ -131,15 +131,15 @@
 
                                             <tr>
 
-                                                <td>'.$dados->codigo_unico.'</td>
+                                                <td><center>'.$dados->codigo_unico.'</td>
 
-                                                <td>R$ '.number_format($dados->valor_apostado,2,',','.').'</td>
+                                                <td><center>R$ '.number_format($dados->valor_apostado,2,',','.').'</td>
 
-                                                <td>R$ '.number_format($dados->possivel_retorno,2,',','.').'</td>
+                                                <td><center>R$ '.number_format($dados->possivel_retorno,2,',','.').'</td>
 
-                                                <td>'.$apostas_aberto.'/'.$apostas_total.'</td>
+                                                <td><center>'.$apostas_aberto.'/'.$apostas_total.'</td>
 
-                                                <td>
+                                                <td><center>
 
                                                     <a class="btn btn-sm btn-primary" target="_blank" href="/verifica-bilhete/'.$dados->codigo_unico.'">Visualizar</a>
 

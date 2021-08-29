@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html class="wide wow-animation" lang="en">
+<html class="wide wow-animation" lang="pt-br">
   <head>
     <?php $config =\DB::table('campos_fixos')->first(); ?>
     <!-- Site Title-->
@@ -8,38 +7,28 @@
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <meta name="Description" content="NoboBets" />
-
-    <meta name="Author" content="Novo Bets" />
-
     <meta charset="utf-8">
-
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <!-- Stylesheets-->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Kanit:300,400,500,500i,600%7CRoboto:400,900">
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/fonts.css?16">
     <link rel="stylesheet" href="/css/style.css?ss">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="ie-panel"><a href="https://windows.microsoft.com/en-US/internet-explorer/"><img src="/images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <div class="preloader">
-      <div class="preloader-body">
-        <div class="preloader-item"></div>
+<center> <img src="../../logo_principal.png" width=130 height=130><p>&nbsp;</p>
+      <div class="preloader-body"><p>&nbsp;</p>
+        <div class="preloader-item"><p>&nbsp;</p></div>
       </div>
     </div>
     <!-- Page-->
     <style>
-
     a {
         text-decoration: none;
       }
+
     </style>
     @section('main-header')
       <!-- Page Header-->
@@ -90,19 +79,32 @@
                 <div class="rd-navbar-main-container container">
                   <!-- RD Navbar Nav-->
                   <ul class="rd-navbar-nav"> 
-                    <li class="rd-nav-item active"><a class="rd-nav-link" href="/">Início</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="/">Início</a>
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/jogos-ao-vivo">Ao Vivo</a></li>
-                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none">
-                      <a class="rd-nav-link" href="/data/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">Jogos do dia {{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</a>
-                    </li>
-                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none">
-                      <a class="rd-nav-link" href="/data/{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('Y-m-d')}}">Jogos do dia {{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}
-                      </a>
-                    </li>
-                    <li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none">
-                      <a class="rd-nav-link" href="/data/{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('Y-m-d')}}">Jogos do dia {{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('d/m/Y')}}</a>
-                    </li>
+					<li class="rd-nav-item desktop-hide logomobile">
+                    <a class="rd-nav-link" href="#">Jogos do Dia</a>
+					<article class="rd-menu rd-navbar-megamenu rd-megamenu-2-columns context-light">
+                      <div class="rd-megamenu-main">
+                          <div class="rd-megamenu-item rd-megamenu-item-nav">
+                            <div class="rd-megamenu-list-outer">
+                              <ul class="rd-megamenu-list">
+								<li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none">
+								  <a style="text-transform: uppercase" href="/data/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->isoFormat('dddd')}} - {{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</a>
+								</li>
+								<li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none">  
+								  <a style="text-transform: uppercase" href="/data/{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('Y-m-d')}}">{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->isoFormat('dddd')}} - {{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</a>
+								</li>
+								<li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none"> 							
+								  <a style="text-transform: uppercase" href="/data/{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('Y-m-d')}}">{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->isoFormat('dddd')}} - {{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('d/m/Y')}}</a>
+								</li>
+							  </ul>
+                            </div>
+                          </div>
+                        </div>
+                    </article>
+					</li>
+					</li>
                     <li class="rd-nav-item">
                     <a class="rd-nav-link" href="#">Campeonatos</a>
                   
@@ -227,8 +229,8 @@
                     @if(isset(Auth::user()->id))
                           <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/dashboard">Minha Conta</a></li>
                       @else
-                          <li class="rd-nav-item"><a class="rd-nav-link" href="/cadastro">Cadastra-se</a></li>
-                          <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/login">Login</a></li>
+                          <!-- <li class="rd-nav-item"><a class="rd-nav-link" href="/cadastro">Cadastra-se</a></li>
+                          <li class="rd-nav-item"><a class="rd-nav-link" href="/admin/login">Login</a></li> -->
                       @endif
                   </ul>
                   <div class="rd-navbar-main-element">

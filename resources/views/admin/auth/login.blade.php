@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="pt-br">
 
 <head>
 
@@ -10,11 +10,11 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>Admin</title>
+    <title>:: Acesse sua conta ::</title>
 
     <!-- Favicon icon -->
 
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon.ico">
 
     <!-- Custom Stylesheet -->
 
@@ -135,7 +135,7 @@
 
                                             </div>
 
-                                            <div class="text-center">
+                                            <div class="text-center form-group">
 
                                                 <button type="button" class="btn btn-primary btn-block" id="btn1">Entrar</button>
 
@@ -145,7 +145,7 @@
 
                                         <div class="new-account mt-3">
 
-                                            <p>Ainda não tem uma conta? <a class="text-primary" href="/cadastro">Cadastre-se</a></p>
+                                            <p>Ainda não tem uma conta? <a class="form-group" href="/cadastro">Cadastre-se</a></p>
 
                                         </div>
 

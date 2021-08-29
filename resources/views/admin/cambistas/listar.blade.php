@@ -4,21 +4,18 @@
 
 @yield('header')
 <div class="main-content" id="panel">
-
+<style>
+     .tabela {
+        margin: 50px auto;
+        width:70%
+     }
+    </style>  
 @yield('nav')
 <div class="header bg-dark pb-6">
   <div class="container-fluid">
     <div class="header-body">
       <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
-          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-              <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li class="breadcrumb-item"><a href="#">Listar</a></li>
-
-            </ol>
-          </nav>
         </div>
       </div>
       <!-- Card stats -->
@@ -45,21 +42,21 @@
 
     <div class="table-responsive">
 
-        <table id="example" class="datatable table align-items-center table-flush">
+        <table id="example" class="table table-striped table-bordered table-sm tabela">
 
             <thead>
 
                 <tr class="thead-light">
 
-                    <td scope="col" class="sort">Nome</td>
+                <td scope="col" class="sort"><center>Nome</td>
 
-                    <td scope="col" class="sort">Email</td>
+                <td scope="col" class="sort"><center>Email</td>
 
-                    <td scope="col" class="sort">Gerente Vinculado</td>
+                <td scope="col" class="sort"><center>Gerente Vinculado</td>
 
-                    <td scope="col" class="sort">Status</td>
+                <td scope="col" class="sort"><center>Status</td>
 
-                    <td scope="col" class="sort">Ações</td>
+                <td scope="col" class="sort"><center>Ações</td>
 
                 </tr>
 
@@ -79,11 +76,11 @@
 
                             if($dados->status == 1){
 
-                                $status = '<span class="badge badge-success">Ativo</div>';
+                                $status = '<center><span class="badge badge-success">Ativo</div>';
 
                             }elseif($dados->status == 0){
 
-                                $status = '<span class="badge badge-danger">Inativo</span>';
+                                $status = '<center><span class="badge badge-danger">Inativo</span>';
 
                             }
 
@@ -93,7 +90,7 @@
 
                             if(count($gerente) > 0){
 
-                                $gerente = '<span class="badge badge-success">'.$gerente[0]->name.'<br>'.$gerente[0]->email.'</div>';
+                                $gerente = '<center><span class="badge">'.$gerente[0]->name.'</div>';
 
                             }else{
 
@@ -107,13 +104,13 @@
 
                             <tr>
 
-                                <td>'.$dados->name.'</td>
+                            <td><center>'.$dados->name.'</td>
 
-                                <td>'.$dados->email.'</td>
+                            <td><center>'.$dados->email.'</td>
 
-                                <td>'.$gerente.'</td>
+                            <td><center>'.$gerente.'</td>
 
-                                <td>'.$status.'</td>
+                            <td><center>'.$status.'</td>
 
                                
 
@@ -121,9 +118,9 @@
 
                                     <div class="dropdown">
 
-                                        <button type="button" class="btn btn-success light sharp" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-success light sharp" data-toggle="dropdown"><center>
 
-                                            <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                                            <center><svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
 
                                         </button>
 
