@@ -176,28 +176,19 @@
 
     <div class="table-responsive">
 
-        <table id="example" class="datatable table align-items-center table-flush">
+        <!--<table id="example" class="datatable table align-items-center table-flush">-->
+        <table class="table table-striped table-bordered table-sm tabela">    
 
             <thead>
 
                 <tr>
-
-                    <td>Data</td>
-
-                    <td>Pais</td>
-
-                    <td>Esporte</td>
-
-                    <td>Liga</td>
-
-                    <td>Times</td>
-
-
-
-                    <td>Status</td>
-
-                    <td>Ações</td>
-
+                    <td><center>Data</td>
+                    <td><center>Pais</td>
+                    <td><center>Esporte</td>
+                    <td><center>Liga</td>
+                    <td><center>Times</td>
+                    <td><center>Status</td>
+                    <td><center>Ações</td>
                 </tr>
 
             </thead>

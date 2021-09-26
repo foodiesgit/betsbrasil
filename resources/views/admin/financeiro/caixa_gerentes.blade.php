@@ -13,12 +13,6 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
             <div class="col-lg-6 col-7">
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                </ol>
-              </nav>
             </div>
           </div>
           <!-- Card stats -->
@@ -218,36 +212,30 @@
 
             <div class="card-header d-block">
 
-                <h4 class="card-title">Gerêntes</h4>
+                <h4 class="card-title">Gerentes</h4>
 
-                <p class="mb-0 subtitle">Resumo dos Gerêntes Cadastrados</p>
+                <p class="mb-0 subtitle">Resumo dos Gerentes Cadastrados</p>
 
             </div>
 
-            <div class="card-body">
+            <!--  <div class="card-body"> -->
 
                 <div class="table-responsive">
 
-                <table id="gerente" class="table align-items-center table-flush">
-
+                <!--<table id="gerente" class="table align-items-center table-flush">-->
+                <table id="gerente" class="table table-striped table-bordered table-sm tabela" width="70%">
                     <thead>
 
                         <tr>
 
-                            <td>ID</td>
-                            <td>Nome</td>
-
-                            <td>Email</td>
-
-                            <td>Entrada</td>
-
-                            <td>Saida</td>
-
-                            <td>Comissão</td>
-
-                            <td>Status</td>
-
-                            <td>Ações</td>
+                            <td><center>ID</td>
+                            <td><center>Nome</td>
+                            <td><center>Email</td>
+                            <td><center>Entrada</td>
+                            <td><center>Saida</td>
+                            <td><center>Comissão</td>
+                            <td><center>Status</td>
+                            <td><center>Ações</td>
 
                         </tr>
 
@@ -296,6 +284,10 @@
             var table = $('#gerente').DataTable({
             processing: true,
             serverSide: true,
+            searching: false,
+            paging: false,
+            ordering: false,
+            info: false,
             ajax: "/admin/ajaxviewgerente",
             columns: [{
                     data: 'id',

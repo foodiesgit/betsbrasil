@@ -267,7 +267,7 @@ class ApiAndroidController extends Controller{
 
     public function recuperaJogosPrincipal(){
 
-        $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->orderBy('data', 'asc')
+        $jogos = Events::where('data', '>', date('Y-m-d H:i:s'))->orderBy('paises.nome_traduzido','ASC')
 
             ->leftJoin('ligas', 'ligas.id','=','events.idliga')
 

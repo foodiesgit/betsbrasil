@@ -259,13 +259,12 @@
                                                 <div class="col-sm-9 col-md-4 col-lg-3">
                                                     <div class="sport-table-title">
 													
-                                                        <div class="mobile-hide sport-table-title-item sport-table-title-item-left">
-                                                            <span class="sport-table-title-team">'.$jogos['home'].' x </span>
-                                                            <span class="sport-table-title-team">'.$jogos['away'].'</span>
+                                                        <div class="mobile-hide sport-table-title-item sport-table-title-item-left d-none d-md-block d-lg-block d-xl-block">
+                                                            <span class="sport-table-title-team">'.$jogos['home'].' x </span><span class="sport-table-title-team">'.$jogos['away'].'</span>
 															</div>
 															<div class="desktop-hide logomobile sport-table-title-item sport-table-title-item-left">
-                                                            <span class="sport-table-title-team">'.$jogos['home'].' x '.$jogos['away'].'</span>
-                                                        </div>
+                                                                <span class="sport-table-title-team">'.$jogos['home'].' x '.$jogos['away'].'</span>
+                                                            </div>
 														</div>
                                                         <div class="sport-table-title-item sport-table-title-item-right">
                                                         </div>

@@ -86,7 +86,7 @@
               </div>
             </li>
             @endif
-			@if($user->tipo_usuario == 2)
+      @if($user->tipo_usuario == 2||$user->tipo_usuario == 3||$user->tipo_usuario == 4)
             <li class="nav-item">
               <a class="nav-link" href="/admin/caixa">
                 <i class="ni ni-box-2 text-default"></i>
@@ -102,7 +102,7 @@
               </a>
               <div class="collapse" id="navbar-boxg">
                 <ul class="nav nav-sm flex-column">
-                <li class="nav-item"><a href="/admin/gerentes/caixa" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="/admin/gerentes/caixa" class="nav-link">Detalhado</a></li>
 
                 <li class="nav-item"><a href="/admin/gerentes/caixa/historico" class="nav-link">Movimentações</a></li>
                 </ul>
@@ -118,7 +118,7 @@
               <div class="collapse" id="navbar-boxc">
                 <ul class="nav nav-sm flex-column">
 
-                <li class="nav-item"><a href="/admin/cambistas/caixa" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="/admin/cambistas/caixa" class="nav-link">Detalhado</a></li>
                 @if($user->tipo_usuario == 2)
                   <li class="nav-item"><a href="/admin/cambistas/caixa/historico" class="nav-link">Movimentações</a></li>
                 @endif
@@ -212,6 +212,12 @@
               <a class="nav-link" href="/admin/validar-bilhete">
                 <i class="ni ni-single-copy-04 text-default"></i>
                 <span class="nav-link-text">Validar Bilhete</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="ni ni-world text-default"></i>
+                <span class="nav-link-text">Apostar</span>
               </a>
             </li>
             @endif

@@ -42,7 +42,7 @@
 <div>
 
     <div class="table-responsive">
-    <input class="form-control" id="myInput" size="5" type="text" placeholder="Procurar..">
+    <input class="form-control" id="myInput" type="text" placeholder="Procurar..">
         <table id="example" class="table table-striped table-bordered table-sm tabela">
             <thead>
 

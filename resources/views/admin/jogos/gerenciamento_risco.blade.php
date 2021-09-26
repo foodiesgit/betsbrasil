@@ -141,7 +141,7 @@
 
                                                 <td><center>
 
-                                                    <a class="btn btn-sm btn-primary" target="_blank" href="/verifica-bilhete/'.$dados->codigo_unico.'">Visualizar</a>
+                                                    <a class="btn btn-sm btn-primary" target="_blank" href="/minhas-apostas/visualizar-cupom/'.$dados->codigo_unico.'">Visualizar</a>
 
                                                 </td>
 

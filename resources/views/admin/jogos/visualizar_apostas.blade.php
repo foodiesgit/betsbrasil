@@ -143,8 +143,8 @@
 
                                 <div class="table-responsive">
 
-                                    <table id="example" class="display">
-
+                                    <!--<table id="example" class="display">-->
+                                    <table class="table table-striped table-bordered table-sm tabela">  
                                         <thead>
 
                                             <tr>

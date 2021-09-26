@@ -69,8 +69,16 @@ class ApiController extends Controller {
     public function salvaOdds($idevent, $idsubgrupo, $item){
         $config =\DB::table('campos_fixos')->first();
 
+        $odds = [];
 
-        $odds = Odds::where('idbets', $item->id)->get();
+        if(isset($item)){
+            if(!isset($item->id)){
+                dd($item);
+            }
+            $odds = Odds::where('idbets', $item->id)->get();
+
+        }
+
 
         if(count($odds) > 0){ $odds = Odds::find($odds[0]->id); }else{ $odds = new Odds; }
 
@@ -326,9 +334,9 @@ class ApiController extends Controller {
 
 
                 if(isset($json->results[0]->main->sp->full_time_result)){
-                    $json->results[0]->main->sp->full_time_result[0]->name = 'Casa';
-                    $json->results[0]->main->sp->full_time_result[1]->name = 'Empate';
-                    $json->results[0]->main->sp->full_time_result[2]->name = 'Fora';
+                    (isset($json->results[0]->main->sp->full_time_result[0]->name) ?  $json->results[0]->main->sp->full_time_result[0]->name = 'Casa' : '');
+                    (isset($json->results[0]->main->sp->full_time_result[1]->name) ?  $json->results[0]->main->sp->full_time_result[1]->name = 'Empate' : '');
+                    (isset($json->results[0]->main->sp->full_time_result[2]->name) ?  $json->results[0]->main->sp->full_time_result[2]->name = 'Fora' : '');
                     $this->salvaOdds($idevent, 79, $json->results[0]->main->sp->full_time_result[0]);
 
                     $this->salvaOdds($idevent,79, $json->results[0]->main->sp->full_time_result[1]);
@@ -340,9 +348,10 @@ class ApiController extends Controller {
 
 
                 if(isset($json->results[0]->main->sp->double_chance)){
-                        $json->results[0]->main->sp->double_chance[0]->name = 'Casa ou Empate';
-                        $json->results[0]->main->sp->double_chance[1]->name = 'Empate ou Fora';
-                        $json->results[0]->main->sp->double_chance[2]->name = 'Casa ou Fora';
+                    (isset($json->results[0]->main->sp->double_chance[0]->name) ?  $json->results[0]->main->sp->double_chance[0]->name = 'Casa ou Empate' : '');
+                    (isset($json->results[0]->main->sp->double_chance[1]->name) ?  $json->results[0]->main->sp->double_chance[1]->name = 'Empate ou Fora' : '');
+                    (isset($json->results[0]->main->sp->double_chance[2]->name) ?  $json->results[0]->main->sp->double_chance[2]->name = 'Casa ou Fora' : '');
+
                         $this->salvaOdds($idevent, 80, $json->results[0]->main->sp->double_chance[0]);
 
                         $this->salvaOdds($idevent,80, $json->results[0]->main->sp->double_chance[1]);
@@ -501,47 +510,45 @@ class ApiController extends Controller {
 
     }
 
-    public function recuperaUpcomingEvents($idesporte){
+    public function recuperaUpcomingEvents(Request $request){
         set_time_limit(-1);
         // $responsePaises = Http::get('https://betsapi.com/docs/samples/countries.json');
         // if( $responsePaises->successful() ){
         //     $json = json_decode($responsePaises->body(), false);
         //     foreach( $json->results as $paises){
+
+                $idesporte = $request->idesporte;
+                $day = '';
+                if(isset($request->day)){
+                    $day =  str_replace('-', '', $request->day);
+                }
+               
+
                 $i = 1;
         
                 $sair = false;
-        
-        
-        
+                
                 do{
-                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&page='.$i);
+                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&day='.$day.'&page='.$i);
                     
-        
                     if($response->successful()){
                         $json = json_decode($response->body(), false);
         
-        
-        
-                        
-        
                         if(count($json->results) > 0){
-        
-        
-        
                             foreach($json->results as $dados_json){
         
         
                                 $events = Events::find($dados_json->id);
-        
-        
-        
-                                if($events == null){ $events = new Events; }
-        
-        
-        
+    
+                                if(!$events){ 
+                                    $events = new Events; 
+                                }
+    
                                 if(isset($dados_json->id)){
                                     $data = \Carbon\Carbon::createFromTimestamp($dados_json->time, 'America/Sao_Paulo')->format('Y-m-d H:i:s'); 
-                                    $events->id = $dados_json->id;
+                                    if(!$events){
+                                        $events->id = $dados_json->id;
+                                    }
         
                                     $events->data_time = $dados_json->time;
                                     $events->data = $data;
@@ -613,7 +620,7 @@ class ApiController extends Controller {
                                     $events->idaway = $times->id;
         
                                     if(isset($dados_json->id)){
-                                      
+                                        
                                         $events->bet365_id = isset($dados_json->bet365_id) ? $dados_json->bet365_id: 0;
         
                                     }
@@ -658,6 +665,8 @@ class ApiController extends Controller {
                                     $this->somaTotalOdds($events->id);
         
                                 }
+                            
+
         
                             }
         

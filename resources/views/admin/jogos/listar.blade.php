@@ -9,7 +9,7 @@
 <div class="header bg-dark pb-6">
   <div class="container-fluid">
     <div class="header-body">
-      <div class="row align-items-center py-4">
+      <!--<div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -20,7 +20,7 @@
             </ol>
           </nav>
         </div>
-      </div>
+      </div>-->
       <!-- Card stats -->
       <div class="row">
       </div>
@@ -194,28 +194,19 @@
 
     <div class="table-responsive">
 
-        <table id="example"  class="datatable table align-items-center table-flush">
+        <!-- <table id="example"  class="datatable table align-items-center table-flush"> -->
+        <table class="table table-striped table-bordered table-sm tabela">
 
             <thead >
 
                 <tr class="thead-light">
-
-                    <td scope="col" class="sort">Data</td>
-
-                    <td scope="col" class="sort">Pais</td>
-
-                    <td scope="col" class="sort">Esporte</td>
-
-                    <td scope="col" class="sort">Liga</td>
-
-                    <td scope="col" class="sort">Times</td>
-
-
-
-                    <td scope="col" class="sort">Status</td>
-
-                    <td scope="col" class="sort">Ações</td>
-
+                    <td scope="col" class="sort"><center>Data</td>
+                    <td scope="col" class="sort"><center>Pais</td>
+                    <td scope="col" class="sort"><center>Esporte</td>
+                    <td scope="col" class="sort"><center>Liga</td>
+                    <td scope="col" class="sort"><center>Times</td>
+                    <td scope="col" class="sort"><center>Status</td>
+                    <td scope="col" class="sort"><center>Ações</td>
                 </tr>
 
             </thead>
