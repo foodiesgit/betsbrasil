@@ -629,9 +629,13 @@ class AovivoController extends Controller
                     ->select(DB::raw("date_format(events.data, '%d/%m') as data"), DB::raw("date_format(events.data, '%H:%i') as hora"), 'events.id as jogoId', 'events.idhome', 'events.idaway', 'events.idliga', 'total_odds')->first();
                   
                     if($jogos) {
+                        if ($evento->timer->tt) {  # when playing
+                             $time  =$evento->timer->tm ;
+                        } else {
+                            $time  =$evento->timer->tm ;
+                        }
 
-
-                        $time = $evento->timer->tm * 60 + $evento->timer->ts;
+                    
                         
                         $sql_time_home = Times::find($jogos->idhome);
 
@@ -699,8 +703,12 @@ class AovivoController extends Controller
 
                             $sql_odds_principal = Odds::where('idevent', $jogos->jogoId)->where('idsubgrupo', 79)->get();
                             if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
-                            $time = $evento->timer->tm * 60 + $evento->timer->ts;
-        
+                            if ($evento->timer->tt) {  # when playing
+                                 $time  =$evento->timer->tm ;
+                            } else {
+                                $time  =$evento->timer->tm ;
+                            } 
+    
                             array_push($array_jogos,[
     
                                 'id' => $jogos->jogoId,
@@ -885,9 +893,12 @@ class AovivoController extends Controller
                         $sql_time_home = Times::find($jogos->idhome);
 
                         $sql_time_away = Times::find($jogos->idaway);
-
-                        $time = $evento->timer->tm * 60 + $evento->timer->ts;
-
+                        // dd(\Carbon\Carbon::now()->diffInSeconds(\Carbon\Carbon::createFromTimestamp($evento->time )) +  $evento->timer->tm + $evento->timer->ts);
+                        if ($evento->timer->tt) {  # when playing
+                            $time  =$evento->timer->tm ;
+                        } else {
+                           $time  =$evento->timer->tm ;
+                        }
                         $placar = explode('-', $evento->ss);
                         $sql_odds_principal = Odds::where('idevent', $jogos->jogoId)->where('idsubgrupo', 79)->get();
                         if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
@@ -951,7 +962,12 @@ class AovivoController extends Controller
 
                             $sql_odds_principal = Odds::where('idevent', $jogos->jogoId)->where('idsubgrupo', 79)->get();
                             if( $sql_time_home != null && $sql_time_away != '' && count($sql_odds_principal) > 0 ){
-                            $time = $evento->timer->tm * 60 + $evento->timer->ts;
+                            
+                            if ($evento->timer->tt) {  # when playing
+                                 $time  =$evento->timer->tm ;
+                            } else {
+                                $time  =$evento->timer->tm ;
+                            }
                             array_push($array_jogos,[
     
                                 'id' => $jogos->jogoId,
