@@ -1019,10 +1019,6 @@ public function viewIndex(){
                 }else{
                     return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
                 }
-            }else{
-                if($jogo->data < \Carbon\Carbon::now()){
-                    return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
-               }
             }
 
         }

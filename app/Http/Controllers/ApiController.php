@@ -71,13 +71,7 @@ class ApiController extends Controller {
 
         $odds = [];
 
-        if(isset($item)){
-            if(!isset($item->id)){
-                dd($item);
-            }
-            $odds = Odds::where('idbets', $item->id)->get();
-
-        }
+        $odds = Odds::where('idbets', $item->id)->get();
 
 
         if(count($odds) > 0){ $odds = Odds::find($odds[0]->id); }else{ $odds = new Odds; }
@@ -157,357 +151,361 @@ class ApiController extends Controller {
 
     public function somaTotalOdds($idevent){
 
-        $sql = Odds::where('idevent', $idevent)->select(DB::raw("count(*) as total"))->where('odds','>',0)->get();
-
-
-
-        if(count($sql) > 0){
-
-            foreach($sql as $dados){
-
-                $event = Events::find($idevent);
-
-                $event->total_odds = $dados->total;
-
-                $event->save();
-
-            }
-
+        $sql = Odds::where('idevent', $idevent)->count();
+        if($sql){
+            $event = Events::find($idevent);
+            $event->total_odds = $sql;
+            $event->save();
         }
+
+
 
     }
 
     public function atualizaOdds($idevent){
 
         $events = Events::find($idevent);
-        // dd('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
-        $response = Http::get('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
+        if(isset($events->bet365_id) &&  $events->bet365_id != 0){
+            // dd('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
+            // $response = Http::get('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
+            $response = Http::get('http://localhost:9000/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$idevent.'');
 
-        if( $response->successful() ){
-            
-            $json = json_decode($response->body(), false);
-
-
-
-            try{
-
-                if($json->success != '1'){ throw new Exception('Erro ao consultar'); }
+            if( $response->successful() ){
+                
+                $json = json_decode($response->body(), false);
 
 
 
-                # Inicia o grupo 4 -> Half
-                if(isset($json->results[0]->main->sp)){
+                try{
 
-                    foreach($json->results[0]->main->sp as $key => $value){
+                    // if($json->success != '1'){ throw new Exception('Erro ao consultar'); }
 
-                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
-                        if(count($sql) < 1){
-                            
-                            $sql = new OddsSubGrupo;
-                            $sql->titulo_original = $key;
-                            $sql->status = 1;
-                            $sql->save();
-                            
+
+
+                    # Inicia o grupo 4 -> Half
+                    if(isset($json->results->main)){
+
+                        foreach($json->results->main as $key => $value){
+
+                            $sql = OddsSubGrupo::where('titulo_original', $key)->get();
+                            if(count($sql) < 1){
+                                
+                                $sql = new OddsSubGrupo;
+                                $sql->titulo_original = $key;
+                                $sql->status = 1;
+                                $sql->save();
+                                
+                            }
+
                         }
 
                     }
+                    if(isset($json->results->half)){
 
-                }
-                if(isset($json->results[0]->half->sp)){
+                        foreach($json->results->half as $key => $value){
 
-                    foreach($json->results[0]->half->sp as $key => $value){
+                            $sql = OddsSubGrupo::where('titulo_original', $key)->get();
+                            if(count($sql) > 0){
 
-                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
-                        if(count($sql) > 0){
+                                $idgrupo = $sql[0]->id;
 
-                            $idgrupo = $sql[0]->id;
+                                if(isset($json->results->half[$key]) > 0){
+                                    
+                                    foreach($json->results->half[$key] as $key => $itens){
+                                        foreach($itens->odds as $item){
 
-                            if(count($json->results[0]->half->sp->$key) > 0){
+                                            $this->salvaOdds($idevent, $idgrupo, $item);
+                                        }
 
-                                foreach($json->results[0]->half->sp->$key as $item){
-                                    $this->salvaOdds($idevent, $idgrupo, $item);
+                                    }
 
                                 }
 
+                            }else{
+                                
+                                $sql = new OddsSubGrupo;
+                                $sql->titulo_original = $key;
+                                $sql->status = 1;
+                                $sql->save();
+                                
                             }
 
-                        }else{
-                            
-                            $sql = new OddsSubGrupo;
-                            $sql->titulo_original = $key;
-                            $sql->status = 1;
-                            $sql->save();
-                            
                         }
 
                     }
 
-                }
+
+
+                    # Inicia o grupo 3 -> Goals
+
+                    if(isset($json->results->goals)){
+
+                        foreach($json->results->goals as $key => $value){
+
+                            $sql = OddsSubGrupo::where('titulo_original', $key)->get();
+
+                            if(count($sql) > 0){
+
+                                $idgrupo = $sql[0]->id;
 
 
 
-                # Inicia o grupo 3 -> Goals
+                                if(isset($json->results->goals[$key]) > 0){
 
-                if(isset($json->results[0]->goals->sp)){
+                                    foreach($json->results->goals[$key] as $itens){
+                                        foreach($itens->odds as $item){
 
-                    foreach($json->results[0]->goals->sp as $key => $value){
+                                            $this->salvaOdds($idevent, $idgrupo, $item);
+                                        }
 
-                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
-
-                        if(count($sql) > 0){
-
-                            $idgrupo = $sql[0]->id;
-
-
-
-                            if(count($json->results[0]->goals->sp->$key) > 0){
-
-                                foreach($json->results[0]->goals->sp->$key as $item){
-
-                                    $this->salvaOdds($idevent,$idgrupo, $item);
+                                    }
 
                                 }
 
-                            }
+                            }else{
+                                
+                                $sql = new OddsSubGrupo;
 
-                        }else{
-                            
-                            $sql = new OddsSubGrupo;
-       
-                            $sql->titulo_original = $key;
-                            $sql->status = 1;
-                            $sql->save();
+                                $sql->titulo_original = $key;
+                                $sql->status = 1;
+                                $sql->save();
+
+                            }
 
                         }
 
                     }
 
-                }
 
 
 
 
 
 
+                    # Incia do grupo 2 -> corners
 
-                # Incia do grupo 2 -> corners
+                    if(isset($json->results->corners)){
 
-                if(isset($json->results[0]->corners->sp)){
+                        foreach($json->results->corners as $key => $value){
 
-                    foreach($json->results[0]->corners->sp as $key => $value){
+                            $sql = OddsSubGrupo::where('titulo_original', $key)->get();
 
-                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
+                            if(count($sql) > 0){
 
-                        if(count($sql) > 0){
-
-                            $idgrupo = $sql[0]->id;
-
+                                $idgrupo = $sql[0]->id;
 
 
-                            if(count($json->results[0]->corners->sp->$key) > 0){
 
-                                foreach($json->results[0]->corners->sp->$key as $item){
+                                if(isset($json->results->corners[$key]) > 0){
 
-                                    $this->salvaOdds($idevent, $idgrupo, $item);
+                                    foreach($json->results->corners[$key] as $itens){
+
+                                        foreach($itens->odds as $item){
+
+                                            $this->salvaOdds($idevent, $idgrupo, $item);
+                                        }
+
+
+                                    }
 
                                 }
 
+                            }else{
+                                
+                                $sql = new OddsSubGrupo;
+                                $sql->titulo_original = $key;
+                                $sql->status = 1;
+                                $sql->save();
+                            
                             }
 
-                        }else{
+                        }
+
+                    }
+
+
+
+                    # Inicia as ODDS do Grupo 5 -> Main
+
+
+
+                    if(isset($json->results->main->full_time_result)){
+                        (isset($json->results->main->full_time_result[0]->name) ?  $json->results->main->full_time_result[0]->name = 'Casa' : '');
+                        (isset($json->results->main->full_time_result[1]->name) ?  $json->results->main->full_time_result[1]->name = 'Empate' : '');
+                        (isset($json->results->main->full_time_result[2]->name) ?  $json->results->main->full_time_result[2]->name = 'Fora' : '');
+                        $this->salvaOdds($idevent, 79, $json->results->main->full_time_result[0]);
+
+                        $this->salvaOdds($idevent,79, $json->results->main->full_time_result[1]);
+
+                        $this->salvaOdds($idevent,79, $json->results->main->full_time_result[2]);
+
+                    }
+
+
+
+                    if(isset($json->results->main->double_chance)){
+                        (isset($json->results->main->double_chance[0]->name) ?  $json->results->main->double_chance[0]->name = 'Casa ou Empate' : '');
+                        (isset($json->results->main->double_chance[1]->name) ?  $json->results->main->double_chance[1]->name = 'Empate ou Fora' : '');
+                        (isset($json->results->main->double_chance[2]->name) ?  $json->results->main->double_chance[2]->name = 'Casa ou Fora' : '');
+
+                            $this->salvaOdds($idevent, 80, $json->results->main->double_chance[0]);
+
+                            $this->salvaOdds($idevent,80, $json->results->main->double_chance[1]);
+
+                            $this->salvaOdds($idevent,80, $json->results->main->double_chance[2]);
                             
-                            $sql = new OddsSubGrupo;
-                            $sql->titulo_original = $key;
-                            $sql->status = 1;
-                            $sql->save();
-                        
-                        }
-
                     }
 
-                }
 
 
+                    if(isset($json->results->main->correct_score)){
 
-                # Inicia as ODDS do Grupo 5 -> Main
+                        for($i = 0; $i < 50; $i++){
 
+                            if(isset($json->results->main->correct_score[$i])){
 
+                                $this->salvaOdds($idevent,81, $json->results->main->correct_score[$i]);
 
-                if(isset($json->results[0]->main->sp->full_time_result)){
-                    (isset($json->results[0]->main->sp->full_time_result[0]->name) ?  $json->results[0]->main->sp->full_time_result[0]->name = 'Casa' : '');
-                    (isset($json->results[0]->main->sp->full_time_result[1]->name) ?  $json->results[0]->main->sp->full_time_result[1]->name = 'Empate' : '');
-                    (isset($json->results[0]->main->sp->full_time_result[2]->name) ?  $json->results[0]->main->sp->full_time_result[2]->name = 'Fora' : '');
-                    $this->salvaOdds($idevent, 79, $json->results[0]->main->sp->full_time_result[0]);
-
-                    $this->salvaOdds($idevent,79, $json->results[0]->main->sp->full_time_result[1]);
-
-                    $this->salvaOdds($idevent,79, $json->results[0]->main->sp->full_time_result[2]);
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->double_chance)){
-                    (isset($json->results[0]->main->sp->double_chance[0]->name) ?  $json->results[0]->main->sp->double_chance[0]->name = 'Casa ou Empate' : '');
-                    (isset($json->results[0]->main->sp->double_chance[1]->name) ?  $json->results[0]->main->sp->double_chance[1]->name = 'Empate ou Fora' : '');
-                    (isset($json->results[0]->main->sp->double_chance[2]->name) ?  $json->results[0]->main->sp->double_chance[2]->name = 'Casa ou Fora' : '');
-
-                        $this->salvaOdds($idevent, 80, $json->results[0]->main->sp->double_chance[0]);
-
-                        $this->salvaOdds($idevent,80, $json->results[0]->main->sp->double_chance[1]);
-    
-                        $this->salvaOdds($idevent,80, $json->results[0]->main->sp->double_chance[2]);
-                        
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->correct_score)){
-
-                    for($i = 0; $i < 50; $i++){
-
-                        if(isset($json->results[0]->main->sp->correct_score[$i])){
-
-                            $this->salvaOdds($idevent,81, $json->results[0]->main->sp->correct_score[$i]);
+                            }
 
                         }
 
                     }
 
-                }
 
 
+                    if(isset($json->results->main->half_time_full_time)){
 
-                if(isset($json->results[0]->main->sp->half_time_full_time)){
-
-                   
-                    if(isset($json->results[0]->main->sp->half_time_full_time[0])){
-                        $json->results[0]->main->sp->half_time_full_time[0]->name = "Casa - Casa";
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[0]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->half_time_full_time[1])){
-                        $json->results[0]->main->sp->half_time_full_time[1]->name = "Casa - Empate";
-
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[1]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->half_time_full_time[2])){
-                        $json->results[0]->main->sp->half_time_full_time[2]->name = "Casa - Fora";
-
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[2]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->half_time_full_time[3])){
-                        $json->results[0]->main->sp->half_time_full_time[3]->name = "Empate - Casa";
-
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[3]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->half_time_full_time[4])){
-                        $json->results[0]->main->sp->half_time_full_time[4]->name = "Empate - Empate";
-
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[4]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->half_time_full_time[5])){
-                        $json->results[0]->main->sp->half_time_full_time[5]->name = "Empate - Fora";
-
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[5]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->half_time_full_time[6])){
-                        $json->results[0]->main->sp->half_time_full_time[6]->name = "Fora - Casa";
-
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[6]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->half_time_full_time[7])){
-                        $json->results[0]->main->sp->half_time_full_time[7]->name = "Fora - Empate";
-
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[7]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->half_time_full_time[8])){
-                        $json->results[0]->main->sp->half_time_full_time[8]->name = "Fora - Fora";
-
-                        $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[8]);
-
-                    }
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->goals_over_under)){
-
-                    foreach($json->results[0]->main->sp->goals_over_under as $goals){
-                        
-                        $this->salvaOdds($idevent,84, $goals);
-
-                    }
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->both_teams_to_score)){
-
-                    $this->salvaOdds($idevent,85, $json->results[0]->main->sp->both_teams_to_score[0]);
-
-                    $this->salvaOdds($idevent,85, $json->results[0]->main->sp->both_teams_to_score[1]);
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->goal_line)){
-
-                    foreach($json->results[0]->main->sp->goal_line as $result){
-                        $this->salvaOdds($idevent,89, $result);
-
-                    }
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->draw_no_bet)){
-                    if(isset($json->results[0]->main->sp->draw_no_bet[0])){
-                        $json->results[0]->main->sp->draw_no_bet[0]->name = "Casa";
-
-                        $this->salvaOdds($idevent,92, $json->results[0]->main->sp->draw_no_bet[0]);
-
-                    }
-                    if(isset($json->results[0]->main->sp->draw_no_bet[1])){
-                        $json->results[0]->main->sp->draw_no_bet[1]->name = "Fora";
-                        $this->salvaOdds($idevent,92, $json->results[0]->main->sp->draw_no_bet[1]);
-
-                    }
                     
+                        if(isset($json->results->main->half_time_full_time[0])){
+                            $json->results->main->half_time_full_time[0]->name = "Casa - Casa";
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[0]);
 
-                }
+                        }
+                        if(isset($json->results->main->half_time_full_time[1])){
+                            $json->results->main->half_time_full_time[1]->name = "Casa - Empate";
 
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[1]);
 
+                        }
+                        if(isset($json->results->main->half_time_full_time[2])){
+                            $json->results->main->half_time_full_time[2]->name = "Casa - Fora";
 
-                if(isset($json->results[0]->main->sp->result_both_teams_to_score)){
-                    $json->results[0]->main->sp->result_both_teams_to_score[0]->name = "Casa";
-                    $json->results[0]->main->sp->result_both_teams_to_score[1]->name = "Fora";
-                    $json->results[0]->main->sp->result_both_teams_to_score[2]->name = "Empate";
-                    foreach($json->results[0]->main->sp->result_both_teams_to_score as $result){
-                        $this->salvaOdds($idevent,93, $result);
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[2]);
+
+                        }
+                        if(isset($json->results->main->half_time_full_time[3])){
+                            $json->results->main->half_time_full_time[3]->name = "Empate - Casa";
+
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[3]);
+
+                        }
+                        if(isset($json->results->main->half_time_full_time[4])){
+                            $json->results->main->half_time_full_time[4]->name = "Empate - Empate";
+
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[4]);
+
+                        }
+                        if(isset($json->results->main->half_time_full_time[5])){
+                            $json->results->main->half_time_full_time[5]->name = "Empate - Fora";
+
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[5]);
+
+                        }
+                        if(isset($json->results->main->half_time_full_time[6])){
+                            $json->results->main->half_time_full_time[6]->name = "Fora - Casa";
+
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[6]);
+
+                        }
+                        if(isset($json->results->main->half_time_full_time[7])){
+                            $json->results->main->half_time_full_time[7]->name = "Fora - Empate";
+
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[7]);
+
+                        }
+                        if(isset($json->results->main->half_time_full_time[8])){
+                            $json->results->main->half_time_full_time[8]->name = "Fora - Fora";
+
+                            $this->salvaOdds($idevent,82, $json->results->main->half_time_full_time[8]);
+
+                        }
+
                     }
 
+
+
+                    if(isset($json->results->main->goals_over_under)){
+
+                        foreach($json->results->main->goals_over_under as $goals){
+                            
+                            $this->salvaOdds($idevent,84, $goals);
+
+                        }
+
+                    }
+
+
+
+                    if(isset($json->results->main->both_teams_to_score)){
+
+                        $this->salvaOdds($idevent,85, $json->results->main->both_teams_to_score[0]);
+
+                        $this->salvaOdds($idevent,85, $json->results->main->both_teams_to_score[1]);
+
+                    }
+
+
+
+                    if(isset($json->results->main->goal_line)){
+
+                        foreach($json->results->main->goal_line as $result){
+                            $this->salvaOdds($idevent,89, $result);
+
+                        }
+
+                    }
+
+
+
+                    if(isset($json->results->main->draw_no_bet)){
+                        if(isset($json->results->main->draw_no_bet[0])){
+                            $json->results->main->draw_no_bet[0]->name = "Casa";
+
+                            $this->salvaOdds($idevent,92, $json->results->main->draw_no_bet[0]);
+
+                        }
+                        if(isset($json->results->main->draw_no_bet[1])){
+                            $json->results->main->draw_no_bet[1]->name = "Fora";
+                            $this->salvaOdds($idevent,92, $json->results->main->draw_no_bet[1]);
+
+                        }
+                        
+
+                    }
+
+
+
+                    if(isset($json->results->main->result_both_teams_to_score)){
+                        $json->results->main->result_both_teams_to_score[0]->name = "Casa";
+                        $json->results->main->result_both_teams_to_score[1]->name = "Fora";
+                        $json->results->main->result_both_teams_to_score[2]->name = "Empate";
+                        foreach($json->results->main->result_both_teams_to_score as $result){
+                            $this->salvaOdds($idevent,93, $result);
+                        }
+
+                    }
+
+                }catch(Exception $e){
+
+                    echo $e->getMessage();
+
                 }
-
-            }catch(Exception $e){
-
-                echo $e->getMessage();
 
             }
 
         }
-
+        
     }
 
     public function recuperaUpcomingEvents(Request $request){
@@ -529,14 +527,14 @@ class ApiController extends Controller {
                 $sair = false;
                 
                 do{
-                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&day='.$day.'&page='.$i);
+                    $response = Http::get('http://127.0.0.1:9000/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&day='.$day.'&page='.$i);
                     
                     if($response->successful()){
                         $json = json_decode($response->body(), false);
         
-                        if(count($json->results) > 0){
-                            foreach($json->results as $dados_json){
-        
+                        if(count($json->data) > 0){
+                            foreach($json->data as $dados_json){
+
         
                                 $events = Events::find($dados_json->id);
     
@@ -546,16 +544,13 @@ class ApiController extends Controller {
     
                                 if(isset($dados_json->id)){
                                     $data = \Carbon\Carbon::createFromTimestamp($dados_json->time, 'America/Sao_Paulo')->format('Y-m-d H:i:s'); 
-                                    if(!$events){
-                                        $events->id = $dados_json->id;
-                                    }
-        
+                                    $events->id = $dados_json->id;
                                     $events->data_time = $dados_json->time;
                                     $events->data = $data;
         
                                     $events->idliga = $dados_json->league->id;
         
-        
+                                    
         
                                     //Verifica se o time Home ja esta cadastrado
         
@@ -660,9 +655,12 @@ class ApiController extends Controller {
         
         
                                     $events->save();
-                                    $this->atualizaOdds($events->id);
+                                    if(isset($dados_json->bet365_id)){
+                                        $this->atualizaOdds($events->id);
         
-                                    $this->somaTotalOdds($events->id);
+                                        $this->somaTotalOdds($events->id);
+                                    }
+
         
                                 }
                             
