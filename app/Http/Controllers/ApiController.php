@@ -26,7 +26,6 @@ use Session;
 
 use Image;
 
-use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Http;
 
@@ -61,8 +60,9 @@ use App\Odds;
 use App\OddsGrupo;
 
 use App\OddsSubGrupo;
-
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+
 
 class ApiController extends Controller {
 
@@ -164,7 +164,26 @@ class ApiController extends Controller {
 
 
     }
+    public function baixarTable(){
+        $content = file_get_contents('https://bellagioesportes.com/baixarEventsSeed');
 
+        $content = str_replace("namespace Database\Seeders;","",$content);
+        $content = str_replace("EventsTableSeeder","EventsSeeder",$content);
+
+        
+        file_put_contents('C:\xampp\htdocs\betsbrasil\database\seeds\EventsSeeder.php', $content);
+
+        $content = file_get_contents('https://bellagioesportes.com/baixarOddsSeed');
+
+        $content = str_replace("namespace Database\Seeders;","",$content);
+        $content = str_replace("OddsTableSeeder","OddsSeeder",$content);
+        file_put_contents('C:\xampp\htdocs\betsbrasil\database\seeds\OddsSeeder.php', $content);
+
+    
+        shell_exec('php C:\xampp\htdocs\betsbrasil\artisan db:seed --class=EventsSeeder');
+        shell_exec('php C:\xampp\htdocs\betsbrasil\artisan db:seed --class=OddsSeeder');
+        // $copy = copy('https://bellagioesportes.com/baixarSeed', base_path("database\seeds"));
+    }
     public function atualizaOdds($idevent){
 
         $events = Events::find($idevent);
