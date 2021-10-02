@@ -118,8 +118,8 @@
                     <div class="post-badly-body">
                     <div class="post-badly-body-top">
                         <a href="/data/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">
-                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</div>
+                        <div class="post-badly-team"><h5><span>{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->isoFormat('dddd')}}</span></h5></div>
+                        <div class="post-badly-team">{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</div>
                         </a>
                     </div>
                     </div>
@@ -131,8 +131,8 @@
                     <div class="post-badly-body-top">
                         <a href="/data/{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('Y-m-d')}}">
 
-                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</div>
+                        <div class="post-badly-team"><h5><span>{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->isoFormat('dddd')}}</span></h5></div>
+                        <div class="post-badly-team">{{\Carbon\Carbon::now()->addDay(2)->locale('pt_BR')->format('d/m/Y')}}</div>
                         </a>
                     </div>
                     </div>
@@ -144,8 +144,8 @@
                     <div class="post-badly-body-top">
                         <a href="/data/{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('Y-m-d')}}">
 
-                        <div class="post-badly-team"><span>Jogos do dia</span><span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->isoFormat('dddd')}}</span></div>
-                        <div class="post-badly-time"><span class="icon mdi mdi-clock"></span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('d/m/Y')}}</div>
+                        <div class="post-badly-team"><h5><span>{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->isoFormat('dddd')}}</span></h5></div>
+                        <div class="post-badly-team">{{\Carbon\Carbon::now()->addDay(3)->locale('pt_BR')->format('d/m/Y')}}</div>
                         </a>
                     </div>
                     </div>
@@ -745,11 +745,11 @@ success: function(res){
 
             '<div class="commands-info__wrapper match-data--heading">'+
 
-                '<span class="commands-info__command" style="color:black;">'+res.home.nome+'</span>'+
+                '<span class="commands-info__command" style="color:black;"><b>'+res.home.nome+'</span></b>'+
 
-                '<span class="commands-info__command vs" style="color:black;">VS </span>'+
+                '<span class="commands-info__command vs" style="color:black;"><br><center> VS </center></span>'+
 
-                '<span class="commands-info__command" style="color:black;">'+res.away.nome+'</span>'+
+                '<span class="commands-info__command" style="color:black;"><b>'+res.away.nome+'</span></b>'+
 
             '</div>'+
 

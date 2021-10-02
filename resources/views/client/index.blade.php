@@ -260,10 +260,10 @@
                                                     <div class="sport-table-title">
 													
                                                         <div class="mobile-hide sport-table-title-item sport-table-title-item-left d-none d-md-block d-lg-block d-xl-block">
-                                                            <span class="sport-table-title-team">'.$jogos['home'].' x </span><span class="sport-table-title-team">'.$jogos['away'].'</span>
+                                                            <span class="sport-table-title-team">'.$jogos['home'].'</span> x <br><span class="sport-table-title-team">'.$jogos['away'].'</span>
 															</div>
 															<div class="desktop-hide logomobile sport-table-title-item sport-table-title-item-left">
-                                                                <span class="sport-table-title-team">'.$jogos['home'].' x '.$jogos['away'].'</span>
+                                                                <span class="sport-table-title-team">'.$jogos['home'].' x <br>'.$jogos['away'].'</span>
                                                             </div>
 														</div>
                                                         <div class="sport-table-title-item sport-table-title-item-right">
@@ -767,11 +767,11 @@ success: function(res){
 
             '<div class="commands-info__wrapper match-data--heading">'+
 
-                '<span class="commands-info__command" style="color:black;">'+res.home.nome+'</span>'+
+                '<span class="commands-info__command" style="color:black;"><b>'+res.home.nome+'</span></b>'+
 
-                '<span class="commands-info__command vs" style="color:black;">VS </span>'+
+                '<span class="commands-info__command vs" style="color:black;"><br><center> VS </center></span>'+
 
-                '<span class="commands-info__command" style="color:black;">'+res.away.nome+'</span>'+
+                '<span class="commands-info__command" style="color:black;"><b>'+res.away.nome+'</span></b>'+
 
             '</div>'+
 

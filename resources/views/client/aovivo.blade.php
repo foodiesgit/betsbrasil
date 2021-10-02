@@ -533,7 +533,7 @@ $(document).ready(function(e){
                                                     '<div class="row sport-row align-items-center row-15">'+
                                                         '<div class="col-sm-1 col-md-1 col-lg-1">'+
                                                             '<div class="sport-table-icon">'+
-                                                                item.time+
+                                                                item.time+'"'+
                                                             '</div>'+
                                                         '</div>'+
                                                         '<div class="col-sm-9 col-md-4 col-lg-3">'+

@@ -1011,18 +1011,14 @@ public function viewIndex(){
                     $response = json_decode($response->body());
 
                     if($response->results[0]->timer){
-                        $time = $response->results[0]->timer->tm * 60 +  $response->results[0]->timer->ts;
-                        if($time > 30){
+                        $time = $response->results[0]->timer->tm;
+                        if(($time >= 30 && $time <= 50) || ($time > 75 && $time <= 100)){
                             return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
                         }
                     }
                 }else{
                     return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
                 }
-            }else{
-                if($jogo->data < \Carbon\Carbon::now()){
-                    return Redirect()->back()->with('erro', 'Bilhete não pode ser validado pois os jogos já começaram');
-               }
             }
 
         }

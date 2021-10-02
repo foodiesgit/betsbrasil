@@ -62,7 +62,7 @@ use App\OddsGrupo;
 
 use App\OddsSubGrupo;
 
-
+use Illuminate\Support\Facades\Storage;
 
 class ApiController extends Controller {
 
@@ -72,9 +72,6 @@ class ApiController extends Controller {
         $odds = [];
 
         if(isset($item)){
-            if(!isset($item->id)){
-                dd($item);
-            }
             $odds = Odds::where('idbets', $item->id)->get();
 
         }
@@ -519,8 +516,21 @@ class ApiController extends Controller {
 
                 $idesporte = $request->idesporte;
                 $day = '';
+                $cc = '';
+                $league_id = '';
                 if(isset($request->day)){
                     $day =  str_replace('-', '', $request->day);
+                }else{
+                    $day = date('Ymd');
+                }
+                if(isset($request->day) && $request->day == "false"){
+                    $day = '';
+                }
+                if(isset($request->cc)){
+                    $cc =  $request->cc;
+                }
+                if(isset($request->league_id)){
+                    $league_id =  $request->league_id;
                 }
                
 
@@ -529,7 +539,7 @@ class ApiController extends Controller {
                 $sair = false;
                 
                 do{
-                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&day='.$day.'&page='.$i);
+                    $response = Http::get('https://api.b365api.com/v1/events/upcoming?sport_id='.$idesporte.'&token='.config('app.API_TOKEN').'&cc='.$cc.'&day='.$day.'&league_id='.$league_id.'&page='.$i);
                     
                     if($response->successful()){
                         $json = json_decode($response->body(), false);
@@ -587,7 +597,7 @@ class ApiController extends Controller {
         
                                     $events->idhome = $times->id;
         
-        
+                                    
         
                                     //Verifica se o time Away ja esta cadastrado
         
@@ -660,9 +670,9 @@ class ApiController extends Controller {
         
         
                                     $events->save();
-                                    $this->atualizaOdds($events->id);
+                                    // $this->atualizaOdds($events->id);
         
-                                    $this->somaTotalOdds($events->id);
+                                    // $this->somaTotalOdds($events->id);
         
                                 }
                             
@@ -696,7 +706,34 @@ class ApiController extends Controller {
         // }
         
     }
+    public function baixarEventsSeed(){
 
+        $arquivoEvents = "/www/wwwroot/betsbrasil/database/seeders/EventsTableSeeder.php";
+
+
+        header('Content-Type: application/octet-stream');
+        header("Content-Transfer-Encoding: Binary"); 
+        header("Content-disposition: attachment; filename=\"" . basename($arquivoEvents) . "\""); 
+        readfile($arquivoEvents);
+        // header('Content-Type: application/octet-stream');
+        // header("Content-Transfer-Encoding: Binary"); 
+        // header("Content-disposition: attachment; filename=\"" . basename($arquivoOdds) . "\""); 
+        // readfile($arquivoOdds);
+
+
+    }
+    public function baixarOddsSeed(){
+        
+        $arquivoOdds = "/www/wwwroot/betsbrasil/database/seeders/OddsTableSeeder.php";
+
+
+        header('Content-Type: application/octet-stream');
+        header("Content-Transfer-Encoding: Binary"); 
+        header("Content-disposition: attachment; filename=\"" . basename($arquivoOdds) . "\""); 
+        readfile($arquivoOdds);
+
+
+    }
     public function viewRecuperaLigasPorEsporte(){
 
         for($i = 1; $i < 100; $i++){
