@@ -18,9 +18,6 @@ use App\Ligas;
 use App\Esportes;
 use App\NovoCarrinho;
 use DB;
-
-
-
 use App\OddsSubGrupo;
 class AovivoController extends Controller
 {
@@ -171,9 +168,7 @@ class AovivoController extends Controller
     
     
                                 $events->save();
-                                $this->atualizaOdds($events->id);
-    
-                                $this->somaTotalOdds($events->id);
+                               
     
                             }
     
@@ -203,373 +198,7 @@ class AovivoController extends Controller
     
         
     }
-    public function somaTotalOdds($idevent){
 
-        $sql = Odds::where('idevent', $idevent)->select(\DB::raw("count(*) as total"))->where('odds','>',0)->get();
-
-
-
-        if(count($sql) > 0){
-
-            foreach($sql as $dados){
-
-                $event = Events::find($idevent);
-
-                $event->total_odds = $dados->total;
-
-                $event->save();
-
-            }
-
-        }
-
-    }
-
-    public function atualizaOdds($idevent){
-
-        $events = Events::find($idevent);
-        // dd('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
-        $response = \Http::get('https://api.betsapi.com/v1/bet365/prematch?token='.config('app.API_TOKEN').'&FI='.$events->bet365_id.'');
-
-        if( $response->successful() ){
-            
-            $json = json_decode($response->body(), false);
-
-
-
-            try{
-
-                if($json->success != '1'){ throw new Exception('Erro ao consultar'); }
-
-
-
-                # Inicia o grupo 4 -> Half
-                if(isset($json->results[0]->main->sp)){
-
-                    foreach($json->results[0]->main->sp as $key => $value){
-
-                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
-                        if(count($sql) < 1){
-                            
-                            $sql = new OddsSubGrupo;
-                            $sql->titulo_original = $key;
-                            $sql->status = 1;
-                            $sql->save();
-                            
-                        }
-
-                    }
-
-                }
-                if(isset($json->results[0]->half->sp)){
-
-                    foreach($json->results[0]->half->sp as $key => $value){
-
-                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
-                        if(count($sql) > 0){
-
-                            $idgrupo = $sql[0]->id;
-
-                            if(count($json->results[0]->half->sp->$key) > 0){
-
-                                foreach($json->results[0]->half->sp->$key as $item){
-
-                                    $this->salvaOdds($idevent, $idgrupo, $item);
-
-                                }
-
-                            }
-
-                        }else{
-                            
-                            $sql = new OddsSubGrupo;
-                            $sql->titulo_original = $key;
-                            $sql->status = 1;
-                            $sql->save();
-                            
-                        }
-
-                    }
-
-                }
-
-
-
-                # Inicia o grupo 3 -> Goals
-
-                if(isset($json->results[0]->goals->sp)){
-
-                    foreach($json->results[0]->goals->sp as $key => $value){
-
-                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
-
-                        if(count($sql) > 0){
-
-                            $idgrupo = $sql[0]->id;
-
-
-
-                            if(count($json->results[0]->goals->sp->$key) > 0){
-
-                                foreach($json->results[0]->goals->sp->$key as $item){
-
-                                    $this->salvaOdds($idevent,$idgrupo, $item);
-
-                                }
-
-                            }
-
-                        }else{
-                            
-                            $sql = new OddsSubGrupo;
-       
-                            $sql->titulo_original = $key;
-                            $sql->status = 1;
-                            $sql->save();
-
-                        }
-
-                    }
-
-                }
-
-
-
-
-
-
-
-                # Incia do grupo 2 -> corners
-
-                if(isset($json->results[0]->corners->sp)){
-
-                    foreach($json->results[0]->corners->sp as $key => $value){
-
-                        $sql = OddsSubGrupo::where('titulo_original', $key)->get();
-
-                        if(count($sql) > 0){
-
-                            $idgrupo = $sql[0]->id;
-
-
-
-                            if(count($json->results[0]->corners->sp->$key) > 0){
-
-                                foreach($json->results[0]->corners->sp->$key as $item){
-
-                                    $this->salvaOdds($idevent, $idgrupo, $item);
-
-                                }
-
-                            }
-
-                        }else{
-                            
-                            $sql = new OddsSubGrupo;
-                            $sql->titulo_original = $key;
-                            $sql->status = 1;
-                            $sql->save();
-                        
-                        }
-
-                    }
-
-                }
-
-
-
-                # Inicia as ODDS do Grupo 5 -> Main
-
-
-
-                if(isset($json->results[0]->main->sp->full_time_result)){
-                    
-                    
-                    $this->salvaOdds($idevent, 79, $json->results[0]->main->sp->full_time_result[0]);
-
-                    $this->salvaOdds($idevent,79, $json->results[0]->main->sp->full_time_result[1]);
-
-                    $this->salvaOdds($idevent,79, $json->results[0]->main->sp->full_time_result[2]);
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->double_chance)){
-                    
-                    foreach($json->results[0]->main->sp->double_chance as $double_chance){
-                        
-                        $this->salvaOdds($idevent,80,$double_chance);
-
-
-                    }
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->correct_score)){
-
-                    for($i = 0; $i < 50; $i++){
-
-                        if(isset($json->results[0]->main->sp->correct_score[$i])){
-
-                            $this->salvaOdds($idevent,81, $json->results[0]->main->sp->correct_score[$i]);
-
-                        }
-
-                    }
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->half_time_full_time)){
-
-                    for($i = 0; $i < 10; $i++){
-
-                        if(isset($json->results[0]->main->sp->half_time_full_time[$i])){
-
-                            $this->salvaOdds($idevent,82, $json->results[0]->main->sp->half_time_full_time[$i]);
-
-                        }
-
-                    }
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->goals_over_under)){
-
-                    foreach($json->results[0]->main->sp->goals_over_under as $goals){
-                        
-                        $this->salvaOdds($idevent,84, $goals);
-
-                    }
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->both_teams_to_score)){
-
-                    $this->salvaOdds($idevent,85, $json->results[0]->main->sp->both_teams_to_score[0]);
-
-                    $this->salvaOdds($idevent,85, $json->results[0]->main->sp->both_teams_to_score[1]);
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->goal_line)){
-
-                    foreach($json->results[0]->main->sp->goal_line as $result){
-                        $this->salvaOdds($idevent,89, $result);
-
-                    }
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->draw_no_bet)){
-
-                    $this->salvaOdds($idevent,92, $json->results[0]->main->sp->draw_no_bet[0]);
-
-                    $this->salvaOdds($idevent,92, $json->results[0]->main->sp->draw_no_bet[1]);
-
-                }
-
-
-
-                if(isset($json->results[0]->main->sp->result_both_teams_to_score)){
-
-                    foreach($json->results[0]->main->sp->result_both_teams_to_score as $result){
-                        $this->salvaOdds($idevent,93, $result);
-
-                    }
-
-                }
-
-            }catch(Exception $e){
-
-                echo $e->getMessage();
-
-            }
-
-        }
-
-    }
-
-    public function salvaOdds($idevent, $idsubgrupo, $item){
-
-        $odds = Odds::where('idbets', $item->id)->get();
-
-        if(count($odds) > 0){ $odds = Odds::find($odds[0]->id); }else{ $odds = new Odds; }
-
-
-        $name = "";
-        if(isset($item->name)){
-
-            $name = $item->name;
-
-            $eng = ['Draw', 'Draw', 'or', 'Yes', 'No', '1st Half', '2nd Half', 'Over', 'Under', 'goals', 'Odd', 'Even', 'Exactly'];
-
-            $pot = ['Empate', 'Empate', 'ou', 'Sim', 'Não', 'Primeiro Tempo', 'Segundo Tempo', 'Acima', 'Abaixo', 'gols', 'Impar', 'Par', 'Exatamente'];
-
-
-
-            $name = str_replace($eng, $pot, $name);
-
-
-
-            $odds->name = $name;
-
-        }
-
-
-
-        if(trim($item->odds) == ''){ $item_odds = 0.00; }else{ $item_odds = $item->odds; }
-
-
-
-        $odds->odds = $item_odds;
-
-        $odds->status = 1;
-
-        $odds->idbets = $item->id;
-
-        $odds->idsubgrupo = $idsubgrupo;
-
-        $odds->idevent = $idevent;
-
-
-
-        if(isset($item->header)){
-
-            $header = $item->header;
-
-
-
-            $eng = ['Draw', 'Draw', 'or', 'Yes', 'No', '1st Half', '2nd Half', 'Over', 'Under', 'goals', 'Odd', 'Even', 'Exactly'];
-
-            $pot = ['Empate', 'Empate', 'ou', 'Sim', 'Não', 'Primeiro Tempo', 'Segundo Tempo', 'Acima', 'Abaixo', 'gols', 'Impar', 'Par', 'Exatamente'];
-
-
-
-            $name = str_replace($eng, $pot, $header);
-
-
-
-            $odds->header = $header;
-
-        }
-
-
-        $odds->save();
-
-    }
 
 
     /**
@@ -635,7 +264,8 @@ class AovivoController extends Controller
                             $time  =$evento->timer->tm ;
                         }
 
-                    
+
+                        $time = $evento->timer->tm;
                         
                         $sql_time_home = Times::find($jogos->idhome);
 
@@ -754,17 +384,20 @@ class AovivoController extends Controller
                                 'jogos' => $array_jogos
         
                             ]);
-                            array_push($array_pais, [
+                            if(count($array_jogos) > 0){
+                                array_push($array_pais, [
     
-                                'id' => $paises->idpais,
-                
-                                'pais' => $paises->nome_traduzido,
-                
-                                'bandeira' => $paises->bandeira,
-                
-                                'ligas' => $array_ligas
-                
-                            ]);
+                                    'id' => $paises->idpais,
+                    
+                                    'pais' => $paises->nome_traduzido,
+                    
+                                    'bandeira' => $paises->bandeira,
+                    
+                                    'ligas' => $array_ligas
+                    
+                                ]);
+                            }
+
                         }
                     }
 
@@ -915,8 +548,8 @@ class AovivoController extends Controller
                                 'home' => $sql_time_home->nome,
     
                                 'away' => $sql_time_away->nome,
-                                'placarHome' =>   $placar[0],
-                                'placarAway' =>  $placar[1],
+                                'placarHome' =>   (isset($placar[0]) ? $placar[0] : 0),
+                                'placarAway' =>  (isset($placar[1]) ? $placar[1] : 0),
     
                                 'total_odds' => $jogos->total_odds,
     
@@ -944,15 +577,15 @@ class AovivoController extends Controller
                         }
                         if($liga_id != $evento->league->id){
     
-                        array_push($array_ligas, [
-    
-                            'id' =>  $evento->league->id,
-    
-                            'liga' =>  $evento->league->name,
-    
-                            'jogos' => $array_jogos
-    
-                        ]);
+                            array_push($array_ligas, [
+        
+                                'id' =>  $evento->league->id,
+        
+                                'liga' =>  $evento->league->name,
+        
+                                'jogos' => $array_jogos
+        
+                            ]);
                         }
                         if($pais_id != $paises->idpais){
                             $pais_id = $paises->idpais;
@@ -980,8 +613,8 @@ class AovivoController extends Controller
                                 'home' => $sql_time_home->nome,
     
                                 'away' => $sql_time_away->nome,
-                                'placarHome' =>   $placar[0],
-                                'placarAway' =>  $placar[1],
+                                'placarHome' =>   (isset($placar[0]) ? $placar[0] : 0),
+                                'placarAway' =>  (isset($placar[1]) ? $placar[1] : 0),
                                 'total_odds' => $jogos->total_odds,
     
                                 'oddhome_id' => $sql_odds_principal[0]->id,
@@ -1013,17 +646,20 @@ class AovivoController extends Controller
                                 'jogos' => $array_jogos
         
                             ]);
-                            array_push($array_pais, [
+                            if(count($array_jogos) > 0){
+                                array_push($array_pais, [
     
-                                'id' => $paises->idpais,
-                
-                                'pais' => $paises->nome_traduzido,
-                
-                                'bandeira' => $paises->bandeira,
-                
-                                'ligas' => $array_ligas
-                
-                            ]);
+                                    'id' => $paises->idpais,
+                    
+                                    'pais' => $paises->nome_traduzido,
+                    
+                                    'bandeira' => $paises->bandeira,
+                    
+                                    'ligas' => $array_ligas
+                    
+                                ]);
+                            }
+
                         }
                     }
 

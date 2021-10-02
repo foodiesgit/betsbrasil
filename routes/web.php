@@ -23,6 +23,8 @@ Route::prefix('ajax')->group(function(){
 
 
 });
+Route::get('baixarEventsSeed', 'ApiController@baixarEventsSeed');
+Route::get('baixarOddsSeed', 'ApiController@baixarOddsSeed');
 
 // Route::prefix('lite')->group(function(){
 //     Route::get('/', 'LiteController@viewIndex');

@@ -18,7 +18,7 @@
   </head>
   <body>
     <div class="preloader">
-<center> <img src="../../logo_principal.png" width=130 height=130><p>&nbsp;</p>
+<center><img src="../../logo_principal.png" width=130 height=130><p>&nbsp;</p>
       <div class="preloader-body"><p>&nbsp;</p>
         <div class="preloader-item"><p>&nbsp;</p></div>
       </div>
@@ -81,15 +81,15 @@
                   <ul class="rd-navbar-nav"> 
                     <li class="rd-nav-item"><a class="rd-nav-link" href="/">Início</a>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="/jogos-ao-vivo">Ao Vivo</a></li>
-					<li class="rd-nav-item desktop-hide logomobile">
-                    <a class="rd-nav-link" href="#">Jogos do Dia</a>
-					<article class="rd-menu rd-navbar-megamenu rd-megamenu-2-columns context-light">
-                      <div class="rd-megamenu-main">
-                          <div class="rd-megamenu-item rd-megamenu-item-nav">
-                            <div class="rd-megamenu-list-outer">
-                              <ul class="rd-megamenu-list">
-								<li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none">
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="/jogos-ao-vivo">Ao Vivo</a></li> 
+				        <li class="rd-nav-item desktop-hide logomobile">
+                  <a class="rd-nav-link" href="#">Jogos do Dia</a>
+					        <article class="rd-menu rd-navbar-megamenu rd-megamenu-2-columns context-light">
+                  <div class="rd-megamenu-main">
+                  <div class="rd-megamenu-item rd-megamenu-item-nav">
+                  <div class="rd-megamenu-list-outer">
+                  <ul class="rd-megamenu-list">
+							  	<li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none">
 								  <a style="text-transform: uppercase" href="/data/{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('Y-m-d')}}">{{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->isoFormat('dddd')}} - {{\Carbon\Carbon::now()->addDay(1)->locale('pt_BR')->format('d/m/Y')}}</a>
 								</li>
 								<li class="rd-nav-item d-lg-block d-lg-none d-xl-block d-xl-none">  

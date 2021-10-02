@@ -557,7 +557,7 @@ a {
         $('#btn_encaminhar').click(function(e){
             var bilhete = "{{ $cupomAposta[0]->codigo_unico }}";
             var dominio = window.location.hostname;
-            window.open('https://api.whatsapp.com/send?text='+encodeURI('Segue codigo do bilhete: *'+bilhete+'*  e o link de acompanhamento do bilhete '+dominio+'/verifica-bilhete/'+bilhete+' valido somente depois da validação'), '_blank');
+            window.open('https://api.whatsapp.com/send?text='+encodeURI('Segue codigo do bilhete: *'+bilhete+'*  e o link de acompanhamento do bilhete: '+dominio+'/minhas-apostas/visualizar-cupom/'+bilhete+' valido somente depois da validação'), '_blank');
 
         });
     });
